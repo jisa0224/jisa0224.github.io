@@ -1,0 +1,11 @@
+# Python venv
+/.venv
+
+# Python module cache
+__pycache__
+
+# mkdocs build
+/site
+
+# Visual Studio Code workspace settings
+/.vscode

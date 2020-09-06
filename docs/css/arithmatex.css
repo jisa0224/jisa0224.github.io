@@ -1,0 +1,7 @@
+div.arithmatex {
+    overflow-x: auto !important;
+}
+
+mjx-container {
+    overflow: visible !important;
+}

@@ -1,0 +1,35 @@
+site_name: Jisa's Notebook
+
+#nav:
+
+theme:
+  name: material
+  language: zh-TW
+
+extra_css:
+  - css/disable-footer-nav.css
+  - css/arithmatex.css
+
+extra_javascript:
+  - javascripts/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://unpkg.com/mermaid/dist/mermaid.min.js
+
+markdown_extensions:
+  - md_in_html
+  - attr_list
+  - custom_extensions.img2figure
+  - pymdownx.superfences:
+      custom_fences:
+        - name: 'mermaid'
+          class: 'mermaid'
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.arithmatex:
+      generic: true
+  - custom_extensions.arithmatex_generic
+
+plugins:
+  - search
