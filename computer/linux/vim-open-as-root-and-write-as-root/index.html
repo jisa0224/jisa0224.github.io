@@ -1,0 +1,1653 @@
+
+
+
+<!doctype html>
+<html lang="zh-Hant" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問 - Jisa's Notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../css/disable-footer-nav.css">
+    
+      <link rel="stylesheet" href="../../../css/arithmatex.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vim-root-root-w" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../.." title="Jisa's Notebook" class="md-header-nav__button md-logo" aria-label="Jisa's Notebook">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Jisa's Notebook
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jisa's Notebook" class="md-nav__button md-logo" aria-label="Jisa's Notebook">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Jisa's Notebook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Welcome to MkDocs" class="md-nav__link">
+      Welcome to MkDocs
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Biology
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Biology" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Biology
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../biology/body-transfer-illusion/" title="Body Transfer Illusion(未完成)" class="md-nav__link">
+      Body Transfer Illusion(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../biology/book-%E8%AA%B0%E6%98%AF%E6%88%91%EF%BC%9F%E6%84%8F%E8%AD%98%E7%9A%84%E5%93%B2%E5%AD%B8%E8%88%87%E7%A7%91%E5%AD%B8/" title="[讀書筆記] 誰是我？意識的哲學與科學" class="md-nav__link">
+      [讀書筆記] 誰是我？意識的哲學與科學
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../biology/fun-research-slime-mold/" title="[有趣研究] 黏菌(未完成)" class="md-nav__link">
+      [有趣研究] 黏菌(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../biology/osmolarity-vs-tonicity/" title="滲透性（Osmolarity）vs. 張性（Tonicity），及滲透濃度（Osmolarity）" class="md-nav__link">
+      滲透性（Osmolarity）vs. 張性（Tonicity），及滲透濃度（Osmolarity）
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../biology/video-how-reliable-is-your-memory/" title="[看影片] 伊莉莎白．羅芙托斯 (Elizabeth Loftus)：虛構的記憶 - TED Talk(未完成)" class="md-nav__link">
+      [看影片] 伊莉莎白．羅芙托斯 (Elizabeth Loftus)：虛構的記憶 - TED Talk(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Computer
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Computer" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Computer
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Computational mathematics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Computational mathematics" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        <span class="md-nav__icon md-icon"></span>
+        Computational mathematics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computational-mathematics/automatic-differentiation/" title="自動微分 Automatic Differentiation(未完成)" class="md-nav__link">
+      自動微分 Automatic Differentiation(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Computer science
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Computer science" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        <span class="md-nav__icon md-icon"></span>
+        Computer science
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-01-problem-2.27/" title="【CS:APP 筆記】Problem 2.27 檢查無號整數相加是否溢位" class="md-nav__link">
+      【CS:APP 筆記】Problem 2.27 檢查無號整數相加是否溢位
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-02-c-details-of-declaring-pointers/" title="【CS:APP 筆記】C 語言中宣告指標的小細節" class="md-nav__link">
+      【CS:APP 筆記】C 語言中宣告指標的小細節
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-03-x86_64-jmp-notes/" title="【CS:APP 筆記】x86_64 中的 JMP 指令整理" class="md-nav__link">
+      【CS:APP 筆記】x86_64 中的 JMP 指令整理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-04-x86_64-flags/" title="【CS:APP 筆記】x86_64 旗標暫存器與大小判斷" class="md-nav__link">
+      【CS:APP 筆記】x86_64 旗標暫存器與大小判斷
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-05-rounding/" title="【CS:APP 筆記】數值修約(rounding)" class="md-nav__link">
+      【CS:APP 筆記】數值修約(rounding)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-06-why-callee-saved-registers/" title="【CS:APP 筆記】為什麼要有 callee-saved 暫存器？(未完成)" class="md-nav__link">
+      【CS:APP 筆記】為什麼要有 callee-saved 暫存器？(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-07-array-vs-pointer/" title="【CS:APP 筆記】陣列與指標間的一些區別與可變大小陣列" class="md-nav__link">
+      【CS:APP 筆記】陣列與指標間的一些區別與可變大小陣列
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-08-stack-and-uninitialized-local-variables/" title="【CS:APP 筆記】Stack 與未初始化的區域變數" class="md-nav__link">
+      【CS:APP 筆記】Stack 與未初始化的區域變數
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-09-x86_64-byte-order-of-push-and-pop/" title="【CS:APP 筆記】x86_64 PUSH 與 POP 的 byte order" class="md-nav__link">
+      【CS:APP 筆記】x86_64 PUSH 與 POP 的 byte order
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-10-p.259/" title="【CS:APP 筆記】P.259 多維陣列取值的組合語言另解" class="md-nav__link">
+      【CS:APP 筆記】P.259 多維陣列取值的組合語言另解
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/event-loop-io-mechanism-and-cpu-idle/" title="事件迴圈、I/O 機制與 CPU idle" class="md-nav__link">
+      事件迴圈、I/O 機制與 CPU idle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/io-models-blocking-nonblocking-synchronous-asynchronous/" title="I/O 模型：阻塞、非阻塞、同步、異步" class="md-nav__link">
+      I/O 模型：阻塞、非阻塞、同步、異步
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3" checked>
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Linux
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Linux" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon"></span>
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bash-brace-expansion/" title="Bash 如何輸入同資料夾下的檔名但不重複輸入路徑" class="md-nav__link">
+      Bash 如何輸入同資料夾下的檔名但不重複輸入路徑
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bash-expand-asterisk-autocompletion/" title="Bash 如何展開 * 自動補全" class="md-nav__link">
+      Bash 如何展開 * 自動補全
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bash-keyboard-shortcut-in-emacs-mode/" title="Bash 在 Emacs 模式下的快速鍵和其衝突列表" class="md-nav__link">
+      Bash 在 Emacs 模式下的快速鍵和其衝突列表
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bash-techniques/" title="Bash 使用技巧(未完成)" class="md-nav__link">
+      Bash 使用技巧(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cp-error-omitting-directory/" title="解決 cp: omitting directory 錯誤" class="md-nav__link">
+      解決 cp: omitting directory 錯誤
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dd-make-bootable-usb-disk/" title="用 dd 製作出可開機 USB" class="md-nav__link">
+      用 dd 製作出可開機 USB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../linux-c-library-creation-usage-and-search-paths/" title="Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)" class="md-nav__link">
+      Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../linux-google-chrome-force-ui-language-chinese-traditional/" title="強制 Linux 下 Google Chrome 使用繁中作為 UI 語言(未完成)" class="md-nav__link">
+      強制 Linux 下 Google Chrome 使用繁中作為 UI 語言(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../linux-no-such-file-or-directory-error-when-executing-executables-with-x-permission/" title="Linux 執行程式時出現 No such file or directory 錯誤" class="md-nav__link">
+      Linux 執行程式時出現 No such file or directory 錯誤
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ps-parameters/" title="ps 參數整理" class="md-nav__link">
+      ps 參數整理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sudo-permission-denied/" title="為什麼使用 sudo 仍得到 Permission denied？" class="md-nav__link">
+      為什麼使用 sudo 仍得到 Permission denied？
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問" class="md-nav__link md-nav__link--active">
+      Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#root" class="md-nav__link">
+    以 root 權限開啟
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#root_1" class="md-nav__link">
+    開啟後以 root 權限儲存
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#w" class="md-nav__link">
+    強制寫入(:w!)的疑問
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../xterm-alternate-screen-buffer/" title="XTerm 的 Alternate Screen Buffer" class="md-nav__link">
+      XTerm 的 Alternate Screen Buffer
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Machine learning
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Machine learning" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon"></span>
+        Machine learning
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../machine-learning/paper-large-scale-study-of-curiosity-driven-learning/" title="[讀論文] Large-Scale Study of Curiosity-Driven Learning" class="md-nav__link">
+      [讀論文] Large-Scale Study of Curiosity-Driven Learning
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      Other
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Other" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        <span class="md-nav__icon md-icon"></span>
+        Other
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/coscup-2018/" title="開源人年會 COSCUP 2018 會後筆記(未完成)" class="md-nav__link">
+      開源人年會 COSCUP 2018 會後筆記(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/git-rebase-a-merge-commit/" title="[Git] Rebase a Merge Commit" class="md-nav__link">
+      [Git] Rebase a Merge Commit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/m-m-sorting-machine/" title="M&M Sorting Machine" class="md-nav__link">
+      M&M Sorting Machine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/microsoft-office-word-disable-selecting-paragraph-mark/" title="Microsoft Office Word 不要選取段落標記" class="md-nav__link">
+      Microsoft Office Word 不要選取段落標記
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/microsoft-office-word-font-size-and-line-spacing/" title="Microsoft Office Word 修正變更字體大小後行距跑掉的問題" class="md-nav__link">
+      Microsoft Office Word 修正變更字體大小後行距跑掉的問題
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/microsoft-office-word-gridlines-and-line-spacing/" title="Word 文件格線與行距原理：為何調整字型或字體大小後行距會改變？" class="md-nav__link">
+      Word 文件格線與行距原理：為何調整字型或字體大小後行距會改變？
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/pdf-set-all-bookmarks-inherit-zoom/" title="將 pdf 的所有書籤一次改為承襲縮放" class="md-nav__link">
+      將 pdf 的所有書籤一次改為承襲縮放
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Programming
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Programming" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon"></span>
+        Programming
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-1" type="checkbox" id="nav-3-6-1">
+    
+    <label class="md-nav__link" for="nav-3-6-1">
+      C cpp
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="C cpp" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-1">
+        <span class="md-nav__icon md-icon"></span>
+        C cpp
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/c-cpp/c-details/" title="C 語言細節(未完成)" class="md-nav__link">
+      C 語言細節(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/c-cpp/c-error-a-label-can-only-be-part-of-a-statement-and-a-declaration-is-not-a-statement/" title="C語言編譯時的 a label can only be part of a statement and a declaration is not a statement 錯誤" class="md-nav__link">
+      C語言編譯時的 a label can only be part of a statement and a declaration is not a statement 錯誤
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/c-cpp/c-techniques/" title="C 語言技巧(未完成)" class="md-nav__link">
+      C 語言技巧(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/c-cpp/cling-interactive-cpp-interpreter-tutorial/" title="Cling: Interactive C++ Interpreter 使用指南" class="md-nav__link">
+      Cling: Interactive C++ Interpreter 使用指南
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-2" type="checkbox" id="nav-3-6-2">
+    
+    <label class="md-nav__link" for="nav-3-6-2">
+      Data structure and algorithms
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Data structure and algorithms" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-2">
+        <span class="md-nav__icon md-icon"></span>
+        Data structure and algorithms
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/data-structure-and-algorithms/algorithm-notes-maximum-subarray-problem/" title="[演算法筆記] 最大子數列問題 Maximum Subarray Problem(未完成)" class="md-nav__link">
+      [演算法筆記] 最大子數列問題 Maximum Subarray Problem(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/data-structure-and-algorithms/algorithm-notes-optimal-substructure/" title="[演算法筆記] 最優子結構 Optimal Substructure" class="md-nav__link">
+      [演算法筆記] 最優子結構 Optimal Substructure
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/data-structure-and-algorithms/fun-research-computational-periscopy-with-an-ordinary-digital-camera/" title="[有趣研究] 只要算法够厉害，白墙能当镜子用：我初中物理都白学了 | Nature新论文(未完成)" class="md-nav__link">
+      [有趣研究] 只要算法够厉害，白墙能当镜子用：我初中物理都白学了 | Nature新论文(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/data-structure-and-algorithms/fun-research-the-visual-microphone-passive-recovery-of-sound-from-video/" title="[有趣研究] 從影像的極輕微震動還原出現場聲音(未完成)" class="md-nav__link">
+      [有趣研究] 從影像的極輕微震動還原出現場聲音(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/data-structure-and-algorithms/sleep-sort/" title="睡眠排序 Sleep Sort" class="md-nav__link">
+      睡眠排序 Sleep Sort
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Leetcode
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Leetcode" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon"></span>
+        Leetcode
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-1-two-sum/" title="[LeetCode] 1. Two Sum(未完成)" class="md-nav__link">
+      [LeetCode] 1. Two Sum(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-198-house-robber/" title="[LeetCode] 198. House Robber(未完成)" class="md-nav__link">
+      [LeetCode] 198. House Robber(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-213-house-robber-ii/" title="[LeetCode] 213. House Robber II(未完成)" class="md-nav__link">
+      [LeetCode] 213. House Robber II(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-338-counting-bits/" title="[LeetCode] 338. Counting Bits(未完成)" class="md-nav__link">
+      [LeetCode] 338. Counting Bits(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-343-integer-break/" title="[LeetCode] 343. Integer Break(未完成)" class="md-nav__link">
+      [LeetCode] 343. Integer Break(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-5-longest-palindromic-substring/" title="[LeetCode] 5. Longest Palindromic Substring(未完成)" class="md-nav__link">
+      [LeetCode] 5. Longest Palindromic Substring(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-70-climbing-stairs/" title="[LeetCode] 70. Climbing Stairs(未完成)" class="md-nav__link">
+      [LeetCode] 70. Climbing Stairs(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-747-largest-number-at-least-twice-of-others/" title="[LeetCode] 747. Largest Number At Least Twice of Others(未完成)" class="md-nav__link">
+      [LeetCode] 747. Largest Number At Least Twice of Others(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-88-merge-sorted-array/" title="[LeetCode] 88. Merge Sorted Array(未完成)" class="md-nav__link">
+      [LeetCode] 88. Merge Sorted Array(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Learning
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Learning" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Learning
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../learning/c-programming/" title="C 語言編程" class="md-nav__link">
+      C 語言編程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../learning/reading-list/" title="書單" class="md-nav__link">
+      書單
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../learning/to-be-researched/" title="待研究項目" class="md-nav__link">
+      待研究項目
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Math
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Math" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Math
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../math/bessel-s-correction/" title="Bessel's Correction: 統計學裡的 n-1(未完成)" class="md-nav__link">
+      Bessel's Correction: 統計學裡的 n-1(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../math/convolution/" title="卷積 Convolution" class="md-nav__link">
+      卷積 Convolution
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../math/integral-transform-1-fourier-analysis/" title="積分變換(一)：傅立葉分析(未完成)" class="md-nav__link">
+      積分變換(一)：傅立葉分析(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../math/vector-calculus/" title="簡單易懂的向量微積分(未完成)" class="md-nav__link">
+      簡單易懂的向量微積分(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Other
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Other" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        Other
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../other/android-disable-built-in-apps-which-cannot-be-disabled-in-settings/" title="停用無法停用的 Android 內建 App" class="md-nav__link">
+      停用無法停用的 Android 內建 App
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../other/japanese-song-lyrics-translation-practice-boku-ga-shinou-to-omotta-no-wa/" title="[日語練習-歌詞翻譯] 僕が死のうと思ったのは(未完成)" class="md-nav__link">
+      [日語練習-歌詞翻譯] 僕が死のうと思ったのは(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Physics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Physics" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        Physics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../physics/physical-interpretations-of-laplace-transform/" title="拉普拉斯轉換的物理意義(未完成)" class="md-nav__link">
+      拉普拉斯轉換的物理意義(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Website debug
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Website debug" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
+        Website debug
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../website-debug/" title="網頁 Debug" class="md-nav__link">
+      網頁 Debug
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#root" class="md-nav__link">
+    以 root 權限開啟
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#root_1" class="md-nav__link">
+    開啟後以 root 權限儲存
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#w" class="md-nav__link">
+    強制寫入(:w!)的疑問
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="vim-root-root-w">Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問</h1>
+<h2 id="root">以 root 權限開啟</h2>
+<p>一般來說要編輯系統/系統程式的設定檔，會用 <code>sudo vim &lt;FILE&gt;</code> 的方式來編輯，但因為 <code>sudo</code> 的關係 Vim 不會去讀取我自己的 <code>~/.vimrc</code>，而是 root 的 <code>~/.vimrc</code>，這樣一來我就必須用沒有調整過的編輯環境去修改我的檔案，非常糟糕，如果是用 <code>sudo vim -u .vimrc &lt;FILE&gt;</code> 的話會因為 <code>$HOME</code> 變成 <code>/root</code> 的關係導致 plugin 無法使用，於是就想要有能夠以 root 權限開啟 Vim 的同時並能讀取我自己的 <code>~/.vimrc</code> 的方法。</p>
+<p>解決方法就是執行</p>
+<div class="highlight"><pre><span></span><code>sudo -e &lt;FILE&gt;
+</code></pre></div>
+<p>或是</p>
+<div class="highlight"><pre><span></span><code>sudoedit &lt;FILE&gt;
+</code></pre></div>
+<p>註：此兩者為等價命令，<code>man sudo</code> 中寫了「當 <code>sudo</code> 是以 <code>sudoedit</code> 調用時，隱含了 <code>-e</code> 選項」，並且 <code>/usr/bin/sudoedit</code> 會以符號連結或硬連結的方式連結到 <code>/usr/bin/sudo</code>，程式依照命令列的第一個參數來判斷 (關於這個主題可參考\&lt;TBD>)</p>
+<p>但如果直接這麼執行的話不一定會是用 Vim 來開啟，因為 <code>man sudo</code> 中寫到 <code>sudo -e</code> 調用的編輯器是依照環境變數 <code>SUDO_EDITOR</code>、<code>VISUAL</code> 及 <code>EDITOR</code> 來判斷，前項為空或找不到可執行檔就換下一項，如果都為空或找不到可執行檔，就會用 <code>/etc/sudoers</code> 中的 <code>editor</code> 欄位(<code>man sudoer</code> 建議使用)來判斷，如果還是為空或找不到可執行檔，就會調用 Vi。</p>
+<p>如果想加在 <code>/etc/sudoers</code> 裡，在最後加入</p>
+<div class="highlight"><pre><span></span><code>Defaults editor = "/usr/bin/vim"
+</code></pre></div>
+<p>順帶一題，在我電腦上會調用 Elvis 這個長的很像 vi 的編輯器，原本我還一直以為它是 Vi，一直到我 <code>:version</code> 才發現，但我那三個環境變數和 <code>/etc/sudoers</code> 都為空，為什麼會是 Elvis？</p>
+<p>因為</p>
+<div class="highlight"><pre><span></span><code>$ ls -l `which vi`
+lrwxrwxrwx 1 root root 5 Dec 23  2017 /usr/bin/vi -&gt; elvis
+</code></pre></div>
+<p><code>sudo -e</code> 的運作原理看起來是這樣的：先複製目標檔案一份到暫存資料夾，編輯它，此時不需要 root 權限，可以使用我自己的 Vim 環境來編輯，如果內容有修改再複製回去取代原檔案，最後移除暫存的複製檔。(之所以說「看起來」是因為編輯前後的檔案 inode 不會變，而「取代(<code>mv</code>)」這動作卻會，真正的原理可能跟底下強制寫入那部份一樣。)</p>
+<p>特別注意的是不能編輯符號連結指向的檔，不能編輯我有寫權限的資料夾中的檔案(root 除外)，如果最後無法取代回去，編輯過得檔案會留在暫存資料夾中。</p>
+<p>最後，因為如果只是拿 Vim 來取代 less 或 more 當閱讀器的話，這個功能也很方便，因為如果沒有編輯的話不會動到原本的檔案，不會有不小心把原檔案弄壞的情況。</p>
+<p>參考資料：<br/>
+<a href="https://unix.stackexchange.com/questions/46699/start-vim-as-my-user-with-root-privileges/46724#46724">permissions - Start Vim as my user with root privileges - Unix &amp; Linux Stack Exchange</a><br/>
+<a href="https://unix.stackexchange.com/questions/4408/how-to-set-visudo-to-use-a-different-editor-than-the-default-on-fedora/4409#4409">sudo - How to set visudo to use a different editor than the default on Fedora? - Unix &amp; Linux Stack Exchange</a></p>
+<h2 id="root_1">開啟後以 root 權限儲存</h2>
+<p>有時候忘了用 <code>sudo</code> 開啟，或原本只想看看但後來想修改的時候，雖然說可以先以自己的權限另存新檔在別的地方，然後再用 root 權限複製回去取代掉(用 <code>sudo cp</code> 的話會擁有者會變成 root，<code>sudo mv</code> 不會)，但就是懶，想要直接存，此時可以在 Vim 內執行</p>
+<div class="highlight"><pre><span></span><code>:w !sudo tee %
+</code></pre></div>
+<p>此時會出現</p>
+<div class="highlight"><pre><span></span><code>W12: Warning: File "/test" has changed and the buffer was changed in Vim as well
+See ":help W12" for more info.
+[O]K, (L)oad File:
+</code></pre></div>
+<p>按 L (大小寫皆可)才會顯示出以儲存的內容，O 的話會顯示未儲存(但其實已經存了)</p>
+<p>原理是這樣的：<code>:[range]w[rite] [++opt] !{cmd}</code> 會以本文件指定範圍內的內容為標準輸入傳給 <code>cmd</code> (就像 pipe 一樣)，此時的 <code>:w</code> 並不代表儲存，而 <code>tee</code> 會把從標準輸入得到的資料傳到標準輸出，同時存成檔案，檔名就是 <code>%</code>，在 Vim 中代表本文件的檔名，而前面加的 <code>sudo</code> 會使 <code>tee</code> 用 root 權限來存檔案，所以其實也是用取代的方式達成(不過 inode 還是不會變啊！為什麼？)</p>
+<p>其實因為 <code>tee</code> 還會向標準輸出丟資料的關係，螢幕上會被文件內的內容給刷過，如果不要輸出在螢幕上可以在後面加 <code>&gt; /dev/null</code></p>
+<p>可以在 <code>.vimrc</code> 中加入</p>
+<div class="highlight"><pre><span></span><code>" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee % &gt; /dev/null
+</code></pre></div>
+<p>以方便使用，只需要 <code>:w!!</code></p>
+<p>最後，其實</p>
+<div class="highlight"><pre><span></span><code>:w !sudo dd of=%
+</code></pre></div>
+<p>也是可以的，原理也差不多，而且不會輸出文件內容，只不過因為我先發現 tee 的版本，所以寫在前面而已。</p>
+<p>參考資料：<br/>
+<a href="https://stackoverflow.com/questions/726894/what-are-the-dark-corners-of-vim-your-mom-never-told-you-about/726920#726920">unix - What are the dark corners of Vim your mom never told you about? - Stack Overflow</a><br/>
+<a href="https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work">How does the vim "write with sudo" trick work? - Stack Overflow</a></p>
+<h2 id="w">強制寫入(:w!)的疑問</h2>
+<p>TBD</p>
+<p><a href="https://unix.stackexchange.com/questions/58880/how-does-vim-steal-root-owned-files">https://unix.stackexchange.com/questions/58880/how-does-vim-steal-root-owned-files</a></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../sudo-permission-denied/" title="為什麼使用 sudo 仍得到 Permission denied？" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一頁
+                </span>
+                為什麼使用 sudo 仍得到 Permission denied？
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../xterm-alternate-screen-buffer/" title="XTerm 的 Alternate Screen Buffer" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一頁
+                </span>
+                XTerm 的 Alternate Screen Buffer
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u8907\u88fd", "clipboard.copied": "\u5df2\u8907\u88fd", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e\uff1f\uff1b]+", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

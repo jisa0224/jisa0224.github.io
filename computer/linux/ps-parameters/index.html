@@ -1,0 +1,1843 @@
+
+
+
+<!doctype html>
+<html lang="zh-Hant" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.12">
+    
+    
+      
+        <title>ps 參數整理 - Jisa's Notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4dd2dd8d.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../css/disable-footer-nav.css">
+    
+      <link rel="stylesheet" href="../../../css/arithmatex.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ps" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../.." title="Jisa's Notebook" class="md-header-nav__button md-logo" aria-label="Jisa's Notebook">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Jisa's Notebook
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              ps 參數整理
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jisa's Notebook" class="md-nav__button md-logo" aria-label="Jisa's Notebook">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Jisa's Notebook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Welcome to MkDocs" class="md-nav__link">
+      Welcome to MkDocs
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Biology
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Biology" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Biology
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../biology/body-transfer-illusion/" title="Body Transfer Illusion(未完成)" class="md-nav__link">
+      Body Transfer Illusion(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../biology/book-%E8%AA%B0%E6%98%AF%E6%88%91%EF%BC%9F%E6%84%8F%E8%AD%98%E7%9A%84%E5%93%B2%E5%AD%B8%E8%88%87%E7%A7%91%E5%AD%B8/" title="[讀書筆記] 誰是我？意識的哲學與科學" class="md-nav__link">
+      [讀書筆記] 誰是我？意識的哲學與科學
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../biology/fun-research-slime-mold/" title="[有趣研究] 黏菌(未完成)" class="md-nav__link">
+      [有趣研究] 黏菌(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../biology/osmolarity-vs-tonicity/" title="滲透性（Osmolarity）vs. 張性（Tonicity），及滲透濃度（Osmolarity）" class="md-nav__link">
+      滲透性（Osmolarity）vs. 張性（Tonicity），及滲透濃度（Osmolarity）
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../biology/video-how-reliable-is-your-memory/" title="[看影片] 伊莉莎白．羅芙托斯 (Elizabeth Loftus)：虛構的記憶 - TED Talk(未完成)" class="md-nav__link">
+      [看影片] 伊莉莎白．羅芙托斯 (Elizabeth Loftus)：虛構的記憶 - TED Talk(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Computer
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Computer" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Computer
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      Computational mathematics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Computational mathematics" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        <span class="md-nav__icon md-icon"></span>
+        Computational mathematics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computational-mathematics/automatic-differentiation/" title="自動微分 Automatic Differentiation(未完成)" class="md-nav__link">
+      自動微分 Automatic Differentiation(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Computer science
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Computer science" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        <span class="md-nav__icon md-icon"></span>
+        Computer science
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-01-problem-2.27/" title="【CS:APP 筆記】Problem 2.27 檢查無號整數相加是否溢位" class="md-nav__link">
+      【CS:APP 筆記】Problem 2.27 檢查無號整數相加是否溢位
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-02-c-details-of-declaring-pointers/" title="【CS:APP 筆記】C 語言中宣告指標的小細節" class="md-nav__link">
+      【CS:APP 筆記】C 語言中宣告指標的小細節
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-03-x86_64-jmp-notes/" title="【CS:APP 筆記】x86_64 中的 JMP 指令整理" class="md-nav__link">
+      【CS:APP 筆記】x86_64 中的 JMP 指令整理
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-04-x86_64-flags/" title="【CS:APP 筆記】x86_64 旗標暫存器與大小判斷" class="md-nav__link">
+      【CS:APP 筆記】x86_64 旗標暫存器與大小判斷
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-05-rounding/" title="【CS:APP 筆記】數值修約(rounding)" class="md-nav__link">
+      【CS:APP 筆記】數值修約(rounding)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-06-why-callee-saved-registers/" title="【CS:APP 筆記】為什麼要有 callee-saved 暫存器？(未完成)" class="md-nav__link">
+      【CS:APP 筆記】為什麼要有 callee-saved 暫存器？(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-07-array-vs-pointer/" title="【CS:APP 筆記】陣列與指標間的一些區別與可變大小陣列" class="md-nav__link">
+      【CS:APP 筆記】陣列與指標間的一些區別與可變大小陣列
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-08-stack-and-uninitialized-local-variables/" title="【CS:APP 筆記】Stack 與未初始化的區域變數" class="md-nav__link">
+      【CS:APP 筆記】Stack 與未初始化的區域變數
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-09-x86_64-byte-order-of-push-and-pop/" title="【CS:APP 筆記】x86_64 PUSH 與 POP 的 byte order" class="md-nav__link">
+      【CS:APP 筆記】x86_64 PUSH 與 POP 的 byte order
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/csapp-notes-10-p.259/" title="【CS:APP 筆記】P.259 多維陣列取值的組合語言另解" class="md-nav__link">
+      【CS:APP 筆記】P.259 多維陣列取值的組合語言另解
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/event-loop-io-mechanism-and-cpu-idle/" title="事件迴圈、I/O 機制與 CPU idle" class="md-nav__link">
+      事件迴圈、I/O 機制與 CPU idle
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../computer-science/io-models-blocking-nonblocking-synchronous-asynchronous/" title="I/O 模型：阻塞、非阻塞、同步、異步" class="md-nav__link">
+      I/O 模型：阻塞、非阻塞、同步、異步
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3" checked>
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Linux
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Linux" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        <span class="md-nav__icon md-icon"></span>
+        Linux
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bash-brace-expansion/" title="Bash 如何輸入同資料夾下的檔名但不重複輸入路徑" class="md-nav__link">
+      Bash 如何輸入同資料夾下的檔名但不重複輸入路徑
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bash-expand-asterisk-autocompletion/" title="Bash 如何展開 * 自動補全" class="md-nav__link">
+      Bash 如何展開 * 自動補全
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bash-keyboard-shortcut-in-emacs-mode/" title="Bash 在 Emacs 模式下的快速鍵和其衝突列表" class="md-nav__link">
+      Bash 在 Emacs 模式下的快速鍵和其衝突列表
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bash-techniques/" title="Bash 使用技巧(未完成)" class="md-nav__link">
+      Bash 使用技巧(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cp-error-omitting-directory/" title="解決 cp: omitting directory 錯誤" class="md-nav__link">
+      解決 cp: omitting directory 錯誤
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dd-make-bootable-usb-disk/" title="用 dd 製作出可開機 USB" class="md-nav__link">
+      用 dd 製作出可開機 USB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../linux-c-library-creation-usage-and-search-paths/" title="Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)" class="md-nav__link">
+      Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../linux-google-chrome-force-ui-language-chinese-traditional/" title="強制 Linux 下 Google Chrome 使用繁中作為 UI 語言(未完成)" class="md-nav__link">
+      強制 Linux 下 Google Chrome 使用繁中作為 UI 語言(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../linux-no-such-file-or-directory-error-when-executing-executables-with-x-permission/" title="Linux 執行程式時出現 No such file or directory 錯誤" class="md-nav__link">
+      Linux 執行程式時出現 No such file or directory 錯誤
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        ps 參數整理
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="ps 參數整理" class="md-nav__link md-nav__link--active">
+      ps 參數整理
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    預設
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process" class="md-nav__link">
+    process 選擇
+  </a>
+  
+    <nav class="md-nav" aria-label="process 選擇">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process_1" class="md-nav__link">
+    顯示所有 process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    根據狀態顯示
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    根據列表顯示
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread" class="md-nav__link">
+    顯示 thread
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    輸出樣式
+  </a>
+  
+    <nav class="md-nav" aria-label="輸出樣式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bsd" class="md-nav__link">
+    BSD 風格輸出樣式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unix" class="md-nav__link">
+    Unix 風格輸出樣式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../sudo-permission-denied/" title="為什麼使用 sudo 仍得到 Permission denied？" class="md-nav__link">
+      為什麼使用 sudo 仍得到 Permission denied？
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../vim-open-as-root-and-write-as-root/" title="Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問" class="md-nav__link">
+      Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../xterm-alternate-screen-buffer/" title="XTerm 的 Alternate Screen Buffer" class="md-nav__link">
+      XTerm 的 Alternate Screen Buffer
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Machine learning
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Machine learning" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        <span class="md-nav__icon md-icon"></span>
+        Machine learning
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../machine-learning/paper-large-scale-study-of-curiosity-driven-learning/" title="[讀論文] Large-Scale Study of Curiosity-Driven Learning" class="md-nav__link">
+      [讀論文] Large-Scale Study of Curiosity-Driven Learning
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      Other
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Other" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        <span class="md-nav__icon md-icon"></span>
+        Other
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/coscup-2018/" title="開源人年會 COSCUP 2018 會後筆記(未完成)" class="md-nav__link">
+      開源人年會 COSCUP 2018 會後筆記(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/git-rebase-a-merge-commit/" title="[Git] Rebase a Merge Commit" class="md-nav__link">
+      [Git] Rebase a Merge Commit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/m-m-sorting-machine/" title="M&M Sorting Machine" class="md-nav__link">
+      M&M Sorting Machine
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/microsoft-office-word-disable-selecting-paragraph-mark/" title="Microsoft Office Word 不要選取段落標記" class="md-nav__link">
+      Microsoft Office Word 不要選取段落標記
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/microsoft-office-word-font-size-and-line-spacing/" title="Microsoft Office Word 修正變更字體大小後行距跑掉的問題" class="md-nav__link">
+      Microsoft Office Word 修正變更字體大小後行距跑掉的問題
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/microsoft-office-word-gridlines-and-line-spacing/" title="Word 文件格線與行距原理：為何調整字型或字體大小後行距會改變？" class="md-nav__link">
+      Word 文件格線與行距原理：為何調整字型或字體大小後行距會改變？
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../other/pdf-set-all-bookmarks-inherit-zoom/" title="將 pdf 的所有書籤一次改為承襲縮放" class="md-nav__link">
+      將 pdf 的所有書籤一次改為承襲縮放
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Programming
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Programming" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        <span class="md-nav__icon md-icon"></span>
+        Programming
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-1" type="checkbox" id="nav-3-6-1">
+    
+    <label class="md-nav__link" for="nav-3-6-1">
+      C cpp
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="C cpp" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-1">
+        <span class="md-nav__icon md-icon"></span>
+        C cpp
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/c-cpp/c-details/" title="C 語言細節(未完成)" class="md-nav__link">
+      C 語言細節(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/c-cpp/c-error-a-label-can-only-be-part-of-a-statement-and-a-declaration-is-not-a-statement/" title="C語言編譯時的 a label can only be part of a statement and a declaration is not a statement 錯誤" class="md-nav__link">
+      C語言編譯時的 a label can only be part of a statement and a declaration is not a statement 錯誤
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/c-cpp/c-techniques/" title="C 語言技巧(未完成)" class="md-nav__link">
+      C 語言技巧(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/c-cpp/cling-interactive-cpp-interpreter-tutorial/" title="Cling: Interactive C++ Interpreter 使用指南" class="md-nav__link">
+      Cling: Interactive C++ Interpreter 使用指南
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-2" type="checkbox" id="nav-3-6-2">
+    
+    <label class="md-nav__link" for="nav-3-6-2">
+      Data structure and algorithms
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Data structure and algorithms" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-2">
+        <span class="md-nav__icon md-icon"></span>
+        Data structure and algorithms
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/data-structure-and-algorithms/algorithm-notes-maximum-subarray-problem/" title="[演算法筆記] 最大子數列問題 Maximum Subarray Problem(未完成)" class="md-nav__link">
+      [演算法筆記] 最大子數列問題 Maximum Subarray Problem(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/data-structure-and-algorithms/algorithm-notes-optimal-substructure/" title="[演算法筆記] 最優子結構 Optimal Substructure" class="md-nav__link">
+      [演算法筆記] 最優子結構 Optimal Substructure
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/data-structure-and-algorithms/fun-research-computational-periscopy-with-an-ordinary-digital-camera/" title="[有趣研究] 只要算法够厉害，白墙能当镜子用：我初中物理都白学了 | Nature新论文(未完成)" class="md-nav__link">
+      [有趣研究] 只要算法够厉害，白墙能当镜子用：我初中物理都白学了 | Nature新论文(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/data-structure-and-algorithms/fun-research-the-visual-microphone-passive-recovery-of-sound-from-video/" title="[有趣研究] 從影像的極輕微震動還原出現場聲音(未完成)" class="md-nav__link">
+      [有趣研究] 從影像的極輕微震動還原出現場聲音(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/data-structure-and-algorithms/sleep-sort/" title="睡眠排序 Sleep Sort" class="md-nav__link">
+      睡眠排序 Sleep Sort
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3">
+    
+    <label class="md-nav__link" for="nav-3-6-3">
+      Leetcode
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Leetcode" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-6-3">
+        <span class="md-nav__icon md-icon"></span>
+        Leetcode
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-1-two-sum/" title="[LeetCode] 1. Two Sum(未完成)" class="md-nav__link">
+      [LeetCode] 1. Two Sum(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-198-house-robber/" title="[LeetCode] 198. House Robber(未完成)" class="md-nav__link">
+      [LeetCode] 198. House Robber(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-213-house-robber-ii/" title="[LeetCode] 213. House Robber II(未完成)" class="md-nav__link">
+      [LeetCode] 213. House Robber II(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-338-counting-bits/" title="[LeetCode] 338. Counting Bits(未完成)" class="md-nav__link">
+      [LeetCode] 338. Counting Bits(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-343-integer-break/" title="[LeetCode] 343. Integer Break(未完成)" class="md-nav__link">
+      [LeetCode] 343. Integer Break(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-5-longest-palindromic-substring/" title="[LeetCode] 5. Longest Palindromic Substring(未完成)" class="md-nav__link">
+      [LeetCode] 5. Longest Palindromic Substring(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-70-climbing-stairs/" title="[LeetCode] 70. Climbing Stairs(未完成)" class="md-nav__link">
+      [LeetCode] 70. Climbing Stairs(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-747-largest-number-at-least-twice-of-others/" title="[LeetCode] 747. Largest Number At Least Twice of Others(未完成)" class="md-nav__link">
+      [LeetCode] 747. Largest Number At Least Twice of Others(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../programming/leetcode/leetcode-88-merge-sorted-array/" title="[LeetCode] 88. Merge Sorted Array(未完成)" class="md-nav__link">
+      [LeetCode] 88. Merge Sorted Array(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Learning
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Learning" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Learning
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../learning/c-programming/" title="C 語言編程" class="md-nav__link">
+      C 語言編程
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../learning/reading-list/" title="書單" class="md-nav__link">
+      書單
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../learning/to-be-researched/" title="待研究項目" class="md-nav__link">
+      待研究項目
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Math
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Math" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Math
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../math/bessel-s-correction/" title="Bessel's Correction: 統計學裡的 n-1(未完成)" class="md-nav__link">
+      Bessel's Correction: 統計學裡的 n-1(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../math/convolution/" title="卷積 Convolution" class="md-nav__link">
+      卷積 Convolution
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../math/integral-transform-1-fourier-analysis/" title="積分變換(一)：傅立葉分析(未完成)" class="md-nav__link">
+      積分變換(一)：傅立葉分析(未完成)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../math/vector-calculus/" title="簡單易懂的向量微積分(未完成)" class="md-nav__link">
+      簡單易懂的向量微積分(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Other
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Other" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        <span class="md-nav__icon md-icon"></span>
+        Other
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../other/android-disable-built-in-apps-which-cannot-be-disabled-in-settings/" title="停用無法停用的 Android 內建 App" class="md-nav__link">
+      停用無法停用的 Android 內建 App
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../other/japanese-song-lyrics-translation-practice-boku-ga-shinou-to-omotta-no-wa/" title="[日語練習-歌詞翻譯] 僕が死のうと思ったのは(未完成)" class="md-nav__link">
+      [日語練習-歌詞翻譯] 僕が死のうと思ったのは(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      Physics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Physics" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        <span class="md-nav__icon md-icon"></span>
+        Physics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../physics/physical-interpretations-of-laplace-transform/" title="拉普拉斯轉換的物理意義(未完成)" class="md-nav__link">
+      拉普拉斯轉換的物理意義(未完成)
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Website debug
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Website debug" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        <span class="md-nav__icon md-icon"></span>
+        Website debug
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../website-debug/" title="網頁 Debug" class="md-nav__link">
+      網頁 Debug
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    預設
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process" class="md-nav__link">
+    process 選擇
+  </a>
+  
+    <nav class="md-nav" aria-label="process 選擇">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process_1" class="md-nav__link">
+    顯示所有 process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    根據狀態顯示
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    根據列表顯示
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thread" class="md-nav__link">
+    顯示 thread
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    輸出樣式
+  </a>
+  
+    <nav class="md-nav" aria-label="輸出樣式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bsd" class="md-nav__link">
+    BSD 風格輸出樣式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unix" class="md-nav__link">
+    Unix 風格輸出樣式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  
+                
+                
+                <h1 id="ps">ps 參數整理</h1>
+<h2 id="_1">預設</h2>
+<ul>
+<li>除 <code>-pid</code> 以外，參數前有 <code>-</code> 的是 Unix 風格，沒有的是 BSD 風格</li>
+<li>只顯示「當前使用者」在「當前TTY」的 process</li>
+<li>BSD 風格顯示執行檔名和參數，Unix 風格只顯示執行檔名</li>
+<li>使用 BSD 風格的參數都會顯示 STAT，Unix 風格不顯示 STAT</li>
+</ul>
+<div class="highlight"><pre><span></span><code>  PID TTY          TIME CMD
+ 8905 pts/0    00:00:00 bash
+11683 pts/0    00:00:00 ps
+</code></pre></div>
+<h2 id="process">process 選擇</h2>
+<h3 id="process_1">顯示所有 process</h3>
+<ul>
+<li><code>a</code> 顯示「所有使用者」且「有TTY」的 process</li>
+<li><code>x</code> 顯示所有「當前使用者」的 process，不論它有沒有TTY</li>
+<li><code>ax</code> 顯示所有 process</li>
+<li><code>-e</code>, <code>-A</code> 顯示所有 process</li>
+</ul>
+<h3 id="_2">根據狀態顯示</h3>
+<ul>
+<li><code>r</code> 顯示執行中的process</li>
+<li><code>T</code> 顯示「當前TTY」的process，只加T時只有多STAT</li>
+<li><code>-N</code> 反向選擇</li>
+</ul>
+<h3 id="_3">根據列表顯示</h3>
+<p>以下所有的 <em>list</em> 內容必須用空格或逗號分割，"1 2"、1,2 或 "1,2"，<em>userlist</em> 和 <em>grplist</em>
+可以輸入數字或名稱。</p>
+<ul>
+<li><code>p pidlist</code>, <code>pid</code>, <code>-pid</code>, <code>-p pidlist</code> 顯示「PID」為 <em>pidlist</em> 或 <em>pid</em> 的 process</li>
+<li><code>q pidlist</code>,<code>-q pidlist</code> 顯示「PID」為 <em>pidlist</em> 的 process (快速模式)</li>
+<li><code>--ppid pidlist</code> 顯示「PPID」為 <em>pidlist</em> 的 process</li>
+<li><code>-s sesslist</code> 顯示「Session ID」為 <em>sesslist</em> 的 process</li>
+<li><code>-C cmdlist</code> 顯示「執行檔名」為 <em>cmdlist</em> 的 process</li>
+<li><code>-U userlist</code> 顯示「Real UID」為 <em>userlist</em> 的 process</li>
+<li><code>-u userlist</code> 顯示「Effective UID」為 <em>userlist</em> 的 process</li>
+<li><code>-G grplist</code> 顯示「Real GID」為 <em>grplist</em> 的 process</li>
+<li><code>-g grplist</code> 顯示「Effective GID」為 <em>grplist</em> 的 process</li>
+<li><code>t ttylist</code>, <code>-t ttylist</code> 顯示「TTY」為 <em>ttylist</em> 的 process</li>
+</ul>
+<p><span style="color: #ff0000;">注意：「顯示所有 process」的參數會把「根據列表顯示」的效果蓋掉！</span></p>
+<h2 id="thread">顯示 thread</h2>
+<p>BSD 風格參數單獨使用時顯示範圍等於 <code>x</code></p>
+<ul>
+<li><code>H</code> 顯示thread (像普通 process)</li>
+<li><code>m</code>, <code>-m</code> 顯示 thread (以 - 代替 thread)</li>
+<li><code>-L</code> 顯示 thread 及其 LWP(=SPID)和 NLWP (要 <code>-f</code> 才會顯示)</li>
+<li><code>-T</code> 顯示 thread 及其 SPID</li>
+</ul>
+<h2 id="_4">輸出樣式</h2>
+<p>BSD 風格參數單獨使用時顯示範圍等於 <code>x</code><br/>
+以下命令皆指定一個 process 作為範例</p>
+<h3 id="bsd">BSD 風格輸出樣式</h3>
+<ul>
+<li>
+<p><code>l</code> BSD long-format</p>
+<div class="highlight"><pre><span></span><code>F   UID   PID  PPID PRI  NI    VSZ   RSS WCHAN  STAT TTY        TIME COMMAND
+0  1001 10130 10104  20   0 616000 40260 poll_s Sl+  pts/1      0:00 vim a.c
+</code></pre></div>
+</li>
+<li>
+<p><code>j</code> BSD job control format</p>
+<div class="highlight"><pre><span></span><code>PPID   PID  PGID   SID TTY      TPGID STAT   UID   TIME COMMAND
+10104 10130 10130 10104 pts/1    10130 Sl+   1001   0:00 vim a.c
+</code></pre></div>
+</li>
+<li>
+<p><code>s</code> signal format</p>
+<div class="highlight"><pre><span></span><code>UID   PID          PENDING          BLOCKED          IGNORED           CAUGHT STAT TTY        TIME COMMAND
+1001 10130 0000000000000000 0000000000000000 0000000000003000 00000001ed804eff Sl+  pts/1      0:00 vim a.c
+</code></pre></div>
+</li>
+<li>
+<p><code>u</code> user-oriented format</p>
+<div class="highlight"><pre><span></span><code>USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+jisa0    10130  0.2  0.2 616000 40260 pts/1    Sl+  17:30   0:00 vim a.c
+</code></pre></div>
+</li>
+<li>
+<p><code>v</code> virtual memory format</p>
+<div class="highlight"><pre><span></span><code>  PID TTY      STAT   TIME  MAJFL   TRS   DRS   RSS %MEM COMMAND
+10130 pts/1    Sl+    0:00      0  2416 613583 40260  0.2 vim a.c
+</code></pre></div>
+</li>
+<li>
+<p><code>X</code> registar format</p>
+<div class="highlight"><pre><span></span><code>  PID   STACKP      ESP      EIP TMOUT ALARM STAT TTY        TIME COMMAND
+10130 e8696310 e8695890 ae698073     -     - Sl+  pts/1      0:00 vim a.c
+</code></pre></div>
+</li>
+</ul>
+<h3 id="unix">Unix 風格輸出樣式</h3>
+<ul>
+<li>
+<p><code>-f</code> full-format，會顯示命令的參數</p>
+<div class="highlight"><pre><span></span><code>UID        PID  PPID  C STIME TTY      STAT   TIME CMD
+jisa0    10130 10104  0 17:30 pts/1    Sl+    0:00 vim a.c
+</code></pre></div>
+</li>
+<li>
+<p><code>-F</code> extra full-format (imply <code>-f</code>)</p>
+<div class="highlight"><pre><span></span><code>UID        PID  PPID  C    SZ   RSS PSR STIME TTY      STAT   TIME CMD
+jisa0    10130 10104  0 154000 40260  0 17:30 pts/1    Sl+    0:00 vim a.c
+</code></pre></div>
+</li>
+<li>
+<p><code>-l</code> long-format</p>
+<div class="highlight"><pre><span></span><code>F S   UID   PID  PPID  C PRI  NI ADDR SZ WCHAN  TTY        TIME CMD
+0 S  1001 10130 10104  0  80   0 - 154000 poll_s pts/1     0:00 vim a.c
+</code></pre></div>
+</li>
+<li>
+<p><code>-ly</code> long-format 換掉一些參數</p>
+<div class="highlight"><pre><span></span><code>S   UID   PID  PPID  C PRI  NI   RSS    SZ WCHAN  TTY        TIME CMD
+S  1001 10130 10104  0  80   0 40260 154000 poll_s pts/1     0:00 vim a.c
+</code></pre></div>
+</li>
+<li>
+<p><code>-j</code> jobs format</p>
+<div class="highlight"><pre><span></span><code>PPID   PID  PGID   SID TTY      TPGID STAT   UID   TIME COMMAND
+10104 10130 10130 10104 pts/1    10130 Sl+   1001   0:00 vim a.c
+</code></pre></div>
+</li>
+</ul>
+<p>其它</p>
+<ul>
+<li><code>o</code>, <code>-o</code> "format" 使用者自訂樣式</li>
+<li><code>O</code>, <code>-O</code> "format" 等於 o 再加一些東西</li>
+<li><code>f</code> 輸出樹狀圖</li>
+<li><code>w</code>, <code>-w</code> wide output</li>
+<li><code>ww</code>, <code>-ww</code> unlimited wide output</li>
+</ul>
+<p>參考資料：<code>man ps</code> 和 <code>ps --help all</code></p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../linux-no-such-file-or-directory-error-when-executing-executables-with-x-permission/" title="Linux 執行程式時出現 No such file or directory 錯誤" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  上一頁
+                </span>
+                Linux 執行程式時出現 No such file or directory 錯誤
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../sudo-permission-denied/" title="為什麼使用 sudo 仍得到 Permission denied？" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  下一頁
+                </span>
+                為什麼使用 sudo 仍得到 Permission denied？
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "\u8907\u88fd", "clipboard.copied": "\u5df2\u8907\u88fd", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\s\\-\u3000\u3001\u3002\uff0c\uff0e\uff1f\uff1b]+", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
