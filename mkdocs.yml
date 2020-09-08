@@ -7,6 +7,7 @@ theme:
   language: zh-TW
 
 extra_css:
+  - css/markdown-material-fix.css
   - css/disable-footer-nav.css
   - css/arithmatex.css
 
