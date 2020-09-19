@@ -315,7 +315,7 @@ URL[$e]=trash:/
 - qt5-tools(dep: qt5-webkit) qt5-doc qt5-examples qtcreator pyside2
 - python python-pip ipython jupyterlab
 - virtualbox linux57-virtualbox-host-modules virtualbox-guest-iso virtualbox-ext-oracle<sup>AUR</sup>
-- bochs
+- bochs riscv64-linux-gnu-binutils riscv64-linux-gnu-gcc riscv64-linux-gnu-gdb qemu qemu-arch-extra
 - visual-studio-code-bin<sup>AUR</sup>
 - CLion<sup>其它</sup> PyCharm<sup>其它</sup>
 
@@ -345,7 +345,7 @@ URL[$e]=trash:/
 - timeshift
 - gufw
 - baobab partitionmanager
-- linux57-bbswitch
+- linux58-bbswitch
 - jre-openjdk
 
 相關設定：
@@ -443,7 +443,9 @@ URL[$e]=trash:/
 
 ### 備註
 
-在 2020/7/19 stable-update 後更新為 5.7 的 Linux kernel
+在 2020/7/19 stable-update 後更新為 5.7 的 Linux kernel(及 kernel module)
+
+在 2020/9/8 stable-update 後更新為 5.8 的 Linux kernel(及 kernel module)，命令：`sudo mhwd-kernel -i linux58 rmc`(rmc: remove current kernel)
 
 ## 其它
 

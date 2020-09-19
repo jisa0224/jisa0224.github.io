@@ -74,11 +74,14 @@
 
 ### 總論
 
-- From NAND to Tetris: Building a Modern Computer From First Principles  
-  [課程網站](http://nand2tetris.org/)、Coursera 課程(影片)：[第一部份](https://www.coursera.org/learn/build-a-computer)、[第二部份](https://www.coursera.org/learn/nand2tetris2/)
-
-- Computer Systems: A Programmer's Perspective  
-  [課程網站](https://www.cs.cmu.edu/~213/)、[書本網站](http://csapp.cs.cmu.edu/)、[其它參考](https://wdxtub.com/2016/04/16/thin-csapp-0/)
+-   From NAND to Tetris: Building a Modern Computer From First Principles(簡稱：Nand2Tetris)  
+    [課程網站](https://www.nand2tetris.org/)，Nand2Tetris 提供書籍和影片方式學習。  
+    書籍：[The Elements of Computing Systems: Building a Modern Computer from First Principles](https://www.nand2tetris.org/book)  
+    Coursera 課程(影片)：[第一部份](https://www.coursera.org/learn/build-a-computer)、[第二部份](https://www.coursera.org/learn/nand2tetris2/)  
+    課程 project 需要用到的工具程式：[Nand2tetris Software Suite](https://www.nand2tetris.org/software)
+    
+-   Computer Systems: A Programmer's Perspective  
+    [課程網站](https://www.cs.cmu.edu/~213/)、[書本網站](http://csapp.cs.cmu.edu/)、[其它參考](https://wdxtub.com/2016/04/16/thin-csapp-0/)
     
     課程影片在網站的 Schedule 底下，如果時間還沒到，可以到 Resources 的 Previous Course Instances 找其它期課程的影片。
     
