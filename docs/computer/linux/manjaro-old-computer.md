@@ -1,4 +1,4 @@
-# Manjaro
+# Manjaro (舊電腦)
 
 ## 系統安裝
 
