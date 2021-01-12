@@ -20,3 +20,7 @@ rmmod nbd
 ```
 
 參考資料：[Mount a VirtualBox drive image (vdi)? - Ask Ubuntu](https://askubuntu.com/questions/19430/mount-a-virtualbox-drive-image-vdi/50290#50290)
+
+---
+
+後來發現在進行大量讀寫時 nbd 常常會卡住，在 journalctl 可以看到 `kernel: block nbd0: Possible stuck request 000000007793c887: control (write@167690240,131072B). Runtime 30 seconds`，建議只用來讀寫小檔案。
