@@ -676,19 +676,6 @@
           
 
 
-
-  <li class="md-nav__item">
-    <a href="../manjaro-old-computer/" class="md-nav__link">
-      Manjaro (舊電腦)
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
   
 
 
@@ -699,9 +686,80 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Manjaro 以前安裝過的軟體包及相關設定
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" class="md-nav__link md-nav__link--active">
       Manjaro 以前安裝過的軟體包及相關設定
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    工具類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    文書處理類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    多媒體類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    網路類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    教育類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    開發類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    系統類
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -1690,6 +1748,63 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    工具類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    文書處理類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    多媒體類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    網路類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    教育類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    開發類
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    系統類
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1702,8 +1817,50 @@
                 
                 
                 <h1 id="manjaro">Manjaro 以前安裝過的軟體包及相關設定</h1>
+<h2 id="_1">工具類</h2>
 <ul>
-<li>cling<sup>AUR</sup>
+<li>scrcpy<sup>AUR</sup><br/>
+  只要有 <code>adb</code> 就可以執行，建置軟體包之前把 <code>PKGBUILD</code> 的 <code>depends</code> 刪掉 <code>android-tools</code></li>
+</ul>
+<h2 id="_2">文書處理類</h2>
+<ul>
+<li>
+<p>wps-office<sup>AUR</sup> wps-office-mime<sup>AUR</sup> wps-office-mui-zh-tw<sup>AUR</sup> ttf-wps-fonts<sup>AUR</sup>
+  wps-office 和 wps-office-mime 共用同一個 PKGBUILD<br/>
+  ttf-wps-fonts 是 WPS Office 裡方程式所需的字型<br/>
+  使用 fcitx5 作為輸入法框架時，wps-office 需要以 <code>QT_IM_MODULE=fcitx5</code> 啟動，否則無法切換輸入法。<br/>
+<a href="https://wiki.archlinux.org/index.php/WPS_Office_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#Fcitx5_%E6%97%A0%E6%B3%95%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87">https://wiki.archlinux.org/index.php/WPS_Office_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#Fcitx5_%E6%97%A0%E6%B3%95%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87</a></p>
+</li>
+<li>
+<p>typora<sup>AUR</sup></p>
+</li>
+</ul>
+<h2 id="_3">多媒體類</h2>
+<h2 id="_4">網路類</h2>
+<ul>
+<li>pepper-flash
+  Flash Player reaches end-of-life on December 31, 2020. After this date, it will be removed from the Arch repos since it is no longer supported.</li>
+</ul>
+<h2 id="_5">教育類</h2>
+<ul>
+<li>
+<p>python-sympy python-scikit-learn python-pytorch-opt python-torchvision<sup>archlinuxcn</sup> python-tensorflow-opt tensorboard python-pandas</p>
+<ul>
+<li>python-pytorch-opt 和 python-tensorflow-opt 是有 AVX2 CPU optimizations 的版本（執行 <code>lscpu</code> 或 <code>cat /proc/cpuinfo</code> 可以看 CPU 有沒有支援 AVX2）。</li>
+<li>由於 AUR 的 python-torchvision 編譯不過，所以使用 archlinuxcn(Arch Linux Chinese Community Repository) 提供的 <a href="https://repo.archlinuxcn.org/x86_64/python-torchvision-0.8.2-3-x86_64.pkg.tar.zst">https://repo.archlinuxcn.org/x86_64/python-torchvision-0.8.2-3-x86_64.pkg.tar.zst</a>。</li>
+<li>注意 PyTorch 和 TorchVision 的版本必須相符，版本資訊參考 <a href="https://github.com/pytorch/vision#installation">https://github.com/pytorch/vision#installation</a>。</li>
+</ul>
+</li>
+<li>
+<p>octave<br/>
+  新增檔案：~/.config/octave, ~/.octave_hist</p>
+</li>
+<li>
+<p>racket
+  新增檔案：~/.racket</p>
+</li>
+<li>
+<p>cling<sup>AUR</sup>
     兩者分別安裝好後，執行
     <div class="highlight"><pre><span></span><code>pip install --user /opt/cling/share/cling/Jupyter/kernel
 jupyter-kernelspec install --user /opt/cling/share/cling/Jupyter/kernel/cling-cpp17
@@ -1720,15 +1877,14 @@ jupyter-kernelspec install --user /opt/cling/share/cling/Jupyter/kernel/cling-cp
 </code></pre></div>
     移除方式：<code>pip uninstall clingkernel</code> 和 <code>jupyter-kernelspec uninstall cling-cpp17</code>
     註：不要使用 Jupyter 官方推薦的 xeus-cling，很難用，常常發生 gcc 能過編譯但 xeus-cling 顯示錯誤。
-    註：<code>pip install -e</code> 會修改 <code>/opt/cling/.../kernel</code> 和 <code>/usr/lib/python3.8/site-packages</code>，所以不要用。</li>
-<li>CLion<sup>其它</sup><ul>
-<li>安裝方式：解壓縮 <code>CLion-2020.1.1.tar.gz</code> 到 <code>~/.local/clion-2020.1.1</code>，然後執行 <code>~/.local/clion-2020.1.1/bin/clion.sh</code>。</li>
-<li>新增檔案：~/.config/JetBrains/CLion2020.1, ~/.local/share/JetBrains/CLion2020.1, ~/.local/share/applications/jetbrains-clion.desktop, ~/.gnome/apps/jetbrains-clion.desktop</li>
-<li>"歡迎畫面 &gt; Configure &gt; Create Desktop Entry" 可以建立 <code>.desktop</code> 檔</li>
-</ul>
+    註：<code>pip install -e</code> 會修改 <code>/opt/cling/.../kernel</code> 和 <code>/usr/lib/python3.8/site-packages</code>，所以不要用。</p>
 </li>
-<li>code<br/>
-  新增檔案：~/.cache/vscode-cpptools, ~/.config/Code - OSS, ~/.config/Electron(執行過 <code>electron7</code> 之後才有), ~/.vscode-oss</li>
+</ul>
+<h2 id="_6">開發類</h2>
+<ul>
+<li>
+<p>sdl2_gfx sdl2_image sdl2_mixer sdl2_net sdl2_ttf python-pysdl2<sup>AUR</sup></p>
+</li>
 <li>
 <p>ghc ghc-static stack-static<sup>AUR</sup> stylish-haskell<sup>stack</sup> ihaskell<sup>stack</sup>
     ghc 會產生 <code>~/.ghc</code></p>
@@ -1758,30 +1914,55 @@ npm cache clean --force
 rm -rf ~/.cache/yarn
 <span class="c1"># 之後可刪除 IHaskell 資料夾</span>
 </code></pre></div>
-註：因為不想改變 /usr 的內容，但 jupyter labextension 又沒有提供安裝到使用者資料夾的選項，只能這樣做
-- linux58-bbswitch
-1. 新增 <code>/etc/modprobe.d/bbswitch.conf</code>，內容為
+註：因為不想改變 /usr 的內容，但 jupyter labextension 又沒有提供安裝到使用者資料夾的選項，只能這樣做</p>
+</li>
+<li>
+<p>code<br/>
+  新增檔案：~/.cache/vscode-cpptools, ~/.config/Code - OSS, ~/.config/Electron(執行過 <code>electron7</code> 之後才有), ~/.vscode-oss</p>
+</li>
+<li>
+<p>CLion<sup>其它</sup></p>
+<ul>
+<li>安裝方式：解壓縮 <code>CLion-2020.1.1.tar.gz</code> 到 <code>~/.local/clion-2020.1.1</code>，然後執行 <code>~/.local/clion-2020.1.1/bin/clion.sh</code>。</li>
+<li>新增檔案：~/.config/JetBrains/CLion2020.1, ~/.local/share/JetBrains/CLion2020.1, ~/.local/share/applications/jetbrains-clion.desktop, ~/.gnome/apps/jetbrains-clion.desktop</li>
+<li>"歡迎畫面 &gt; Configure &gt; Create Desktop Entry" 可以建立 <code>.desktop</code> 檔</li>
+</ul>
+</li>
+<li>
+<p>PyCharm<sup>其它</sup></p>
+<ul>
+<li>安裝方式：解壓縮 <code>pycharm-professional-2020.1.1.tar.gz</code> 到 <code>~/.local/pycharm-2020.1.1</code>，然後執行 <code>~/.local/pycharm-2020.1.1/bin/pycharm.sh</code></li>
+<li>新增檔案：~/.config/JetBrains/PyCharm2020.1, ~/.local/share/JetBrains/PyCharm2020.1, ~/.local/share/applications/jetbrains-pycharm.desktop, ~/.gnome/apps/jetbrains-pycharm.desktop</li>
+<li>"歡迎畫面 &gt; Configure &gt; Create Desktop Entry" 可以建立 <code>.desktop</code> 檔</li>
+</ul>
+</li>
+</ul>
+<h2 id="_7">系統類</h2>
+<ul>
+<li>
+<p>linux58-bbswitch</p>
+<ol>
+<li>新增 <code>/etc/modprobe.d/bbswitch.conf</code>，內容為
    <div class="highlight"><pre><span></span><code>blacklist nouveau
 blacklist nvidia
 options bbswitch load_state=0 unload_state=1
-</code></pre></div>
-2. 新增 <code>/etc/modules-load.d/bbswitch.conf</code>，內容為
+</code></pre></div></li>
+<li>新增 <code>/etc/modules-load.d/bbswitch.conf</code>，內容為
    <div class="highlight"><pre><span></span><code>bbswitch
+</code></pre></div></li>
+<li>重開機
+參考資料：<a href="https://wiki.archlinux.org/index.php/Bumblebee#Power_management">Bumblebee - ArchWiki</a></li>
+</ol>
+</li>
+<li>
+<p>ibus ibus-chewing<br/>
+  於 <code>~/.xprofile</code> 加入
+  <div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">GTK_IM_MODULE</span><span class="o">=</span>ibus
+<span class="nb">export</span> <span class="nv">XMODIFIERS</span><span class="o">=</span>@im<span class="o">=</span>ibus
+<span class="nb">export</span> <span class="nv">QT_IM_MODULE</span><span class="o">=</span>ibus
+ibus-daemon -drx
 </code></pre></div>
-3. 重開機
-參考資料：<a href="https://wiki.archlinux.org/index.php/Bumblebee#Power_management">Bumblebee - ArchWiki</a>
-- pepper-flash
-  Flash Player reaches end-of-life on December 31, 2020. After this date, it will be removed from the Arch repos since it is no longer supported.
-- PyCharm<sup>其它</sup>
-- 安裝方式：解壓縮 <code>pycharm-professional-2020.1.1.tar.gz</code> 到 <code>~/.local/pycharm-2020.1.1</code>，然後執行 <code>~/.local/pycharm-2020.1.1/bin/pycharm.sh</code>
-- 新增檔案：~/.config/JetBrains/PyCharm2020.1, ~/.local/share/JetBrains/PyCharm2020.1, ~/.local/share/applications/jetbrains-pycharm.desktop, ~/.gnome/apps/jetbrains-pycharm.desktop
-- "歡迎畫面 &gt; Configure &gt; Create Desktop Entry" 可以建立 <code>.desktop</code> 檔
-- racket
-  新增檔案：~/.racket
-- scrcpy<sup>AUR</sup><br/>
-  只要有 <code>adb</code> 就可以執行，建置軟體包之前把 <code>PKGBUILD</code> 的 <code>depends</code> 刪掉 <code>android-tools</code>
-- octave<br/>
-  新增檔案：~/.config/octave, ~/.octave_hist</p>
+  ibus 會安裝 Python 2，看以後更新會不會改用 Python 3</p>
 </li>
 </ul>
                 
@@ -1802,7 +1983,7 @@ options bbswitch load_state=0 unload_state=1
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../manjaro-old-computer/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../linux-no-such-file-or-directory-error-when-executing-executables-with-x-permission/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1811,7 +1992,7 @@ options bbswitch load_state=0 unload_state=1
                 <span class="md-footer-nav__direction">
                   上一頁
                 </span>
-                Manjaro (舊電腦)
+                Linux 執行程式時出現 No such file or directory 錯誤
               </div>
             </div>
           </a>
