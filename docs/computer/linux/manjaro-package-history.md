@@ -1,6 +1,41 @@
 # Manjaro 以前安裝過的軟體包及相關設定
 
-- cling<sup>AUR</sup>
+## 工具類
+
+* scrcpy<sup>AUR</sup>  
+  只要有 `adb` 就可以執行，建置軟體包之前把 `PKGBUILD` 的 `depends` 刪掉 `android-tools`
+
+## 文書處理類
+
+* wps-office<sup>AUR</sup> wps-office-mime<sup>AUR</sup> wps-office-mui-zh-tw<sup>AUR</sup> ttf-wps-fonts<sup>AUR</sup>
+  wps-office 和 wps-office-mime 共用同一個 PKGBUILD  
+  ttf-wps-fonts 是 WPS Office 裡方程式所需的字型  
+  使用 fcitx5 作為輸入法框架時，wps-office 需要以 `QT_IM_MODULE=fcitx5` 啟動，否則無法切換輸入法。  
+  <https://wiki.archlinux.org/index.php/WPS_Office_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#Fcitx5_%E6%97%A0%E6%B3%95%E8%BE%93%E5%85%A5%E4%B8%AD%E6%96%87>
+
+* typora<sup>AUR</sup>
+
+## 多媒體類
+
+## 網路類
+
+* pepper-flash
+  Flash Player reaches end-of-life on December 31, 2020. After this date, it will be removed from the Arch repos since it is no longer supported.
+
+## 教育類
+
+* python-sympy python-scikit-learn python-pytorch-opt python-torchvision<sup>archlinuxcn</sup> python-tensorflow-opt tensorboard python-pandas
+    * python-pytorch-opt 和 python-tensorflow-opt 是有 AVX2 CPU optimizations 的版本（執行 `lscpu` 或 `cat /proc/cpuinfo` 可以看 CPU 有沒有支援 AVX2）。
+    * 由於 AUR 的 python-torchvision 編譯不過，所以使用 archlinuxcn(Arch Linux Chinese Community Repository) 提供的 <https://repo.archlinuxcn.org/x86_64/python-torchvision-0.8.2-3-x86_64.pkg.tar.zst>。
+    * 注意 PyTorch 和 TorchVision 的版本必須相符，版本資訊參考 <https://github.com/pytorch/vision#installation>。
+
+* octave  
+  新增檔案：~/.config/octave, ~/.octave_hist
+
+* racket
+  新增檔案：~/.racket
+
+* cling<sup>AUR</sup>
     兩者分別安裝好後，執行
     ``` shell
     pip install --user /opt/cling/share/cling/Jupyter/kernel
@@ -20,13 +55,12 @@
     移除方式：`pip uninstall clingkernel` 和 `jupyter-kernelspec uninstall cling-cpp17`
     註：不要使用 Jupyter 官方推薦的 xeus-cling，很難用，常常發生 gcc 能過編譯但 xeus-cling 顯示錯誤。
     註：`pip install -e` 會修改 `/opt/cling/.../kernel` 和 `/usr/lib/python3.8/site-packages`，所以不要用。
-- CLion<sup>其它</sup>
-    - 安裝方式：解壓縮 `CLion-2020.1.1.tar.gz` 到 `~/.local/clion-2020.1.1`，然後執行 `~/.local/clion-2020.1.1/bin/clion.sh`。
-    - 新增檔案：~/.config/JetBrains/CLion2020.1, ~/.local/share/JetBrains/CLion2020.1, ~/.local/share/applications/jetbrains-clion.desktop, ~/.gnome/apps/jetbrains-clion.desktop
-    - "歡迎畫面 > Configure > Create Desktop Entry" 可以建立 `.desktop` 檔
-- code  
-  新增檔案：~/.cache/vscode-cpptools, ~/.config/Code - OSS, ~/.config/Electron(執行過 `electron7` 之後才有), ~/.vscode-oss
-- ghc ghc-static stack-static<sup>AUR</sup> stylish-haskell<sup>stack</sup> ihaskell<sup>stack</sup>
+
+## 開發類
+
+* sdl2_gfx sdl2_image sdl2_mixer sdl2_net sdl2_ttf python-pysdl2<sup>AUR</sup>
+
+* ghc ghc-static stack-static<sup>AUR</sup> stylish-haskell<sup>stack</sup> ihaskell<sup>stack</sup>
     ghc 會產生 `~/.ghc`
     
     community 提供的 stack 會安裝一大堆 haskell 動態連結函式庫，stack-static<sup>AUR</sup> 是靜態連結的，所以只有一個執行檔。
@@ -61,7 +95,23 @@
     # 之後可刪除 IHaskell 資料夾
     ```
     註：因為不想改變 /usr 的內容，但 jupyter labextension 又沒有提供安裝到使用者資料夾的選項，只能這樣做
-- linux58-bbswitch
+
+* code  
+  新增檔案：~/.cache/vscode-cpptools, ~/.config/Code - OSS, ~/.config/Electron(執行過 `electron7` 之後才有), ~/.vscode-oss
+
+* CLion<sup>其它</sup>
+    * 安裝方式：解壓縮 `CLion-2020.1.1.tar.gz` 到 `~/.local/clion-2020.1.1`，然後執行 `~/.local/clion-2020.1.1/bin/clion.sh`。
+    * 新增檔案：~/.config/JetBrains/CLion2020.1, ~/.local/share/JetBrains/CLion2020.1, ~/.local/share/applications/jetbrains-clion.desktop, ~/.gnome/apps/jetbrains-clion.desktop
+    * "歡迎畫面 > Configure > Create Desktop Entry" 可以建立 `.desktop` 檔
+
+* PyCharm<sup>其它</sup>
+    * 安裝方式：解壓縮 `pycharm-professional-2020.1.1.tar.gz` 到 `~/.local/pycharm-2020.1.1`，然後執行 `~/.local/pycharm-2020.1.1/bin/pycharm.sh`
+    * 新增檔案：~/.config/JetBrains/PyCharm2020.1, ~/.local/share/JetBrains/PyCharm2020.1, ~/.local/share/applications/jetbrains-pycharm.desktop, ~/.gnome/apps/jetbrains-pycharm.desktop
+    * "歡迎畫面 > Configure > Create Desktop Entry" 可以建立 `.desktop` 檔
+
+## 系統類
+
+* linux58-bbswitch
     1. 新增 `/etc/modprobe.d/bbswitch.conf`，內容為
        ```
        blacklist nouveau
@@ -74,15 +124,13 @@
        ```
     3. 重開機
     參考資料：[Bumblebee - ArchWiki](https://wiki.archlinux.org/index.php/Bumblebee#Power_management)
-- pepper-flash
-  Flash Player reaches end-of-life on December 31, 2020. After this date, it will be removed from the Arch repos since it is no longer supported.
-- PyCharm<sup>其它</sup>
-    - 安裝方式：解壓縮 `pycharm-professional-2020.1.1.tar.gz` 到 `~/.local/pycharm-2020.1.1`，然後執行 `~/.local/pycharm-2020.1.1/bin/pycharm.sh`
-    - 新增檔案：~/.config/JetBrains/PyCharm2020.1, ~/.local/share/JetBrains/PyCharm2020.1, ~/.local/share/applications/jetbrains-pycharm.desktop, ~/.gnome/apps/jetbrains-pycharm.desktop
-    - "歡迎畫面 > Configure > Create Desktop Entry" 可以建立 `.desktop` 檔
-- racket
-  新增檔案：~/.racket
-- scrcpy<sup>AUR</sup>  
-  只要有 `adb` 就可以執行，建置軟體包之前把 `PKGBUILD` 的 `depends` 刪掉 `android-tools`
-- octave  
-  新增檔案：~/.config/octave, ~/.octave_hist
+
+* ibus ibus-chewing  
+  於 `~/.xprofile` 加入
+  ``` shell
+  export GTK_IM_MODULE=ibus
+  export XMODIFIERS=@im=ibus
+  export QT_IM_MODULE=ibus
+  ibus-daemon -drx
+  ```
+  ibus 會安裝 Python 2，看以後更新會不會改用 Python 3
