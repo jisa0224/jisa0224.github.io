@@ -14,7 +14,7 @@
     
     
       
-        <title>掛載 Virtualbox VDI 磁碟映像檔 - Jisa's Notebook</title>
+        <title>`~/.pam_environment`: 設定讓所有程式都可以使用的環境變數 - Jisa's Notebook</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#virtualbox-vdi" class="md-skip">
+        <a href="#pam_environment" class="md-skip">
           跳轉到
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              掛載 Virtualbox VDI 磁碟映像檔
+              `~/.pam_environment`: 設定讓所有程式都可以使用的環境變數
             
           </span>
         </div>
@@ -728,6 +728,19 @@
           
 
 
+
+  <li class="md-nav__item">
+    <a href="../mount-virtualbox-vdi-image/" class="md-nav__link">
+      掛載 Virtualbox VDI 磁碟映像檔
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
   
 
 
@@ -739,22 +752,9 @@
     
     
     <a href="./" class="md-nav__link md-nav__link--active">
-      掛載 Virtualbox VDI 磁碟映像檔
-    </a>
-    
-  </li>
-
-        
-          
-          
-          
-
-
-
-  <li class="md-nav__item">
-    <a href="../pam_environment-environment-variables-for-all-program/" class="md-nav__link">
       `~/.pam_environment`: 設定讓所有程式都可以使用的環境變數
     </a>
+    
   </li>
 
         
@@ -1714,22 +1714,24 @@
               
                 
                 
-                <h1 id="virtualbox-vdi">掛載 Virtualbox VDI 磁碟映像檔</h1>
-<p>使用 Linux 提供的 nbd (Network Block Device) 功能，加上 QEMU 提供的 qemu-nbd 工具，就可以掛載磁碟映像檔。</p>
-<p>以下所有命令皆以 root 執行。</p>
-<div class="highlight"><pre><span></span><code>pacman -S qemu                    # 安裝 QEMU
-modprobe nbd                      # 載入 Linux nbd 核心模組，載入後會出現 /dev/nbd0, /dev/nbd1, ...
-qemu-nbd -c /dev/nbd0 disk.vdi    # 用 QEMU 提供的工具把 /dev/nbd0 連線到 disk.vdi，連線後 /dev/nbd0 為整顆磁碟，/dev/nbd0p1, /dev/nbd0p2, ... 為分割區
-mount /dev/nbd0p1 /mnt            # 掛載分割區
-</code></pre></div>
-<p>卸載就反向進行。</p>
-<div class="highlight"><pre><span></span><code>umount /dev/nbd0p1
-qemu-nbd -d /dev/nbd0
-rmmod nbd
-</code></pre></div>
-<p>參考資料：<a href="https://askubuntu.com/questions/19430/mount-a-virtualbox-drive-image-vdi/50290#50290">Mount a VirtualBox drive image (vdi)? - Ask Ubuntu</a></p>
-<hr/>
-<p>後來發現在進行大量讀寫時 nbd 常常會卡住，在 journalctl 可以看到 <code>kernel: block nbd0: Possible stuck request 000000007793c887: control (write@167690240,131072B). Runtime 30 seconds</code>，建議只用來讀寫小檔案。</p>
+                <h1 id="pam_environment"><code>~/.pam_environment</code>: 設定讓所有程式都可以使用的環境變數</h1>
+<p>在 <code>~/.bashrc</code> 和 <code>~/.bash_profile</code> 內加入的環境變數<strong>不會</strong>被「用 Desktop Environment 啟動的程式」載入，只有「用 Shell 啟動的程式」會。</p>
+<p>如果要讓所有程式都可以使用的環境變數，應該放在 <code>~/.xprofile</code> 或 <code>~/.pam_environment</code> 裡。</p>
+<p>但根據 <a href="https://www.reddit.com/r/archlinux/comments/d6ca8b/environment_variables/f0scdch?utm_source=share&amp;utm_medium=web2x&amp;context=3">Environment Variables : archlinux</a> 的說法：</p>
+<blockquote>
+<p>Exporting them in <code>~/.bashrc</code> does not make them available to GUI apps, only in terminal emulators/TTY and only if bash is your default shell.</p>
+<p>Exporting from <code>~/.profile</code> only works if you do not boot directly to a Display Manager but to a TTY shell instead. And even so, only if your default shell sources that file at login, which some shells do not (e.g. <code>fish</code>).</p>
+<p>Exporting them in <code>~/.xprofile</code> only applies if you use some Display Managers as it is explained in the <a href="https://wiki.archlinux.org/index.php/Xprofile">wiki</a>. If you use <code>startx</code> or <code>xinit</code>, you should export them in your <code>~/.xinitrc</code> or source your <code>~/.xprofile</code> from there. Some DMs only source <code>~/.xsession</code> instead, so in that case, one should just symlink your <code>~/.xprofile</code> to <code>~/.xsession</code>.</p>
+<p>Exporting them in <code>~/.xinitrc</code> only works if one uses <code>startx</code>. Both <code>~/.xinitrc</code> and <code>~/.xprofile</code> are Xorg specific and won't work under Wayland or other Display Servers. I honestly have no idea what is the cleanest way of doing it under wayland and those are the kinds of things that keep me from it.</p>
+</blockquote>
+<p>所以最好的地方就是 <code>~/.pam_environment</code>。</p>
+<p>注意：<code>~/.pam_environment</code> 的語法和 Shell 的語法不同。</p>
+<p>參考資料：</p>
+<ul>
+<li><a href="https://wiki.archlinux.org/index.php/Environment_variables">Environment variables - ArchWiki</a></li>
+<li><code>man pam_env.conf</code></li>
+</ul>
+<p>重要：根據 <a href="https://github.com/linux-pam/linux-pam/commit/ecd526743a27157c5210b0ce9867c43a2fa27784">https://github.com/linux-pam/linux-pam/commit/ecd526743a27157c5210b0ce9867c43a2fa27784</a> 說明，未來可能 <code>~/.pam_environment</code> 不會被讀取。</p>
                 
               
               
@@ -1748,7 +1750,7 @@ rmmod nbd
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../manjaro/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../mount-virtualbox-vdi-image/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1757,19 +1759,19 @@ rmmod nbd
                 <span class="md-footer-nav__direction">
                   上一頁
                 </span>
-                Manjaro
+                掛載 Virtualbox VDI 磁碟映像檔
               </div>
             </div>
           </a>
         
         
-          <a href="../pam_environment-environment-variables-for-all-program/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../ps-parameters/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   下一頁
                 </span>
-                `~/.pam_environment`: 設定讓所有程式都可以使用的環境變數
+                ps 參數整理
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

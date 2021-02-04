@@ -14,7 +14,7 @@
     
     
       
-        <title>掛載 Virtualbox VDI 磁碟映像檔 - Jisa's Notebook</title>
+        <title>cp 複製包含隱藏檔在內的所有檔案 - Jisa's Notebook</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#virtualbox-vdi" class="md-skip">
+        <a href="#cp" class="md-skip">
           跳轉到
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              掛載 Virtualbox VDI 磁碟映像檔
+              cp 複製包含隱藏檔在內的所有檔案
             
           </span>
         </div>
@@ -611,11 +611,97 @@
           
 
 
+  
 
-  <li class="md-nav__item">
-    <a href="../cp-copy-all-files-including-hidden-files/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        cp 複製包含隱藏檔在內的所有檔案
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       cp 複製包含隱藏檔在內的所有檔案
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    問題
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    解決方案
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    原理
+  </a>
+  
+    <nav class="md-nav" aria-label="原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cp_1" class="md-nav__link">
+    cp 會合併兩個相同名稱的資料夾
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp_2" class="md-nav__link">
+    cp 不會自動約化檔案路經中的 .
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp_3" class="md-nav__link">
+    cp 的三種模式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    參考資料
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -728,20 +814,11 @@
           
 
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../mount-virtualbox-vdi-image/" class="md-nav__link">
       掛載 Virtualbox VDI 磁碟映像檔
     </a>
-    
   </li>
 
         
@@ -1703,6 +1780,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    問題
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    解決方案
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    原理
+  </a>
+  
+    <nav class="md-nav" aria-label="原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cp_1" class="md-nav__link">
+    cp 會合併兩個相同名稱的資料夾
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp_2" class="md-nav__link">
+    cp 不會自動約化檔案路經中的 .
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cp_3" class="md-nav__link">
+    cp 的三種模式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    參考資料
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1714,22 +1854,148 @@
               
                 
                 
-                <h1 id="virtualbox-vdi">掛載 Virtualbox VDI 磁碟映像檔</h1>
-<p>使用 Linux 提供的 nbd (Network Block Device) 功能，加上 QEMU 提供的 qemu-nbd 工具，就可以掛載磁碟映像檔。</p>
-<p>以下所有命令皆以 root 執行。</p>
-<div class="highlight"><pre><span></span><code>pacman -S qemu                    # 安裝 QEMU
-modprobe nbd                      # 載入 Linux nbd 核心模組，載入後會出現 /dev/nbd0, /dev/nbd1, ...
-qemu-nbd -c /dev/nbd0 disk.vdi    # 用 QEMU 提供的工具把 /dev/nbd0 連線到 disk.vdi，連線後 /dev/nbd0 為整顆磁碟，/dev/nbd0p1, /dev/nbd0p2, ... 為分割區
-mount /dev/nbd0p1 /mnt            # 掛載分割區
+                <h1 id="cp">cp 複製包含隱藏檔在內的所有檔案</h1>
+<h2 id="_1">問題</h2>
+<p>建立測試環境</p>
+<div class="highlight"><pre><span></span><code>mkdir old<span class="o">{</span>,/oldD<span class="o">}</span> new<span class="o">{</span>,/newD<span class="o">}</span>
+touch old/<span class="o">{</span>oldN,.oldH<span class="o">}</span> new/<span class="o">{</span>newN,.newH<span class="o">}</span>
 </code></pre></div>
-<p>卸載就反向進行。</p>
-<div class="highlight"><pre><span></span><code>umount /dev/nbd0p1
-qemu-nbd -d /dev/nbd0
-rmmod nbd
+<p>測試環境</p>
+<div class="highlight"><pre><span></span><code>.
+├── new
+│   ├── newD
+│   ├── .newH
+│   └── newN
+└── old
+    ├── oldD
+    ├── .oldH
+    └── oldN
 </code></pre></div>
-<p>參考資料：<a href="https://askubuntu.com/questions/19430/mount-a-virtualbox-drive-image-vdi/50290#50290">Mount a VirtualBox drive image (vdi)? - Ask Ubuntu</a></p>
-<hr/>
-<p>後來發現在進行大量讀寫時 nbd 常常會卡住，在 journalctl 可以看到 <code>kernel: block nbd0: Possible stuck request 000000007793c887: control (write@167690240,131072B). Runtime 30 seconds</code>，建議只用來讀寫小檔案。</p>
+<p>從執行環境執行 <code>cp -r old/* new</code> 後</p>
+<div class="highlight"><pre><span></span><code>.
+├── new
+│   ├── newD
+│   ├── .newH
+│   ├── newN
+│   ├── oldD
+│   └── oldN
+└── old
+    ├── oldD
+    ├── .oldH
+    └── oldN
+</code></pre></div>
+<p>Shell 的 filename expansion 沒辦法把以 <code>.</code> 開頭的隱藏檔給複製過去。</p>
+<p>如果執行 <code>cp -r old/* old/.* new</code> 會出錯，所以不行。</p>
+<h2 id="_2">解決方案</h2>
+<p>從測試環境執行 <code>cp -r old/. new</code> 或 <code>cp -T -r old new</code> 後（兩者結果相同）</p>
+<div class="highlight"><pre><span></span><code>.
+├── new
+│   ├── newD
+│   ├── .newH
+│   ├── newN
+│   ├── oldD
+│   ├── .oldH
+│   └── oldN
+└── old
+    ├── oldD
+    ├── .oldH
+    └── oldN
+</code></pre></div>
+<h2 id="_3">原理</h2>
+<h3 id="cp_1">cp 會合併兩個相同名稱的資料夾</h3>
+<p>建立測試環境</p>
+<div class="highlight"><pre><span></span><code>mkdir old<span class="o">{</span>,/dir<span class="o">}</span> new<span class="o">{</span>,/dir<span class="o">}</span>
+touch old/<span class="o">{</span>file1,dir/file2<span class="o">}</span> new/<span class="o">{</span>file3,dir/file4<span class="o">}</span>
+</code></pre></div>
+<p>測試環境</p>
+<div class="highlight"><pre><span></span><code>.
+├── new
+│   ├── dir
+│   │   └── file4
+│   └── file3
+└── old
+    ├── dir
+    │   └── file2
+    └── file1
+</code></pre></div>
+<p>從執行環境執行 <code>cp -r old/* new</code> 後</p>
+<div class="highlight"><pre><span></span><code>.
+├── new
+│   ├── dir
+│   │   ├── file2
+│   │   └── file4
+│   ├── file1
+│   └── file3
+└── old
+    ├── dir
+    │   └── file2
+    └── file1
+</code></pre></div>
+<p>可以發現，<code>cp -r</code> 對於同名的資料夾，採取的是「合併 (merge)」操作，而不是直接用來源資料夾覆蓋掉目的資料夾。
+（當然，如果來源資料夾和目的資料夾內的一般檔案的名稱重複，就會採取覆蓋操作。）</p>
+<h3 id="cp_2">cp 不會自動約化檔案路經中的 <code>.</code></h3>
+<p>在 Linux 裡，對於一個資料夾 <code>dir</code>，會存在一個 hard link <code>dir/.</code> 指向它自己，他們具有相同的 inode，所以本質上是同一個檔案（資料夾）。
+因此，我們可能預期 <code>cp -r old/. new</code> 和 <code>cp -r old new</code> 應該要具有相同的執行結果，因為 <code>old/.</code> 和 <code>old</code> 視同一個檔案（資料夾）。
+然而，執行 <code>cp -r old new</code> 卻會把 <code>old</code> 複製到 <code>new/old</code> 中。</p>
+<p>之所以會有這樣的區別，是因為 <code>cp</code> 不會自動約化檔案路經 (path) 中的 <code>.</code>。</p>
+<p>因此，對於 <code>cp -r old/. new</code> 來說，<code>cp</code> 會將 <code>old</code> 裡的 <code>.</code> 複製到 <code>new</code> 資料夾裡，但因為 <code>new</code> 資料夾中已經存在同名的資料夾 <code>.</code>，
+所以 <code>old</code> 裡的 <code>.</code> 會合併到 <code>new</code> 裡的 <code>.</code>，結果就是 <code>cp</code> 會把 <code>old/.</code>（也就是 <code>old</code>）裡的檔案複製到 <code>new/.</code>（也就是 <code>new</code> 裡）。</p>
+<p>備註：讀取資料夾內容時 <code>cp</code> 會忽略 <code>.</code> 和 <code>..</code>，所以不會有遞迴的問題（參考 <code>copy.c</code>）。</p>
+<h3 id="cp_3">cp 的三種模式</h3>
+<p>根據 <code>man cp</code>，<code>cp</code> 具有以下三種模式：</p>
+<div class="highlight"><pre><span></span><code>cp [OPTION]... [-T] SOURCE DEST
+cp [OPTION]... SOURCE... DIRECTORY
+cp [OPTION]... -t DIRECTORY SOURCE...
+</code></pre></div>
+<p>在第一種模式中，<code>SOURCE</code> 和 <code>DEST</code> 的組合可以有很多種情況：</p>
+<table>
+<thead>
+<tr>
+<th><code>SOURCE</code></th>
+<th><code>DEST</code></th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>檔案或資料夾</td>
+<td>不存在</td>
+<td>直接複製一個完全相同的檔案或完全相同內容的資料夾，只是檔名變成 <code>DEST</code></td>
+</tr>
+<tr>
+<td>檔案</td>
+<td>存在且為檔案</td>
+<td>用來源檔案覆蓋目的檔案</td>
+</tr>
+<tr>
+<td>資料夾</td>
+<td>存在且為檔案</td>
+<td>錯誤：<code>cp</code> 無法以目錄來覆蓋非目錄</td>
+</tr>
+<tr>
+<td>檔案或資料夾</td>
+<td>存在且為資料夾，不加 <code>-T</code></td>
+<td><code>cp</code> 會在內部轉換為第二種形式，因此 <code>cp -r old new</code> 的結果會是 <code>old</code> 被複製到 <code>new/old</code> 裡</td>
+</tr>
+<tr>
+<td>資料夾</td>
+<td>存在且為資料夾，加 <code>-T</code></td>
+<td>用來源資料夾合併 (merge) 目的資料夾，因此 <code>cp -T -r old new</code> 的結果會是 <code>old</code> 被合併到 <code>new</code> 裡</td>
+</tr>
+<tr>
+<td>檔案</td>
+<td>存在且為資料夾，加 <code>-T</code></td>
+<td>錯誤：<code>cp</code> 無法以非目錄來覆蓋目錄</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">參考資料</h2>
+<ul>
+<li><code>man cp</code></li>
+<li><a href="https://github.com/coreutils/coreutils/blob/master/src/cp.c">coreutils/cp.c at master · coreutils/coreutils</a></li>
+<li><a href="https://github.com/coreutils/coreutils/blob/master/src/copy.h">coreutils/copy.h at master · coreutils/coreutils</a></li>
+<li><a href="https://github.com/coreutils/coreutils/blob/master/src/copy.c">coreutils/copy.c at master · coreutils/coreutils</a></li>
+</ul>
                 
               
               
@@ -1748,7 +2014,7 @@ rmmod nbd
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../manjaro/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../bash-techniques/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1757,19 +2023,19 @@ rmmod nbd
                 <span class="md-footer-nav__direction">
                   上一頁
                 </span>
-                Manjaro
+                Bash 使用技巧(未完成)
               </div>
             </div>
           </a>
         
         
-          <a href="../pam_environment-environment-variables-for-all-program/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../cp-error-omitting-directory/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   下一頁
                 </span>
-                `~/.pam_environment`: 設定讓所有程式都可以使用的環境變數
+                解決 cp: omitting directory 錯誤
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

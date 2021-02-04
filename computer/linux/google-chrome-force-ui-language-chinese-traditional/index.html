@@ -14,7 +14,7 @@
     
     
       
-        <title>強制 Linux 下 Google Chrome 使用繁中作為 UI 語言(未完成) - Jisa's Notebook</title>
+        <title>Google Chrome 強制使用繁中作為 UI 語言(未完成) - Jisa's Notebook</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#linux-google-chrome-ui" class="md-skip">
+        <a href="#google-chrome-ui" class="md-skip">
           跳轉到
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              強制 Linux 下 Google Chrome 使用繁中作為 UI 語言(未完成)
+              Google Chrome 強制使用繁中作為 UI 語言(未完成)
             
           </span>
         </div>
@@ -613,6 +613,19 @@
 
 
   <li class="md-nav__item">
+    <a href="../cp-copy-all-files-including-hidden-files/" class="md-nav__link">
+      cp 複製包含隱藏檔在內的所有檔案
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
     <a href="../cp-error-omitting-directory/" class="md-nav__link">
       解決 cp: omitting directory 錯誤
     </a>
@@ -637,19 +650,6 @@
           
 
 
-
-  <li class="md-nav__item">
-    <a href="../linux-c-library-creation-usage-and-search-paths/" class="md-nav__link">
-      Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
   
 
 
@@ -661,9 +661,22 @@
     
     
     <a href="./" class="md-nav__link md-nav__link--active">
-      強制 Linux 下 Google Chrome 使用繁中作為 UI 語言(未完成)
+      Google Chrome 強制使用繁中作為 UI 語言(未完成)
     </a>
     
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../linux-c-library-creation-usage-and-search-paths/" class="md-nav__link">
+      Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)
+    </a>
   </li>
 
         
@@ -728,6 +741,19 @@
   <li class="md-nav__item">
     <a href="../mount-virtualbox-vdi-image/" class="md-nav__link">
       掛載 Virtualbox VDI 磁碟映像檔
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../pam_environment-environment-variables-for-all-program/" class="md-nav__link">
+      `~/.pam_environment`: 設定讓所有程式都可以使用的環境變數
     </a>
   </li>
 
@@ -1688,7 +1714,7 @@
               
                 
                 
-                <h1 id="linux-google-chrome-ui">強制 Linux 下 Google Chrome 使用繁中作為 UI 語言(未完成)</h1>
+                <h1 id="google-chrome-ui">Google Chrome 強制使用繁中作為 UI 語言(未完成)</h1>
 <p>Linux 下的 Google Chrome 會自動根據 <code>LANG</code> 來調整語言</p>
 <div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="nv">$LANG</span>
 en_US.UTF-8
@@ -1708,9 +1734,10 @@ en_US.UTF-8
 用 <code>sh</code> 或 <code>bash</code> 都可以，因為它是 <code>bash</code> 的符號連結，在要執行的程式前修改環境變數可以讓這個修改只在這次生效。</p>
 <p>然後必須到開始功能表右鍵>「Edit Menus」>「Revert」(選單會恢復初始狀態)，這樣開始功能表才不會去用本地的 <code>.desktop</code> 檔。</p>
 <p>此方法也適用 Chromium。</p>
-<p>如果不使用 <code>sh -c</code> 的方式來開，而直接 <code>LANG=zh_TW.UTF-8 google-hrome-stable</code>，其實也可以換語言，但會因為不明原因無法在 Preferred Applications 裡將它設為預設瀏覽器。</p>
+<p>如果不使用 <code>sh -c</code> 的方式來開，而直接 <code>LANG=zh_TW.UTF-8 google-chrome-stable</code>，其實也可以換語言，但會因為不明原因無法在 Preferred Applications 裡將它設為預設瀏覽器。</p>
 <p>參考網站：<a href="https://askubuntu.com/questions/202670/change-google-chrome-language/484302#484302">Change Google Chrome language? - Ask Ubuntu</a></p>
 <p>TBD: 圖形界面(Gnome, KDE)的開始功能表，啟動程式的方式是用 shell 執行命令，還是 fork-and-exec?</p>
+<p><a href="https://wiki.archlinux.org/index.php/Desktop_entries#Modify_environment_variables">Desktop entries - ArchWiki</a> 說明，改成 <code>Exec=env LANG=zh_TW.UTF-8 google-chrome-stable</code> 可以。</p>
                 
               
               
@@ -1729,7 +1756,7 @@ en_US.UTF-8
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../linux-c-library-creation-usage-and-search-paths/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../dd-make-bootable-usb-disk/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1738,19 +1765,19 @@ en_US.UTF-8
                 <span class="md-footer-nav__direction">
                   上一頁
                 </span>
-                Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)
+                用 dd 製作出可開機 USB
               </div>
             </div>
           </a>
         
         
-          <a href="../linux-no-such-file-or-directory-error-when-executing-executables-with-x-permission/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../linux-c-library-creation-usage-and-search-paths/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   下一頁
                 </span>
-                Linux 執行程式時出現 No such file or directory 錯誤
+                Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

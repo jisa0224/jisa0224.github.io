@@ -613,6 +613,19 @@
 
 
   <li class="md-nav__item">
+    <a href="../cp-copy-all-files-including-hidden-files/" class="md-nav__link">
+      cp 複製包含隱藏檔在內的所有檔案
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
     <a href="../cp-error-omitting-directory/" class="md-nav__link">
       解決 cp: omitting directory 錯誤
     </a>
@@ -639,8 +652,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../linux-c-library-creation-usage-and-search-paths/" class="md-nav__link">
-      Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)
+    <a href="../google-chrome-force-ui-language-chinese-traditional/" class="md-nav__link">
+      Google Chrome 強制使用繁中作為 UI 語言(未完成)
     </a>
   </li>
 
@@ -652,8 +665,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../linux-google-chrome-force-ui-language-chinese-traditional/" class="md-nav__link">
-      強制 Linux 下 Google Chrome 使用繁中作為 UI 語言(未完成)
+    <a href="../linux-c-library-creation-usage-and-search-paths/" class="md-nav__link">
+      Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)
     </a>
   </li>
 
@@ -935,6 +948,19 @@
   <li class="md-nav__item">
     <a href="../mount-virtualbox-vdi-image/" class="md-nav__link">
       掛載 Virtualbox VDI 磁碟映像檔
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+
+  <li class="md-nav__item">
+    <a href="../pam_environment-environment-variables-for-all-program/" class="md-nav__link">
+      `~/.pam_environment`: 設定讓所有程式都可以使用的環境變數
     </a>
   </li>
 
@@ -2233,6 +2259,10 @@ mkpart ext4 25% 100%     # nvme0n1p3  /home
 Enabled=false
 </code></pre></div></li>
 <li>系統安裝完後，systemd 的藍牙服務未開啟，<code>sudo systemctl enable bluetooth</code> 設定開機後自動啟動藍牙服務，<code>sudo systemctl start bluetooth</code> 立即啟動藍牙服務。</li>
+<li>在 <code>~/.pam_environment</code> 加入 <code>QML_DISK_CACHE_PATH=/tmp/QtQmlDiskCache_jisa</code>，重開機後用 tty 刪除 <code>~/.cache</code> 後再登入。<br/>
+    這樣可以避免 Qt 在 <code>~/.cache</code> 裡放一大堆 QML 的快取（即使是不再使用的 QML 程式，它也不會自己刪除快取！），雖然重開機後第一次啟動 QML 程式會比較慢，但是之後因為快取位於 tmpfs 上，反而會比較快。<br/>
+    如果完全不要快取，改成加入 <code>QML_DISABLE_DISK_CACHE=1</code>。<br/>
+    參考資料：<a href="https://doc-snapshots.qt.io/qt5-5.15/qmldiskcache.html">The QML Disk Cache | Qt QML 5.15.3</a></li>
 </ol>
 <h2 id="_4">使用者設定</h2>
 <h3 id="bash-script">Bash 初始化 script</h3>
@@ -2361,7 +2391,7 @@ URL[$e]=trash:/
 <ul>
 <li>chromium
   使用久了之後會儲存大量的快取，"清除瀏覽資料" 裡的 "Cookie 和其他網站資料" 可以清除 <code>~/.config/chromium</code> 裡的快取，"快取圖片和檔案" 可以清除 <code>~/.cache/chromium</code> 裡的快取。</li>
-<li>JDownloader 2<sup>其它</sup><ul>
+<li>JDownloader 2<sup>其它</sup>(dep: jre-openjdk)<ul>
 <li>到官方網站下載 Other 的 MULTIOS JAR without Installer（只有一個 <code>JDownloader.jar</code>，Linux 的 Installer 會多安裝 JRE，這個不會）複製到 <code>~/.local/opt/jd2</code> 資料夾中</li>
 <li>執行 <code>java -jar ~/.local/opt/jd2/JDownloader.jar</code> 啟動 JDownloader 2，第一次執行會下載必須的檔案到 <code>~/.local/opt/jd2</code></li>
 <li><code>~/.local/opt/jd2/themes/standard/org/jdownloader/images/logo/icon.ico</code> 可以用來作為 Desktop Entry 的 icon</li>
@@ -2436,16 +2466,14 @@ SDL_IM_MODULE DEFAULT=fcitx
 <li>baobab<br/>
   mate-disk-usage-analyzer 被包在 <code>mate-utils</code> 裡，<code>mate-utils</code> 又有太多其它東西，所以不採用</li>
 <li>jre-openjdk<br/>
-  修正字型很丑的問題：在 <code>~/.bashrc</code> 加入 <code>export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'</code>。參考資料：<a href="https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts#Overriding_the_automatically_picked_up_settings">Java Runtime Environment fonts - ArchWiki</a></li>
+  修正字型很丑的問題：在 <code>~/.pam_environment</code> 加入 <code>_JAVA_OPTIONS=-Dawt.useSystemAAFontSettings=on</code>。參考資料：<a href="https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts#Overriding_the_automatically_picked_up_settings">Java Runtime Environment fonts - ArchWiki</a>、<a href="https://unix.stackexchange.com/questions/151733/where-can-i-set-global-java-options">environment variables - Where can I set global Java Options? - Unix &amp; Linux Stack Exchange</a></li>
 </ul>
 <h3 id="_15">備註</h3>
 <ul>
-<li><code>~/.cache</code> 底下的快取檔刪除不影響系統和程式運作，它們會自己重新快取。</li>
 <li>在安裝系統的時候，於 Install Wireless Device Packages 預設勾選 dialog, iw, rp-pppoe, wireless_tools, wpa_actiond，但無法安裝。後來使用上沒問題就沒有去把它們裝上。</li>
 <li>觸控板無法同時開啟邊緣滾動和兩指滾動（目前無解）<br/>
     以前觸控版的驅動程式使用 xf86-input-synaptics 可以同時開啟邊緣滾動和兩指滾動，但由於 xf86-input-synaptics 已經停止開發，所以 Manjaro 預裝 libinput，<a href="https://wayland.freedesktop.org/libinput/doc/latest/scrolling.html">libinput 的官方說明文件</a>明確指出雖然兩者都有支援，但<strong>一次只能開啟一個</strong>。儘管有人表示<a href="https://forum.manjaro.org/t/enable-both-two-finger-scroll-and-edge-scroll-in-manejaro-kde/88144/8">同時安裝 lininput、xf86-input-libinput 和 xf86-input-synaptics 就可以同時開啟兩種滾動</a>，但由於無法測試而不採用。</li>
-<li>於 2020/11/09 執行 <code>sudo mhwd-kernel -i linux59</code> 升級 kernel 和 virtualbox-host-modules 到 5.9.x 版 kernel</li>
-<li>於 2021/1/1 執行 <code>sudo mhwd-kernel -i linux510</code> 升級 kernel 和 virtualbox-host-modules 到 5.10.x 版 kernel</li>
+<li><code>~/.cache</code> 底下的快取檔刪除不影響系統和程式運作，它們會自己重新快取。</li>
 </ul>
                 
               
