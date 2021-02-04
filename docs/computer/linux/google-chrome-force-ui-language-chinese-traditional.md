@@ -1,4 +1,4 @@
-# 強制 Linux 下 Google Chrome 使用繁中作為 UI 語言(未完成)
+# Google Chrome 強制使用繁中作為 UI 語言(未完成)
 
 Linux 下的 Google Chrome 會自動根據 `LANG` 來調整語言
 
@@ -28,8 +28,10 @@ Exec=sh -c "LANG=zh_TW.UTF-8 /usr/bin/google-chrome-stable --incognito"
 
 此方法也適用 Chromium。
 
-如果不使用 `sh -c` 的方式來開，而直接 `LANG=zh_TW.UTF-8 google-hrome-stable`，其實也可以換語言，但會因為不明原因無法在 Preferred Applications 裡將它設為預設瀏覽器。
+如果不使用 `sh -c` 的方式來開，而直接 `LANG=zh_TW.UTF-8 google-chrome-stable`，其實也可以換語言，但會因為不明原因無法在 Preferred Applications 裡將它設為預設瀏覽器。
 
 參考網站：[Change Google Chrome language? - Ask Ubuntu](https://askubuntu.com/questions/202670/change-google-chrome-language/484302#484302)
 
 TBD: 圖形界面(Gnome, KDE)的開始功能表，啟動程式的方式是用 shell 執行命令，還是 fork-and-exec?
+
+[Desktop entries - ArchWiki](https://wiki.archlinux.org/index.php/Desktop_entries#Modify_environment_variables) 說明，改成 `Exec=env LANG=zh_TW.UTF-8 google-chrome-stable` 可以。
