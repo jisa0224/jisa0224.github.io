@@ -1,6 +1,7 @@
 site_name: Jisa's Notebook
 
 #nav:
+# 使用 awesome-pages 所以沒有 nav。在 docs 中的每個資料夾裡有 `.pages`，設定它們以控制導覽列的顯示方式。
 
 theme:
   name: material
@@ -34,3 +35,4 @@ markdown_extensions:
 
 plugins:
   - search
+  - awesome-pages

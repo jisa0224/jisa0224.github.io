@@ -1,4 +1,4 @@
-# Manjaro 系統備份：使用 Timeshift
+# Manjaro (三) 系統備份：使用 Timeshift
 
 以下進行測試以證實 Timeshift 的還原不會影響到 /home 中的檔案
 

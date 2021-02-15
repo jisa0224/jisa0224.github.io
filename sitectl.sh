@@ -24,7 +24,8 @@ case "$1" in
     pip3 install --upgrade pip
     pip3 install --upgrade setuptools
     pip3 install --upgrade mkdocs
-    pip3 install --upgrade mkdocs-material    # theme:  https://squidfunk.github.io/mkdocs-material/
+    pip3 install --upgrade mkdocs-material    # theme: https://squidfunk.github.io/mkdocs-material/
+    pip3 install --upgrade mkdocs-awesome-pages-plugin    # plugin: https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin
     # Install custom Python-Markdown extensions and their dependencies
     pip3 install --upgrade bs4    # custom_extensions.arithmatex_generic 的 dependency
     PYTHON_VENV_SITEPACKAGES_DIR=$(python3 -c 'import sysconfig; print(sysconfig.get_paths()["purelib"])')

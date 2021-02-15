@@ -62,7 +62,9 @@ git branch master `git rev-list --max-parents=0 HEAD | tail -n 1`    # 從 root 
    4. 可以使用 Mermaid 官方提供的 [Mermaid Live Editor](https://mermaidjs.github.io/mermaid-live-editor/) 編輯完圖像後再貼到文章裡。
    5. Mermaind 和 [Graphviz](https://www.graphviz.org/) 的語法不同。
    6. [mkdocs-mermaid2-plugin](https://github.com/fralau/mkdocs-mermaid2-plugin) 無法使用，因為它會在 SuperFences 之後才執行，此時該區塊已經被轉換成程式碼區塊了。
-7. 在 Markdown 清單中如果要使用多個段落（中間空一行），第二段及之後的段落必須要空 4 格，空行則無所謂。
+8. 在 Markdown 清單中如果要使用多個段落（中間空一行），第二段及之後的段落必須要空 4 格，空行則無所謂。
+9. [MkDocs Awesome Pages Plugin](https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin)：  
+   可以精細調整每個資料夾的顯示名稱，和文章的排列方式，在 `docs` 的每一個資料夾和子資料夾中有設定檔 `.pages`。
 
 ## TBD
 
