@@ -19,8 +19,13 @@
 
 ## 網路類
 
+* chromium
+    * Chromium 自 88 版開始，停止 Google 帳戶同步功能，所以只好改用 Google Chrome。
+    * 使用久了之後會儲存大量的快取，"清除瀏覽資料" 裡的 "Cookie 和其他網站資料" 可以清除 `~/.config/chromium` 裡的快取，"快取圖片和檔案" 可以清除 `~/.cache/chromium` 裡的快取。
+
 * pepper-flash
-  Flash Player reaches end-of-life on December 31, 2020. After this date, it will be removed from the Arch repos since it is no longer supported.
+  * Flash Player reaches end-of-life on December 31, 2020. After this date, it will be removed from the Arch repos since it is no longer supported.
+  * Chromium 自 88 版開始，停止支援 Flash（裝了也沒用）。
 
 ## 教育類
 
@@ -108,6 +113,8 @@
     * 安裝方式：解壓縮 `pycharm-professional-2020.1.1.tar.gz` 到 `~/.local/pycharm-2020.1.1`，然後執行 `~/.local/pycharm-2020.1.1/bin/pycharm.sh`
     * 新增檔案：~/.config/JetBrains/PyCharm2020.1, ~/.local/share/JetBrains/PyCharm2020.1, ~/.local/share/applications/jetbrains-pycharm.desktop, ~/.gnome/apps/jetbrains-pycharm.desktop
     * "歡迎畫面 > Configure > Create Desktop Entry" 可以建立 `.desktop` 檔
+
+* bochs qemu qemu-arch-extra riscv64-elf-binutils riscv64-elf-newlib riscv64-elf-gcc riscv64-elf-gdb
 
 ## 系統類
 
