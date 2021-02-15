@@ -14,7 +14,7 @@
     
     
       
-        <title>Manjaro 系統備份：使用 Timeshift - Jisa's Notebook</title>
+        <title>Manjaro (一) 安裝、設定與軟體包 - Jisa's Notebook</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#manjaro-timeshift" class="md-skip">
+        <a href="#manjaro" class="md-skip">
           跳轉到
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              Manjaro 系統備份：使用 Timeshift
+              Manjaro (一) 安裝、設定與軟體包
             
           </span>
         </div>
@@ -177,7 +177,7 @@
   
     <li class="md-nav__item">
       <a href="../../.." class="md-nav__link">
-        Welcome to MkDocs
+        首頁
       </a>
     </li>
   
@@ -197,13 +197,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" >
       
       <label class="md-nav__link" for="nav-2">
-        Biology
+        生物
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Biology" data-md-level="1">
+      <nav class="md-nav" aria-label="生物" data-md-level="1">
         <label class="md-nav__title" for="nav-2">
           <span class="md-nav__icon md-icon"></span>
-          Biology
+          生物
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -290,13 +290,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
       
       <label class="md-nav__link" for="nav-3">
-        Computer
+        電腦
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Computer" data-md-level="1">
+      <nav class="md-nav" aria-label="電腦" data-md-level="1">
         <label class="md-nav__title" for="nav-3">
           <span class="md-nav__icon md-icon"></span>
-          Computer
+          電腦
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -312,13 +312,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1" >
       
       <label class="md-nav__link" for="nav-3-1">
-        Computational mathematics
+        計算數學
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Computational mathematics" data-md-level="2">
+      <nav class="md-nav" aria-label="計算數學" data-md-level="2">
         <label class="md-nav__title" for="nav-3-1">
           <span class="md-nav__icon md-icon"></span>
-          Computational mathematics
+          計算數學
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -352,13 +352,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2" >
       
       <label class="md-nav__link" for="nav-3-2">
-        Computer science
+        電腦科學
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Computer science" data-md-level="2">
+      <nav class="md-nav" aria-label="電腦科學" data-md-level="2">
         <label class="md-nav__title" for="nav-3-2">
           <span class="md-nav__icon md-icon"></span>
-          Computer science
+          電腦科學
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -672,18 +672,6 @@
             
   
   
-  
-    <li class="md-nav__item">
-      <a href="../manjaro-package-history/" class="md-nav__link">
-        Manjaro 以前安裝過的軟體包及相關設定
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
     
   
   
@@ -694,9 +682,155 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Manjaro (一) 安裝、設定與軟體包
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
-        Manjaro 系統備份：使用 Timeshift
+        Manjaro (一) 安裝、設定與軟體包
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#manjaro-architect" class="md-nav__link">
+    安裝 Manjaro Architect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    設定
+  </a>
+  
+    <nav class="md-nav" aria-label="設定">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    系統設定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kde" class="md-nav__link">
+    桌面環境 (KDE) 設定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    字型設定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    環境變數設定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    Shell 相關設定
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    軟體包
+  </a>
+  
+    <nav class="md-nav" aria-label="軟體包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    工具類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    文書處理類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    多媒體類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    網路類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    教育類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    開發類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    系統類
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    其它
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -707,8 +841,44 @@
   
   
     <li class="md-nav__item">
-      <a href="../manjaro/" class="md-nav__link">
-        Manjaro
+      <a href="../manjaro-02-as-virtualbox-guest/" class="md-nav__link">
+        Manjaro (二) 作為 VirtualBox guest
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manjaro-03-system-backup-using-timeshift/" class="md-nav__link">
+        Manjaro (三) 系統備份：使用 Timeshift
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manjaro-04-historically-installed-packages-and-their-settings/" class="md-nav__link">
+        Manjaro (四) 以前安裝過的軟體包及相關設定
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manjaro-05-new-computer-notice/" class="md-nav__link">
+        Manjaro (五) 新電腦注意事項
       </a>
     </li>
   
@@ -791,13 +961,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4" >
       
       <label class="md-nav__link" for="nav-3-4">
-        Machine learning
+        機器學習
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Machine learning" data-md-level="2">
+      <nav class="md-nav" aria-label="機器學習" data-md-level="2">
         <label class="md-nav__title" for="nav-3-4">
           <span class="md-nav__icon md-icon"></span>
-          Machine learning
+          機器學習
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -831,13 +1001,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5" >
       
       <label class="md-nav__link" for="nav-3-5">
-        Other
+        其它
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Other" data-md-level="2">
+      <nav class="md-nav" aria-label="其它" data-md-level="2">
         <label class="md-nav__title" for="nav-3-5">
           <span class="md-nav__icon md-icon"></span>
-          Other
+          其它
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1003,13 +1173,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6" >
       
       <label class="md-nav__link" for="nav-3-6">
-        Programming
+        程式設計
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Programming" data-md-level="2">
+      <nav class="md-nav" aria-label="程式設計" data-md-level="2">
         <label class="md-nav__title" for="nav-3-6">
           <span class="md-nav__icon md-icon"></span>
-          Programming
+          程式設計
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1037,13 +1207,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-2" type="checkbox" id="nav-3-6-2" >
       
       <label class="md-nav__link" for="nav-3-6-2">
-        C cpp
+        C/C++
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="C cpp" data-md-level="3">
+      <nav class="md-nav" aria-label="C/C++" data-md-level="3">
         <label class="md-nav__title" for="nav-3-6-2">
           <span class="md-nav__icon md-icon"></span>
-          C cpp
+          C/C++
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1137,13 +1307,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-3" type="checkbox" id="nav-3-6-3" >
       
       <label class="md-nav__link" for="nav-3-6-3">
-        Data structure and algorithms
+        資料結構與演算法
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Data structure and algorithms" data-md-level="3">
+      <nav class="md-nav" aria-label="資料結構與演算法" data-md-level="3">
         <label class="md-nav__title" for="nav-3-6-3">
           <span class="md-nav__icon md-icon"></span>
-          Data structure and algorithms
+          資料結構與演算法
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1237,13 +1407,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-6-4" type="checkbox" id="nav-3-6-4" >
       
       <label class="md-nav__link" for="nav-3-6-4">
-        Leetcode
+        LeetCode
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Leetcode" data-md-level="3">
+      <nav class="md-nav" aria-label="LeetCode" data-md-level="3">
         <label class="md-nav__title" for="nav-3-6-4">
           <span class="md-nav__icon md-icon"></span>
-          Leetcode
+          LeetCode
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1388,13 +1558,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" >
       
       <label class="md-nav__link" for="nav-4">
-        Learning
+        學習
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Learning" data-md-level="1">
+      <nav class="md-nav" aria-label="學習" data-md-level="1">
         <label class="md-nav__title" for="nav-4">
           <span class="md-nav__icon md-icon"></span>
-          Learning
+          學習
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1455,13 +1625,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" >
       
       <label class="md-nav__link" for="nav-5">
-        Math
+        數學
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Math" data-md-level="1">
+      <nav class="md-nav" aria-label="數學" data-md-level="1">
         <label class="md-nav__title" for="nav-5">
           <span class="md-nav__icon md-icon"></span>
-          Math
+          數學
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1534,13 +1704,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6" >
       
       <label class="md-nav__link" for="nav-6">
-        Other
+        其它
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Other" data-md-level="1">
+      <nav class="md-nav" aria-label="其它" data-md-level="1">
         <label class="md-nav__title" for="nav-6">
           <span class="md-nav__icon md-icon"></span>
-          Other
+          其它
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1589,13 +1759,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7" >
       
       <label class="md-nav__link" for="nav-7">
-        Physics
+        物理
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Physics" data-md-level="1">
+      <nav class="md-nav" aria-label="物理" data-md-level="1">
         <label class="md-nav__title" for="nav-7">
           <span class="md-nav__icon md-icon"></span>
-          Physics
+          物理
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1632,13 +1802,13 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8" >
       
       <label class="md-nav__link" for="nav-8">
-        Website debug
+        網站除錯
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="Website debug" data-md-level="1">
+      <nav class="md-nav" aria-label="網站除錯" data-md-level="1">
         <label class="md-nav__title" for="nav-8">
           <span class="md-nav__icon md-icon"></span>
-          Website debug
+          網站除錯
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1649,6 +1819,18 @@
   
     <li class="md-nav__item">
       <a href="../../../website-debug/" class="md-nav__link">
+        Welcome to MkDocs
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../website-debug/debug/" class="md-nav__link">
         網頁 Debug
       </a>
     </li>
@@ -1679,6 +1861,138 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#manjaro-architect" class="md-nav__link">
+    安裝 Manjaro Architect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    設定
+  </a>
+  
+    <nav class="md-nav" aria-label="設定">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    系統設定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kde" class="md-nav__link">
+    桌面環境 (KDE) 設定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    字型設定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    環境變數設定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell" class="md-nav__link">
+    Shell 相關設定
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    軟體包
+  </a>
+  
+    <nav class="md-nav" aria-label="軟體包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    工具類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    文書處理類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    多媒體類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    網路類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    教育類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    開發類
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    系統類
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    其它
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1690,40 +2004,403 @@
               
                 
                 
-                <h1 id="manjaro-timeshift">Manjaro 系統備份：使用 Timeshift</h1>
-<p>以下進行測試以證實 Timeshift 的還原不會影響到 /home 中的檔案</p>
+                <h1 id="manjaro">Manjaro (一) 安裝、設定與軟體包</h1>
+<h2 id="manjaro-architect">安裝 Manjaro Architect</h2>
+<p>安裝目標：安裝 KDE Plasma 5 桌面環境，但不要預裝一大堆用不到的軟體包。</p>
+<p>使用光碟：manjaro-architect-20.0.3-200607-linux56.iso</p>
+<p>以下沒有特別提到的設定選項，就按照預設或依實際情況填寫(如使用者名稱等)。</p>
+<p>如果是要安裝到 VirtualBox 作為 guest，參考<a href="../manjaro-02-as-virtualbox-guest/">這篇</a>。</p>
+<p>進入 Manjaro Architect Installer 後，依下列順序執行：</p>
 <ol>
-<li>設定 Timeshift：
-    <div class="highlight"><pre><span></span><code>類型 RSYNC
-位置 sda2(/home)  
-過濾器 新增 /home (注意是「排除」（- 號）！！）
-</code></pre></div></li>
-<li>進行備份，備份後重開機</li>
-<li>對系統進行變更<ol>
-<li>在 /home/jisa 的不同位置新增有內容的文字檔</li>
-<li><code>sudo pacman -R firefox</code></li>
+<li>Prepare Installation<ol>
+<li>Set Virtual Console</li>
+<li>List Devices (optional): 注意不要裝到隨身碟去（新電腦的兩顆 SSD 是 nvme0n1 和 nvme1n1）</li>
+<li>Partition Disk: 使用 <code>parted</code> 建立分割區(gparted 只分割，不格式化)，如果已經分割過了就不用
+    <div class="highlight"><pre><span></span><code># nvme0n1
+mktable gpt
+mkpart fat32 0% 512MB    # nvme0n1p1  /boot/efi
+set 1 esp on
+mkpart ext4 512MB 25%    # nvme0n1p2  /
+mkpart ext4 25% 100%     # nvme0n1p3  /home
+</code></pre></div>
+    (parted 用 <code>數字%</code> 可以自動對齊，SSD 要對齊效能才會好。)</li>
+<li>Mount Partitions: 這裡會格式化和掛載分割區，注意不要格式化的分割區要選 "Do not format"
+    會先 mount / 和 /home，之後 會有 "Select UEFI Partition" 才 mount nvme0n1p1 到 /boot/efi
+    mount 選項除了預設的，還要開 <code>discard</code></li>
+<li>Configure Installer Mirrorlist</li>
+<li>Refresh Pacman Keys</li>
+<li>Back</li>
 </ol>
 </li>
-<li>重開機</li>
-<li>進行還原（「選擇目標裝置」和「Bootloader 選項」都使用預設選項，以下為預設選項）<br/>
-    選擇目標裝置：
-    <div class="highlight"><pre><span></span><code>/     sda1
-/boot 儲存於根裝置
-/home 儲存於根裝置
-</code></pre></div>
-    Bootloader 選項：
-    <div class="highlight"><pre><span></span><code>V （重新）安裝 GRUB2 於 sda (不是 sda1!!)
-X 更新 initramfs
-V 更新 GRUB 選單
-</code></pre></div>
-    按下一步後會先有 Dry Run 比較檔案，然後列出會變更的檔案列表，按下一步之後才會開始還原，還原後會自動重開機</li>
-<li>重開機後確認 /home/jisa 中的檔案都還在，且 firefox 有在</li>
+<li>Install Custom System: 選這個才會安裝圖形相關的軟體包，Install CLI System 不會有<ol>
+<li>Install Base Packages<ul>
+<li>Install Base: 選 <code>linux-latest</code> 和 <code>linux-lts</code><br/>
+    (<code>linux-latest</code> 是最新版的核心，在當前版本 EOL 後會自動更新到最新版本；<code>linux-lts</code> 是最新版的 LTS 核心，作為救援備用)</li>
+<li>Choose additional modules for your kernels: 按照預設即可，如果需要之後再補裝即可，網路卡模組會在之後的步驟中安裝</li>
+<li>Install Hardware Dirver: Display 和 Network 都選 "Auto-install free drivers"</li>
+</ul>
+</li>
+<li>Install Unconfigured Desktop Environments<ol>
+<li>Install Display Server</li>
+<li>Install Desktop environment: 只安裝 <code>plasma</code><br/>
+    Install Common Packages: 按照預設選項(預設是全選)。如果預設全部都是空的，就只安裝 <code>bash-completion ttf-dejavu xdg-user-dirs xdg-utils</code><br/>
+    (註：如果在這裡沒有裝 <code>xdg-user-dirs</code>，之後必須手動執行 <code>LC_ALL=C xdg-user-dirs-update --force</code> 建立 XDG 資料夾)</li>
+<li>Install Display Manager: 選 <code>sddm</code></li>
+<li>Install Networking Capabilities<ol>
+<li>Display Wireless Device (optional)</li>
+<li>Install Wireless Device Packages</li>
+<li>Install Network Connection Manager: 選 <code>NetworkManager</code></li>
+<li>Install CUPS / Printer Packages</li>
+<li>Back</li>
 </ol>
-<p>如果無法進入 X 時的測試：</p>
-<p>以下步驟替換第 5 步</p>
-<p><code>sudo timeshift --list</code> 可列出 snapshot<br/>
-<code>sudo timeshift --restore</code> 會跳出所有 snapshot 的列表，選擇 snapshot 後列出還原選項（只有「Bootloader 選項」，沒有「選擇目標裝置」！！），之後就直接還原（沒有 Dry Run！！），還原後自動重開機</p>
-<p>與使用 Timeshift GUI 結果相同，重開機後確認 /home/jisa 中的檔案都還在，且 firefox 有在</p>
+</li>
+<li>Install Multimedia Support<ol>
+<li>Install Sound Driver(s)</li>
+<li>Install Codecs</li>
+<li>Install Accessibility Packages</li>
+<li>Back</li>
+</ol>
+</li>
+<li>Back</li>
+</ol>
+</li>
+<li>Install Bootloader: 選 <code>grub</code></li>
+<li>Configure Base<ol>
+<li>Generate FSTAB</li>
+<li>Set Hostname</li>
+<li>Set System Locale: 都選 <code>en_US.UTF-8</code>，安裝好後再調成中文，不然家目錄底下的資料夾會是中文的。<br/>
+   （註：但也可以直接用中文安裝，之後再 <code>LC_ALL=C xdg-user-dirs-update --force</code> 轉換成英文。）</li>
+<li>Set Desktop Keyboard Layout: 選 <code>us</code></li>
+<li>Set Timezone and Clock</li>
+<li>Set Root Password</li>
+<li>Add New User(s)</li>
+</ol>
+</li>
+<li>Install Custom Packages: 留空即可，可以之後再裝</li>
+<li>Back</li>
+</ol>
+</li>
+<li>Done</li>
+</ol>
+<p>參考資料：<br/>
+<a href="https://forum.manjaro.org/t/installation-with-manjaro-architect-iso/20429">Installation with Manjaro-Architect ISO - Technical Issues and Assistance / Tutorials - Manjaro Linux Forum</a><br/>
+<a href="https://wiki.manjaro.org/index.php/Install_Desktop_Environments">Install Desktop Environments - Manjaro Linux</a></p>
+<h2 id="_1">設定</h2>
+<p>以下設定接續在「安裝 Manjaro Architect」後執行</p>
+<h3 id="_2">系統設定</h3>
+<ul>
+<li>
+<p>顯示 GRUB 開機選單及輸出開機資訊<br/>
+  編輯 <code>/etc/default/grub</code><br/>
+  (1) 修改 <code>GRUB_TIMEOUT</code><br/>
+  (2) 刪除 <code>GRUB_TIMEOUT_STYLE</code><br/>
+  (3) <code>GRUB_CMDLINE_LINUX_DEFAULT</code> 刪除 <code>quiet</code><br/>
+  儲存後執行 <code>sudo update-grub</code>。</p>
+</li>
+<li>
+<p>修正<a href="../manjaro-05-new-computer-notice/">新電腦的 NVMe SSD 問題</a><br/>
+  編輯 <code>/etc/default/grub</code>，在 <code>GRUB_CMDLINE_LINUX_DEFAULT</code> 加上 <code>nvme_core.default_ps_max_latency_us=0</code>，儲存後執行 <code>update-grub</code>。</p>
+</li>
+<li>
+<p>調整 sudo timeout，讓 sudo 不用隔一段時間重新輸入密碼。<br/>
+  執行 <code>sudo EDITOR=vi visudo -f /etc/sudoers.d/$USER</code>，加入 <code>Defaults timestamp_timeout=-1</code> 後儲存離開。</p>
+</li>
+<li>
+<p>系統安裝完後，systemd 的藍牙服務未開啟，<code>sudo systemctl enable bluetooth</code> 設定開機後自動啟動藍牙服務，<code>sudo systemctl start bluetooth</code> 立即啟動藍牙服務。</p>
+</li>
+<li>
+<p>解決關機時出現 <code>A stop job is running for ... (... / 1min 30s)</code>，需要等待很長時間的問題<br/>
+  於 <code>/etc/systemd/system.conf</code> 中修改或加入 <code>DefaultTimeoutStopSec=10s</code>，儲存後重開機。<br/>
+  參考資料：<a href="https://unix.stackexchange.com/questions/273876/a-stop-job-is-running-for-session-c2-of-user">systemd - A stop job is running for Session c2 of user - Unix &amp; Linux Stack Exchange</a></p>
+</li>
+<li>
+<p>更新 pacman 使用的鏡像伺服器<br/>
+  執行 <code>sudo pacman-mirrors --country Taiwan,Japan,United_States,United_Kingdom,France,Germany &amp;&amp; sudo pacman -Syyu</code></p>
+</li>
+<li>
+<p>由於許多程式都會在 <code>~/.cache</code> 快取，卻不會自動清理不再使用的快取，因此把它掛載為 tmpfs，每次關機自動清理。<br/>
+  雖然重開機後第一次執行程式會比較慢(其實感覺不太出來)，但是之後因為快取位於 tmpfs 上，反而會比較快。<br/>
+  在不登入的情況下清空 <code>~/.cache</code>，然後在 <code>/etc/fstab</code> 中加入 <code>tmpfs /home/jisa/.cache tmpfs rw,nosuid,nodev,relatime,size=50%,mode=755,uid=1000,gid=1000 0 0</code>，儲存後重開機。</p>
+</li>
+</ul>
+<h3 id="kde">桌面環境 (KDE) 設定</h3>
+<ul>
+<li>
+<p>語言設定為 "繁體中文（台灣）"<br/>
+  安裝 <code>noto-fonts-cjk</code><br/>
+  到 System Settings &gt; Regional Settings &gt; Language 加入"繁體中文"，並移到最上面<br/>
+  到 System Settings &gt; Regional Settings &gt; Formats 改為"台灣 - 繁體中文"<br/>
+  到 System Settings &gt; Locale 加入 "zh_TW.UTF-8"，然後按右鍵選 "Set as default display language and format"（註：這裡設定的內容即為 <code>locale</code> 指令顯示的內容）<br/>
+  然後重開機</p>
+</li>
+<li>
+<p>Manjaro 對 KDE 的客製化(設定工具與主題)<br/>
+  安裝 <code>manjaro-kde-settings sddm-breath2-theme manjaro-settings-manager-knotifier manjaro-settings-manager-kcm</code><br/>
+  然後到 System Settings &gt; Global Theme 選擇 "Breath2"<br/>
+  另外到 System Settings &gt; Startup &amp; Shutdown &gt; Login Screen (SDDM) 選擇 "Breath2"</p>
+</li>
+<li>
+<p>到 System Settings &gt; Search 關閉搜尋功能（因為它佔用太多 CPU 和 RAM，此功能由 baloo 提供）</p>
+</li>
+<li>
+<p>關閉 KDE Wallet subsystem 以避免它一直跳出視窗要求輸入密碼
+  在 <code>~/.config/kwalletrc</code> 中加入以下內容
+  <div class="highlight"><pre><span></span><code>[Wallet]
+Enabled=false
+</code></pre></div></p>
+</li>
+<li>
+<p>由於 KDE Plasma 的桌面沒有捷徑功能，必須依靠 <code>.desktop</code> 的方式實現。<br/>
+  在 <code>~/Desktop</code> 新增以下三個檔案
+  <div class="highlight"><pre><span></span><code># root.desktop
+[Desktop Entry]
+Icon=drive-harddisk-root
+Name=根目錄
+Type=Link
+URL[$e]=file:/
+
+# home.desktop
+[Desktop Entry]
+Icon=user-home
+Name=家目錄
+Type=Link
+URL[$e]=file:$HOME
+
+# trash.desktop
+[Desktop Entry]
+EmptyIcon=user-trash
+Icon=user-trash-full
+Name=垃圾桶
+Type=Link
+URL[$e]=trash:/
+</code></pre></div></p>
+</li>
+</ul>
+<h3 id="_3">字型設定</h3>
+<p>把字型檔放到 <code>~/.local/share/fonts</code>，fontconfig 設定檔放到 <code>~/.config/fontconfig/fonts.conf</code>。</p>
+<p>這個 fontconfig 設定檔非常重要，如果沒有它，放進去的字型檔會把預設的配置搞的亂七八糟。</p>
+<h3 id="_4">環境變數設定</h3>
+<p><code>/etc/environment</code>: The environment variables config file，參考 <code>man pam_env.conf</code></p>
+<div class="highlight"><pre><span></span><code>EDITOR=nvim
+</code></pre></div>
+<p>雖然最好不要修改系統檔案，但因為 (1) root 不會讀取 <code>/root/.pam_environment</code> (2) <code>~/.pam_environment</code> 未來會被廢棄 (3) pam_env 是設定環境變數唯一 shell/GUI-agnostic 的方式，所以只能這麼做。</p>
+<p><strong>重要</strong>：把 manjaro-kde-settings 新增的 <code>/etc/xdg/plasma-workspace/env/envars.sh</code> 中同名的環境變數註解掉，不然它會在 KDE Plasma 桌面環境中覆蓋掉 <code>/etc/environment</code> 的環境變數。</p>
+<p>為了避免每次更新 manjaro-kde-settings 後都要手動修改此檔案，可以利用 libalpm 的 hook。新增 <code>/usr/share/libalpm/hooks/manjaro-kde-settings-disable-envars.hook</code> 並輸入以下內容：</p>
+<div class="highlight"><pre><span></span><code>[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Path
+Target = etc/xdg/plasma-workspace/env/envars.sh
+
+[Action]
+Description = Disable environment variables exported by manjaro-kde-settings
+When = PostTransaction
+Exec = /usr/bin/sed -i -r -e 's/^(export)\ (EDITOR|BROWSER)/# \1 \2/' /etc/xdg/plasma-workspace/env/envars.sh
+Depends = sed
+</code></pre></div>
+<h3 id="shell">Shell 相關設定</h3>
+<ul>
+<li>
+<p><code>~/.bash_profile</code>: The personal initialization file, executed for login shells
+  <div class="highlight"><pre><span></span><code><span class="o">[[</span> -f ~/.bashrc <span class="o">]]</span> <span class="o">&amp;&amp;</span> . ~/.bashrc
+</code></pre></div>
+  註：<code>~/.profile</code> 不會被讀取，原因不明。</p>
+</li>
+<li>
+<p><code>~/.bashrc</code>: The individual per-interactive-shell startup file
+  <div class="highlight"><pre><span></span><code><span class="c1"># 命令列提示 PS1</span>
+<span class="c1"># root</span>
+<span class="nv">PS1</span><span class="o">=</span><span class="s1">'\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '</span>
+<span class="c1"># non-root</span>
+<span class="nv">PS1</span><span class="o">=</span><span class="s1">'\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '</span>
+
+<span class="c1"># 指令別名</span>
+<span class="nb">alias</span> <span class="nv">ls</span><span class="o">=</span><span class="s1">'ls --color=auto'</span>
+<span class="nb">alias</span> <span class="nv">ll</span><span class="o">=</span><span class="s1">'ls --color=auto -lh'</span>
+<span class="nb">alias</span> <span class="nv">lld</span><span class="o">=</span><span class="s1">'ls --color=auto -ldh'</span>
+<span class="nb">alias</span> <span class="nv">la</span><span class="o">=</span><span class="s1">'ls --color=auto -a'</span>
+<span class="nb">alias</span> <span class="nv">lla</span><span class="o">=</span><span class="s1">'ls --color=auto -alh'</span>
+<span class="nb">alias</span> <span class="nv">grep</span><span class="o">=</span><span class="s1">'grep --colour=auto'</span>
+<span class="nb">alias</span> <span class="nv">egrep</span><span class="o">=</span><span class="s1">'egrep --color=auto'</span>
+<span class="nb">alias</span> <span class="nv">fgrep</span><span class="o">=</span><span class="s1">'fgrep --color=auto'</span>
+<span class="nb">alias</span> <span class="nv">cp</span><span class="o">=</span><span class="s2">"cp -i"</span>                          <span class="c1"># confirm before overwriting something</span>
+<span class="nb">alias</span> <span class="nv">df</span><span class="o">=</span><span class="s1">'df -hT -x tmpfs -x devtmpfs'</span>    <span class="c1"># human-readable sizes and ignore tmpfs</span>
+<span class="nb">alias</span> <span class="nv">du</span><span class="o">=</span><span class="s1">'du -h'</span>                          <span class="c1"># human-readable sizes</span>
+<span class="nb">alias</span> <span class="nv">free</span><span class="o">=</span><span class="s1">'free -h'</span>                      <span class="c1"># human-readable sizes</span>
+<span class="nb">alias</span> <span class="nv">more</span><span class="o">=</span>less
+<span class="nb">alias</span> <span class="nv">nv</span><span class="o">=</span><span class="s1">'nvim'</span>
+
+<span class="c1"># Linux console (virtual terminal, VT) doesn't support CJK</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="nv">$TERM</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"linux"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">export</span> <span class="nv">LANG</span><span class="o">=</span><span class="s2">"en_US.UTF-8"</span>
+    <span class="nb">export</span> <span class="nv">LC_ALL</span><span class="o">=</span><span class="s2">"en_US.UTF-8"</span>
+<span class="k">fi</span>
+</code></pre></div></p>
+</li>
+<li>
+<p>由於 root 沒有這兩個檔，所以 <code>sudo -i</code> 出來的結果是黑白的，執行 <code>sudo ln -s ~jisa/{.bash_profile,.bashrc} /root</code>。</p>
+</li>
+<li>
+<p><code>~/.dircolors</code>，設定 "orphaned syminks and the files they point to" 不要閃爍<br/>
+  如果沒有 <code>~/.dir_colors</code> 的話 <code>cp /etc/skel/.dir_colors ~</code>。<br/>
+  把 <code>ORPHAN 01;05;37;41</code> 改成 <code>ORPHAN 01;37;41</code>。<br/>
+  把 <code>MISSING 01;05;37;41</code> 改成 <code>MISSING 01;37;41</code>。</p>
+</li>
+</ul>
+<h2 id="_5">軟體包</h2>
+<ul>
+<li>不含在 "Manjaro Architect" 和 "系統設定" 安裝的軟體包</li>
+<li>未特別注記來源者，代表來自 Manjaro 官方庫</li>
+<li>使用 AUR 所安裝的 Python 軟體包，需在 Python 更新後重新 <code>makepkg</code>(3.8 -&gt; 3.9 才要，3.8.1 -&gt; 3.8.2 不用)。</li>
+<li>pacman 會保留所有下載過的軟體包作為快取，佔用很大儲存空間，可以執行 <code>sudo pacman -Scc</code> 清理。</li>
+<li><code>sudo pacman -D --asdeps &lt;package&gt;</code> 可以指定軟體包為"作為其他軟體包的依賴安裝"，<code>sudo pacman -D --asexplicit &lt;package&gt;</code> 可以指定軟體包為"單獨指定安裝"。</li>
+</ul>
+<h3 id="_6">工具類</h3>
+<ul>
+<li>konsole dolphin spectacle</li>
+<li>ark p7zip unrar</li>
+<li>kcalc grpn<sup>AUR</sup></li>
+<li>the_silver_searcher</li>
+</ul>
+<p>相關設定：</p>
+<ul>
+<li>konsole<br/>
+  配色 "微風"，背景透明 "10%"，字型 "Noto Mono 12pt"</li>
+<li>dolphin<br/>
+  到設定 &gt; 一般 &gt; 行為選擇 "對所有資料夾使用相同的顯示模式"，不然 Dolphin 會在每個資料夾下建立 ".directory" 檔案</li>
+<li>p7zip<br/>
+  p7zip 可以壓縮和解壓縮 Zip 壓縮檔，所以不用再裝 zip 和 unzip。</li>
+<li>unrar<br/>
+  雖然 p7zip 可以解壓縮 rar 壓縮檔，但 ark 需要 unrar 才能解壓縮 rar 壓縮檔，所以還是得裝。</li>
+</ul>
+<h3 id="_7">文書處理類</h3>
+<ul>
+<li>kate</li>
+<li>neovim python-pynvim xsel</li>
+<li>okular</li>
+<li>libreoffice-fresh libreoffice-fresh-zh-tw</li>
+</ul>
+<p>相關設定：</p>
+<ul>
+<li>kate<br/>
+  字型 "Noto Mono 11pt"</li>
+<li>neovim<br/>
+  設定檔 <code>~/.config/nvim/init.vim</code></li>
+<li>libreoffice<br/>
+  分別在 Writer, Calc, Impress, Draw 的 "檢視 &gt; 使用者界面" 調整成 "分頁標籤"。<br/>
+  Writer 的 "基本字型 (西方語言)" 和 "基本字型 (亞洲語言)" 都改為 "Noto Sans CJK TC"。</li>
+</ul>
+<h3 id="_8">多媒體類</h3>
+<ul>
+<li>viewnior</li>
+<li>kcolorchooser</li>
+<li>kolourpaint</li>
+<li>vlc</li>
+<li>kid3</li>
+</ul>
+<h3 id="_9">網路類</h3>
+<ul>
+<li>google-chrome<sup>AUR</sup></li>
+<li>JDownloader 2<sup>其它</sup></li>
+<li>transmission-qt</li>
+<li>4kvideodownloader<sup>AUR</sup></li>
+</ul>
+<p>相關設定：</p>
+<ul>
+<li>google-chrome<sup>AUR</sup><ul>
+<li>Chromium 自 88 版開始，停止 Google 帳戶同步功能，所以只好改用 Google Chrome。</li>
+<li>使用久了之後會儲存大量的快取，"清除瀏覽資料" 裡的 "Cookie 和其他網站資料" 可以清除 <code>~/.config/google-chrome</code> 裡的快取，"快取圖片和檔案" 可以清除 <code>~/.cache/google-chrome</code> 裡的快取。</li>
+</ul>
+</li>
+<li>JDownloader 2<sup>其它</sup>(dep: jre-openjdk)<ul>
+<li>到官方網站下載 Other 的 MULTIOS JAR without Installer（只有一個 <code>JDownloader.jar</code>，Linux 的 Installer 會多安裝 JRE，這個不會）複製到 <code>~/.local/opt/jd2</code> 資料夾中</li>
+<li>執行 <code>java -jar ~/.local/opt/jd2/JDownloader.jar</code> 啟動 JDownloader 2，第一次執行會下載必須的檔案到 <code>~/.local/opt/jd2</code></li>
+<li><code>~/.local/opt/jd2/themes/standard/org/jdownloader/images/logo/icon.ico</code> 可以用來作為 Desktop Entry 的 icon</li>
+</ul>
+</li>
+</ul>
+<h3 id="_10">教育類</h3>
+<ul>
+<li>stardict</li>
+<li>Mathematica 12.0<sup>sh</sup></li>
+<li>MATLAB R2020a<sup>其它</sup>(dep: libselinux<sup>AUR</sup>(dep: libsepol<sup>AUR</sup>))</li>
+<li>python-numpy python-matplotlib(dep: pyside2) python-scipy</li>
+<li>jupyter-calysto_scheme-git<sup>AUR</sup>(dep: jupyter-metakernel<sup>AUR</sup>)</li>
+</ul>
+<p>相關設定：</p>
+<ul>
+<li>Mathematica 12.0<sup>sh</sup><br/>
+  不使用 root 權限安裝在 <code>~/.local/opt</code>，安裝與啟用說明跟安裝檔在一起，另外還在 <code>~/.local/share/applications/wolfram-mathematica12.desktop</code> 加入 <code>Categories=Education;</code>。</li>
+</ul>
+<h3 id="_11">開發類</h3>
+<ul>
+<li>base-devel cmake ltrace strace git</li>
+<li>qt5-tools(dep: qt5-webkit) qt5-doc qt5-examples qtcreator pyside2</li>
+<li>python python-pip ipython jupyterlab</li>
+<li>virtualbox(dep: linux-latest-virtualbox-host-modules, linux-lts-virtualbox-host-modules) virtualbox-guest-iso virtualbox-ext-oracle<sup>AUR</sup></li>
+<li>visual-studio-code-bin<sup>AUR</sup></li>
+</ul>
+<p>相關設定：</p>
+<ul>
+<li>git
+  2020/8/13 後，GitHub 禁止 git 使用密碼登入，需改用 Personal access token 代替密碼登入。建立 Personal access token 後，執行 <code>git config --global credential.helper store &amp;&amp; echo 'https://&lt;USERNAME&gt;:&lt;TOKEN&gt;@github.com' &gt; ~/.git-credentials</code>，之後就可以不用輸入密碼。注意是明碼儲存。</li>
+<li>virtualbox
+  安裝完後執行 <code>sudo usermod -a -G vboxusers $USER</code> 並重開機，才能找到 USB 裝置。</li>
+<li>virtualbox-ext-oracle<sup>AUR</sup><br/>
+<strong>警告！！</strong>：virtualbox 和 virtualbox-ext-oracle<sup>AUR</sup> 的版本必須相同，否則無法啟動虛擬機。</li>
+<li>visual-studio-code-bin<sup>AUR</sup><ul>
+<li>visual-studio-code-bin<sup>AUR</sup> 跟 community 的 code 的差別在於：前者是 Microsoft 官方發布的 binary 包，包含一些 proprietary 的功能；後者是從原始碼建置的開源版本。</li>
+<li>選用此版本的原因在於：code 會另外安裝 electron，而此版本自帶 electron，所以不用多安裝。</li>
+<li>新增檔案：<code>~/.config/Code</code>, <code>~/.vscode</code>, <code>~/.cache/vscode-cpptools</code></li>
+<li>會佔用很大空間的快取或資料庫，可以手動刪除：<ul>
+<li><code>~/.config/Code/User/workspaceStorage</code> (曾開過的工作區資訊，有些 extensions (如：vscode.cpptools) 會儲存很大的資料庫)</li>
+<li><code>~/.config/Code/{Cache,CachedData,CachedExtensions,CachedExtensionVSIXs}</code></li>
+<li><code>~/.cache/vscode-cpptools/ipch</code> (IntelliSense precompiled headers)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_12">系統類</h3>
+<ul>
+<li>poppler-data qt5-translations</li>
+<li>fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-chewing</li>
+<li>tree htop lsof</li>
+<li>pamac-cli pamac-gtk</li>
+<li>timeshift</li>
+<li>gufw</li>
+<li>baobab partitionmanager</li>
+<li>jre-openjdk</li>
+</ul>
+<p>相關設定：</p>
+<ul>
+<li>fcitx5<br/>
+  於 <code>/etc/environment</code> 加入
+  <div class="highlight"><pre><span></span><code>GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+XMODIFIERS=@im=fcitx
+SDL_IM_MODULE=fcitx
+</code></pre></div>
+  安裝後 fcitx5 會自動被加到 /etc/xdg/autostart 裡，所以可以自動啟動。若沒有自動啟動可以執行 <code>ln -s /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/</code>。<br/>
+<a href="https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8">https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8</a></li>
+<li>gufw
+  安裝後執行 <code>sudo systemctl enable --now ufw</code>，然後才用圖形界面 gufw 開啟防火牆。
+  警告：不能同時啟用 <code>ufw</code> 和 <code>iptables/ip6tables</code> 服務。</li>
+<li>baobab<br/>
+  mate-disk-usage-analyzer 被包在 <code>mate-utils</code> 裡，<code>mate-utils</code> 又有太多其它東西，所以不採用</li>
+<li>jre-openjdk<br/>
+  修正字型很丑的問題：在 <code>/etc/environment</code> 加入 <code>_JAVA_OPTIONS=-Dawt.useSystemAAFontSettings=on</code>。參考資料：<a href="https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts#Overriding_the_automatically_picked_up_settings">Java Runtime Environment fonts - ArchWiki</a>、<a href="https://unix.stackexchange.com/questions/151733/where-can-i-set-global-java-options">environment variables - Where can I set global Java Options? - Unix &amp; Linux Stack Exchange</a></li>
+</ul>
+<h2 id="_13">其它</h2>
+<ul>
+<li>在安裝系統的時候，於 Install Wireless Device Packages 預設勾選 dialog, iw, rp-pppoe, wireless_tools, wpa_actiond，但無法安裝。後來使用上沒問題就沒有去把它們裝上。</li>
+<li>觸控板無法同時開啟邊緣滾動和兩指滾動（目前無解）<br/>
+  以前觸控版的驅動程式使用 xf86-input-synaptics 可以同時開啟邊緣滾動和兩指滾動，但由於 xf86-input-synaptics 已經停止開發，所以 Manjaro 預裝 libinput，<a href="https://wayland.freedesktop.org/libinput/doc/latest/scrolling.html">libinput 的官方說明文件</a>明確指出雖然兩者都有支援，但<strong>一次只能開啟一個</strong>。儘管有人表示<a href="https://forum.manjaro.org/t/enable-both-two-finger-scroll-and-edge-scroll-in-manejaro-kde/88144/8">同時安裝 lininput、xf86-input-libinput 和 xf86-input-synaptics 就可以同時開啟兩種滾動</a>，但由於無法測試而不採用。</li>
+<li><code>~/.cache</code> 底下的快取檔刪除不影響系統和程式運作，它們會自己重新快取。</li>
+<li>Qt 會在 <code>~/.cache</code> 裡放一大堆 QML 的快取，但即使是不再使用的 QML 程式，它也不會自己刪除快取！<br/>
+  可以在 <code>/etc/environment</code> 加入 <code>QML_DISK_CACHE_PATH=/tmp/QtQmlDiskCache_jisa</code>，把快取放到 tmpfs 上，每次關機自動清理，雖然重開機後第一次啟動 QML 程式會比較慢(其實感覺不太出來)，但是之後因為快取位於 tmpfs 上，反而會比較快；或是改成加入 <code>QML_DISABLE_DISK_CACHE=1</code>，完全關閉快取。<br/>
+  參考資料：<a href="https://doc-snapshots.qt.io/qt5-5.15/qmldiskcache.html">The QML Disk Cache | Qt QML 5.15.3</a></li>
+</ul>
                 
               
               
@@ -1742,7 +2419,7 @@ V 更新 GRUB 選單
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../manjaro-package-history/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../linux-no-such-file-or-directory-error-when-executing-executables-with-x-permission/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -1751,19 +2428,19 @@ V 更新 GRUB 選單
                 <span class="md-footer-nav__direction">
                   上一頁
                 </span>
-                Manjaro 以前安裝過的軟體包及相關設定
+                Linux 執行程式時出現 No such file or directory 錯誤
               </div>
             </div>
           </a>
         
         
-          <a href="../manjaro/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../manjaro-02-as-virtualbox-guest/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   下一頁
                 </span>
-                Manjaro
+                Manjaro (二) 作為 VirtualBox guest
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
