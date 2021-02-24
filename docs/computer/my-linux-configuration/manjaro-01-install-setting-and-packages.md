@@ -19,8 +19,8 @@
         ```
         # nvme0n1
         mktable gpt
-        mkpart fat32 0% 512MB    # nvme0n1p1  /boot/efi
-        set 1 esp on
+        mkpart fat32 0% 512MB    # nvme0n1p1  /boot/efi (EFI system partition 必須為 FAT32)
+        set 1 esp on             #                      (esp = EFI system partition)
         mkpart ext4 512MB 25%    # nvme0n1p2  /
         mkpart ext4 25% 100%     # nvme0n1p3  /home
         ```
@@ -40,8 +40,8 @@
     2.  Install Unconfigured Desktop Environments
         1.  Install Display Server
         2.  Install Desktop environment: 只安裝 `plasma`  
-            Install Common Packages: 按照預設選項(預設是全選)。如果預設全部都是空的，就只安裝 `bash-completion ttf-dejavu xdg-user-dirs xdg-utils`  
-            (註：如果在這裡沒有裝 `xdg-user-dirs`，之後必須手動執行 `LC_ALL=C xdg-user-dirs-update --force` 建立 XDG 資料夾)
+            Install Common Packages: 全部安裝  
+            (註：如果在這裡沒有裝 `xdg-user-dirs`，之後必須手動執行 `LC_ALL=C xdg-user-dirs-update --force && echo -n en_US > ~/.config/user-dirs.locale` 建立英文 XDG 資料夾)
         3.  Install Display Manager: 選 `sddm`
         4.  Install Networking Capabilities
             1. Display Wireless Device (optional)

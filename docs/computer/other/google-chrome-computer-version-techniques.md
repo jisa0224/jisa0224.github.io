@@ -1,4 +1,4 @@
-# Google Chrome 使用技巧
+# Google Chrome (電腦版) 使用技巧
 
 以下適用於電腦版 Google Chrome 和 Chromium。
 
@@ -44,3 +44,11 @@ Chrome 某一版更新後，預設隱藏了網址列中的 `http://`、`https://
 參考資料：[Chrome 內建QR Code 產生器 功能，教你免外掛也能製作條碼 - 瘋先生](https://mrmad.com.tw/chrome-qr-code)
 
 備註：Google Chrome 88 預設開啟此功能。
+
+# 避免在網址列輸入 "google <SPACE>" 後變成在 Google 搜尋
+
+到 設定 > 搜尋引擎 > 管理搜尋引擎，會出現一條或數條 "搜尋引擎、關鍵字、查詢網址" 的項目，找到關鍵字為 "google" 的項目，把關鍵字改為 "google.com" 或其它比較少用到的字串即可。
+
+在網址列輸入「關鍵字」後按下空格或 Tab 鍵，就會變成在那個關鍵字的搜尋引擎搜尋。
+
+參考資料：[How to disable ["google" + <SPACE> = search autocomplete] in address bar : chrome](https://www.reddit.com/r/chrome/comments/3lt0vw/how_to_disable_google_space_search_autocomplete/)
