@@ -891,6 +891,26 @@
     Boot Loader
   </a>
   
+    <nav class="md-nav" aria-label="Boot Loader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#grub" class="md-nav__link">
+    GRUB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemd-boot" class="md-nav__link">
+    systemd-boot
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -929,6 +949,18 @@
     <li class="md-nav__item">
       <a href="../archlinux-03-configuration-files/" class="md-nav__link">
         Arch Linux (三) 設定檔
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archlinux-04-historically-installed-packages-and-their-settings/" class="md-nav__link">
+        Arch Linux (四) 以前安裝過的軟體包及相關設定
       </a>
     </li>
   
@@ -1960,6 +1992,26 @@
     Boot Loader
   </a>
   
+    <nav class="md-nav" aria-label="Boot Loader">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#grub" class="md-nav__link">
+    GRUB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemd-boot" class="md-nav__link">
+    systemd-boot
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1999,28 +2051,188 @@
                 <h1 id="arch-linux">Arch Linux (二) 細節與雜項</h1>
 <h2 id="_1">硬體規格</h2>
 <p>MSI Modern 15 A10M-419TW</p>
-<h2 id="virtualbox-guest">安裝至 VirtualBox 作為 Guest</h2>
 <ul>
-<li>VirtualBox guest: virtualbox-guest-utils<ul>
-<li><code>systemctl enable vboxservice</code></li>
-<li>使用共用資料夾，需要把使用者加入 <code>vboxsf</code> 群組才有存取權限，執行 <code>sudo gpasswd -a $USER vboxsf</code> 後重新登入即可</li>
+<li>進入 UEFI 開機選單的方法: 在按下開機鍵後立刻按下 Delete 鍵。</li>
+<li>硬碟為 2 顆 NVMe SSD (<code>/dev/nvme0n1</code> 和 <code>/dev/nvme1n1</code>)。</li>
+<li>顯示卡為內建的 Intel UHD Graphics。</li>
+</ul>
+<h2 id="virtualbox-guest">安裝至 VirtualBox 作為 Guest</h2>
+<p>VirtualBox 機器設定如下: </p>
+<ul>
+<li>勾選 "啟用 EFI" 及 "硬體時鐘以 UTC 時間"。</li>
+<li>圖形控制器使用 VMSVGA (如果使用 VBoxSVGA 有時候 host 和 guest 會一起當掉，只能在 host 切換到 VT <code>kill</code> VirtualBox，原因不明)。</li>
+<li>硬碟控制器改成 "NVMe (PCIe)"，硬碟勾選 "固態磁碟機"。</li>
+</ul>
+<p>VirtualBox 的 "設定 &gt; 系統 &gt; 開機順序" 是 BIOS 才有效，UEFI 有它自己的開機選單 (進入 UEFI 開機選單的方法: 在啟動虛擬機器後立刻按下 Esc 鍵)。</p>
+<p>軟體包: </p>
+<ul>
+<li>Display drivers 改成裝 xf86-video-vmware open-vm-tools spice-vdagent。</li>
+<li>輸入加裝 xf86-input-vmmouse</li>
+<li>加裝 virtualbox-guest-utils<ul>
+<li><code>systemctl enable vboxservice</code>。</li>
+<li>使用共用資料夾，需要把使用者加入 <code>vboxsf</code> 群組才有存取權限，執行 <code>usermod -a -G vboxsf $USER</code> 後重新登入即可。</li>
 </ul>
 </li>
-<li>Display drivers(VirtualBox guest): virtualbox-guest-utils xf86-video-vmware open-vm-tools spice-vdagent</li>
-<li>輸入(VirtualBox guest): xf86-input-vmmouse</li>
 </ul>
 <h2 id="ssd-4k">SSD 4K 對齊</h2>
 <p>SSD 進行 4K 對齊 (即每個分割區的開頭都是 4 KiB 或 8 sectors 的倍數) 可提高效率。</p>
 <p>較新的磁碟分割程式 (如: fdisk/cfdisk, gparted) 都自動會做對齊 (不管是機械硬碟還是 SSD 都會對齊)。</p>
 <p>fdisk/cfdisk 會自動進行對齊，但因為不明原因它進行的是 1MiB 對齊，而不是 4KiB 對齊，所以如果分割區小於 1MiB，跟下一個分割區之間就會留空。</p>
 <h2 id="ssd-trim">SSD TRIM</h2>
+<p>要開啟 TRIM 避免消耗，在磁碟機 mount 選項中加入 <code>discard</code>。</p>
+<p>參考資料: <a href="https://wiki.archlinux.org/index.php/Solid_state_drive_(%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87)#TRIM">Solid state drive (正體中文) - ArchWiki</a></p>
 <h2 id="nvme-ssd">NVMe SSD 睡死問題</h2>
+<p>新的電腦使用 NVMe SSD 取代傳統的機械硬碟，原廠電腦有一個硬碟，後來又加購一個。</p>
+<p>但在使用時發現，如果將 /home 放在第二個硬碟上，並執行 I/O 頻繁的程式 (如：在 VirtualBox guest 裡執行 Pacman 系統升級，或在 host 安裝 Mathematica)，
+host 和 guest 就會直接卡住（但執行中的程式只要不讀取硬碟就可以繼續執行），只能強制重開機。</p>
+<p>從 <code>journalctl</code> 有發現 <code>kernel: nvme nvme1: I/O 320 QID 4 timeout, aborting</code>(數字可能不同)，確定問題出在 NVMe SSD 上。</p>
+<p>根據網路資料，確認過不是溫度太高、RAM 用完造成，也更換過一顆新的硬碟，所以問題出在 Linux 上 (因為沒發現 Windows 有這個問題)。</p>
+<p>因為可能是 I/O 太頻繁的關係，但之前往硬碟寫了 200 多 GB 的資料也沒事，所以也有可能和 VirtualBox 有關。
+根據網路資料，(1) System: 打勾 "Enable I/O APIC" (2) SATA controller: 打勾 "Use host I/O cache" (3) VDI: 打勾 "Solid-state drive"，無效。</p>
+<p>根據網路資料，可能是 Linux 的 NVMe 驅動程式中的省電模式有問題，導致硬碟進入省電模式後就無法恢復(睡死)，關掉省電模式就可以解決。</p>
+<p>在 Linux kernel options 加上 <code>nvme_core.default_ps_max_latency_us=0</code>: </p>
+<ul>
+<li>GRUB: 編輯 <code>/etc/default/grub</code>，在 <code>GRUB_CMDLINE_LINUX_DEFAULT</code> 加上 <code>nvme_core.default_ps_max_latency_us=0</code>，儲存後執行 <code>update-grub</code>。</li>
+<li>systemd-boot: 編輯 <code>/efi/loader/entries/*.conf</code>，在 <code>options</code> 加上 <code>nvme_core.default_ps_max_latency_us=0</code>，儲存後即可。</li>
+</ul>
+<p><code>cat /sys/module/nvme_core/parameters/default_ps_max_latency_us</code> 原本 100000，修改後為 0。</p>
+<p>經過長期測試發現有效。</p>
+<p>參考資料: </p>
+<ul>
+<li><a href="https://tekbyte.net/2020/fixing-nvme-ssd-problems-on-linux/">Fixing NVME SSD Problems On Linux – TEKBYTE</a></li>
+<li><a href="https://hackmd.io/@William-Mou/ryNms2F-E?type=view">完整學習機器學習實錄1——安裝 Ubuntu 18.04 - HackMD</a></li>
+</ul>
 <h2 id="bios-uefi">BIOS 與 UEFI</h2>
-<p>建立 EFI System Partition: <a href="https://wiki.archlinux.org/index.php/EFI_system_partition">EFI system partition - ArchWiki</a></p>
+<p>新的電腦使用 UEFI 取代傳統的 BIOS，UEFI+GPT 分割表需要多分割一個「EFI 系統分割區」(UEFI+MBR 分割表就不需要)，網路建議 EFI 系統分割區至少 512 MB。</p>
+<p>參考資料：<br/>
+<a href="https://wiki.archlinux.org/index.php/partitioning#UEFI/GPT_layout_example">Partitioning - ArchWiki</a><br/>
+<a href="https://wiki.archlinux.org/index.php/EFI_system_partition#GPT_partitioned_disks">EFI system partition - ArchWiki</a></p>
 <h2 id="boot-loader">Boot Loader</h2>
+<h3 id="grub">GRUB</h3>
+<ul>
+<li>
+<p>GRUB (BIOS/MBR)</p>
+<ul>
+<li><code>/boot</code> 可以位於另外一個分割區，或是和 <code>/</code> 同一個分割區。</li>
+<li>安裝 grub os-prober。</li>
+<li>安裝 Boot Loader 到 MBR: 執行 <code>grub-install --target=i386-pc /dev/nvme0n1</code>。</li>
+<li>編輯 <code>/etc/default/grub</code> 後，執行 <code>grub-mkconfig -o /boot/grub/grub.cfg</code>。
+  (MBR 裡的 GRUB 會讀取 <code>/boot/grub</code> 裡的設定和模組，顯示開機選單。)</li>
+<li>GRUB 會自動載入 CPU microcode 更新，不須手動設定。</li>
+</ul>
+</li>
+<li>
+<p>GRUB (UEFI/GPT)</p>
+<ul>
+<li>建立一個 EFI 系統分割區，掛載到 <code>/efi</code>。</li>
+<li><code>/boot</code> 可以位於另外一個分割區，或是和 <code>/</code> 同一個分割區。</li>
+<li>安裝 efibootmgr grub os-prober。</li>
+<li>安裝 EFI bootloader: 執行 <code>grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=arch_grub</code>。<br/>
+  (GRUB 會往 UEFI NVRAM 裡寫入 boot entry，指向 <code>/efi/EFI/GRUB/grubx64.efi</code>。)</li>
+<li>編輯 <code>/etc/default/grub</code> 後，執行 <code>grub-mkconfig -o /boot/grub/grub.cfg</code>。
+  (<code>grubx64.efi</code> 會讀取 <code>/boot/grub</code> 裡的設定和模組，顯示開機選單。)</li>
+<li>GRUB 會自動載入 CPU microcode 更新，不須手動設定。</li>
+</ul>
+</li>
+</ul>
+<h3 id="systemd-boot">systemd-boot</h3>
+<p>systemd-boot 只支援 UEFI/GPT，且只支援讀取 FAT32 分割區，因此 Linux 的 kernel (<code>/boot/vmlinuz-linux</code>)、
+Initramfs 和 CPU microcode 必須全部放在該分割區裡。</p>
+<ul>
+<li>systemd-boot (單 Linux 方案)<ul>
+<li>建立一個 EFI 系統分割區，掛載到 <code>/boot</code>，不需要 <code>/efi</code>。</li>
+<li>systemd-boot 已經包含在 Arch Linux 的 systemd 軟體包裡，不用另外安裝。</li>
+<li>安裝 EFI boot manager: 執行 <code>bootctl install</code>。<br/>
+  (systemd-boot 會往 UEFI NVRAM 裡寫入 boot entry，指向 <code>/boot/EFI/systemd/systemd-bootx64.efi</code>。)</li>
+<li>編輯 systemd-boot 設定檔 <code>/boot/loader/loader.conf</code>。</li>
+<li>新增一個 boot entry <code>/boot/loader/entries/arch.conf</code>。</li>
+<li>如果安裝成功，執行 <code>bootctl list</code> 應該會看到上面加入的 boot entry；
+  執行 <code>efibootmgr -v</code> 應該會看到 "Linux Boot Manager ... File(\EFI\systemd\systemd-bootx64.efi)"</li>
+<li>未來如果更新 systemd-boot，需要手動更新 boot manager (執行 <code>bootctl update</code>)，
+  或者安裝 systemd-boot-pacman-hook@A 自動在更新 systemd-boot 後更新 boot manager。</li>
+</ul>
+</li>
+</ul>
+<p>但因為 Linux 的 kernel 通常都會放在 <code>/boot</code> 裡，如果同一顆硬碟上有多個 Linux，可能會把彼此的 kernel 覆蓋掉。
+解決方法是給每個 Linux 一個單獨的 <code>/boot</code> 分區 (必須是 FAT32)，把 EFI 系統分割區掛載到 <code>/efi</code>。或者採用下面的方法。</p>
+<ul>
+<li>systemd-boot (多 Linux 方案)<ul>
+<li>建立一個 EFI 系統分割區，掛載到 <code>/efi</code>。</li>
+<li>建立 <code>/efi/installs/&lt;id&gt;</code> 資料夾，然後 <code>mount --bind /efi/installs/&lt;id&gt; /boot</code>，這樣每個 Linux 都可以把它自己的 kernel 放在自己的資料夾裡。</li>
+<li>systemd-boot 已經包含在 Arch Linux 的 systemd 軟體包裡，不用另外安裝。</li>
+<li>安裝 EFI boot manager: 執行 <code>bootctl install</code>。<br/>
+  (systemd-boot 會往 UEFI NVRAM 裡寫入 boot entry，指向 <code>/efi/EFI/systemd/systemd-bootx64.efi</code>。)</li>
+<li>編輯 systemd-boot 設定檔 <code>/efi/loader/loader.conf</code>。</li>
+<li>新增一個 boot entry <code>/efi/loader/entries/arch.conf</code>。</li>
+<li>如果安裝成功，執行 <code>bootctl list</code> 應該會看到上面加入的 boot entry；
+  執行 <code>efibootmgr -v</code> 應該會看到 "Linux Boot Manager ... File(\EFI\systemd\systemd-bootx64.efi)"</li>
+<li>未來如果更新 systemd-boot，需要手動更新 boot manager (執行 <code>bootctl update</code>)，
+  或者安裝 systemd-boot-pacman-hook@A 自動在更新 systemd-boot 後更新 boot manager。</li>
+</ul>
+</li>
+</ul>
+<p>備註：之後開機時如果要進 Live CD，必須 (1) 直接從機器提供的 UEFI 選單進入 (VirtualBox 是在啟動後馬上按 Esc 鍵)，
+或者 (2) 從 systemd-boot 的 "Reboot Into Firmware Interface" (不一定有此項目) 進入機器提供的 UEFI 選單，然後選擇 Live CD。</p>
+<p>備註：在 boot entry 上按 <code>e</code> 可以編輯 kernel options (只有本次開機會生效，不會儲存)，
+像是加上 <code>rw init=/bin/bash</code> 可以在忘記密碼時進行救援 (關機必須用 <code>poweroff -f</code>，重新開機必須用 <code>reboot -f</code>)。</p>
+<p>備註：VirtualBox guest 中 kernel options 如果加上 <code>quiet</code> 有時候會在開機時卡住，原因不明 (可能是因為用了 proprietery display driver?)。</p>
+<p>參考資料: </p>
+<ul>
+<li><a href="https://wiki.archlinux.org/index.php/Systemd-boot">systemd-boot - ArchWiki</a></li>
+<li><a href="https://ramsdenj.com/2016/04/15/multi-boot-linux-with-one-boot-partition.html">Multi Boot Linux With One Boot Partition | John Ramsden</a></li>
+<li><a href="https://bbs.archlinux.org/viewtopic.php?id=243870">[SOLVED]How to Uninstall GRUB and Install reFInd? / Newbie Corner / Arch Linux Forums</a></li>
+<li><a href="https://wiki.gentoo.org/wiki/Efibootmgr">Efibootmgr - Gentoo Wiki</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/Reset_lost_root_password">Reset lost root password - ArchWiki</a></li>
+<li><a href="https://www.linuxtechi.com/boot-arch-linux-single-user-mode-rescue-mode/">How to Boot Arch Linux in Single User Mode / Rescue Mode</a></li>
+</ul>
 <h2 id="_2">環境變數</h2>
+<p>環境變數到底放哪裡？</p>
+<p>&lt;../linux/etc-environment-environment-variables-for-all-program.md&gt;</p>
+<p><code>/etc/environment</code>: The environment variables config file，參考 <code>man pam_env.conf</code></p>
+<p>雖然最好不要修改系統檔案，但因為 (1) root 不會讀取 <code>/root/.pam_environment</code> (2) <code>~/.pam_environment</code> 未來會被廢棄 (3) pam_env 是設定環境變數唯一 shell/GUI-agnostic 的方式，所以只能這麼做。</p>
 <h2 id="cache">~/.cache</h2>
+<ul>
+<li><code>~/.cache</code> 底下的快取檔刪除不影響系統和程式運作，它們會自己重新快取。</li>
+<li>Qt 會在 <code>~/.cache</code> 裡放一大堆 QML 的快取，但即使是不再使用的 QML 程式，它也不會自己刪除快取！<br/>
+  可以在 <code>/etc/environment</code> 加入 <code>QML_DISK_CACHE_PATH=/tmp/QtQmlDiskCache_jisa</code>，把快取放到 tmpfs 上，每次關機自動清理，
+  雖然重開機後第一次啟動 QML 程式會比較慢(其實感覺不太出來)，但是之後因為快取位於 tmpfs 上，反而會比較快；
+  或是改成加入 <code>QML_DISABLE_DISK_CACHE=1</code>，完全關閉快取。<br/>
+  參考資料：<a href="https://doc-snapshots.qt.io/qt5-5.15/qmldiskcache.html">The QML Disk Cache | Qt QML 5.15.3</a></li>
+</ul>
 <h2 id="timeshift">使用 Timeshift 進行系統備份</h2>
+<p>以下進行測試以證實 Timeshift 的還原不會影響到 /home 中的檔案</p>
+<ol>
+<li>設定 Timeshift：
+    <div class="highlight"><pre><span></span><code>類型 RSYNC
+位置 sda2(/home)  
+過濾器 新增 /home (注意是「排除」（- 號）！！）
+</code></pre></div></li>
+<li>進行備份，備份後重開機</li>
+<li>對系統進行變更<ol>
+<li>在 /home/jisa 的不同位置新增有內容的文字檔</li>
+<li><code>sudo pacman -R firefox</code></li>
+</ol>
+</li>
+<li>重開機</li>
+<li>進行還原（「選擇目標裝置」和「Bootloader 選項」都使用預設選項，以下為預設選項）<br/>
+    選擇目標裝置：
+    <div class="highlight"><pre><span></span><code>/     sda1
+/boot 儲存於根裝置
+/home 儲存於根裝置
+</code></pre></div>
+    Bootloader 選項：
+    <div class="highlight"><pre><span></span><code>V （重新）安裝 GRUB2 於 sda (不是 sda1!!)
+X 更新 initramfs
+V 更新 GRUB 選單
+</code></pre></div>
+    按下一步後會先有 Dry Run 比較檔案，然後列出會變更的檔案列表，按下一步之後才會開始還原，還原後會自動重開機</li>
+<li>重開機後確認 /home/jisa 中的檔案都還在，且 firefox 有在</li>
+</ol>
+<p>如果無法進入 X 時的測試：</p>
+<p>以下步驟替換第 5 步</p>
+<p><code>sudo timeshift --list</code> 可列出 snapshot<br/>
+<code>sudo timeshift --restore</code> 會跳出所有 snapshot 的列表，選擇 snapshot 後列出還原選項（只有「Bootloader 選項」，沒有「選擇目標裝置」！！），之後就直接還原（沒有 Dry Run！！），還原後自動重開機</p>
+<p>與使用 Timeshift GUI 結果相同，重開機後確認 /home/jisa 中的檔案都還在，且 firefox 有在</p>
                 
               
               

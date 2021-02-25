@@ -851,6 +851,26 @@
     軟體包
   </a>
   
+    <nav class="md-nav" aria-label="軟體包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    系統程式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    應用程式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -880,6 +900,18 @@
     <li class="md-nav__item">
       <a href="../archlinux-03-configuration-files/" class="md-nav__link">
         Arch Linux (三) 設定檔
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archlinux-04-historically-installed-packages-and-their-settings/" class="md-nav__link">
+        Arch Linux (四) 以前安裝過的軟體包及相關設定
       </a>
     </li>
   
@@ -1883,6 +1915,26 @@
     軟體包
   </a>
   
+    <nav class="md-nav" aria-label="軟體包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    系統程式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    應用程式
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1914,11 +1966,12 @@
     之後建立其它分割區 (ext4 分割區的 Type 選預設的 "Linux filesystem"。)<br/>
     (cfdisk 跟 fdisk 功能一樣，但是有比較好用的類圖形界面。)<br/>
     (用 parted 分割 GPT 會偷偷加上 partition name (是存在 GPT 裡的名字，不是各分割區自己的 label，後者可用 e2label 查看)，因此改用 fdisk/cfdisk)<br/>
+    (如果要刪除分割表，要用 fdisk，執行後按 <code>g</code>)<br/>
     (<a href="../archlinux-02-details-and-miscellaneous/#ssd-4k">SSD 4K 對齊</a>)</li>
 <li>格式化磁碟分區
-    <div class="highlight"><pre><span></span><code>mkfs.fat -F32 /dev/nvme0n1p1
-mkfs.ext4 /dev/nvme0n1p2
-mkfs.ext4 /dev/nvme0n1p3
+    <div class="highlight"><pre><span></span><code>mkfs.fat -F32 /dev/nvme0n1p1    # /efi (EFI 系統分割區必須為 FAT32)
+mkfs.ext4 /dev/nvme0n1p2        # /
+mkfs.ext4 /dev/nvme0n1p3        # /home
 </code></pre></div>
     (<a href="../archlinux-02-details-and-miscellaneous/#bios-uefi">建立 EFI 系統分割區</a>)</li>
 <li>掛載新安裝的系統的磁碟分區
@@ -1934,7 +1987,8 @@ mount /dev/nvme0n1p3 /mnt/home -o discard
 <li>繼續用 <code>pacstrap</code> 安裝。</li>
 <li>等一下 chroot 進新安裝的系統裡用 <code>pacman</code> 安裝。</li>
 <li>重開機進入新安裝的系統裡用 <code>pacman</code> 安裝。
-(不管選擇什麼時候裝，至少分類在 "基本"、"開機" 和 "網路" 的軟體包必須裝上)</li>
+(不管選擇什麼時候裝，至少分類在 "基本"、"開機" 和 "網路" 的軟體包必須裝上。)<br/>
+(plasma 和其它 package group 必須用 <code>pacman</code> 安裝，不然 <code>pacstrap</code> 會全部用預設選項安裝。)</li>
 </ul>
 </li>
 <li>產生 fstab: 執行 <code>genfstab -U /mnt | sed 's|/mnt/efi/installs/arch|/efi/installs/arch|g' &gt;&gt; /mnt/etc/fstab</code></li>
@@ -1959,7 +2013,7 @@ mount /dev/nvme0n1p3 /mnt/home -o discard
 </li>
 <li>(in chroot) 建立 Initramfs: 執行 <code>mkinitcpio -P</code><br/>
 <a href="https://wiki.archlinux.org/index.php/Mkinitcpio#Possibly_missing_firmware_for_module_XXXX">https://wiki.archlinux.org/index.php/Mkinitcpio#Possibly_missing_firmware_for_module_XXXX</a><br/>
-<code>wd719x</code> 和 <code>aic94xx</code> 是 SCSI 的 firmware，一般電腦沒有。<code>xhci_pci</code> 是 USB 3.0 的 firmware。（？？？）</li>
+<code>wd719x</code> 和 <code>aic94xx</code> 是 SCSI 的 firmware，一般電腦沒有。<code>xhci_pci</code> 是 USB 3.0 的 firmware (它改名叫 <code>xhci-pci</code>，所以找不到)。</li>
 <li>(in chroot) 設定 root 密碼: 執行 <code>passwd</code>。</li>
 <li>(in chroot) 安裝 Boot Loader (採用 systemd-boot 多 Linux 方案)<ul>
 <li>systemd-boot 已經包含在 Arch Linux 的 systemd 軟體包裡，不用另外安裝。</li>
@@ -2006,50 +2060,86 @@ options root=UUID=&lt;執行 `lsblk -f` 找出 UUID&gt; rw nvme_core.default_ps_
 <li>開機時進入圖形界面: 執行 <code>systemctl enable sddm</code>。</li>
 <li>解決關機時出現 <code>A stop job is running for ... (... / 1min 30s)</code>，需要等待很長時間的問題: 
   於 <code>/etc/systemd/system.conf</code> 中修改或加入 <code>DefaultTimeoutStopSec=10s</code>，儲存後重開機。<br/>
-  參考資料：<a href="https://unix.stackexchange.com/questions/273876/a-stop-job-is-running-for-session-c2-of-user">systemd - A stop job is running for Session c2 of user - Unix &amp; Linux Stack Exchange</a></li>
+  參考資料: <a href="https://unix.stackexchange.com/questions/273876/a-stop-job-is-running-for-session-c2-of-user">systemd - A stop job is running for Session c2 of user - Unix &amp; Linux Stack Exchange</a></li>
 <li>系統安裝完後，systemd 的藍牙服務未開啟: 執行 <code>sudo systemctl enable bluetooth</code> 設定開機後自動啟動藍牙服務。</li>
-</ul>
-</li>
-<li>使用者設定<ul>
-<li>環境變數設定</li>
-<li>由於許多程式都會在 <code>~/.cache</code> 快取，卻不會自動清理不再使用的快取，因此把它掛載為 tmpfs，每次關機自動清理: <br/>
-  在不登入的情況下清空 <code>~/.cache</code>，然後在 <code>/etc/fstab</code> 中加入 <code>tmpfs /home/jisa/.cache tmpfs rw,nosuid,nodev,relatime,size=50%,mode=755,uid=1000,gid=1000 0 0</code>，儲存後重開機。<br/>
-  (雖然重開機後第一次執行程式會比較慢(其實感覺不太出來)，但是之後因為快取位於 tmpfs 上，反而會比較快。)</li>
 </ul>
 </li>
 <li>桌面環境 (KDE) 設定<ul>
 <li>設定語言及地區<ul>
-<li>到 System Settings &gt; Regional Settings &gt; Language 加入"繁體中文"，並移到最上面  </li>
-<li>到 System Settings &gt; Regional Settings &gt; Formats 改為"台灣 - 繁體中文"  </li>
-<li>這兩個會修改 <code>~/.config/plasma-localerc</code>，不會修改其它檔案 (像是 <code>/etc/locale.conf</code> 或 <code>~/.config/locale.conf</code>)，
-  所以用 VT 的時候 locale 還是 <code>/etc/locale.conf</code> 指定的 <code>en_US.UTF-8</code></li>
+<li>到 System Settings &gt; Regional Settings &gt; Language 加入"繁體中文"，並移到最上面。</li>
+<li>到 System Settings &gt; Regional Settings &gt; Formats 改為"台灣 - 繁體中文"。</li>
+<li>這兩項設定會修改 <code>~/.config/plasma-localerc</code>，不會修改其它檔案 (像是 <code>/etc/locale.conf</code> 或 <code>~/.config/locale.conf</code>)，
+  所以用 VT 的時候 locale 還是 <code>/etc/locale.conf</code> 指定的 <code>en_US.UTF-8</code>。</li>
 </ul>
 </li>
 <li>設定 KDE Plasma 外觀<ul>
-<li>設定 Plasma Style 為 Breeze Dark  </li>
-<li>設定 Colors 為 Breeze</li>
+<li>設定 Plasma Style 為 Breeze Dark。</li>
+<li>設定 Colors 為 Breeze。</li>
 </ul>
 </li>
-<li>disable kwallet, baloo</li>
-<li>字型設定</li>
+<li>關閉 KDE Wallet subsystem 以避免它一直跳出視窗要求輸入密碼: 執行 <code>echo -e '[Wallet]\nEnabled=false' &gt; ~/.config/kwalletrc</code>。</li>
+<li>到 System Settings &gt; Search 關閉 Baloo 搜尋功能，因為它佔用太多 CPU 和 RAM。</li>
+<li>KDE Dolphin 提供的桌面沒有捷徑功能，必須依靠 <code>.desktop</code> 的方式實現，新增以下三個檔案: <ul>
+<li><a href="../archlinux-03-configuration-files/">~/Desktop/root.desktop</a></li>
+<li><a href="../archlinux-03-configuration-files/">~/Desktop/home.desktop</a></li>
+<li><a href="../archlinux-03-configuration-files/">~/Desktop/trash.desktop</a></li>
 </ul>
 </li>
-<li>Shell 設定</li>
+<li>字型設定: 把字型檔放到 <code>~/.local/share/fonts</code>，<a href="../archlinux-03-configuration-files/">fontconfig 設定檔</a>
+  放到 <code>~/.config/fontconfig/fonts.conf</code> (這個 fontconfig 設定檔非常重要，如果沒有它，放進去的字型檔會把預設的配置搞的亂七八糟)。</li>
+</ul>
+</li>
+<li>Shell 設定<ul>
+<li>環境變數設定: 在 <code>/etc/environment</code> 中加入以下內容
+  <div class="highlight"><pre><span></span><code>EDITOR=nvim
+</code></pre></div>
+<a href="../archlinux-02-details-and-miscellaneous/">環境變數</a></li>
+<li><code>~/.bash_profile</code>: The personal initialization file, executed for login shells
+  <div class="highlight"><pre><span></span><code><span class="o">[[</span> -f ~/.bashrc <span class="o">]]</span> <span class="o">&amp;&amp;</span> . ~/.bashrc
+</code></pre></div>
+  註：<code>~/.profile</code> 不會被讀取，原因不明。</li>
+<li><code>~/.bashrc</code>: The individual per-interactive-shell startup file (<a href="../archlinux-03-configuration-files/">檔案內容</a>)</li>
+<li>由於 root 沒有 <code>~/.bash_profile</code> 和 <code>~/.bashrc</code>，所以 <code>sudo -i</code> 出來的結果是黑白的，執行 <code>sudo ln -s ~jisa/{.bash_profile,.bashrc} /root</code>。</li>
+<li><code>~/.dircolors</code>，設定 "orphaned syminks and the files they point to" 不要閃爍: </li>
+<li>如果沒有 <code>~/.dir_colors</code> 的話 <code>cp /etc/skel/.dir_colors ~</code>。</li>
+<li>把 <code>ORPHAN 01;05;37;41</code> 改成 <code>ORPHAN 01;37;41</code>。</li>
+<li>把 <code>MISSING 01;05;37;41</code> 改成 <code>MISSING 01;37;41</code>。</li>
+</ul>
+</li>
+<li>其它設定<ul>
+<li>由於許多程式都會在 <code>~/.cache</code> 快取，卻不會自動清理不再使用的快取，因此把它掛載為 tmpfs，每次關機自動清理: <br/>
+  在不登入的情況下清空 <code>~/.cache</code>，然後在 <code>/etc/fstab</code> 中加入 <code>tmpfs /home/jisa/.cache tmpfs rw,nosuid,nodev,relatime,size=50%,mode=755,uid=1000,gid=1000 0 0</code>，儲存後重開機。<br/>
+  (雖然重開機後第一次執行程式會比較慢(其實感覺不太出來)，但是之後因為快取位於 tmpfs 上，反而會比較快。)<br/>
+<a href="../archlinux-02-details-and-miscellaneous/">~/.cache</a></li>
+</ul>
+</li>
 </ul>
 <h2 id="_3">軟體包</h2>
 <ul>
-<li>更新 mirror: 執行 ...</li>
 <li>軟體包名稱沒有後綴的來自 Arch Linux 官方軟體庫，有 <code>@A</code> 後綴的來自 Arch User Repository (AUR)，
   有 <code>@M</code> 後綴的來自 Manjaro 官方軟體庫 (用手動下載而非加入 pacman 的 mirror)，有 <code>@O</code> 後綴的代表其它安裝方式。</li>
+<li><a href="https://repo.manjaro.org/">Manjaro 官方軟體庫 鏡像伺服器列表</a></li>
+<li>pacman 會保留所有下載過的軟體包作為快取，佔用很大儲存空間，可以執行 <code>sudo pacman -Scc</code> 清理。</li>
+<li><code>sudo pacman -D --asdeps &lt;package&gt;</code> 可以指定軟體包為"作為其他軟體包的依賴安裝"，<code>sudo pacman -D --asexplicit &lt;package&gt;</code> 可以指定軟體包為"單獨指定安裝"。</li>
+<li>更新 mirror: <a href="https://wiki.archlinux.org/index.php/Mirrors">Mirrors - ArchWiki</a></li>
+<li>使用 AUR 所安裝的 Python 軟體包，需在 Python 更新後重新 <code>makepkg</code>(3.8 -&gt; 3.9 才要，3.8.1 -&gt; 3.8.2 不用)。</li>
 </ul>
-<hr/>
+<h3 id="_4">系統程式</h3>
 <ul>
 <li>
 <p>基本</p>
 <ul>
-<li>最小可用: base linux linux-firmware<br/>
-  (base package group 包含 bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 iputils licenses pacman pciutils procps-ng psmisc sed shadow systemd systemd-sysvcompat tar util-linux xz)</li>
-<li>基本工具: bash-completion diffutils less lsb-release man-db neovim rsync tree wget which xdg-user-dirs xdg-utils</li>
+<li>最小可用: base linux linux-firmware  <ul>
+<li>base 是一個 package group，它包含 bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 
+  iputils licenses pacman pciutils procps-ng psmisc sed shadow systemd systemd-sysvcompat tar util-linux xz)  </li>
+<li>開啟 pacman 彩色輸出: uncomment <code>/etc/pacman.conf</code> 中的 <code>Color</code> 選項 (用 <code>alias</code> 的話 <code>sudo</code> 時會失效)。</li>
+</ul>
+</li>
+<li>基本工具: bash-completion diffutils less lsb-release man-db neovim rsync wget which xdg-user-dirs xdg-utils  <ul>
+<li>如果在建立使用者後才裝 <code>xdg-user-dirs</code>，
+  之後必須手動執行 <code>LC_ALL=C xdg-user-dirs-update --force &amp;&amp; echo -n en_US &gt; ~/.config/user-dirs.locale</code> 建立英文 XDG 資料夾</li>
+</ul>
+</li>
 <li>檔案系統: dosfstools e2fsprogs exfat-utils ntfs-3g</li>
 <li>管理工具: htop lsof polkit procps-ng psmisc sudo usbutils</li>
 </ul>
@@ -2064,9 +2154,15 @@ options root=UUID=&lt;執行 `lsblk -f` 找出 UUID&gt; rw nvme_core.default_ps_
 <li>
 <p>網路</p>
 <ul>
-<li>網路管理: networkmanager ppp ufw
-  (NetworkManager 內建 DHCP client，不須另外安裝 dhclient 或 dhcpcd。)
-  (需要 <code>systemctl enable ufw</code>，plasma-firewall 可以作為 ufw 的前端。)</li>
+<li>網路管理: networkmanager ppp<ul>
+<li>NetworkManager 內建 DHCP client，不須另外安裝 dhclient 或 dhcpcd。</li>
+</ul>
+</li>
+<li>防火牆 ufw<ul>
+<li>需要 <code>systemctl enable ufw</code>，plasma-firewall 可以作為 ufw 的 GUI 前端。</li>
+<li>警告: 不能同時啟用 <code>ufw</code> 和 <code>iptables/ip6tables</code> 服務。</li>
+</ul>
+</li>
 <li>無線網路: ipw2100-fw ipw2200-fw iw wpa_supplicant</li>
 </ul>
 </li>
@@ -2074,56 +2170,182 @@ options root=UUID=&lt;執行 `lsblk -f` 找出 UUID&gt; rw nvme_core.default_ps_
 <p>圖形界面與多媒體</p>
 <ul>
 <li>Display server: xorg-server</li>
-<li>Display drivers: mesa(可選依賴於: libva-mesa-driver mesa-vdpau) xf86-video-intel vulkan-intel libva(可選依賴於: intel-media-driver)<br/>
-  (Intel UHD Graphics 為 Skylake 微架構 &gt; Broadwell &gt; Haswell。)</li>
-<li>Display manager: sddm<br/>
-  (之後還需要在新安裝的系統裡執行 <code>systemctl enable sddm</code> 才會開機進入圖形界面。)</li>
+<li>Display drivers: mesa(可選依賴於: libva-mesa-driver mesa-vdpau) xf86-video-intel vulkan-intel libva(可選依賴於: intel-media-driver)  <ul>
+<li>Intel UHD Graphics 為 Skylake 微架構 &gt; Broadwell &gt; Haswell。</li>
+</ul>
+</li>
 <li>輸入: xf86-input-libinput</li>
 <li>音訊: (ALSA is a set of built-in Linux kernel modules. Therefore, manual installation is not necessary.)</li>
+<li>Display manager: sddm<ul>
+<li>之後還需要在新安裝的系統裡執行 <code>systemctl enable sddm</code> 才會開機進入圖形界面。</li>
+</ul>
+</li>
 <li>桌面環境: plasma konsole dolphin<ul>
-<li>plasma 是一個 package group，安裝除了 discover kwallet-pam oxygen plasma-systemmonitor plasma-thunderbolt 以外的軟體包，photon-qt5-backend 選擇 photon-qt5-vlc</li>
-<li>安裝 package group 時如何只安裝或排除特定幾個，參考 <a href="https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups">https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups</a></li>
+<li>plasma 是一個 package group，安裝除了 discover kwallet-pam oxygen plasma-systemmonitor plasma-thunderbolt 以外的軟體包，
+  phonon-qt5-backend 選擇 phonon-qt5-vlc。</li>
+<li>安裝 package group 時如何只安裝或排除特定幾個，參考 <a href="https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups">https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups</a>。</li>
+<li>konsole 和 dolphin 的設定在下面。</li>
 </ul>
 </li>
 <li>GUI 函式庫: gtk3</li>
-<li>字型: ttf-dejavu noto-fonts noto-fonts-cjk (沒有 noto-fonts-compat(Noto Mono))</li>
+<li>字型: ttf-dejavu noto-fonts noto-fonts-cjk noto-fonts-compat@M<ul>
+<li>noto-fonts-compat@M: 在 Manjaro community 軟體庫，只依賴於 noto-fonts。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_5">應用程式</h3>
+<ul>
+<li>
+<p>工具</p>
+<ul>
+<li>螢幕截圖: spectacle</li>
+<li>壓縮: ark p7zip unrar<ul>
+<li>p7zip: p7zip 可以壓縮和解壓縮 Zip 壓縮檔，所以不用再裝 zip 和 unzip。</li>
+<li>unrar: 雖然 p7zip 可以解壓縮 rar 壓縮檔，但 ark 需要 unrar 才能解壓縮 rar 壓縮檔，所以還是得裝。</li>
+</ul>
+</li>
+<li>計算機: kcalc grpn@A</li>
+<li>文字搜尋: the_silver_searcher</li>
 </ul>
 </li>
 <li>
-<p>應用程式</p>
+<p>文書</p>
 <ul>
-<li>工具: spectacle ark p7zip unrar kcalc grpn@A the_silver_searcher</li>
-<li>文書: kate neovim(可選依賴於: python-pynvim xsel) okular libreoffice-fresh libreoffice-fresh-zh-tw</li>
-<li>多媒體: viewnior kcolorchooser kolourpaint vlc kid3</li>
-<li>網路: google-chrome@A (JDownloader 2)@O transmission-qt 4kvideodownloader@A</li>
-<li>教育<ul>
+<li>文字編輯: kate neovim(可選依賴於: python-pynvim xsel)<ul>
+<li>kate: 字型 "Noto Mono 11pt"。</li>
+<li>neovim: 設定檔 <code>~/.config/nvim/init.vim</code> (<a href="../archlinux-03-configuration-files/">檔案內容</a>)。</li>
+</ul>
+</li>
+<li>PDF 閱讀: okular</li>
+<li>Office: libreoffice-fresh libreoffice-fresh-zh-tw<ul>
+<li>分別在 Writer, Calc, Impress, Draw 的 "檢視 &gt; 使用者界面" 調整成 "分頁標籤"。  </li>
+<li>Writer 的 "基本字型 (西方語言)" 和 "基本字型 (亞洲語言)" 都改為 "Noto Sans CJK TC"。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>多媒體: viewnior kcolorchooser kolourpaint vlc kid3</p>
+</li>
+<li>
+<p>網路</p>
+<ul>
+<li>瀏覽器: google-chrome@A<ul>
+<li>Chromium 自 88 版開始，停止 Google 帳戶同步功能，所以只好改用 Google Chrome。</li>
+<li>使用久了之後會儲存大量的快取，"清除瀏覽資料" 裡的 "Cookie 和其他網站資料" 可以清除 <code>~/.config/google-chrome</code> 裡的快取，
+  "快取圖片和檔案" 可以清除 <code>~/.cache/google-chrome</code> 裡的快取。</li>
+</ul>
+</li>
+<li>(JDownloader 2)@O(依賴於: jre-openjdk)<ul>
+<li>到官方網站下載 Other 的 MULTIOS JAR without Installer（只有一個 <code>JDownloader.jar</code>，Linux 的 Installer 會多安裝 JRE，這個不會）複製到 <code>~/.local/opt/jd2</code> 資料夾中</li>
+<li>執行 <code>java -jar ~/.local/opt/jd2/JDownloader.jar</code> 啟動 JDownloader 2，第一次執行會下載必須的檔案到 <code>~/.local/opt/jd2</code></li>
+<li><code>~/.local/opt/jd2/themes/standard/org/jdownloader/images/logo/icon.ico</code> 可以用來作為 Desktop Entry 的 icon</li>
+</ul>
+</li>
+<li>transmission-qt 4kvideodownloader@A</li>
+</ul>
+</li>
+<li>
+<p>教育</p>
+<ul>
 <li>翻譯: stardict</li>
-<li>數學: (Mathematica 12.0)@O (MATLAB R2020a)@O(依賴於: libselinux@A(依賴於: libsepol@A))</li>
+<li>數學: (Mathematica 12.0)@O (MATLAB R2020a)@O(依賴於: libselinux@A(依賴於: libsepol@A))<ul>
+<li>Mathematica: 不使用 root 權限安裝在 <code>~/.local/opt</code>，安裝與啟用說明跟安裝檔在一起，
+  另外還在 <code>~/.local/share/applications/wolfram-mathematica12.desktop</code> 加入 <code>Categories=Education;</code>。</li>
+</ul>
+</li>
 <li>Python 函式庫: python-numpy python-matplotlib(依賴於: pyside2) python-scipy</li>
 <li>jupyter-calysto_scheme-git@A(依賴於: jupyter-metakernel@A)</li>
 </ul>
 </li>
-<li>開發<ul>
-<li>base-develcmake ltrace strace git</li>
+<li>
+<p>開發</p>
+<ul>
+<li>二進位檔: base-devel ltrace strace</li>
+<li>專案管理: cmake git<ul>
+<li>git: 2020/8/13 後，GitHub 禁止 git 使用密碼登入，需改用 Personal access token 代替密碼登入。建立 Personal access token 後，
+  執行 <code>git config --global credential.helper store &amp;&amp; echo 'https://&lt;USERNAME&gt;:&lt;TOKEN&gt;@github.com' &gt; ~/.git-credentials</code>，
+  之後就可以不用輸入密碼。注意是明碼儲存。</li>
+</ul>
+</li>
 <li>Qt5: qt5-tools(依賴於: qt5-webkit) qt5-doc qt5-examples qtcreator pyside2</li>
 <li>Python: python python-pip ipython jupyterlab</li>
-<li>虛擬機器: virtualbox virtualbox-guest-iso virtualbox-ext-oracle@A</li>
-<li>IDE: visual-studio-code-bin@A</li>
+<li>虛擬機器: virtualbox virtualbox-guest-iso virtualbox-ext-oracle@A<ul>
+<li>virtualbox: 安裝完後執行 <code>sudo usermod -a -G vboxusers $USER</code> 並重開機，才能找到 USB 裝置。</li>
+<li>virtualbox-ext-oracle@A: <strong>警告</strong>: virtualbox 和 virtualbox-ext-oracle@A 的版本必須相同，否則無法啟動虛擬機器。</li>
 </ul>
 </li>
-<li>系統<ul>
+<li>IDE: visual-studio-code-bin@A<ul>
+<li>visual-studio-code-bin@A 跟官方軟體庫的 code 的差別在於: 前者是 Microsoft 官方發布的 binary 包，包含一些 proprietary 的功能；
+  後者是從原始碼建置的開源版本。</li>
+<li>選用此版本的原因在於: code 會另外安裝 electron，而此版本自帶 electron，所以不用多安裝。</li>
+<li>新增檔案: <code>~/.config/Code</code>, <code>~/.vscode</code>, <code>~/.cache/vscode-cpptools</code></li>
+<li>會佔用很大空間的快取或資料庫，可以手動刪除: <ul>
+<li><code>~/.config/Code/User/workspaceStorage</code> (曾開過的工作區資訊，有些 extensions (如：vscode.cpptools) 會儲存很大的資料庫)</li>
+<li><code>~/.config/Code/{Cache,CachedData,CachedExtensions,CachedExtensionVSIXs}</code></li>
+<li><code>~/.cache/vscode-cpptools/ipch</code> (IntelliSense precompiled headers)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>系統</p>
+<ul>
+<li>終端機: konsole  <ul>
+<li>konsole: 配色 "微風"，背景透明 "10%"，字型 "Noto Mono 12pt"。</li>
+</ul>
+</li>
+<li>檔案管理: dolphin tree  <ul>
+<li>dolphin: 到 Dolphin 設定 &gt; 一般 &gt; 行為 選擇 "對所有資料夾使用相同的顯示模式"，不然 Dolphin 會在每個資料夾下建立 ".directory" 檔案。</li>
+<li>dolphin: 到系統設定 &gt; 工作空間行為 &gt; 一般行為 &gt; 點擊行為 選擇 "按兩下開啟檔案或資料夾 (按一下選取)"。</li>
+</ul>
+</li>
 <li>語言包: poppler-data qt5-translations</li>
-<li>輸入法: fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-chewing</li>
-<li>軟體包: (arch 沒有 pacman-mirrors，但有 reflector) (arch 沒有 pamac-cli pamac-gtk)</li>
+<li>輸入法: fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-chewing  <ul>
+<li>於 <code>/etc/environment</code> 加入
+  <div class="highlight"><pre><span></span><code>GTK_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
+XMODIFIERS=@im=fcitx
+SDL_IM_MODULE=fcitx
+</code></pre></div>
+  安裝後 fcitx5 會自動被加到 /etc/xdg/autostart 裡，所以可以自動啟動。
+  若沒有自動啟動可以執行 <code>ln -s /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/</code>。<br/>
+<a href="https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8">https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8</a></li>
+</ul>
+</li>
+<li>軟體包: reflector (arch 沒有 pamac-cli pamac-gtk)<br/>
+<a href="https://wiki.archlinux.org/index.php/AUR_helpers">AUR helpers - ArchWiki</a></li>
 <li>備份: timeshift</li>
-<li>磁碟: baobab partitionmanager</li>
-<li>Java: jre-openjdk</li>
+<li>磁碟: baobab partitionmanager<ul>
+<li>baobab: mate-disk-usage-analyzer 被包在 <code>mate-utils</code> 裡，<code>mate-utils</code> 又有太多其它東西，所以不採用。</li>
+</ul>
+</li>
+<li>Java: jre-openjdk<ul>
+<li>修正字型很丑的問題：在 <code>/etc/environment</code> 加入 <code>_JAVA_OPTIONS=-Dawt.useSystemAAFontSettings=on</code>。<br/>
+  參考資料：<a href="https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts#Overriding_the_automatically_picked_up_settings">Java Runtime Environment fonts - ArchWiki</a>、
+  <a href="https://unix.stackexchange.com/questions/151733/where-can-i-set-global-java-options">environment variables - Where can I set global Java Options? - Unix &amp; Linux Stack Exchange</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h1 id="_4">其它</h1>
+<h1 id="_6">其它</h1>
+<ul>
+<li>觸控板無法同時開啟邊緣滾動和兩指滾動 (目前無解)<br/>
+  以前觸控版的驅動程式使用 xf86-input-synaptics 可以同時開啟邊緣滾動和兩指滾動，但由於 xf86-input-synaptics 已經停止開發，
+  所以 Arch Linux 建議安裝 libinput，<a href="https://wayland.freedesktop.org/libinput/doc/latest/scrolling.html">libinput 的官方說明文件</a>
+  明確指出雖然兩者都有支援，但<strong>一次只能開啟一個</strong>。儘管有人表示<a href="https://forum.manjaro.org/t/enable-both-two-finger-scroll-and-edge-scroll-in-manejaro-kde/88144/8">同時安裝 lininput、xf86-input-libinput 和 xf86-input-synaptics 就可以同時開啟兩種滾動</a>，但由於無法測試而不採用。</li>
+</ul>
+<h1 id="_7">參考資料</h1>
+<ul>
+<li><a href="https://wiki.archlinux.org/index.php/installation_guide">Installation guide - ArchWiki</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/General_recommendations">General recommendations - ArchWiki</a></li>
+<li>Manjaro Architect 安裝的軟體包</li>
+</ul>
                 
               
               

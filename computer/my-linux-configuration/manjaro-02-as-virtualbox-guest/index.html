@@ -838,6 +838,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../archlinux-04-historically-installed-packages-and-their-settings/" class="md-nav__link">
+        Arch Linux (四) 以前安裝過的軟體包及相關設定
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../manjaro-01-install-setting-and-packages/" class="md-nav__link">
         Manjaro (一) 安裝、設定與軟體包
       </a>
@@ -1877,7 +1889,7 @@
 <li>安裝後，如果進入 GRUB 後沒畫面，圖形控制器改用 VBoxSVGA。</li>
 <li>安裝後，圖形控制器改用 VBoxSVGA 才可以在改變 VirtualBox 視窗大小後自動調整解析度。</li>
 <li>安裝後不需要再裝 VirtualBox Guest Additions，Manjaro 已經自動裝好了。</li>
-<li>使用共用資料夾，需要把使用者加入 <code>vboxsf</code> 群組才有存取權限，執行 <code>sudo gpasswd -a $USER vboxsf</code> 後重新登入即可。</li>
+<li>使用共用資料夾，需要把使用者加入 <code>vboxsf</code> 群組才有存取權限，執行 <code>usermod -a -G vboxsf $USER</code> 後重新登入即可。</li>
 </ol>
                 
               

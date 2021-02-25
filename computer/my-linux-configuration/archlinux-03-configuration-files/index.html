@@ -834,10 +834,86 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Arch Linux (三) 設定檔
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         Arch Linux (三) 設定檔
       </a>
       
+        
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bashrc" class="md-nav__link">
+    ~/.bashrc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktoprootdesktop" class="md-nav__link">
+    ~/Desktop/root.desktop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktophomedesktop" class="md-nav__link">
+    ~/Desktop/home.desktop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktoptrashdesktop" class="md-nav__link">
+    ~/Desktop/trash.desktop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configfontconfigfontsconf" class="md-nav__link">
+    ~/.config/fontconfig/fonts.conf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#confignviminitvim" class="md-nav__link">
+    ~/.config/nvim/init.vim
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archlinux-04-historically-installed-packages-and-their-settings/" class="md-nav__link">
+        Arch Linux (四) 以前安裝過的軟體包及相關設定
+      </a>
     </li>
   
 
@@ -1815,6 +1891,56 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#bashrc" class="md-nav__link">
+    ~/.bashrc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktoprootdesktop" class="md-nav__link">
+    ~/Desktop/root.desktop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktophomedesktop" class="md-nav__link">
+    ~/Desktop/home.desktop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#desktoptrashdesktop" class="md-nav__link">
+    ~/Desktop/trash.desktop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configfontconfigfontsconf" class="md-nav__link">
+    ~/.config/fontconfig/fonts.conf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#confignviminitvim" class="md-nav__link">
+    ~/.config/nvim/init.vim
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1827,6 +1953,549 @@
                 
                 
                 <h1 id="arch-linux">Arch Linux (三) 設定檔</h1>
+<p>這裡放置一些太長沒辦法放在主要文章裡的設定檔。</p>
+<h2 id="bashrc">~/.bashrc</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Command line prompt (PS1)</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="si">${</span><span class="nv">EUID</span><span class="si">}</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
+    <span class="c1"># root</span>
+    <span class="nv">PS1</span><span class="o">=</span><span class="s1">'\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '</span>
+<span class="k">else</span>
+    <span class="c1"># non-root</span>
+    <span class="nv">PS1</span><span class="o">=</span><span class="s1">'\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '</span>
+<span class="k">fi</span>
+
+<span class="c1"># Command alias</span>
+<span class="nb">alias</span> <span class="nv">ls</span><span class="o">=</span><span class="s1">'ls --color=auto'</span>
+<span class="nb">alias</span> <span class="nv">ll</span><span class="o">=</span><span class="s1">'ls --color=auto -lh'</span>
+<span class="nb">alias</span> <span class="nv">lld</span><span class="o">=</span><span class="s1">'ls --color=auto -ldh'</span>
+<span class="nb">alias</span> <span class="nv">la</span><span class="o">=</span><span class="s1">'ls --color=auto -a'</span>
+<span class="nb">alias</span> <span class="nv">lla</span><span class="o">=</span><span class="s1">'ls --color=auto -alh'</span>
+<span class="nb">alias</span> <span class="nv">grep</span><span class="o">=</span><span class="s1">'grep --colour=auto'</span>
+<span class="nb">alias</span> <span class="nv">egrep</span><span class="o">=</span><span class="s1">'egrep --color=auto'</span>
+<span class="nb">alias</span> <span class="nv">fgrep</span><span class="o">=</span><span class="s1">'fgrep --color=auto'</span>
+<span class="nb">alias</span> <span class="nv">cp</span><span class="o">=</span><span class="s2">"cp -i"</span>                          <span class="c1"># confirm before overwriting something</span>
+<span class="nb">alias</span> <span class="nv">df</span><span class="o">=</span><span class="s1">'df -hT -x tmpfs -x devtmpfs'</span>    <span class="c1"># human-readable sizes and ignore tmpfs</span>
+<span class="nb">alias</span> <span class="nv">du</span><span class="o">=</span><span class="s1">'du -h'</span>                          <span class="c1"># human-readable sizes</span>
+<span class="nb">alias</span> <span class="nv">free</span><span class="o">=</span><span class="s1">'free -h'</span>                      <span class="c1"># human-readable sizes</span>
+<span class="nb">alias</span> <span class="nv">more</span><span class="o">=</span>less
+<span class="nb">alias</span> <span class="nv">nv</span><span class="o">=</span><span class="s1">'nvim'</span>
+</code></pre></div>
+<h2 id="desktoprootdesktop">~/Desktop/root.desktop</h2>
+<div class="highlight"><pre><span></span><code>[Desktop Entry]
+Icon=drive-harddisk-root
+Name=根目錄
+Type=Link
+URL[$e]=file:/
+</code></pre></div>
+<h2 id="desktophomedesktop">~/Desktop/home.desktop</h2>
+<div class="highlight"><pre><span></span><code>[Desktop Entry]
+Icon=user-home
+Name=家目錄
+Type=Link
+URL[$e]=file:$HOME
+</code></pre></div>
+<h2 id="desktoptrashdesktop">~/Desktop/trash.desktop</h2>
+<div class="highlight"><pre><span></span><code>[Desktop Entry]
+EmptyIcon=user-trash
+Icon=user-trash-full
+Name=垃圾桶
+Type=Link
+URL[$e]=trash:/
+</code></pre></div>
+<h2 id="configfontconfigfontsconf">~/.config/fontconfig/fonts.conf</h2>
+<div class="highlight"><pre><span></span><code>&lt;?xml version='1.0'?&gt;
+&lt;!DOCTYPE fontconfig SYSTEM 'fonts.dtd'&gt;
+&lt;!-- 
+    設定目標：
+        sans-serif -&gt; Noto Sans CJK
+        serif      -&gt; Noto Serif CJK
+        monospace  -&gt; Noto Mono      -&gt; Noto Sans CJK     (注意是 Noto Mono 而不是 Noto Sans Mono，後者是無襯線字型而不是等寬字型)
+        Noto Sans  -&gt; Noto Sans CJK
+        Noto Serif -&gt; Noto Serif CJK
+        Noto Mono  -&gt; Noto Sans CJK
+    ('Noto *' 不包含 CJK，所以需要 'Noto * CJK' 作為 fallback)
+
+    fontconfig 的處理順序：
+    1.  需要字型的程式送出 pattern 給 fontconfig 程式庫
+    2.  將 /etc/fonts/fonts.conf 設定的規則應用到 pattern 上 (font matching, match/test/edit)
+        /etc/fonts/fonts.conf 會 include /etc/fonts/fonts.d/*，並按照以下順序執行
+        00-09: Font directories
+        10-19: system rendering defaults (AA, etc)
+        20-29: font rendering options
+        30-39: family substitution
+        40-49: generic identification, map family-&gt;generic    (40-48 會為一些已知的字型加上 sans-serif/serif/monospace 的 fallback，如果是未知的字型，49 會加上 sans-serif 的 fallback)
+        50-59: alternate config file loading                  (這個檔案就是 50 include 的)
+        60-69: generic aliases, map generic-&gt;family           (52-69 會在最初 pattern 和 generic 之間加入字型，越先加入的會在越前面，微軟正黑體等字型就是在這裡加入的)
+        70-79: select font (adjust which fonts are available) (這個檔案的原版 70-noto-cjk.conf 就在這，但因為它加入的字型會在 50-69 的後面，所以如果 50-69 裡加入的字型存在的話，70-noto-cjk.conf 加入的字型永遠不會被用到！)
+        80-89: match target="scan" (modify scanned patterns)
+        90-99: font synthesis
+        具體過程參考 `FC_DEBUG=4 fc-match '&lt;font family name&gt;'
+    3.  為 pattern 添加一些預設的 element
+    4.  對「所有字型」比對 pattern，每個字型會得到一個分數
+    5.  將不支援 Unicode 的字型的分數加上一個很大的值
+    6.  依照分數從低到高排列，分數最低的最優先，如果該字型沒有某個字，則往後 fallback (`fc-match -s` 看到的就是這個順序)
+
+    參考資料：
+        [fonts-conf](https://www.freedesktop.org/software/fontconfig/fontconfig-user.html)
+        [Linux fontconfig 的字体匹配机制 - 双猫CC](https://catcat.cc/post/2020-10-31/)
+        [fc-match 執行檔的程式碼](https://github.com/freedesktop/fontconfig/blob/master/fc-match/fc-match.c)
+        [fontconfig 程式庫中負責 font matching 的程式碼](https://github.com/freedesktop/fontconfig/blob/master/src/fcmatch.c)
+--&gt;
+&lt;fontconfig&gt;
+ &lt;!-- 如果想用其它字型當作 sans-serif/serif/monospace 的預設字型就修改這裡 --&gt;
+ &lt;!--
+    &lt;alias binding="strong"&gt;
+        &lt;family&gt;sans-serif&lt;/family&gt;
+        &lt;prefer&gt;
+            &lt;family&gt;Noto Sans&lt;/family&gt;
+        &lt;/prefer&gt;
+    &lt;/alias&gt;
+    &lt;alias binding="strong"&gt;
+        &lt;family&gt;serif&lt;/family&gt;
+        &lt;prefer&gt;
+            &lt;family&gt;Noto Serif&lt;/family&gt;
+        &lt;/prefer&gt;
+    &lt;/alias&gt;
+    &lt;alias binding="strong"&gt;
+        &lt;family&gt;monospace&lt;/family&gt;
+        &lt;prefer&gt;
+            &lt;family&gt;DejaVu Sans Mono&lt;/family&gt;
+            &lt;family&gt;Source Han Mono TC&lt;/family&gt;
+        &lt;/prefer&gt;
+    &lt;/alias&gt;
+    --&gt;
+ &lt;!-- 以下修改自 /etc/fonts/conf.avail/70-noto-cjk.conf --&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;ja&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;serif&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend"&gt;
+   &lt;string&gt;Noto Serif CJK JP&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;ko&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;serif&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend"&gt;
+   &lt;string&gt;Noto Serif CJK KR&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;zh-cn&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;serif&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend"&gt;
+   &lt;string&gt;Noto Serif CJK SC&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;zh-tw&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;serif&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend"&gt;
+   &lt;string&gt;Noto Serif CJK TC&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;zh-hk&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;serif&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend"&gt;
+   &lt;string&gt;Noto Serif CJK HK&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;ja&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;sans-serif&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend"&gt;
+   &lt;string&gt;Noto Sans CJK JP&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;ko&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;sans-serif&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend"&gt;
+   &lt;string&gt;Noto Sans CJK KR&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;zh-cn&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;sans-serif&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend"&gt;
+   &lt;string&gt;Noto Sans CJK SC&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;zh-tw&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;sans-serif&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend"&gt;
+   &lt;string&gt;Noto Sans CJK TC&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;zh-hk&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;sans-serif&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend"&gt;
+   &lt;string&gt;Noto Sans CJK HK&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;ja&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;monospace&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend" binding="strong"&gt;
+   &lt;string&gt;Noto Mono&lt;/string&gt;
+   &lt;string&gt;Noto Sans CJK JP&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;ko&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;monospace&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend" binding="strong"&gt;
+   &lt;string&gt;Noto Mono&lt;/string&gt;
+   &lt;string&gt;Noto Sans CJK KR&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;zh-cn&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;monospace&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend" binding="strong"&gt;
+   &lt;string&gt;Noto Mono&lt;/string&gt;
+   &lt;string&gt;Noto Sans CJK SC&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;zh-tw&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;monospace&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend" binding="strong"&gt;
+   &lt;!-- 必須加上 binding="strong"，不然 Noto Mono 的順序會低於 Noto Sans CJK (因為支援 Unicode 的字型比不支援的更 match) --&gt;
+   &lt;string&gt;Noto Mono&lt;/string&gt;
+   &lt;!-- 原本是 Noto Sans Mono，改成 Noto Mono 後加上 Noto Sans CJK 處理 CJK 部份 --&gt;
+   &lt;string&gt;Noto Sans CJK TC&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;match target="pattern"&gt;
+  &lt;test name="lang"&gt;
+   &lt;string&gt;zh-hk&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;test name="family"&gt;
+   &lt;string&gt;monospace&lt;/string&gt;
+  &lt;/test&gt;
+  &lt;edit name="family" mode="prepend" binding="strong"&gt;
+   &lt;string&gt;Noto Mono&lt;/string&gt;
+   &lt;string&gt;Noto Sans CJK HK&lt;/string&gt;
+  &lt;/edit&gt;
+ &lt;/match&gt;
+ &lt;dir&gt;~/.fonts&lt;/dir&gt;
+&lt;/fontconfig&gt;
+</code></pre></div>
+<h2 id="confignviminitvim">~/.config/nvim/init.vim</h2>
+<div class="highlight"><pre><span></span><code>" NeoVim init
+" 安裝 Neovim 後，依照 https://github.com/junegunn/vim-plug 的說明安裝 vim-plug，之後將此文件複製到 ~/.config/nvim/init.vim，最後在 Neovim 中 :PlugUpdate 即可
+
+" ========================================================================
+" 編輯環境設定
+" ========================================================================
+set hidden
+set confirm
+set number
+set nowrap
+set listchars=eol:$,tab:&gt;-,trail:-
+set noshowmode
+
+set ignorecase
+set smartcase
+
+let mapleader=";"
+
+set cursorline
+highlight CursorLine cterm=none ctermbg=236 ctermfg=none
+
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+autocmd FileType make,sh :set noexpandtab
+
+autocmd FileType c,cpp :set cindent
+
+
+" ========================================================================
+" 按鍵設定
+" ========================================================================
+" wrap 的設定
+nnoremap j gj
+nnoremap k gk
+nnoremap 0 g0
+nnoremap $ g$
+
+" map insert newline without enter insert mode
+nnoremap &lt;CR&gt; o&lt;Esc&gt;0D
+autocmd FileType qf unmap &lt;CR&gt;
+
+" map &lt;Esc&gt; to exit terminal-mode
+tnoremap &lt;Esc&gt; &lt;C-\&gt;&lt;C-n&gt;
+
+" 注意 &lt;C-J&gt; 和 &lt;C-K&gt; 會使 NerdTree 裡的快速鍵無法使用
+nnoremap &lt;C-J&gt; &lt;Esc&gt;:bnext&lt;CR&gt;
+nnoremap &lt;C-K&gt; &lt;Esc&gt;:bprevious&lt;CR&gt;
+nnoremap &lt;C-H&gt; &lt;Esc&gt;:tabprevious&lt;CR&gt;
+nnoremap &lt;C-L&gt; &lt;Esc&gt;:tabnext&lt;CR&gt;
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cnoremap w!! w !sudo tee % &gt; /dev/null
+
+" 單檔編譯與執行
+autocmd FileType c,cpp noremap &lt;F7&gt; &lt;Esc&gt;:w&lt;CR&gt;:vsp +terminal\ gcc\ -std=c11\ -o\ ./%&lt;\ ./%\ &amp;&amp;\ ./%&lt;&lt;CR&gt;a
+" 單檔執行
+autocmd FileType c,cpp noremap &lt;F8&gt; &lt;Esc&gt;:w&lt;CR&gt;:vsp +terminal\ ./%&lt;&lt;CR&gt;a
+
+
+" ========================================================================
+" Plug-in 載入(https://github.com/junegunn/vim-plug)
+" ========================================================================
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'vim-airline/vim-airline'           " 狀態列
+Plug 'vim-airline/vim-airline-themes'    " 狀態列主題
+"Plug 'skywind3000/vim-quickui'
+Plug 'easymotion/vim-easymotion'         " 快速移動
+"Plug 'justinmk/vim-sneak'                " 雙字搜尋移動
+"Plug 'ctrlpvim/ctrlp.vim'                " 模糊檔名搜尋
+"Plug 'tpope/vim-surround'
+
+"Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}    " 代碼補全
+"Plug 'w0rp/ale'                          " 錯誤檢查
+"Plug 'ludovicchabant/vim-gutentags'      " tag 管理
+Plug 'rhysd/vim-clang-format'            " 代碼格式化
+Plug 'majutsushi/tagbar'                 " 顯示函數、變數等列表
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+
+"echodoc
+call plug#end()
+
+
+" ========================================================================
+" Plug-in 設定
+" ========================================================================
+" vim-airline and vim-airline-themes
+let g:airline_theme='deus'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" coc.nvim
+" Map &lt;tab&gt; to trigger completion and navigate to the next item: &gt;
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap &lt;silent&gt;&lt;expr&gt; &lt;TAB&gt;
+      \ pumvisible() ? "\&lt;C-n&gt;" :
+      \ &lt;SID&gt;check_back_space() ? "\&lt;TAB&gt;" :
+      \ coc#refresh()
+
+" Map &lt;c-space&gt; to trigger completion: &gt;
+inoremap &lt;silent&gt;&lt;expr&gt; &lt;c-space&gt; coc#refresh()
+
+" &lt;CR&gt; to confirm completion, use: &gt;
+inoremap &lt;expr&gt; &lt;cr&gt; pumvisible() ? "\&lt;C-y&gt;" : "\&lt;CR&gt;"
+
+" ale
+let g:ale_sign_column_always = 1
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+noremap &lt;F5&gt; &lt;Esc&gt;:ALEToggle&lt;CR&gt;
+
+" vim-gutentags
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+
+" 配置 ctags 的参数
+let g:gutentags_ctags_extra_args = ['--kinds-all=*']
+
+" 检测 ~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+   silent! call mkdir(s:vim_tags, 'p')
+endif
+
+" vim-clang-format
+let g:clang_format#code_style = "google"
+let g:clang_format#style_options = {
+            \ "AccessModifierOffset": 0,
+            \ "AlignAfterOpenBracket": "DontAlign",
+            \ "AlignConsecutiveAssignments": "false",
+            \ "AlignConsecutiveDeclarations": "false",
+            \ "AlignEscapedNewlinesLeft": "true",
+            \ "AlignOperands": "true",
+            \ "AlignTrailingComments": "true",
+            \ "AllowAllParametersOfDeclarationOnNextLine": "true",
+            \ "AllowShortBlocksOnASingleLine": "true",
+            \ "AllowShortFunctionsOnASingleLine": "All",
+            \ "AllowShortIfStatementsOnASingleLine": "true",
+            \ "AllowShortLoopsOnASingleLine": "true",
+            \ "AlwaysBreakAfterDefinitionReturnType": "None",
+            \ "AlwaysBreakAfterReturnType": "None",
+            \ "AlwaysBreakBeforeMultilineStrings": "false",
+            \ "BinPackArguments": "true",
+            \ "BinPackParameters": "true",
+            \ "BreakBeforeBinaryOperators": "None",
+            \ "BreakBeforeBraces": "Attach",
+            \ "BreakBeforeTernaryOperators": "true",
+            \ "BreakConstructorInitializersBeforeComma": "false",
+            \ "ColumnLimit": 0,
+            \ "IndentWidth": 4,
+            \ "IndentWrappedFunctionNames": "true",
+            \ "NamespaceIndentation": "All",
+            \ "ObjCBlockIndentWidth": 4,
+            \ "ReflowComments": "false",
+            \ "SortIncludes": "false",
+            \ "SpaceBeforeParens": "Never",
+            \ "SpacesBeforeTrailingComments": 4,
+            \ "SpacesInContainerLiterals": "false",
+            \ "DerivePointerAlignment": "false",
+            \ "PointerAlignment": "Right",
+            \ "TabWidth": 4}
+autocmd FileType c,cpp,objc nnoremap &lt;buffer&gt;&lt;F3&gt; :&lt;C-u&gt;ClangFormat&lt;CR&gt;
+autocmd FileType c,cpp,objc vnoremap &lt;buffer&gt;&lt;F3&gt; :ClangFormat&lt;CR&gt;
+
+" TagBar
+noremap &lt;F4&gt; :TagbarToggle&lt;CR&gt;
+" 設定 ctags 對哪些代碼標示符生成標籤
+let g:tagbar_type_c = {
+    \ 'kinds' : [
+         \ 'c:classes:0:1',
+         \ 'd:macros:0:1',
+         \ 'e:enumerators:0:0',
+         \ 'f:functions:0:1',
+         \ 'g:enumeration:0:1',
+         \ 'l:local:0:1',
+         \ 'm:members:0:1',
+         \ 'n:namespaces:0:1',
+         \ 'p:functions_prototypes:0:1',
+         \ 's:structs:0:1',
+         \ 't:typedefs:0:1',
+         \ 'u:unions:0:1',
+         \ 'v:global:0:1',
+         \ 'x:external:0:1'
+     \ ],
+     \ 'sro'        : '::',
+     \ 'kind2scope' : {
+         \ 'g' : 'enum',
+         \ 'n' : 'namespace',
+         \ 'c' : 'class',
+         \ 's' : 'struct',
+         \ 'u' : 'union'
+     \ },
+     \ 'scope2kind' : {
+         \ 'enum'      : 'g',
+         \ 'namespace' : 'n',
+         \ 'class'     : 'c',
+         \ 'struct'    : 's',
+         \ 'union'     : 'u'
+     \ }
+\ }
+let g:tagbar_type_cpp = {
+    \ 'kinds' : [
+         \ 'c:classes:0:1',
+         \ 'd:macros:0:1',
+         \ 'e:enumerators:0:0',
+         \ 'f:functions:0:1',
+         \ 'g:enumeration:0:1',
+         \ 'l:local:0:1',
+         \ 'm:members:0:1',
+         \ 'n:namespaces:0:1',
+         \ 'p:functions_prototypes:0:1',
+         \ 's:structs:0:1',
+         \ 't:typedefs:0:1',
+         \ 'u:unions:0:1',
+         \ 'v:global:0:1',
+         \ 'x:external:0:1'
+     \ ],
+     \ 'sro'        : '::',
+     \ 'kind2scope' : {
+         \ 'g' : 'enum',
+         \ 'n' : 'namespace',
+         \ 'c' : 'class',
+         \ 's' : 'struct',
+         \ 'u' : 'union'
+     \ },
+     \ 'scope2kind' : {
+         \ 'enum'      : 'g',
+         \ 'namespace' : 'n',
+         \ 'class'     : 'c',
+         \ 'struct'    : 's',
+         \ 'union'     : 'u'
+     \ }
+\ }
+
+" NERD
+noremap &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt;
+" autocmd bufenter * if (winnr("$") == 1 &amp;&amp; exists("b:NERDTree") &amp;&amp; b:NERDTree.isTabTree()) | q | endif
+let g:NERDSpaceDelims = 1               " Add spaces after comment delimiters by default
+let g:NERDCompactSexyComs = 1           " Use compact syntax for prettified multi-line comments
+let g:NERDCommentEmptyLines = 1         " Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDTrimTrailingWhitespace = 1    " Enable trimming of trailing whitespace when uncommenting
+</code></pre></div>
                 
               
               
@@ -1860,13 +2529,13 @@
           </a>
         
         
-          <a href="../manjaro-01-install-setting-and-packages/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../archlinux-04-historically-installed-packages-and-their-settings/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   下一頁
                 </span>
-                Manjaro (一) 安裝、設定與軟體包
+                Arch Linux (四) 以前安裝過的軟體包及相關設定
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
