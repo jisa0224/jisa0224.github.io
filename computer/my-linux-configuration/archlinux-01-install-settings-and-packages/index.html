@@ -873,6 +873,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    其它
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    參考資料
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1937,6 +1951,20 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    其它
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    參考資料
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1956,7 +1984,7 @@
 <p>以下安裝至 <a href="../archlinux-02-details-and-miscellaneous/#_1">MSI Modern 15 A10M-419TW</a> (<a href="../archlinux-02-details-and-miscellaneous/#virtualbox-guest">安裝至 VirtualBox 作為 Guest 參考此篇</a>)。</p>
 <p>Boot Loader 採用 systemd-boot 多 Linux 方案。</p>
 <ol>
-<li>下載 Arch Linux 安裝光碟，並寫入 USB 隨身碟 (使用...) 或燒錄至光碟。</li>
+<li>下載 Arch Linux 安裝光碟，並寫入 USB 隨身碟 (<a href="https://wiki.archlinux.org/index.php/USB_flash_installation_medium">USB flash installation medium - ArchWiki</a>) 或燒錄至光碟。</li>
 <li>到電腦的 UEFI Boot Manager 設定以該 USB 隨身碟或光碟開機，開機後會自動以 root 登入。</li>
 <li>預設 keyboard layout 為 US，需要的話進行調整。</li>
 <li>確認是否以 UEFI 開機: 執行 <code>[ -d /sys/firmware/efi/efivars ] &amp;&amp; echo "booted in UEFI mode" || echo "booted in BIOS (or CSM) mode"</code>。</li>
@@ -1982,7 +2010,7 @@ mount --bind /mnt/efi/installs/arch /mnt/boot
 mount /dev/nvme0n1p3 /mnt/home -o discard
 </code></pre></div>
     (<code>-o discard</code> 是為了開啟 <a href="../archlinux-02-details-and-miscellaneous/#ssd-trim">SSD TRIM</a>)</li>
-<li>安裝最小可用系統: 執行 <code>pacstrap /mnt base linux linux-firmware</code>。</li>
+<li>安裝最小可用系統: 執行 <code>pacstrap /mnt base linux linux-lts linux-firmware</code>。</li>
 <li>安裝其它軟體包 (見下面章節)，可以<ul>
 <li>繼續用 <code>pacstrap</code> 安裝。</li>
 <li>等一下 chroot 進新安裝的系統裡用 <code>pacman</code> 安裝。</li>
@@ -2029,6 +2057,7 @@ initrd /installs/arch/intel-ucode.img
 initrd /installs/arch/initramfs-linux.img
 options root=UUID=&lt;執行 `lsblk -f` 找出 UUID&gt; rw nvme_core.default_ps_max_latency_us=0
 </code></pre></div></li>
+<li>如果安裝了 linux-lts，記得也為它新增一個 boot entry。</li>
 <li>如果安裝成功，執行 <code>bootctl list</code> 應該會看到上面加入的 boot entry；
   執行 <code>efibootmgr -v</code> 應該會看到 "Linux Boot Manager ... File(\EFI\systemd\systemd-bootx64.efi)"</li>
 <li>未來如果更新 systemd-boot，需要手動更新 boot manager (執行 <code>bootctl update</code>)，
@@ -2129,10 +2158,11 @@ options root=UUID=&lt;執行 `lsblk -f` 找出 UUID&gt; rw nvme_core.default_ps_
 <li>
 <p>基本</p>
 <ul>
-<li>最小可用: base linux linux-firmware  <ul>
+<li>最小可用: base linux linux-lts linux-firmware  <ul>
 <li>base 是一個 package group，它包含 bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 
   iputils licenses pacman pciutils procps-ng psmisc sed shadow systemd systemd-sysvcompat tar util-linux xz)  </li>
 <li>開啟 pacman 彩色輸出: uncomment <code>/etc/pacman.conf</code> 中的 <code>Color</code> 選項 (用 <code>alias</code> 的話 <code>sudo</code> 時會失效)。</li>
+<li>linux-lts 是 Linux LTS kernel，作為萬一最新的 kernel 無法使用時的備用。</li>
 </ul>
 </li>
 <li>基本工具: bash-completion diffutils less lsb-release man-db neovim rsync wget which xdg-user-dirs xdg-utils  <ul>
@@ -2333,18 +2363,21 @@ SDL_IM_MODULE=fcitx
 </ul>
 </li>
 </ul>
-<h1 id="_6">其它</h1>
+<h2 id="_6">其它</h2>
 <ul>
+<li>更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。<br/>
+  在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。<br/>
+<a href="https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system">System maintenance - ArchWiki</a></li>
 <li>觸控板無法同時開啟邊緣滾動和兩指滾動 (目前無解)<br/>
   以前觸控版的驅動程式使用 xf86-input-synaptics 可以同時開啟邊緣滾動和兩指滾動，但由於 xf86-input-synaptics 已經停止開發，
   所以 Arch Linux 建議安裝 libinput，<a href="https://wayland.freedesktop.org/libinput/doc/latest/scrolling.html">libinput 的官方說明文件</a>
   明確指出雖然兩者都有支援，但<strong>一次只能開啟一個</strong>。儘管有人表示<a href="https://forum.manjaro.org/t/enable-both-two-finger-scroll-and-edge-scroll-in-manejaro-kde/88144/8">同時安裝 lininput、xf86-input-libinput 和 xf86-input-synaptics 就可以同時開啟兩種滾動</a>，但由於無法測試而不採用。</li>
 </ul>
-<h1 id="_7">參考資料</h1>
+<h2 id="_7">參考資料</h2>
 <ul>
 <li><a href="https://wiki.archlinux.org/index.php/installation_guide">Installation guide - ArchWiki</a></li>
 <li><a href="https://wiki.archlinux.org/index.php/General_recommendations">General recommendations - ArchWiki</a></li>
-<li>Manjaro Architect 安裝的軟體包</li>
+<li>Manjaro Architect 自動安裝的軟體包</li>
 </ul>
                 
               
