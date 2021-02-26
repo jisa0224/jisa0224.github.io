@@ -8,7 +8,7 @@
 
 Boot Loader 採用 systemd-boot 多 Linux 方案。
 
-1.  下載 Arch Linux 安裝光碟，並寫入 USB 隨身碟 (使用...) 或燒錄至光碟。
+1.  下載 Arch Linux 安裝光碟，並寫入 USB 隨身碟 ([USB flash installation medium - ArchWiki](https://wiki.archlinux.org/index.php/USB_flash_installation_medium)) 或燒錄至光碟。
 2.  到電腦的 UEFI Boot Manager 設定以該 USB 隨身碟或光碟開機，開機後會自動以 root 登入。
 3.  預設 keyboard layout 為 US，需要的話進行調整。
 4.  確認是否以 UEFI 開機: 執行 `[ -d /sys/firmware/efi/efivars ] && echo "booted in UEFI mode" || echo "booted in BIOS (or CSM) mode"`。
@@ -36,7 +36,7 @@ Boot Loader 採用 systemd-boot 多 Linux 方案。
     mount /dev/nvme0n1p3 /mnt/home -o discard
     ```
     (`-o discard` 是為了開啟 [SSD TRIM][SSDTRIM])
-10. 安裝最小可用系統: 執行 `pacstrap /mnt base linux linux-firmware`。
+10. 安裝最小可用系統: 執行 `pacstrap /mnt base linux linux-lts linux-firmware`。
 11. 安裝其它軟體包 (見下面章節)，可以
     * 繼續用 `pacstrap` 安裝。
     * 等一下 chroot 進新安裝的系統裡用 `pacman` 安裝。
@@ -77,6 +77,7 @@ Boot Loader 採用 systemd-boot 多 Linux 方案。
       initrd /installs/arch/initramfs-linux.img
       options root=UUID=<執行 `lsblk -f` 找出 UUID> rw nvme_core.default_ps_max_latency_us=0
       ```
+    * 如果安裝了 linux-lts，記得也為它新增一個 boot entry。
     * 如果安裝成功，執行 `bootctl list` 應該會看到上面加入的 boot entry；
       執行 `efibootmgr -v` 應該會看到 "Linux Boot Manager ... File(\EFI\systemd\systemd-bootx64.efi)"
     * 未來如果更新 systemd-boot，需要手動更新 boot manager (執行 `bootctl update`)，
@@ -161,10 +162,11 @@ Boot Loader 採用 systemd-boot 多 Linux 方案。
 ### 系統程式
 
 * 基本
-    * 最小可用: base linux linux-firmware  
+    * 最小可用: base linux linux-lts linux-firmware  
         - base 是一個 package group，它包含 bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 
           iputils licenses pacman pciutils procps-ng psmisc sed shadow systemd systemd-sysvcompat tar util-linux xz)  
         - 開啟 pacman 彩色輸出: uncomment `/etc/pacman.conf` 中的 `Color` 選項 (用 `alias` 的話 `sudo` 時會失效)。
+        - linux-lts 是 Linux LTS kernel，作為萬一最新的 kernel 無法使用時的備用。
     * 基本工具: bash-completion diffutils less lsb-release man-db neovim rsync wget which xdg-user-dirs xdg-utils  
         - 如果在建立使用者後才裝 `xdg-user-dirs`，
           之後必須手動執行 `LC_ALL=C xdg-user-dirs-update --force && echo -n en_US > ~/.config/user-dirs.locale` 建立英文 XDG 資料夾
@@ -289,18 +291,21 @@ Boot Loader 採用 systemd-boot 多 Linux 方案。
           參考資料：[Java Runtime Environment fonts - ArchWiki](https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts#Overriding_the_automatically_picked_up_settings)、
           [environment variables - Where can I set global Java Options? - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/151733/where-can-i-set-global-java-options)
 
-# 其它
+## 其它
 
+* 更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。  
+  在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。  
+  [System maintenance - ArchWiki](https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system)
 * 觸控板無法同時開啟邊緣滾動和兩指滾動 (目前無解)  
   以前觸控版的驅動程式使用 xf86-input-synaptics 可以同時開啟邊緣滾動和兩指滾動，但由於 xf86-input-synaptics 已經停止開發，
   所以 Arch Linux 建議安裝 libinput，[libinput 的官方說明文件](https://wayland.freedesktop.org/libinput/doc/latest/scrolling.html)
   明確指出雖然兩者都有支援，但**一次只能開啟一個**。儘管有人表示[同時安裝 lininput、xf86-input-libinput 和 xf86-input-synaptics 就可以同時開啟兩種滾動](https://forum.manjaro.org/t/enable-both-two-finger-scroll-and-edge-scroll-in-manejaro-kde/88144/8)，但由於無法測試而不採用。
 
-# 參考資料
+## 參考資料
 
 * [Installation guide - ArchWiki](https://wiki.archlinux.org/index.php/installation_guide)
 * [General recommendations - ArchWiki](https://wiki.archlinux.org/index.php/General_recommendations)
-* Manjaro Architect 安裝的軟體包
+* Manjaro Architect 自動安裝的軟體包
 
 [HWSpec]:      archlinux-02-details-and-miscellaneous.md#_1
 [VBoxGuest]:   archlinux-02-details-and-miscellaneous.md#virtualbox-guest
