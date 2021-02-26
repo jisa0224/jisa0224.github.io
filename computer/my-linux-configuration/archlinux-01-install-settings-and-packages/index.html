@@ -1982,7 +1982,7 @@
 <p>命令和程式碼中帶有 <code>&lt;&gt;</code> 的選項，請自行替換。</p>
 <h2 id="_1">安裝</h2>
 <p>以下安裝至 <a href="../archlinux-02-details-and-miscellaneous/#_1">MSI Modern 15 A10M-419TW</a> (<a href="../archlinux-02-details-and-miscellaneous/#virtualbox-guest">安裝至 VirtualBox 作為 Guest 參考此篇</a>)。</p>
-<p>Boot Loader 採用 systemd-boot 多 Linux 方案。</p>
+<p>Boot Loader 採用 systemd-boot 單 Linux 方案。</p>
 <ol>
 <li>下載 Arch Linux 安裝光碟，並寫入 USB 隨身碟 (<a href="https://wiki.archlinux.org/index.php/USB_flash_installation_medium">USB flash installation medium - ArchWiki</a>) 或燒錄至光碟。</li>
 <li>到電腦的 UEFI Boot Manager 設定以該 USB 隨身碟或光碟開機，開機後會自動以 root 登入。</li>
@@ -1997,16 +1997,15 @@
     (如果要刪除分割表，要用 fdisk，執行後按 <code>g</code>)<br/>
     (<a href="../archlinux-02-details-and-miscellaneous/#ssd-4k">SSD 4K 對齊</a>)</li>
 <li>格式化磁碟分區
-    <div class="highlight"><pre><span></span><code>mkfs.fat -F32 /dev/nvme0n1p1    # /efi (EFI 系統分割區必須為 FAT32)
+    <div class="highlight"><pre><span></span><code>mkfs.fat -F32 /dev/nvme0n1p1    # /boot (EFI 系統分割區必須為 FAT32)
 mkfs.ext4 /dev/nvme0n1p2        # /
 mkfs.ext4 /dev/nvme0n1p3        # /home
 </code></pre></div>
     (<a href="../archlinux-02-details-and-miscellaneous/#bios-uefi">建立 EFI 系統分割區</a>)</li>
 <li>掛載新安裝的系統的磁碟分區
     <div class="highlight"><pre><span></span><code>mount /dev/nvme0n1p2 /mnt -o discard
-mkdir -p /mnt/efi /mnt/efi/installs/arch /mnt/home
-mount /dev/nvme0n1p1 /mnt/efi -o discard
-mount --bind /mnt/efi/installs/arch /mnt/boot
+mkdir /mnt/boot /mnt/home
+mount /dev/nvme0n1p1 /mnt/boot -o discard
 mount /dev/nvme0n1p3 /mnt/home -o discard
 </code></pre></div>
     (<code>-o discard</code> 是為了開啟 <a href="../archlinux-02-details-and-miscellaneous/#ssd-trim">SSD TRIM</a>)</li>
@@ -2019,7 +2018,7 @@ mount /dev/nvme0n1p3 /mnt/home -o discard
 (plasma 和其它 package group 必須用 <code>pacman</code> 安裝，不然 <code>pacstrap</code> 會全部用預設選項安裝。)</li>
 </ul>
 </li>
-<li>產生 fstab: 執行 <code>genfstab -U /mnt | sed 's|/mnt/efi/installs/arch|/efi/installs/arch|g' &gt;&gt; /mnt/etc/fstab</code></li>
+<li>產生 fstab: 執行 <code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</code></li>
 <li>chroot 進新安裝的系統，執行 <code>arch-chroot /mnt</code>，<strong>以下位於 chroot 裡的命令會以 "(in chroot)" 開頭</strong>。</li>
 <li>(in chroot) 設定系統時間<ul>
 <li>執行 <code>ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime</code>。</li>
@@ -2052,9 +2051,9 @@ timeout 5
 </code></pre></div></li>
 <li>新增一個 boot entry <code>/efi/loader/entries/arch.conf</code>。
   <div class="highlight"><pre><span></span><code>title Arch Linux
-linux /installs/arch/vmlinuz-linux
-initrd /installs/arch/intel-ucode.img
-initrd /installs/arch/initramfs-linux.img
+linux /vmlinuz-linux
+initrd /intel-ucode.img
+initrd /initramfs-linux.img
 options root=UUID=&lt;執行 `lsblk -f` 找出 UUID&gt; rw nvme_core.default_ps_max_latency_us=0
 </code></pre></div></li>
 <li>如果安裝了 linux-lts，記得也為它新增一個 boot entry。</li>
