@@ -6,7 +6,7 @@
 
 以下安裝至 [MSI Modern 15 A10M-419TW][HWSpec] ([安裝至 VirtualBox 作為 Guest 參考此篇][VBoxGuest])。
 
-Boot Loader 採用 systemd-boot 多 Linux 方案。
+Boot Loader 採用 systemd-boot 單 Linux 方案。
 
 1.  下載 Arch Linux 安裝光碟，並寫入 USB 隨身碟 ([USB flash installation medium - ArchWiki](https://wiki.archlinux.org/index.php/USB_flash_installation_medium)) 或燒錄至光碟。
 2.  到電腦的 UEFI Boot Manager 設定以該 USB 隨身碟或光碟開機，開機後會自動以 root 登入。
@@ -22,7 +22,7 @@ Boot Loader 採用 systemd-boot 多 Linux 方案。
     ([SSD 4K 對齊][SSD4KAlign])
 8.  格式化磁碟分區
     ```
-    mkfs.fat -F32 /dev/nvme0n1p1    # /efi (EFI 系統分割區必須為 FAT32)
+    mkfs.fat -F32 /dev/nvme0n1p1    # /boot (EFI 系統分割區必須為 FAT32)
     mkfs.ext4 /dev/nvme0n1p2        # /
     mkfs.ext4 /dev/nvme0n1p3        # /home
     ```
@@ -30,9 +30,8 @@ Boot Loader 採用 systemd-boot 多 Linux 方案。
 9.  掛載新安裝的系統的磁碟分區
     ```
     mount /dev/nvme0n1p2 /mnt -o discard
-    mkdir -p /mnt/efi /mnt/efi/installs/arch /mnt/home
-    mount /dev/nvme0n1p1 /mnt/efi -o discard
-    mount --bind /mnt/efi/installs/arch /mnt/boot
+    mkdir /mnt/boot /mnt/home
+    mount /dev/nvme0n1p1 /mnt/boot -o discard
     mount /dev/nvme0n1p3 /mnt/home -o discard
     ```
     (`-o discard` 是為了開啟 [SSD TRIM][SSDTRIM])
@@ -43,7 +42,7 @@ Boot Loader 採用 systemd-boot 多 Linux 方案。
     * 重開機進入新安裝的系統裡用 `pacman` 安裝。
     (不管選擇什麼時候裝，至少分類在 "基本"、"開機" 和 "網路" 的軟體包必須裝上。)  
     (plasma 和其它 package group 必須用 `pacman` 安裝，不然 `pacstrap` 會全部用預設選項安裝。)
-12. 產生 fstab: 執行 `genfstab -U /mnt | sed 's|/mnt/efi/installs/arch|/efi/installs/arch|g' >> /mnt/etc/fstab`
+12. 產生 fstab: 執行 `genfstab -U /mnt >> /mnt/etc/fstab`
 13. chroot 進新安裝的系統，執行 `arch-chroot /mnt`，**以下位於 chroot 裡的命令會以 "(in chroot)" 開頭**。
 14. (in chroot) 設定系統時間
     * 執行 `ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime`。
@@ -72,9 +71,9 @@ Boot Loader 採用 systemd-boot 多 Linux 方案。
     * 新增一個 boot entry `/efi/loader/entries/arch.conf`。
       ```
       title Arch Linux
-      linux /installs/arch/vmlinuz-linux
-      initrd /installs/arch/intel-ucode.img
-      initrd /installs/arch/initramfs-linux.img
+      linux /vmlinuz-linux
+      initrd /intel-ucode.img
+      initrd /initramfs-linux.img
       options root=UUID=<執行 `lsblk -f` 找出 UUID> rw nvme_core.default_ps_max_latency_us=0
       ```
     * 如果安裝了 linux-lts，記得也為它新增一個 boot entry。

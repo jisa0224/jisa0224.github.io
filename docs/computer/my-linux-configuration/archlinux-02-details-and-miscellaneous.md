@@ -123,6 +123,7 @@ Initramfs 和 CPU microcode 必須全部放在該分割區裡。
 * systemd-boot (多 Linux 方案)
     * 建立一個 EFI 系統分割區，掛載到 `/efi`。
     * 建立 `/efi/installs/<id>` 資料夾，然後 `mount --bind /efi/installs/<id> /boot`，這樣每個 Linux 都可以把它自己的 kernel 放在自己的資料夾裡。
+    * 產生 fstab: 執行 `genfstab -U /mnt | sed 's|/mnt/efi/installs/arch|/efi/installs/arch|g' >> /mnt/etc/fstab`。
     * systemd-boot 已經包含在 Arch Linux 的 systemd 軟體包裡，不用另外安裝。
     * 安裝 EFI boot manager: 執行 `bootctl install`。  
       (systemd-boot 會往 UEFI NVRAM 裡寫入 boot entry，指向 `/efi/EFI/systemd/systemd-bootx64.efi`。)
