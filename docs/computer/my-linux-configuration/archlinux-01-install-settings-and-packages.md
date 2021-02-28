@@ -36,14 +36,10 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     ```
     (`-o discard` 是為了開啟 [SSD TRIM][SSDTRIM])
 10. 安裝最小可用系統: 執行 `pacstrap /mnt base linux linux-lts linux-firmware`。
-11. 安裝其它軟體包 (見下面章節)，可以
-    * 繼續用 `pacstrap` 安裝。
-    * 等一下 chroot 進新安裝的系統裡用 `pacman` 安裝。
-    * 重開機進入新安裝的系統裡用 `pacman` 安裝。
-    (不管選擇什麼時候裝，至少分類在 "基本"、"開機" 和 "網路" 的軟體包必須裝上。)  
-    (plasma 和其它 package group 必須用 `pacman` 安裝，不然 `pacstrap` 會全部用預設選項安裝。)
-12. 產生 fstab: 執行 `genfstab -U /mnt >> /mnt/etc/fstab`
-13. chroot 進新安裝的系統，執行 `arch-chroot /mnt`，**以下位於 chroot 裡的命令會以 "(in chroot)" 開頭**。
+11. 產生 fstab: 執行 `genfstab -U /mnt >> /mnt/etc/fstab`
+12. chroot 進新安裝的系統，執行 `arch-chroot /mnt`，**以下位於 chroot 裡的命令會以 "(in chroot)" 開頭**。
+13. (in chroot) 安裝其它軟體包: 使用 `pacman` 安裝所有 "系統程式" 分類的軟體包。  
+    * plasma 和其它軟體包群組必須用 `pacman` 安裝，不然 `pacstrap` 會全部用預設選項安裝。
 14. (in chroot) 設定系統時間
     * 執行 `ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime`。
     * 執行 `timedatectl set-ntp true`。
@@ -62,13 +58,14 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 18. (in chroot) 設定 root 密碼: 執行 `passwd`。
 19. (in chroot) 安裝 Boot Loader (採用 systemd-boot 多 Linux 方案)
     * systemd-boot 已經包含在 Arch Linux 的 systemd 軟體包裡，不用另外安裝。
+    * 如果曾安裝過其它 UEFI Boot Loader，刪除舊的 EFI boot entry: 執行 `efibootmgr -b <boot entry number> -B`。
     * 安裝 EFI boot manager: 執行 `bootctl install`。
-    * 編輯 systemd-boot 設定檔 `/efi/loader/loader.conf`。
+    * 編輯 systemd-boot 設定檔 `/boot/loader/loader.conf`。
       ```
       default arch.conf
-      timeout 5
+      timeout 3
       ```
-    * 新增一個 boot entry `/efi/loader/entries/arch.conf`。
+    * 新增一個 boot entry `/boot/loader/entries/arch.conf`。
       ```
       title Arch Linux
       linux /vmlinuz-linux
@@ -83,6 +80,14 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
       或者安裝 systemd-boot-pacman-hook@A 自動在更新 systemd-boot 後更新 boot manager。
     * [systemd-boot - ArchWiki](https://wiki.archlinux.org/index.php/Systemd-boot)
     * `nvme_core.default_ps_max_latency_us=0` 是為了[修正 NVMe SSD 睡死問題][NVMeProblem]。
+20. 設定開機時進入圖形界面: 執行 `systemctl enable sddm`。
+21. 系統安裝完後，systemd 的藍牙服務未啟用: 執行 `sudo systemctl enable bluetooth`。
+22. 建立一般使用者並開啟 sudo
+    * 執行 `useradd -m -G <additional_groups> -s <login_shell> <username>` (`<login_shell>` 必須存在於 `/etc/shells`)，
+      然後執行 `passwd <username>` 設定密碼。
+    * 執行 `EDITOR=nvim visudo` 並 uncomment `%wheel ALL=(ALL) ALL`，然後把使用者加入該群組 `usermod -a -G wheel <username>`。
+    * 調整 sudo timeout，讓 sudo 不用隔一段時間重新輸入密碼: 執行 `EDITOR=nvim visudo -f /etc/sudoers.d/<username>`，
+      加入 `Defaults timestamp_timeout=-1` 後儲存離開。
 20. (in chroot) 離開 chroot，執行 `exit` 或按下 `Ctrl+D`。
 21. 卸載新安裝的系統的磁碟分區: 執行 `umount -R /mnt`。
 22. 執行 `poweroff` 關機，最後退出安裝媒體，下次開機就會進入新安裝的系統。
@@ -97,17 +102,18 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 以下在新安裝的系統執行。
 
 * 系統設定
-    * (以 root 登入) 建立一般使用者並開啟 sudo
-        * 執行 `useradd -m -G <additional_groups> -s <login_shell> <username>` (`<login_shell>` 必須存在於 `/etc/shells`)，
-          然後執行 `passwd <username>` 設定密碼。
-        * 執行 `EDITOR=nvim visudo` 並 uncomment `%wheel ALL=(ALL) ALL`，然後把使用者加入該群組 `usermod -a -G wheel <username>`。
-        * 調整 sudo timeout，讓 sudo 不用隔一段時間重新輸入密碼: 執行 `EDITOR=nvim visudo -f /etc/sudoers.d/<username>`，
-          加入 `Defaults timestamp_timeout=-1` 後儲存離開。
-    * 開機時進入圖形界面: 執行 `systemctl enable sddm`。
     * 解決關機時出現 `A stop job is running for ... (... / 1min 30s)`，需要等待很長時間的問題: 
       於 `/etc/systemd/system.conf` 中修改或加入 `DefaultTimeoutStopSec=10s`，儲存後重開機。  
       參考資料: [systemd - A stop job is running for Session c2 of user - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/273876/a-stop-job-is-running-for-session-c2-of-user)
-    * 系統安裝完後，systemd 的藍牙服務未開啟: 執行 `sudo systemctl enable bluetooth` 設定開機後自動啟動藍牙服務。
+    * 預設情況下，使用者密碼輸入錯誤 3 次，就會鎖定 10 分鐘
+        * 此功能由 `pam_faillock` 模組提供 (以前是 `pam_tally2`)。
+        * 完全關閉此功能: 編輯 `/etc/security/faillock.conf`，修改為 `deny = 0`。
+        * 不關閉此功能，取消當下的鎖定: 以 root 登入 (因為 sudo 也被鎖起來了)，執行 `faillock --user <username> --reset`。
+        * 參考資料: [Security - ArchWiki](https://wiki.archlinux.org/index.php/Security#Lock_out_user_after_three_failed_login_attempts)。
+    * 由於許多程式都會在 `~/.cache` 快取，卻不會自動清理不再使用的快取，因此把它掛載為 tmpfs，每次關機自動清理:   
+      在不登入的情況下清空 `~/.cache`，然後在 `/etc/fstab` 中加入 `tmpfs /home/jisa/.cache tmpfs rw,nosuid,nodev,relatime,size=50%,mode=755,uid=1000,gid=1000 0 0`，儲存後重開機。  
+      (雖然重開機後第一次執行程式會比較慢(其實感覺不太出來)，但是之後因為快取位於 tmpfs 上，反而會比較快。)  
+      [~/.cache][Cache]
 * 桌面環境 (KDE) 設定
     * 設定語言及地區
         * 到 System Settings > Regional Settings > Language 加入"繁體中文"，並移到最上面。
@@ -119,10 +125,12 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         * 設定 Colors 為 Breeze。
     * 關閉 KDE Wallet subsystem 以避免它一直跳出視窗要求輸入密碼: 執行 `echo -e '[Wallet]\nEnabled=false' > ~/.config/kwalletrc`。
     * 到 System Settings > Search 關閉 Baloo 搜尋功能，因為它佔用太多 CPU 和 RAM。
-    * KDE Dolphin 提供的桌面沒有捷徑功能，必須依靠 `.desktop` 的方式實現，新增以下三個檔案: 
-        * [~/Desktop/root.desktop](archlinux-03-configuration-files.md)
-        * [~/Desktop/home.desktop](archlinux-03-configuration-files.md)
-        * [~/Desktop/trash.desktop](archlinux-03-configuration-files.md)
+    * KDE Dolphin 提供的桌面沒有捷徑功能，必須依靠 `.desktop` 的方式實現，新增 
+      [~/Desktop/root.desktop](archlinux-03-configuration-files.md), 
+      [~/Desktop/home.desktop](archlinux-03-configuration-files.md), 
+      [~/Desktop/trash.desktop](archlinux-03-configuration-files.md) 三個檔案。
+    * Windows 鍵無法開啟 "應用程式選單": 如果到應用程式選單的快捷鍵設定按下 Windows 鍵，會被識別成 "Meta 鍵" 而無法作為快捷鍵 (因為 Meta 鍵是修飾鍵，必須配合其它按鍵使用)，
+      但如果將快捷鍵設定為 "Alt+F1"，就可以使用 Windows 鍵開啟應用程式選單，目前原理不明。
     * 字型設定: 把字型檔放到 `~/.local/share/fonts`，[fontconfig 設定檔](archlinux-03-configuration-files.md)
       放到 `~/.config/fontconfig/fonts.conf` (這個 fontconfig 設定檔非常重要，如果沒有它，放進去的字型檔會把預設的配置搞的亂七八糟)。
 * Shell 設定
@@ -138,54 +146,56 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
       註：`~/.profile` 不會被讀取，原因不明。
     * `~/.bashrc`: The individual per-interactive-shell startup file ([檔案內容](archlinux-03-configuration-files.md))
     * 由於 root 沒有 `~/.bash_profile` 和 `~/.bashrc`，所以 `sudo -i` 出來的結果是黑白的，執行 `sudo ln -s ~jisa/{.bash_profile,.bashrc} /root`。
-    * `~/.dircolors`，設定 "orphaned syminks and the files they point to" 不要閃爍: 
-      * 如果沒有 `~/.dir_colors` 的話 `cp /etc/skel/.dir_colors ~`。
-      * 把 `ORPHAN 01;05;37;41` 改成 `ORPHAN 01;37;41`。
-      * 把 `MISSING 01;05;37;41` 改成 `MISSING 01;37;41`。
-* 其它設定
-    * 由於許多程式都會在 `~/.cache` 快取，卻不會自動清理不再使用的快取，因此把它掛載為 tmpfs，每次關機自動清理:   
-      在不登入的情況下清空 `~/.cache`，然後在 `/etc/fstab` 中加入 `tmpfs /home/jisa/.cache tmpfs rw,nosuid,nodev,relatime,size=50%,mode=755,uid=1000,gid=1000 0 0`，儲存後重開機。  
-      (雖然重開機後第一次執行程式會比較慢(其實感覺不太出來)，但是之後因為快取位於 tmpfs 上，反而會比較快。)  
-      [~/.cache][Cache]
+    * (代修正: arch 沒有 `/etc/skel/.dir_colors`) `~/.dircolors`，設定 "orphaned syminks and the files they point to" 不要閃爍: 
+        * 如果沒有 `~/.dir_colors` 的話 `cp /etc/skel/.dir_colors ~`。
+        * 把 `ORPHAN 01;05;37;41` 改成 `ORPHAN 01;37;41`。
+        * 把 `MISSING 01;05;37;41` 改成 `MISSING 01;37;41`。
 
 ## 軟體包
 
-* 軟體包名稱沒有後綴的來自 Arch Linux 官方軟體庫，有 `@A` 後綴的來自 Arch User Repository (AUR)，
-  有 `@M` 後綴的來自 Manjaro 官方軟體庫 (用手動下載而非加入 pacman 的 mirror)，有 `@O` 後綴的代表其它安裝方式。
-* [Manjaro 官方軟體庫 鏡像伺服器列表](https://repo.manjaro.org/)
+* 軟體包名稱沒有後綴的來自 Arch Linux 官方軟體庫，有 `@A` 後綴的來自 Arch User Repository (AUR)，有 `@O` 後綴的代表其它安裝方式。
+* 更新前軟體包前，建議先更新鏡像伺服器列表: 執行 `sudo reflector @/etc/xdg/reflector/reflector.conf`。
+* 更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。  
+  在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。  
+  [System maintenance - ArchWiki](https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system)
 * pacman 會保留所有下載過的軟體包作為快取，佔用很大儲存空間，可以執行 `sudo pacman -Scc` 清理。
-* `sudo pacman -D --asdeps <package>` 可以指定軟體包為"作為其他軟體包的依賴安裝"，`sudo pacman -D --asexplicit <package>` 可以指定軟體包為"單獨指定安裝"。
-* 更新 mirror: [Mirrors - ArchWiki](https://wiki.archlinux.org/index.php/Mirrors)
+* 使用 `sudo pacman -D --asdeps <package>` 可以指定軟體包為 "作為其他軟體包的依賴安裝"，
+  使用 `sudo pacman -D --asexplicit <package>` 可以指定軟體包為 "單獨指定安裝"。
+* 使用 `sudo pacman -S --needed <package>` 可以避免重新安裝已經安裝(且為最新版本)的軟體包。
 * 使用 AUR 所安裝的 Python 軟體包，需在 Python 更新後重新 `makepkg`(3.8 -> 3.9 才要，3.8.1 -> 3.8.2 不用)。
 
 ### 系統程式
 
 * 基本
     * 最小可用: base linux linux-lts linux-firmware  
-        - base 是一個 package group，它包含 bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 
+        - base 是一個 meta package，它包含 bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 
           iputils licenses pacman pciutils procps-ng psmisc sed shadow systemd systemd-sysvcompat tar util-linux xz)  
         - 開啟 pacman 彩色輸出: uncomment `/etc/pacman.conf` 中的 `Color` 選項 (用 `alias` 的話 `sudo` 時會失效)。
         - linux-lts 是 Linux LTS kernel，作為萬一最新的 kernel 無法使用時的備用。
-    * 基本工具: bash-completion diffutils less lsb-release man-db neovim rsync wget which xdg-user-dirs xdg-utils  
-        - 如果在建立使用者後才裝 `xdg-user-dirs`，
+    * 基本工具: base-devel bash-completion cmake diffutils less lsb-release man-db neovim rsync tree wget xdg-user-dirs xdg-utils
+        - base-devel 軟體包群組包含 autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff 
+          gzip libtool m4 make pacman patch pkgconf sed sudo texinfo which
+        - pacman 依賴於 base-devel 軟體包群組裡的其它軟體包。
+        - 如果在建立使用者後才裝 xdg-user-dirs，
           之後必須手動執行 `LC_ALL=C xdg-user-dirs-update --force && echo -n en_US > ~/.config/user-dirs.locale` 建立英文 XDG 資料夾
     * 檔案系統: dosfstools e2fsprogs exfat-utils ntfs-3g
-    * 管理工具: htop lsof polkit procps-ng psmisc sudo usbutils
+    * 管理工具: htop lsof polkit usbutils
 
 * 開機
     * CPU microcode: intel-ucode
     * Bootloader: efibootmgr systemd-boot-pacman-hook@A
 
 * 網路
-    * 網路管理: networkmanager ppp
+    * 網路管理: networkmanager(依賴於: wpa_supplicant，可選依賴於: ppp)
         - NetworkManager 內建 DHCP client，不須另外安裝 dhclient 或 dhcpcd。
+    * 無線網路: ipw2100-fw ipw2200-fw
+        - NetworkManager 可以用來連線無線網路，所以不用再裝 iwd 或 iw。
     * 防火牆 ufw
         - 需要 `systemctl enable ufw`，plasma-firewall 可以作為 ufw 的 GUI 前端。
         - 警告: 不能同時啟用 `ufw` 和 `iptables/ip6tables` 服務。
-    * 無線網路: ipw2100-fw ipw2200-fw iw wpa_supplicant
 
 * 圖形界面與多媒體
-    * Display server: xorg-server
+    * Display server: xorg-server xorg-xset
     * Display drivers: mesa(可選依賴於: libva-mesa-driver mesa-vdpau) xf86-video-intel vulkan-intel libva(可選依賴於: intel-media-driver)  
         - Intel UHD Graphics 為 Skylake 微架構 > Broadwell > Haswell。
     * 輸入: xf86-input-libinput
@@ -193,13 +203,16 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     * Display manager: sddm
         - 之後還需要在新安裝的系統裡執行 `systemctl enable sddm` 才會開機進入圖形界面。
     * 桌面環境: plasma konsole dolphin
-        - plasma 是一個 package group，安裝除了 discover kwallet-pam oxygen plasma-systemmonitor plasma-thunderbolt 以外的軟體包，
+        - plasma 是一個軟體包群組，安裝除了 discover kwallet-pam oxygen plasma-systemmonitor plasma-thunderbolt 以外的軟體包，
           phonon-qt5-backend 選擇 phonon-qt5-vlc。
-        - 安裝 package group 時如何只安裝或排除特定幾個，參考 <https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups>。
-        - konsole 和 dolphin 的設定在下面。
+        - 安裝軟體包群組時如何只安裝或排除特定幾個，參考 <https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups>。
+        - konsole: 配色 "微風"，背景透明 "10%"，字型 "Noto Mono 12pt"。
+        - dolphin: 到 Dolphin 設定 > 一般 > 行為 選擇 "對所有資料夾使用相同的顯示模式"，不然 Dolphin 會在每個資料夾下建立 ".directory" 檔案。
+        - dolphin: 到系統設定 > 工作空間行為 > 一般行為 > 點擊行為 選擇 "按兩下開啟檔案或資料夾 (按一下選取)"。
     * GUI 函式庫: gtk3
-    * 字型: ttf-dejavu noto-fonts noto-fonts-cjk noto-fonts-compat@M
-        - noto-fonts-compat@M: 在 Manjaro community 軟體庫，只依賴於 noto-fonts。
+    * 字型: ttf-dejavu noto-fonts noto-fonts-cjk noto-fonts-compat@O
+        - noto-fonts-compat@O: 只依賴於 noto-fonts，從 <https://repo.manjaro.org/> 找到一個鏡像伺服器下載 
+          `/stable/community/x86_64/noto-fonts-compat-<version>.pkg.tar.xz` 後用 `pacman -U` 安裝。
 
 ### 應用程式
 
@@ -212,15 +225,16 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     * 文字搜尋: the_silver_searcher
 
 * 文書
-    * 文字編輯: kate neovim(可選依賴於: python-pynvim xsel)
-        - kate: 字型 "Noto Mono 11pt"。
+    * 文字編輯: neovim(可選依賴於: python-pynvim xsel) kate
         - neovim: 設定檔 `~/.config/nvim/init.vim` ([檔案內容](archlinux-03-configuration-files.md))。
+        - kate: 字型 "Noto Mono 11pt"。
     * PDF 閱讀: okular
     * Office: libreoffice-fresh libreoffice-fresh-zh-tw
         - 分別在 Writer, Calc, Impress, Draw 的 "檢視 > 使用者界面" 調整成 "分頁標籤"。  
         - Writer 的 "基本字型 (西方語言)" 和 "基本字型 (亞洲語言)" 都改為 "Noto Sans CJK TC"。
 
-* 多媒體: viewnior kcolorchooser kolourpaint vlc kid3
+* 多媒體
+    * viewnior kcolorchooser kolourpaint vlc kid3
 
 * 網路
     * 瀏覽器: google-chrome@A
@@ -235,21 +249,17 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 
 * 教育
     * 翻譯: stardict
-    * 數學: (Mathematica 12.0)@O (MATLAB R2020a)@O(依賴於: libselinux@A(依賴於: libsepol@A))
-        - Mathematica: 不使用 root 權限安裝在 `~/.local/opt`，安裝與啟用說明跟安裝檔在一起，
-          另外還在 `~/.local/share/applications/wolfram-mathematica12.desktop` 加入 `Categories=Education;`。
     * Python 函式庫: python-numpy python-matplotlib(依賴於: pyside2) python-scipy
-    * jupyter-calysto_scheme-git@A(依賴於: jupyter-metakernel@A)
 
 * 開發
-    * 二進位檔: base-devel ltrace strace
-    * 專案管理: cmake git
+    * 除錯: ltrace strace
+    * 專案管理: git
         - git: 2020/8/13 後，GitHub 禁止 git 使用密碼登入，需改用 Personal access token 代替密碼登入。建立 Personal access token 後，
           執行 `git config --global credential.helper store && echo 'https://<USERNAME>:<TOKEN>@github.com' > ~/.git-credentials`，
           之後就可以不用輸入密碼。注意是明碼儲存。
     * Qt5: qt5-tools(依賴於: qt5-webkit) qt5-doc qt5-examples qtcreator pyside2
     * Python: python python-pip ipython jupyterlab
-    * 虛擬機器: virtualbox virtualbox-guest-iso virtualbox-ext-oracle@A
+    * 虛擬機器: virtualbox(依賴於: virtualbox-host-modules-arch) virtualbox-guest-iso virtualbox-ext-oracle@A
         - virtualbox: 安裝完後執行 `sudo usermod -a -G vboxusers $USER` 並重開機，才能找到 USB 裝置。
         - virtualbox-ext-oracle@A: **警告**: virtualbox 和 virtualbox-ext-oracle@A 的版本必須相同，否則無法啟動虛擬機器。
     * IDE: visual-studio-code-bin@A
@@ -263,11 +273,6 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
             - `~/.cache/vscode-cpptools/ipch` (IntelliSense precompiled headers)
 
 * 系統
-    * 終端機: konsole  
-        - konsole: 配色 "微風"，背景透明 "10%"，字型 "Noto Mono 12pt"。
-    * 檔案管理: dolphin tree  
-        - dolphin: 到 Dolphin 設定 > 一般 > 行為 選擇 "對所有資料夾使用相同的顯示模式"，不然 Dolphin 會在每個資料夾下建立 ".directory" 檔案。
-        - dolphin: 到系統設定 > 工作空間行為 > 一般行為 > 點擊行為 選擇 "按兩下開啟檔案或資料夾 (按一下選取)"。
     * 語言包: poppler-data qt5-translations
     * 輸入法: fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-chewing  
         - 於 `/etc/environment` 加入
@@ -280,9 +285,10 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
           安裝後 fcitx5 會自動被加到 /etc/xdg/autostart 裡，所以可以自動啟動。
           若沒有自動啟動可以執行 `ln -s /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/`。  
           <https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8>
-    * 軟體包: reflector (arch 沒有 pamac-cli pamac-gtk)  
-      [AUR helpers - ArchWiki](https://wiki.archlinux.org/index.php/AUR_helpers)
-    * 備份: timeshift
+    * 軟體包: reflector pamac-cli@A
+        - pamac-cli@A: `pamac checkupdates -a` 可以在不修改系統資料庫 (`/var/lib/pacman/sync`) 的情況下檢查更新，
+          因為它會維持自己的資料庫 (`/tmp/pamac/dbs/sync`)，所以也不需要 root 權限。
+    * 備份: timeshift@A
     * 磁碟: baobab partitionmanager
         - baobab: mate-disk-usage-analyzer 被包在 `mate-utils` 裡，`mate-utils` 又有太多其它東西，所以不採用。
     * Java: jre-openjdk
@@ -292,9 +298,6 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 
 ## 其它
 
-* 更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。  
-  在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。  
-  [System maintenance - ArchWiki](https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system)
 * 觸控板無法同時開啟邊緣滾動和兩指滾動 (目前無解)  
   以前觸控版的驅動程式使用 xf86-input-synaptics 可以同時開啟邊緣滾動和兩指滾動，但由於 xf86-input-synaptics 已經停止開發，
   所以 Arch Linux 建議安裝 libinput，[libinput 的官方說明文件](https://wayland.freedesktop.org/libinput/doc/latest/scrolling.html)
