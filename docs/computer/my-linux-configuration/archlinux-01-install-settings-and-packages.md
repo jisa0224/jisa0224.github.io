@@ -146,10 +146,6 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
       註：`~/.profile` 不會被讀取，原因不明。
     * `~/.bashrc`: The individual per-interactive-shell startup file ([檔案內容](archlinux-03-configuration-files.md))
     * 由於 root 沒有 `~/.bash_profile` 和 `~/.bashrc`，所以 `sudo -i` 出來的結果是黑白的，執行 `sudo ln -s ~jisa/{.bash_profile,.bashrc} /root`。
-    * (代修正: arch 沒有 `/etc/skel/.dir_colors`) `~/.dircolors`，設定 "orphaned syminks and the files they point to" 不要閃爍: 
-        * 如果沒有 `~/.dir_colors` 的話 `cp /etc/skel/.dir_colors ~`。
-        * 把 `ORPHAN 01;05;37;41` 改成 `ORPHAN 01;37;41`。
-        * 把 `MISSING 01;05;37;41` 改成 `MISSING 01;37;41`。
 
 ## 軟體包
 
@@ -158,10 +154,10 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 * 更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。  
   在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。  
   [System maintenance - ArchWiki](https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system)
-* pacman 會保留所有下載過的軟體包作為快取，佔用很大儲存空間，可以執行 `sudo pacman -Scc` 清理。
+* pacman 會保留所有下載過的軟體包作為快取，佔用很大儲存空間，可以執行 `sudo pacman -Scc` 清理全部，或執行 `sudo paccache -r` 保留最新三個版本清除其它更舊的。
+* 使用 `sudo pacman -S --needed <package>` 可以避免重新安裝已經安裝(且為最新版本)的軟體包。
 * 使用 `sudo pacman -D --asdeps <package>` 可以指定軟體包為 "作為其他軟體包的依賴安裝"，
   使用 `sudo pacman -D --asexplicit <package>` 可以指定軟體包為 "單獨指定安裝"。
-* 使用 `sudo pacman -S --needed <package>` 可以避免重新安裝已經安裝(且為最新版本)的軟體包。
 * 使用 AUR 所安裝的 Python 軟體包，需在 Python 更新後重新 `makepkg`(3.8 -> 3.9 才要，3.8.1 -> 3.8.2 不用)。
 
 ### 系統程式
@@ -249,14 +245,14 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 
 * 教育
     * 翻譯: stardict
-    * Python 函式庫: python-numpy python-matplotlib(依賴於: pyside2) python-scipy
+    * Python 函式庫: python-sympy python-numpy python-matplotlib(依賴於: pyside2) python-scipy
 
 * 開發
     * 除錯: ltrace strace
     * 專案管理: git
+        - 不要建立設定擋在 `~/.gitconfig`: 執行 `mkdir ~/.config/git && touch ~/.config/git/config`，然後執行 `git config --global user.name "USER_NAME"` 等設定。
         - git: 2020/8/13 後，GitHub 禁止 git 使用密碼登入，需改用 Personal access token 代替密碼登入。建立 Personal access token 後，
-          執行 `git config --global credential.helper store && echo 'https://<USERNAME>:<TOKEN>@github.com' > ~/.git-credentials`，
-          之後就可以不用輸入密碼。注意是明碼儲存。
+          執行 `git config --global credential.helper store && echo 'https://<USERNAME>:<TOKEN>@github.com' > ~/.config/git/credentials && chmod 600 ~/.config/git/credentials`，之後就可以不用輸入密碼。注意是明碼儲存。
     * Qt5: qt5-tools(依賴於: qt5-webkit) qt5-doc qt5-examples qtcreator pyside2
     * Python: python python-pip ipython jupyterlab
     * 虛擬機器: virtualbox(依賴於: virtualbox-host-modules-arch) virtualbox-guest-iso virtualbox-ext-oracle@A
@@ -273,6 +269,9 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
             - `~/.cache/vscode-cpptools/ipch` (IntelliSense precompiled headers)
 
 * 系統
+    * 軟體包: pacman-contrib reflector pamac-cli@A
+        - pamac-cli@A: `pamac checkupdates -a` 可以在不修改系統資料庫 (`/var/lib/pacman/sync`) 的情況下檢查更新，
+          因為它會維持自己的資料庫 (`/tmp/pamac/dbs/sync`)，所以也不需要 root 權限。
     * 語言包: poppler-data qt5-translations
     * 輸入法: fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-chewing  
         - 於 `/etc/environment` 加入
@@ -285,9 +284,6 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
           安裝後 fcitx5 會自動被加到 /etc/xdg/autostart 裡，所以可以自動啟動。
           若沒有自動啟動可以執行 `ln -s /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/`。  
           <https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8>
-    * 軟體包: reflector pamac-cli@A
-        - pamac-cli@A: `pamac checkupdates -a` 可以在不修改系統資料庫 (`/var/lib/pacman/sync`) 的情況下檢查更新，
-          因為它會維持自己的資料庫 (`/tmp/pamac/dbs/sync`)，所以也不需要 root 權限。
     * 備份: timeshift@A
     * 磁碟: baobab partitionmanager
         - baobab: mate-disk-usage-analyzer 被包在 `mate-utils` 裡，`mate-utils` 又有太多其它東西，所以不採用。
@@ -302,6 +298,8 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
   以前觸控版的驅動程式使用 xf86-input-synaptics 可以同時開啟邊緣滾動和兩指滾動，但由於 xf86-input-synaptics 已經停止開發，
   所以 Arch Linux 建議安裝 libinput，[libinput 的官方說明文件](https://wayland.freedesktop.org/libinput/doc/latest/scrolling.html)
   明確指出雖然兩者都有支援，但**一次只能開啟一個**。儘管有人表示[同時安裝 lininput、xf86-input-libinput 和 xf86-input-synaptics 就可以同時開啟兩種滾動](https://forum.manjaro.org/t/enable-both-two-finger-scroll-and-edge-scroll-in-manejaro-kde/88144/8)，但由於無法測試而不採用。
+* Arch Linux 預設沒有 `/etc/skel/.dir_colors` 或 `/etc/DIR_COLORS`，所以也沒有 `~/.dir_colors`，若有需要可以執行 `dircolors -p > ~/.dir_colors` 生成。
+* 關閉螢幕: 執行 `xset dpms force off`，滑鼠動一下或按下鍵盤就會解除，參考資料: [Display Power Management Signaling - ArchWiki](https://wiki.archlinux.org/index.php/Display_Power_Management_Signaling#Modify_DPMS_and_screensaver_settings_with_a_command)。
 
 ## 參考資料
 
