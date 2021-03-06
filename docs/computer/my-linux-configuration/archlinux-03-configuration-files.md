@@ -5,6 +5,13 @@
 ## ~/.bashrc
 
 ``` shell
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 # Command line prompt (PS1)
 if [[ ${EUID} == 0 ]] ; then
     # root
@@ -29,6 +36,12 @@ alias du='du -h'                          # human-readable sizes
 alias free='free -h'                      # human-readable sizes
 alias more=less
 alias nv='nvim'
+alias tree='tree -C'
+
+# Location of configuration and history files
+export LESSHISTFILE=/dev/null                  # disable less history (default: ~/.lesshst)
+export IPYTHONDIR=~/.config/ipython            # change IPython configuration files location (default: ~/.ipython)
+export JUPYTER_CONFIG_DIR=~/.config/jupyter    # change Jupyter configuration files location (default: ~/.jupyter)
 ```
 
 ## ~/Desktop/root.desktop
@@ -382,10 +395,10 @@ Plug 'easymotion/vim-easymotion'         " 快速移動
 "Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}    " 代碼補全
 "Plug 'w0rp/ale'                          " 錯誤檢查
 "Plug 'ludovicchabant/vim-gutentags'      " tag 管理
-Plug 'rhysd/vim-clang-format'            " 代碼格式化
-Plug 'majutsushi/tagbar'                 " 顯示函數、變數等列表
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
+"Plug 'rhysd/vim-clang-format'            " 代碼格式化
+"Plug 'majutsushi/tagbar'                 " 顯示函數、變數等列表
+"Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdcommenter'
 
 "echodoc
 call plug#end()
