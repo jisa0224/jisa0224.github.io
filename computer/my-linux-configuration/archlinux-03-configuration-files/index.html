@@ -1941,7 +1941,14 @@
                 <h1 id="arch-linux">Arch Linux (三) 設定檔</h1>
 <p>這裡放置一些太長沒辦法放在主要文章裡的設定檔。</p>
 <h2 id="bashrc">~/.bashrc</h2>
-<div class="highlight"><pre><span></span><code><span class="c1"># Command line prompt (PS1)</span>
+<div class="highlight"><pre><span></span><code><span class="c1">#</span>
+<span class="c1"># ~/.bashrc</span>
+<span class="c1">#</span>
+
+<span class="c1"># If not running interactively, don't do anything</span>
+<span class="o">[[</span> <span class="nv">$-</span> !<span class="o">=</span> *i* <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="k">return</span>
+
+<span class="c1"># Command line prompt (PS1)</span>
 <span class="k">if</span> <span class="o">[[</span> <span class="si">${</span><span class="nv">EUID</span><span class="si">}</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
     <span class="c1"># root</span>
     <span class="nv">PS1</span><span class="o">=</span><span class="s1">'\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '</span>
@@ -1965,6 +1972,12 @@
 <span class="nb">alias</span> <span class="nv">free</span><span class="o">=</span><span class="s1">'free -h'</span>                      <span class="c1"># human-readable sizes</span>
 <span class="nb">alias</span> <span class="nv">more</span><span class="o">=</span>less
 <span class="nb">alias</span> <span class="nv">nv</span><span class="o">=</span><span class="s1">'nvim'</span>
+<span class="nb">alias</span> <span class="nv">tree</span><span class="o">=</span><span class="s1">'tree -C'</span>
+
+<span class="c1"># Location of configuration and history files</span>
+<span class="nb">export</span> <span class="nv">LESSHISTFILE</span><span class="o">=</span>/dev/null                  <span class="c1"># disable less history (default: ~/.lesshst)</span>
+<span class="nb">export</span> <span class="nv">IPYTHONDIR</span><span class="o">=</span>~/.config/ipython            <span class="c1"># change IPython configuration files location (default: ~/.ipython)</span>
+<span class="nb">export</span> <span class="nv">JUPYTER_CONFIG_DIR</span><span class="o">=</span>~/.config/jupyter    <span class="c1"># change Jupyter configuration files location (default: ~/.jupyter)</span>
 </code></pre></div>
 <h2 id="desktoprootdesktop">~/Desktop/root.desktop</h2>
 <div class="highlight"><pre><span></span><code>[Desktop Entry]
@@ -2303,10 +2316,10 @@ Plug 'easymotion/vim-easymotion'         " 快速移動
 "Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}    " 代碼補全
 "Plug 'w0rp/ale'                          " 錯誤檢查
 "Plug 'ludovicchabant/vim-gutentags'      " tag 管理
-Plug 'rhysd/vim-clang-format'            " 代碼格式化
-Plug 'majutsushi/tagbar'                 " 顯示函數、變數等列表
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
+"Plug 'rhysd/vim-clang-format'            " 代碼格式化
+"Plug 'majutsushi/tagbar'                 " 顯示函數、變數等列表
+"Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdcommenter'
 
 "echodoc
 call plug#end()
