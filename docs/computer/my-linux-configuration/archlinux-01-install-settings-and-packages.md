@@ -137,6 +137,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     * 環境變數設定: 在 `/etc/environment` 中加入以下內容
       ```
       EDITOR=nvim
+      PAGER=less
       ```
       [環境變數][EnvVars]
     * `~/.bash_profile`: The personal initialization file, executed for login shells
@@ -238,9 +239,10 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         - 使用久了之後會儲存大量的快取，"清除瀏覽資料" 裡的 "Cookie 和其他網站資料" 可以清除 `~/.config/google-chrome` 裡的快取，
           "快取圖片和檔案" 可以清除 `~/.cache/google-chrome` 裡的快取。
     * (JDownloader 2)@O(依賴於: jre-openjdk)
-        - 到官方網站下載 Other 的 MULTIOS JAR without Installer（只有一個 `JDownloader.jar`，Linux 的 Installer 會多安裝 JRE，這個不會）複製到 `~/.local/opt/jd2` 資料夾中
-        - 執行 `java -jar ~/.local/opt/jd2/JDownloader.jar` 啟動 JDownloader 2，第一次執行會下載必須的檔案到 `~/.local/opt/jd2`
-        - `~/.local/opt/jd2/themes/standard/org/jdownloader/images/logo/icon.ico` 可以用來作為 Desktop Entry 的 icon
+        - 執行 `sudo mkdir /opt/jd2 && sudo chown jisa:jisa /opt/jd2` (因為 JDownloader 2 會更新檔案，所以需要權限)
+        - 到官方網站下載 Other 的 MULTIOS JAR without Installer（只有一個 `JDownloader.jar`，Linux 的 Installer 會多安裝 JRE，這個不會）複製到 `/opt/jd2` 資料夾中
+        - 執行 `java -jar /opt/jd2/JDownloader.jar` 啟動 JDownloader 2，第一次執行會下載必須的檔案到 `~/.local/opt/jd2`
+        - 手動建立應用程式選單項目，`/opt/jd2/themes/standard/org/jdownloader/images/logo/icon.ico` 可以用來作為 Desktop Entry 的 icon
     * transmission-qt 4kvideodownloader@A
 
 * 教育

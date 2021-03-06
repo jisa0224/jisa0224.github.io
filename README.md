@@ -7,9 +7,9 @@ MkDocs 使用 [Python-Markdown](https://python-markdown.github.io/) 轉換成 HT
 ## 下載文章原始碼並配置環境
 
 ```
-git clone -b dev --single-branch https://github.com/jisa0224/jisa0224.github.io
+git clone https://github.com/jisa0224/jisa0224.github.io
 cd jisa0224.github.io
-git branch master `git rev-list --max-parents=0 HEAD | tail -n 1`    # 從 root commit 建立 master 分支
+git checkout dev
 ./sitectl.sh init
 ./sitectl.sh upgrade
 ```
