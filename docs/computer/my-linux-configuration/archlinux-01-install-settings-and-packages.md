@@ -172,6 +172,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     * 基本工具: base-devel bash-completion cmake diffutils less lsb-release man-db neovim rsync tree wget xdg-user-dirs xdg-utils
         - base-devel 軟體包群組包含 autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff 
           gzip libtool m4 make pacman patch pkgconf sed sudo texinfo which
+        - 避免 less 在家目錄底下建立紀錄檔 `~/.lesshst`: 在 `~/.bashrc` 中加入 `export LESSHISTFILE=/dev/null`。
         - pacman 依賴於 base-devel 軟體包群組裡的其它軟體包。
         - 如果在建立使用者後才裝 xdg-user-dirs，
           之後必須手動執行 `LC_ALL=C xdg-user-dirs-update --force && echo -n en_US > ~/.config/user-dirs.locale` 建立英文 XDG 資料夾
@@ -257,6 +258,9 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
           執行 `git config --global credential.helper store && echo 'https://<USERNAME>:<TOKEN>@github.com' > ~/.config/git/credentials && chmod 600 ~/.config/git/credentials`，之後就可以不用輸入密碼。注意是明碼儲存。
     * Qt5: qt5-tools(依賴於: qt5-webkit) qt5-doc qt5-examples qtcreator pyside2
     * Python: python python-pip ipython jupyterlab
+        - ipython: 修改設定檔位置: 在 `~/.bashrc` 中加入 `export IPYTHONDIR=~/.config/ipython` (預設在 `~/.ipython`)
+        - jupyterlab: 修改設定檔位置: 在 `~/.bashrc` 中加入 `export JUPYTER_CONFIG_DIR=~/.config/jupyter` (預設在 `~/.jupyter`)
+        - jupyterlab: 避免到處建立 `.ipynb_checkpoints`: 執行 `jupyter lab --generate-config`，在 `${JUPYTER_CONFIG_DIR}/jupyter_lab_config.py` 中加入 `c.FileCheckpoints.checkpoint_dir = '/home/jisa/.cache/ipynb_checkpoints'` (因為前面設定 `~/.cache` 是 tmpfs，所以關機後就會清除)
     * 虛擬機器: virtualbox(依賴於: virtualbox-host-modules-arch) virtualbox-guest-iso virtualbox-ext-oracle@A
         - virtualbox: 安裝完後執行 `sudo usermod -a -G vboxusers $USER` 並重開機，才能找到 USB 裝置。
         - virtualbox-ext-oracle@A: **警告**: virtualbox 和 virtualbox-ext-oracle@A 的版本必須相同，否則無法啟動虛擬機器。
