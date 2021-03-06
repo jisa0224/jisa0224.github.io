@@ -155,7 +155,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 * 更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。  
   在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。  
   [System maintenance - ArchWiki](https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system)
-* pacman 會保留所有下載過的軟體包作為快取，佔用很大儲存空間，可以執行 `sudo pacman -Scc` 清理全部，或執行 `sudo paccache -r` 保留最新三個版本並清除其它更舊的版本。
+* pacman 會保留所有下載過的軟體包作為快取，佔用很大儲存空間，可以執行 `sudo pacman -Scc` 清理全部，或執行 `sudo paccache -r` 保留最新的三個版本並清除其它更舊的版本。
 * 使用 `sudo pacman -S --needed <package>` 可以避免重新安裝已經安裝(且為最新版本)的軟體包。
 * 使用 `sudo pacman -D --asdeps <package>` 可以指定軟體包為 "作為其他軟體包的依賴安裝"，
   使用 `sudo pacman -D --asexplicit <package>` 可以指定軟體包為 "單獨指定安裝"。

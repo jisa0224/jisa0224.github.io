@@ -42,7 +42,7 @@ case "$1" in
   upload)
     source ${PYTHON_VENV_DIR}/bin/activate
     echo "=============== Pushing website to GitHub Pages ====================="
-    mkdocs gh-deploy --force --remote-name https://github.com/jisa0224/jisa0224.github.io --remote-branch master
+    mkdocs gh-deploy --site-dir /tmp/jisa0224.github.io-mkdocs-site --force --remote-name https://github.com/jisa0224/jisa0224.github.io --remote-branch master
     echo ""
     echo "=============== Pushing website source code to GitHub ==============="
     git checkout dev

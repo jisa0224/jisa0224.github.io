@@ -9,9 +9,8 @@ MkDocs 使用 [Python-Markdown](https://python-markdown.github.io/) 轉換成 HT
 ```
 git clone https://github.com/jisa0224/jisa0224.github.io
 cd jisa0224.github.io
-git branch -r -d origin/HEAD
-git branch -r -d origin/master
-git branch -r -d origin/dev
+for b in $(git branch -r | grep -v HEAD | grep -v master); do git branch $(basename $b) $b; done
+git remote remove origin
 git checkout dev
 ./sitectl.sh init
 ./sitectl.sh upgrade
@@ -106,3 +105,4 @@ chmod +x sitectl.sh
 ## 參考資料
 
 [基于mkdocs-material搭建个人静态博客(含支持的markdown语法)](https://cyent.github.io/markdown-with-mkdocs-material/)
+[git - Cloning a repository without making it the origin remote - Stack Overflow](https://stackoverflow.com/questions/2248994/cloning-a-repository-without-making-it-the-origin-remote/2249757#2249757)
