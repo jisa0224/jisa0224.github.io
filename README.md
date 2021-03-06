@@ -9,6 +9,9 @@ MkDocs 使用 [Python-Markdown](https://python-markdown.github.io/) 轉換成 HT
 ```
 git clone https://github.com/jisa0224/jisa0224.github.io
 cd jisa0224.github.io
+git branch -r -d origin/HEAD
+git branch -r -d origin/master
+git branch -r -d origin/dev
 git checkout dev
 ./sitectl.sh init
 ./sitectl.sh upgrade
