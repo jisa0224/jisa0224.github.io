@@ -622,8 +622,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../linux/etc-environment-environment-variables-for-all-program/" class="md-nav__link">
-        `/etc/environment`: 設定讓所有程式都可以使用的環境變數
+      <a href="../../linux/environment-variables/" class="md-nav__link">
+        環境變數
       </a>
     </li>
   
@@ -696,6 +696,30 @@
     <li class="md-nav__item">
       <a href="../../linux/sudo-permission-denied/" class="md-nav__link">
         為什麼使用 sudo 仍得到 Permission denied？
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/systemd-cheatsheet/" class="md-nav__link">
+        Systemd 速查表
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/systemd-logind-mechanism/" class="md-nav__link">
+        systemd-logind 原理
       </a>
     </li>
   
@@ -851,6 +875,20 @@
       目錄
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#envars" class="md-nav__link">
+    ~/.envars
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash_profile" class="md-nav__link">
+    ~/.bash_profile
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#bashrc" class="md-nav__link">
@@ -1080,6 +1118,18 @@
     <li class="md-nav__item">
       <a href="../../other/m-m-sorting-machine/" class="md-nav__link">
         M&M Sorting Machine
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/microsoft-office-powerpoint-disable-selecting-paragraph-mark/" class="md-nav__link">
+        Microsoft Office PowerPoint 不要選取段落標記
       </a>
     </li>
   
@@ -1884,6 +1934,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#envars" class="md-nav__link">
+    ~/.envars
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bash_profile" class="md-nav__link">
+    ~/.bash_profile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#bashrc" class="md-nav__link">
     ~/.bashrc
   </a>
@@ -1940,6 +2004,43 @@
                 
                 <h1 id="arch-linux">Arch Linux (三) 設定檔</h1>
 <p>這裡放置一些太長沒辦法放在主要文章裡的設定檔。</p>
+<h2 id="envars">~/.envars</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># </span>
+<span class="c1"># ~/.envars: Environment Variables</span>
+<span class="c1">#</span>
+<span class="c1"># Use $HOME instead of ~ in this file</span>
+<span class="c1">#</span>
+<span class="c1"># for Bash: add `[[ -f ~/.envars ]] &amp;&amp; . ~/.envars` in ~/.bashrc</span>
+<span class="c1"># for KDE Plasma: execute `ln -s ../../../.envars ~/.config/plasma-workspace/env/envars.sh`</span>
+<span class="c1">#                 ref: &lt;https://userbase.kde.org/Session_Environment_Variables&gt;</span>
+<span class="c1"># &lt;https://wiki.archlinux.org/index.php/XDG_Base_Directory&gt;</span>
+<span class="c1">#</span>
+
+<span class="c1"># Default programs</span>
+<span class="nb">export</span> <span class="nv">EDITOR</span><span class="o">=</span><span class="s2">"nvim"</span>
+<span class="nb">export</span> <span class="nv">PAGER</span><span class="o">=</span><span class="s2">"less"</span>
+
+<span class="c1"># Location of configuration and history files</span>
+<span class="nb">export</span> <span class="nv">LESSHISTFILE</span><span class="o">=</span><span class="s2">"/dev/null"</span>                      <span class="c1"># disable less history (default: ~/.lesshst)</span>
+<span class="nb">export</span> <span class="nv">IPYTHONDIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.config/ipython"</span>            <span class="c1"># change IPython configuration files location (default: ~/.ipython)</span>
+<span class="nb">export</span> <span class="nv">JUPYTER_CONFIG_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.config/jupyter"</span>    <span class="c1"># change Jupyter configuration files location (default: ~/.jupyter)</span>
+
+<span class="c1"># Fcitx 5 (Input Method Engine)</span>
+<span class="nb">export</span> <span class="nv">GTK_IM_MODULE</span><span class="o">=</span><span class="s2">"fcitx"</span>
+<span class="nb">export</span> <span class="nv">QT_IM_MODULE</span><span class="o">=</span><span class="s2">"fcitx"</span>
+<span class="nb">export</span> <span class="nv">XMODIFIERS</span><span class="o">=</span><span class="s2">"@im=fcitx"</span>
+<span class="nb">export</span> <span class="nv">SDL_IM_MODULE</span><span class="o">=</span><span class="s2">"fcitx"</span>
+
+<span class="c1"># OpenJDK (Java)</span>
+<span class="nb">export</span> <span class="nv">_JAVA_OPTIONS</span><span class="o">=</span><span class="s2">"-Dawt.useSystemAAFontSettings=on"</span>
+</code></pre></div>
+<h2 id="bash_profile">~/.bash_profile</h2>
+<div class="highlight"><pre><span></span><code><span class="c1">#</span>
+<span class="c1"># ~/.bash_profile</span>
+<span class="c1">#</span>
+
+<span class="o">[[</span> -f ~/.bashrc <span class="o">]]</span> <span class="o">&amp;&amp;</span> . ~/.bashrc
+</code></pre></div>
 <h2 id="bashrc">~/.bashrc</h2>
 <div class="highlight"><pre><span></span><code><span class="c1">#</span>
 <span class="c1"># ~/.bashrc</span>
@@ -1948,8 +2049,11 @@
 <span class="c1"># If not running interactively, don't do anything</span>
 <span class="o">[[</span> <span class="nv">$-</span> !<span class="o">=</span> *i* <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="k">return</span>
 
+<span class="c1"># Load environment variables</span>
+<span class="o">[[</span> -f ~/.envars <span class="o">]]</span> <span class="o">&amp;&amp;</span> . ~/.envars
+
 <span class="c1"># Command line prompt (PS1)</span>
-<span class="k">if</span> <span class="o">[[</span> <span class="si">${</span><span class="nv">EUID</span><span class="si">}</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]]</span> <span class="p">;</span> <span class="k">then</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="si">${</span><span class="nv">EUID</span><span class="si">}</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
     <span class="c1"># root</span>
     <span class="nv">PS1</span><span class="o">=</span><span class="s1">'\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '</span>
 <span class="k">else</span>
@@ -1963,21 +2067,31 @@
 <span class="nb">alias</span> <span class="nv">lld</span><span class="o">=</span><span class="s1">'ls --color=auto -ldh'</span>
 <span class="nb">alias</span> <span class="nv">la</span><span class="o">=</span><span class="s1">'ls --color=auto -a'</span>
 <span class="nb">alias</span> <span class="nv">lla</span><span class="o">=</span><span class="s1">'ls --color=auto -alh'</span>
-<span class="nb">alias</span> <span class="nv">grep</span><span class="o">=</span><span class="s1">'grep --colour=auto'</span>
+<span class="nb">alias</span> <span class="nv">grep</span><span class="o">=</span><span class="s1">'grep --color=auto'</span>
 <span class="nb">alias</span> <span class="nv">egrep</span><span class="o">=</span><span class="s1">'egrep --color=auto'</span>
 <span class="nb">alias</span> <span class="nv">fgrep</span><span class="o">=</span><span class="s1">'fgrep --color=auto'</span>
-<span class="nb">alias</span> <span class="nv">cp</span><span class="o">=</span><span class="s2">"cp -i"</span>                          <span class="c1"># confirm before overwriting something</span>
+<span class="nb">alias</span> <span class="nv">rm</span><span class="o">=</span><span class="s1">'rm -i'</span>
+<span class="nb">alias</span> <span class="nv">cp</span><span class="o">=</span><span class="s1">'cp -i'</span>                          <span class="c1"># confirm before overwriting something</span>
 <span class="nb">alias</span> <span class="nv">df</span><span class="o">=</span><span class="s1">'df -hT -x tmpfs -x devtmpfs'</span>    <span class="c1"># human-readable sizes and ignore tmpfs</span>
 <span class="nb">alias</span> <span class="nv">du</span><span class="o">=</span><span class="s1">'du -h'</span>                          <span class="c1"># human-readable sizes</span>
 <span class="nb">alias</span> <span class="nv">free</span><span class="o">=</span><span class="s1">'free -h'</span>                      <span class="c1"># human-readable sizes</span>
-<span class="nb">alias</span> <span class="nv">more</span><span class="o">=</span>less
+<span class="nb">alias</span> <span class="nv">more</span><span class="o">=</span><span class="s1">'less'</span>
 <span class="nb">alias</span> <span class="nv">nv</span><span class="o">=</span><span class="s1">'nvim'</span>
 <span class="nb">alias</span> <span class="nv">tree</span><span class="o">=</span><span class="s1">'tree -C'</span>
+<span class="nb">alias</span> <span class="nv">diff</span><span class="o">=</span><span class="s1">'diff --color=auto'</span>
+<span class="nb">alias</span> <span class="nv">ip</span><span class="o">=</span><span class="s1">'ip -color=auto'</span>
 
-<span class="c1"># Location of configuration and history files</span>
-<span class="nb">export</span> <span class="nv">LESSHISTFILE</span><span class="o">=</span>/dev/null                  <span class="c1"># disable less history (default: ~/.lesshst)</span>
-<span class="nb">export</span> <span class="nv">IPYTHONDIR</span><span class="o">=</span>~/.config/ipython            <span class="c1"># change IPython configuration files location (default: ~/.ipython)</span>
-<span class="nb">export</span> <span class="nv">JUPYTER_CONFIG_DIR</span><span class="o">=</span>~/.config/jupyter    <span class="c1"># change Jupyter configuration files location (default: ~/.jupyter)</span>
+<span class="c1"># Enable colored man using less</span>
+<span class="c1"># https://wiki.archlinux.org/index.php/Color_output_in_console#man</span>
+man<span class="o">()</span> <span class="o">{</span>
+    <span class="nv">LESS_TERMCAP_md</span><span class="o">=</span><span class="s1">$'\e[01;31m'</span> <span class="se">\</span>
+    <span class="nv">LESS_TERMCAP_me</span><span class="o">=</span><span class="s1">$'\e[0m'</span> <span class="se">\</span>
+    <span class="nv">LESS_TERMCAP_se</span><span class="o">=</span><span class="s1">$'\e[0m'</span> <span class="se">\</span>
+    <span class="nv">LESS_TERMCAP_so</span><span class="o">=</span><span class="s1">$'\e[01;44;33m'</span> <span class="se">\</span>
+    <span class="nv">LESS_TERMCAP_ue</span><span class="o">=</span><span class="s1">$'\e[0m'</span> <span class="se">\</span>
+    <span class="nv">LESS_TERMCAP_us</span><span class="o">=</span><span class="s1">$'\e[01;32m'</span> <span class="se">\</span>
+    <span class="nb">command</span> man <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+<span class="o">}</span>
 </code></pre></div>
 <h2 id="desktoprootdesktop">~/Desktop/root.desktop</h2>
 <div class="highlight"><pre><span></span><code>[Desktop Entry]

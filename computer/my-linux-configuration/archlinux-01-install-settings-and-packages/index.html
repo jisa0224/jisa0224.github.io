@@ -622,8 +622,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../linux/etc-environment-environment-variables-for-all-program/" class="md-nav__link">
-        `/etc/environment`: 設定讓所有程式都可以使用的環境變數
+      <a href="../../linux/environment-variables/" class="md-nav__link">
+        環境變數
       </a>
     </li>
   
@@ -696,6 +696,30 @@
     <li class="md-nav__item">
       <a href="../../linux/sudo-permission-denied/" class="md-nav__link">
         為什麼使用 sudo 仍得到 Permission denied？
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/systemd-cheatsheet/" class="md-nav__link">
+        Systemd 速查表
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/systemd-logind-mechanism/" class="md-nav__link">
+        systemd-logind 原理
       </a>
     </li>
   
@@ -1093,6 +1117,18 @@
     <li class="md-nav__item">
       <a href="../../other/m-m-sorting-machine/" class="md-nav__link">
         M&M Sorting Machine
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/microsoft-office-powerpoint-disable-selecting-paragraph-mark/" class="md-nav__link">
+        Microsoft Office PowerPoint 不要選取段落標記
       </a>
     </li>
   
@@ -2111,17 +2147,19 @@ options root=UUID=&lt;執行 `lsblk -f` 找出 UUID&gt; rw nvme_core.default_ps_
   放到 <code>~/.config/fontconfig/fonts.conf</code> (這個 fontconfig 設定檔非常重要，如果沒有它，放進去的字型檔會把預設的配置搞的亂七八糟)。</li>
 </ul>
 </li>
+<li>環境變數設定<ul>
+<li>環境變數設定:<ul>
+<li>新增 <a href="../archlinux-03-configuration-files/">~/.envars</a>。</li>
+<li>在 <code>~/.bashrc</code> 中加入<code>[[ -f ~/.envars ]] &amp;&amp; . ~/.envars</code>。</li>
+<li>執行 <code>ln -s ../../../.envars ~/.config/plasma-workspace/env/envars.sh</code>。</li>
+<li>執行 <code>sudo ln -s ~jisa/.envars /root</code>。</li>
+<li><a href="../archlinux-02-details-and-miscellaneous/">環境變數</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>Shell 設定<ul>
-<li>環境變數設定: 在 <code>/etc/environment</code> 中加入以下內容
-  <div class="highlight"><pre><span></span><code>EDITOR=nvim
-PAGER=less
-</code></pre></div>
-<a href="../archlinux-02-details-and-miscellaneous/">環境變數</a></li>
-<li><code>~/.bash_profile</code>: The personal initialization file, executed for login shells
-  <div class="highlight"><pre><span></span><code><span class="o">[[</span> -f ~/.bashrc <span class="o">]]</span> <span class="o">&amp;&amp;</span> . ~/.bashrc
-</code></pre></div>
-  註：<code>~/.profile</code> 不會被讀取，原因不明。</li>
-<li><code>~/.bashrc</code>: The individual per-interactive-shell startup file (<a href="../archlinux-03-configuration-files/">檔案內容</a>)</li>
+<li>修改 <a href="../archlinux-03-configuration-files/">~/.bash_profile</a> 和 <a href="../archlinux-03-configuration-files/">~/.bashrc</a>。</li>
 <li>由於 root 沒有 <code>~/.bash_profile</code> 和 <code>~/.bashrc</code>，所以 <code>sudo -i</code> 出來的結果是黑白的，執行 <code>sudo ln -s ~jisa/{.bash_profile,.bashrc} /root</code>。</li>
 </ul>
 </li>
