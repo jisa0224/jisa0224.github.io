@@ -155,7 +155,7 @@ Initramfs 和 CPU microcode 必須全部放在該分割區裡。
 
 環境變數到底放哪裡？
 
-<../linux/etc-environment-environment-variables-for-all-program.md>
+<../linux/environment-variables.md>
 
 `/etc/environment`: The environment variables config file，參考 `man pam_env.conf`
 

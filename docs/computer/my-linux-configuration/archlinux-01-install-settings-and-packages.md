@@ -133,19 +133,15 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
       但如果將快捷鍵設定為 "Alt+F1"，就可以使用 Windows 鍵開啟應用程式選單，目前原理不明。
     * 字型設定: 把字型檔放到 `~/.local/share/fonts`，[fontconfig 設定檔](archlinux-03-configuration-files.md)
       放到 `~/.config/fontconfig/fonts.conf` (這個 fontconfig 設定檔非常重要，如果沒有它，放進去的字型檔會把預設的配置搞的亂七八糟)。
+* 環境變數設定
+    * 環境變數設定:
+        * 新增 [~/.envars](archlinux-03-configuration-files.md)。
+        * 在 `~/.bashrc` 中加入`[[ -f ~/.envars ]] && . ~/.envars`。
+        * 執行 `ln -s ../../../.envars ~/.config/plasma-workspace/env/envars.sh`。
+        * 執行 `sudo ln -s ~jisa/.envars /root`。
+        * [環境變數][EnvVars]
 * Shell 設定
-    * 環境變數設定: 在 `/etc/environment` 中加入以下內容
-      ```
-      EDITOR=nvim
-      PAGER=less
-      ```
-      [環境變數][EnvVars]
-    * `~/.bash_profile`: The personal initialization file, executed for login shells
-      ``` shell
-      [[ -f ~/.bashrc ]] && . ~/.bashrc
-      ```
-      註：`~/.profile` 不會被讀取，原因不明。
-    * `~/.bashrc`: The individual per-interactive-shell startup file ([檔案內容](archlinux-03-configuration-files.md))
+    * 修改 [~/.bash_profile](archlinux-03-configuration-files.md) 和 [~/.bashrc](archlinux-03-configuration-files.md)。
     * 由於 root 沒有 `~/.bash_profile` 和 `~/.bashrc`，所以 `sudo -i` 出來的結果是黑白的，執行 `sudo ln -s ~jisa/{.bash_profile,.bashrc} /root`。
 
 ## 軟體包

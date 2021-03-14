@@ -2,6 +2,49 @@
 
 這裡放置一些太長沒辦法放在主要文章裡的設定檔。
 
+## ~/.envars
+
+``` shell
+# 
+# ~/.envars: Environment Variables
+#
+# Use $HOME instead of ~ in this file
+#
+# for Bash: add `[[ -f ~/.envars ]] && . ~/.envars` in ~/.bashrc
+# for KDE Plasma: execute `ln -s ../../../.envars ~/.config/plasma-workspace/env/envars.sh`
+#                 ref: <https://userbase.kde.org/Session_Environment_Variables>
+# <https://wiki.archlinux.org/index.php/XDG_Base_Directory>
+#
+
+# Default programs
+export EDITOR="nvim"
+export PAGER="less"
+
+# Location of configuration and history files
+export LESSHISTFILE="/dev/null"                      # disable less history (default: ~/.lesshst)
+export IPYTHONDIR="$HOME/.config/ipython"            # change IPython configuration files location (default: ~/.ipython)
+export JUPYTER_CONFIG_DIR="$HOME/.config/jupyter"    # change Jupyter configuration files location (default: ~/.jupyter)
+
+# Fcitx 5 (Input Method Engine)
+export GTK_IM_MODULE="fcitx"
+export QT_IM_MODULE="fcitx"
+export XMODIFIERS="@im=fcitx"
+export SDL_IM_MODULE="fcitx"
+
+# OpenJDK (Java)
+export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on"
+```
+
+## ~/.bash_profile
+
+``` shell
+#
+# ~/.bash_profile
+#
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+```
+
 ## ~/.bashrc
 
 ``` shell
@@ -12,8 +55,11 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Load environment variables
+[[ -f ~/.envars ]] && . ~/.envars
+
 # Command line prompt (PS1)
-if [[ ${EUID} == 0 ]] ; then
+if [[ ${EUID} == 0 ]]; then
     # root
     PS1='\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '
 else
@@ -27,21 +73,31 @@ alias ll='ls --color=auto -lh'
 alias lld='ls --color=auto -ldh'
 alias la='ls --color=auto -a'
 alias lla='ls --color=auto -alh'
-alias grep='grep --colour=auto'
+alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias cp="cp -i"                          # confirm before overwriting something
+alias rm='rm -i'
+alias cp='cp -i'                          # confirm before overwriting something
 alias df='df -hT -x tmpfs -x devtmpfs'    # human-readable sizes and ignore tmpfs
 alias du='du -h'                          # human-readable sizes
 alias free='free -h'                      # human-readable sizes
-alias more=less
+alias more='less'
 alias nv='nvim'
 alias tree='tree -C'
+alias diff='diff --color=auto'
+alias ip='ip -color=auto'
 
-# Location of configuration and history files
-export LESSHISTFILE=/dev/null                  # disable less history (default: ~/.lesshst)
-export IPYTHONDIR=~/.config/ipython            # change IPython configuration files location (default: ~/.ipython)
-export JUPYTER_CONFIG_DIR=~/.config/jupyter    # change Jupyter configuration files location (default: ~/.jupyter)
+# Enable colored man using less
+# https://wiki.archlinux.org/index.php/Color_output_in_console#man
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}
 ```
 
 ## ~/Desktop/root.desktop
