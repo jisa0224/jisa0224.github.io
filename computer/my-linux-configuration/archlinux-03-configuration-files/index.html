@@ -919,6 +919,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#localsharetemplatesempty-filedesktop" class="md-nav__link">
+    ~/.local/share/templates/empty-file.desktop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configfontconfigfontsconf" class="md-nav__link">
     ~/.config/fontconfig/fonts.conf
   </a>
@@ -1976,6 +1983,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#localsharetemplatesempty-filedesktop" class="md-nav__link">
+    ~/.local/share/templates/empty-file.desktop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#configfontconfigfontsconf" class="md-nav__link">
     ~/.config/fontconfig/fonts.conf
   </a>
@@ -2095,25 +2109,38 @@ man<span class="o">()</span> <span class="o">{</span>
 </code></pre></div>
 <h2 id="desktoprootdesktop">~/Desktop/root.desktop</h2>
 <div class="highlight"><pre><span></span><code>[Desktop Entry]
-Icon=drive-harddisk-root
-Name=根目錄
+Name=Root
+Name[zh_TW]=根目錄
 Type=Link
 URL[$e]=file:/
+Icon=drive-harddisk-root
 </code></pre></div>
 <h2 id="desktophomedesktop">~/Desktop/home.desktop</h2>
 <div class="highlight"><pre><span></span><code>[Desktop Entry]
-Icon=user-home
-Name=家目錄
+Name=Home
+Name[zh_TW]=家目錄
 Type=Link
 URL[$e]=file:$HOME
+Icon=user-home
 </code></pre></div>
 <h2 id="desktoptrashdesktop">~/Desktop/trash.desktop</h2>
 <div class="highlight"><pre><span></span><code>[Desktop Entry]
-EmptyIcon=user-trash
-Icon=user-trash-full
-Name=垃圾桶
+Name=Trash
+Name[zh_TW]=垃圾桶
 Type=Link
 URL[$e]=trash:/
+Icon=user-trash-full
+EmptyIcon=user-trash
+</code></pre></div>
+<h2 id="localsharetemplatesempty-filedesktop">~/.local/share/templates/empty-file.desktop</h2>
+<div class="highlight"><pre><span></span><code>[Desktop Entry]
+Name=Empty File...
+Name[zh_TW]=空白檔案...
+Comment=Enter filename:
+Comment[zh_TW]=輸入檔名：
+Type=Link
+URL=.source/empty-file.txt
+Icon=none
 </code></pre></div>
 <h2 id="configfontconfigfontsconf">~/.config/fontconfig/fonts.conf</h2>
 <div class="highlight"><pre><span></span><code>&lt;?xml version='1.0'?&gt;
