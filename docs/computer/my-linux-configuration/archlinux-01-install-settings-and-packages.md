@@ -125,10 +125,6 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         * 設定 Colors 為 Breeze。
     * 關閉 KDE Wallet subsystem 以避免它一直跳出視窗要求輸入密碼: 執行 `echo -e '[Wallet]\nEnabled=false' > ~/.config/kwalletrc`。
     * 到 System Settings > Search 關閉 Baloo 搜尋功能，因為它佔用太多 CPU 和 RAM。
-    * KDE Dolphin 提供的桌面沒有捷徑功能，必須依靠 `.desktop` 的方式實現，新增 
-      [~/Desktop/root.desktop](archlinux-03-configuration-files.md), 
-      [~/Desktop/home.desktop](archlinux-03-configuration-files.md), 
-      [~/Desktop/trash.desktop](archlinux-03-configuration-files.md) 三個檔案。
     * Windows 鍵無法開啟 "應用程式選單": 如果到應用程式選單的快捷鍵設定按下 Windows 鍵，會被識別成 "Meta 鍵" 而無法作為快捷鍵 (因為 Meta 鍵是修飾鍵，必須配合其它按鍵使用)，
       但如果將快捷鍵設定為 "Alt+F1"，就可以使用 Windows 鍵開啟應用程式選單，目前原理不明。
     * 字型設定: 把字型檔放到 `~/.local/share/fonts`，[fontconfig 設定檔](archlinux-03-configuration-files.md)
@@ -203,6 +199,14 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         - konsole: 配色 "微風"，背景透明 "10%"，字型 "Noto Mono 12pt"。
         - dolphin: 到 Dolphin 設定 > 一般 > 行為 選擇 "對所有資料夾使用相同的顯示模式"，不然 Dolphin 會在每個資料夾下建立 ".directory" 檔案。
         - dolphin: 到系統設定 > 工作空間行為 > 一般行為 > 點擊行為 選擇 "按兩下開啟檔案或資料夾 (按一下選取)"。
+        - dolphin: Dolphin 提供的桌面沒有捷徑功能，必須依靠 `.desktop` 的方式實現，新增 
+          [~/Desktop/root.desktop](archlinux-03-configuration-files.md), 
+          [~/Desktop/home.desktop](archlinux-03-configuration-files.md), 
+          [~/Desktop/trash.desktop](archlinux-03-configuration-files.md) 三個檔案。
+        - dolphin: 為了讓圖示正確，"檔案 > 建立新的 > 文字檔案..." 建立的檔案中有一個空格和換行，如果要建立空白檔案的功能，必須自己新增模板。
+          執行 `mkdir -p ~/.local/share/templates/.source && touch ~/.local/share/templates/.source/empty-file.txt` 建立零位元組的空白檔案，
+          然後新增 [~/.local/share/templates/empty-file.desktop](archlinux-03-configuration-files.md)。
+          參考資料：[KDE Neon > Dolphin > Create New > Text File: File not empty. • KDE Community Forums](https://forum.kde.org/viewtopic.php?f=224&t=142366)。
     * GUI 函式庫: gtk3
     * 字型: ttf-dejavu noto-fonts noto-fonts-cjk noto-fonts-compat@O
         - noto-fonts-compat@O: 只依賴於 noto-fonts，從 <https://repo.manjaro.org/> 找到一個鏡像伺服器下載 

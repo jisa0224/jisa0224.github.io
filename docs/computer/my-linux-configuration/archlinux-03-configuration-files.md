@@ -104,31 +104,47 @@ man() {
 
 ```
 [Desktop Entry]
-Icon=drive-harddisk-root
-Name=根目錄
+Name=Root
+Name[zh_TW]=根目錄
 Type=Link
 URL[$e]=file:/
+Icon=drive-harddisk-root
 ```
 
 ## ~/Desktop/home.desktop
 
 ```
 [Desktop Entry]
-Icon=user-home
-Name=家目錄
+Name=Home
+Name[zh_TW]=家目錄
 Type=Link
 URL[$e]=file:$HOME
+Icon=user-home
 ```
 
 ## ~/Desktop/trash.desktop
 
 ```
 [Desktop Entry]
-EmptyIcon=user-trash
-Icon=user-trash-full
-Name=垃圾桶
+Name=Trash
+Name[zh_TW]=垃圾桶
 Type=Link
 URL[$e]=trash:/
+Icon=user-trash-full
+EmptyIcon=user-trash
+```
+
+## ~/.local/share/templates/empty-file.desktop
+
+```
+[Desktop Entry]
+Name=Empty File...
+Name[zh_TW]=空白檔案...
+Comment=Enter filename:
+Comment[zh_TW]=輸入檔名：
+Type=Link
+URL=.source/empty-file.txt
+Icon=none
 ```
 
 ## ~/.config/fontconfig/fonts.conf
