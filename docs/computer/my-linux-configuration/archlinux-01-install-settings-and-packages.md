@@ -124,7 +124,8 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         * 設定 Plasma Style 為 Breeze Dark。
         * 設定 Colors 為 Breeze。
     * 關閉 KDE Wallet subsystem 以避免它一直跳出視窗要求輸入密碼: 執行 `echo -e '[Wallet]\nEnabled=false' > ~/.config/kwalletrc`。
-    * 到 System Settings > Search 關閉 Baloo 搜尋功能，因為它佔用太多 CPU 和 RAM。
+    * Baloo 搜尋功能佔用太多 CPU 和 RAM，關閉它: 到 System Settings > Search 關閉 Baloo 搜尋功能 (或執行 `balooctl disable`)，
+      然後執行 `balooctl purge` 刪除已建立的索引 (`~/.local/share/baloo/index`)。
     * Windows 鍵無法開啟 "應用程式選單": 如果到應用程式選單的快捷鍵設定按下 Windows 鍵，會被識別成 "Meta 鍵" 而無法作為快捷鍵 (因為 Meta 鍵是修飾鍵，必須配合其它按鍵使用)，
       但如果將快捷鍵設定為 "Alt+F1"，就可以使用 Windows 鍵開啟應用程式選單，目前原理不明。
     * 字型設定: 把字型檔放到 `~/.local/share/fonts`，[fontconfig 設定檔](archlinux-03-configuration-files.md)
@@ -275,7 +276,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
             - `~/.cache/vscode-cpptools/ipch` (IntelliSense precompiled headers)
 
 * 系統
-    * 軟體包: pacman-contrib reflector pamac-cli@A
+    * 軟體包: pacman-contrib pacman-cleanup-hook@A reflector pamac-cli@A
         - pamac-cli@A: `pamac checkupdates -a` 可以在不修改系統資料庫 (`/var/lib/pacman/sync`) 的情況下檢查更新，
           因為它會維持自己的資料庫 (`/tmp/pamac/dbs/sync`)，所以也不需要 root 權限。
     * 語言包: poppler-data qt5-translations

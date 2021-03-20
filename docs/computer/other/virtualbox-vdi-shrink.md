@@ -16,13 +16,14 @@ Oracle VM VirtualBox Disk Image
 
 ### guest 為 Linux
 
+在 guest 執行 `dd if=/dev/zero of=bigemptyfile status=progress && rm bigemptyfile`
+
+(host 的 vdi 檔不會變大，不用擔心)
+
 ### guest 為 Windows
 
-[SDelete - Windows Sysinternals | Microsoft Docs](https://docs.microsoft.com/zh-tw/sysinternals/downloads/sdelete)
-
-```
-sdelete64.exe -z C:
-```
+下載 [SDelete - Windows Sysinternals | Microsoft Docs](https://docs.microsoft.com/zh-tw/sysinternals/downloads/sdelete) 後，
+在命令提示字元 (cmd.exe) 執行 `sdelete64.exe -z C:`
 
 （64-bit Windows 使用 `sdelete64.exe`，32-bit Windows 使用 `sdelete.exe`，把 `C:` 換成要清理的磁碟）
 
@@ -32,9 +33,7 @@ sdelete64.exe -z C:
 
 ### guest 為 Linux
 
-```
-VBoxManage modifymedium disk <虛擬磁碟檔檔名>.vdi --compact
-```
+在 host 執行 `VBoxManage modifymedium disk <虛擬磁碟檔檔名>.vdi --compact`
 
 （只支援 vdi）
 
