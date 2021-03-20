@@ -2136,7 +2136,8 @@ options root=UUID=&lt;執行 `lsblk -f` 找出 UUID&gt; rw nvme_core.default_ps_
 </ul>
 </li>
 <li>關閉 KDE Wallet subsystem 以避免它一直跳出視窗要求輸入密碼: 執行 <code>echo -e '[Wallet]\nEnabled=false' &gt; ~/.config/kwalletrc</code>。</li>
-<li>到 System Settings &gt; Search 關閉 Baloo 搜尋功能，因為它佔用太多 CPU 和 RAM。</li>
+<li>Baloo 搜尋功能佔用太多 CPU 和 RAM，關閉它: 到 System Settings &gt; Search 關閉 Baloo 搜尋功能 (或執行 <code>balooctl disable</code>)，
+  然後執行 <code>balooctl purge</code> 刪除已建立的索引 (<code>~/.local/share/baloo/index</code>)。</li>
 <li>Windows 鍵無法開啟 "應用程式選單": 如果到應用程式選單的快捷鍵設定按下 Windows 鍵，會被識別成 "Meta 鍵" 而無法作為快捷鍵 (因為 Meta 鍵是修飾鍵，必須配合其它按鍵使用)，
   但如果將快捷鍵設定為 "Alt+F1"，就可以使用 Windows 鍵開啟應用程式選單，目前原理不明。</li>
 <li>字型設定: 把字型檔放到 <code>~/.local/share/fonts</code>，<a href="../archlinux-03-configuration-files/">fontconfig 設定檔</a>
@@ -2366,7 +2367,7 @@ options root=UUID=&lt;執行 `lsblk -f` 找出 UUID&gt; rw nvme_core.default_ps_
 <li>
 <p>系統</p>
 <ul>
-<li>軟體包: pacman-contrib reflector pamac-cli@A<ul>
+<li>軟體包: pacman-contrib pacman-cleanup-hook@A reflector pamac-cli@A<ul>
 <li>pamac-cli@A: <code>pamac checkupdates -a</code> 可以在不修改系統資料庫 (<code>/var/lib/pacman/sync</code>) 的情況下檢查更新，
   因為它會維持自己的資料庫 (<code>/tmp/pamac/dbs/sync</code>)，所以也不需要 root 權限。</li>
 </ul>

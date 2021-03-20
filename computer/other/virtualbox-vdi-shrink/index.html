@@ -2052,16 +2052,16 @@
 <p>我的電腦 &gt; 對著硬碟按右鍵 &gt; 內容 &gt; 工具 &gt; 重組</p>
 <h2 id="0">將未用到的磁碟空間寫 0</h2>
 <h3 id="guest-linux">guest 為 Linux</h3>
+<p>在 guest 執行 <code>dd if=/dev/zero of=bigemptyfile status=progress &amp;&amp; rm bigemptyfile</code></p>
+<p>(host 的 vdi 檔不會變大，不用擔心)</p>
 <h3 id="guest-windows_2">guest 為 Windows</h3>
-<p><a href="https://docs.microsoft.com/zh-tw/sysinternals/downloads/sdelete">SDelete - Windows Sysinternals | Microsoft Docs</a></p>
-<div class="highlight"><pre><span></span><code>sdelete64.exe -z C:
-</code></pre></div>
+<p>下載 <a href="https://docs.microsoft.com/zh-tw/sysinternals/downloads/sdelete">SDelete - Windows Sysinternals | Microsoft Docs</a> 後，
+在命令提示字元 (cmd.exe) 執行 <code>sdelete64.exe -z C:</code></p>
 <p>（64-bit Windows 使用 <code>sdelete64.exe</code>，32-bit Windows 使用 <code>sdelete.exe</code>，把 <code>C:</code> 換成要清理的磁碟）</p>
 <h2 id="virtualbox-vdi_1">使用 VirtualBox 工具縮小 vdi</h2>
 <p>先將虛擬機關機</p>
 <h3 id="guest-linux_1">guest 為 Linux</h3>
-<div class="highlight"><pre><span></span><code>VBoxManage modifymedium disk &lt;虛擬磁碟檔檔名&gt;.vdi --compact
-</code></pre></div>
+<p>在 host 執行 <code>VBoxManage modifymedium disk &lt;虛擬磁碟檔檔名&gt;.vdi --compact</code></p>
 <p>（只支援 vdi）</p>
 <h3 id="guest-windows_3">guest 為 Windows</h3>
 <h2 id="_1">參考資料</h2>
