@@ -2035,9 +2035,9 @@
 <span class="nb">export</span> <span class="nv">PAGER</span><span class="o">=</span><span class="s2">"less"</span>
 
 <span class="c1"># Location of configuration and history files</span>
-<span class="nb">export</span> <span class="nv">LESSHISTFILE</span><span class="o">=</span><span class="s2">"/dev/null"</span>                      <span class="c1"># disable less history (default: ~/.lesshst)</span>
-<span class="nb">export</span> <span class="nv">IPYTHONDIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.config/ipython"</span>            <span class="c1"># change IPython configuration files location (default: ~/.ipython)</span>
-<span class="nb">export</span> <span class="nv">JUPYTER_CONFIG_DIR</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.config/jupyter"</span>    <span class="c1"># change Jupyter configuration files location (default: ~/.jupyter)</span>
+<span class="nb">export</span> <span class="nv">LESSHISTFILE</span><span class="o">=</span><span class="s2">"/dev/null"</span>                                           <span class="c1"># disable less history (default: ~/.lesshst)</span>
+<span class="nb">export</span> <span class="nv">IPYTHONDIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">XDG_CONFIG_HOME</span><span class="k">:-</span><span class="nv">$HOME</span><span class="p">/.config</span><span class="si">}</span><span class="s2">/ipython"</span>             <span class="c1"># change IPython configuration files location (default: ~/.ipython)</span>
+<span class="nb">export</span> <span class="nv">JUPYTER_CONFIG_DIR</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">XDG_CONFIG_HOME</span><span class="k">:-</span><span class="nv">$HOME</span><span class="p">/.config</span><span class="si">}</span><span class="s2">/jupyter"</span>     <span class="c1"># change Jupyter configuration files location (default: ~/.jupyter)</span>
 
 <span class="c1"># Fcitx 5 (Input Method Engine)</span>
 <span class="nb">export</span> <span class="nv">GTK_IM_MODULE</span><span class="o">=</span><span class="s2">"fcitx"</span>
@@ -2047,6 +2047,10 @@
 
 <span class="c1"># OpenJDK (Java)</span>
 <span class="nb">export</span> <span class="nv">_JAVA_OPTIONS</span><span class="o">=</span><span class="s2">"-Dawt.useSystemAAFontSettings=on"</span>
+
+<span class="c1"># The following doesn't work</span>
+<span class="c1">#export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc"    # change GTK 2 configuration files location (default: ~/.gtkrc-2.0)</span>
+<span class="c1">#export _JAVA_OPTIONS="-Djava.util.prefs.userRoot='${XDG_CONFIG_HOME:-$HOME/.config}/java'"    # change Java configuration files location (default: ~/.java)</span>
 </code></pre></div>
 <h2 id="bash_profile">~/.bash_profile</h2>
 <div class="highlight"><pre><span></span><code><span class="c1">#</span>
@@ -2094,6 +2098,7 @@
 <span class="nb">alias</span> <span class="nv">tree</span><span class="o">=</span><span class="s1">'tree -C'</span>
 <span class="nb">alias</span> <span class="nv">diff</span><span class="o">=</span><span class="s1">'diff --color=auto'</span>
 <span class="nb">alias</span> <span class="nv">ip</span><span class="o">=</span><span class="s1">'ip -color=auto'</span>
+<span class="nb">alias</span> <span class="nv">less</span><span class="o">=</span><span class="s1">'less -r'</span>
 
 <span class="c1"># Enable colored man using less</span>
 <span class="c1"># https://wiki.archlinux.org/index.php/Color_output_in_console#man</span>
@@ -2143,242 +2148,242 @@ URL=.source/empty-file.txt
 Icon=none
 </code></pre></div>
 <h2 id="configfontconfigfontsconf">~/.config/fontconfig/fonts.conf</h2>
-<div class="highlight"><pre><span></span><code>&lt;?xml version='1.0'?&gt;
-&lt;!DOCTYPE fontconfig SYSTEM 'fonts.dtd'&gt;
-&lt;!-- 
-    設定目標：
-        sans-serif -&gt; Noto Sans CJK
-        serif      -&gt; Noto Serif CJK
-        monospace  -&gt; Noto Mono      -&gt; Noto Sans CJK     (注意是 Noto Mono 而不是 Noto Sans Mono，後者是無襯線字型而不是等寬字型)
-        Noto Sans  -&gt; Noto Sans CJK
-        Noto Serif -&gt; Noto Serif CJK
-        Noto Mono  -&gt; Noto Sans CJK
-    ('Noto *' 不包含 CJK，所以需要 'Noto * CJK' 作為 fallback)
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version='1.0'?&gt;</span>
+<span class="cp">&lt;!DOCTYPE fontconfig SYSTEM 'fonts.dtd'&gt;</span>
+<span class="c">&lt;!-- </span>
+<span class="c">    設定目標：</span>
+<span class="c">        sans-serif -&gt; Noto Sans CJK</span>
+<span class="c">        serif      -&gt; Noto Serif CJK</span>
+<span class="c">        monospace  -&gt; Noto Mono      -&gt; Noto Sans CJK     (注意是 Noto Mono 而不是 Noto Sans Mono，後者是無襯線字型而不是等寬字型)</span>
+<span class="c">        Noto Sans  -&gt; Noto Sans CJK</span>
+<span class="c">        Noto Serif -&gt; Noto Serif CJK</span>
+<span class="c">        Noto Mono  -&gt; Noto Sans CJK</span>
+<span class="c">    ('Noto *' 不包含 CJK，所以需要 'Noto * CJK' 作為 fallback)</span>
 
-    fontconfig 的處理順序：
-    1.  需要字型的程式送出 pattern 給 fontconfig 程式庫
-    2.  將 /etc/fonts/fonts.conf 設定的規則應用到 pattern 上 (font matching, match/test/edit)
-        /etc/fonts/fonts.conf 會 include /etc/fonts/fonts.d/*，並按照以下順序執行
-        00-09: Font directories
-        10-19: system rendering defaults (AA, etc)
-        20-29: font rendering options
-        30-39: family substitution
-        40-49: generic identification, map family-&gt;generic    (40-48 會為一些已知的字型加上 sans-serif/serif/monospace 的 fallback，如果是未知的字型，49 會加上 sans-serif 的 fallback)
-        50-59: alternate config file loading                  (這個檔案就是 50 include 的)
-        60-69: generic aliases, map generic-&gt;family           (52-69 會在最初 pattern 和 generic 之間加入字型，越先加入的會在越前面，微軟正黑體等字型就是在這裡加入的)
-        70-79: select font (adjust which fonts are available) (這個檔案的原版 70-noto-cjk.conf 就在這，但因為它加入的字型會在 50-69 的後面，所以如果 50-69 裡加入的字型存在的話，70-noto-cjk.conf 加入的字型永遠不會被用到！)
-        80-89: match target="scan" (modify scanned patterns)
-        90-99: font synthesis
-        具體過程參考 `FC_DEBUG=4 fc-match '&lt;font family name&gt;'
-    3.  為 pattern 添加一些預設的 element
-    4.  對「所有字型」比對 pattern，每個字型會得到一個分數
-    5.  將不支援 Unicode 的字型的分數加上一個很大的值
-    6.  依照分數從低到高排列，分數最低的最優先，如果該字型沒有某個字，則往後 fallback (`fc-match -s` 看到的就是這個順序)
+<span class="c">    fontconfig 的處理順序：</span>
+<span class="c">    1.  需要字型的程式送出 pattern 給 fontconfig 程式庫</span>
+<span class="c">    2.  將 /etc/fonts/fonts.conf 設定的規則應用到 pattern 上 (font matching, match/test/edit)</span>
+<span class="c">        /etc/fonts/fonts.conf 會 include /etc/fonts/fonts.d/*，並按照以下順序執行</span>
+<span class="c">        00-09: Font directories</span>
+<span class="c">        10-19: system rendering defaults (AA, etc)</span>
+<span class="c">        20-29: font rendering options</span>
+<span class="c">        30-39: family substitution</span>
+<span class="c">        40-49: generic identification, map family-&gt;generic    (40-48 會為一些已知的字型加上 sans-serif/serif/monospace 的 fallback，如果是未知的字型，49 會加上 sans-serif 的 fallback)</span>
+<span class="c">        50-59: alternate config file loading                  (這個檔案就是 50 include 的)</span>
+<span class="c">        60-69: generic aliases, map generic-&gt;family           (52-69 會在最初 pattern 和 generic 之間加入字型，越先加入的會在越前面，微軟正黑體等字型就是在這裡加入的)</span>
+<span class="c">        70-79: select font (adjust which fonts are available) (這個檔案的原版 70-noto-cjk.conf 就在這，但因為它加入的字型會在 50-69 的後面，所以如果 50-69 裡加入的字型存在的話，70-noto-cjk.conf 加入的字型永遠不會被用到！)</span>
+<span class="c">        80-89: match target="scan" (modify scanned patterns)</span>
+<span class="c">        90-99: font synthesis</span>
+<span class="c">        具體過程參考 `FC_DEBUG=4 fc-match '&lt;font family name&gt;'</span>
+<span class="c">    3.  為 pattern 添加一些預設的 element</span>
+<span class="c">    4.  對「所有字型」比對 pattern，每個字型會得到一個分數</span>
+<span class="c">    5.  將不支援 Unicode 的字型的分數加上一個很大的值</span>
+<span class="c">    6.  依照分數從低到高排列，分數最低的最優先，如果該字型沒有某個字，則往後 fallback (`fc-match -s` 看到的就是這個順序)</span>
 
-    參考資料：
-        [fonts-conf](https://www.freedesktop.org/software/fontconfig/fontconfig-user.html)
-        [Linux fontconfig 的字体匹配机制 - 双猫CC](https://catcat.cc/post/2020-10-31/)
-        [fc-match 執行檔的程式碼](https://github.com/freedesktop/fontconfig/blob/master/fc-match/fc-match.c)
-        [fontconfig 程式庫中負責 font matching 的程式碼](https://github.com/freedesktop/fontconfig/blob/master/src/fcmatch.c)
---&gt;
-&lt;fontconfig&gt;
- &lt;!-- 如果想用其它字型當作 sans-serif/serif/monospace 的預設字型就修改這裡 --&gt;
- &lt;!--
-    &lt;alias binding="strong"&gt;
-        &lt;family&gt;sans-serif&lt;/family&gt;
-        &lt;prefer&gt;
-            &lt;family&gt;Noto Sans&lt;/family&gt;
-        &lt;/prefer&gt;
-    &lt;/alias&gt;
-    &lt;alias binding="strong"&gt;
-        &lt;family&gt;serif&lt;/family&gt;
-        &lt;prefer&gt;
-            &lt;family&gt;Noto Serif&lt;/family&gt;
-        &lt;/prefer&gt;
-    &lt;/alias&gt;
-    &lt;alias binding="strong"&gt;
-        &lt;family&gt;monospace&lt;/family&gt;
-        &lt;prefer&gt;
-            &lt;family&gt;DejaVu Sans Mono&lt;/family&gt;
-            &lt;family&gt;Source Han Mono TC&lt;/family&gt;
-        &lt;/prefer&gt;
-    &lt;/alias&gt;
-    --&gt;
- &lt;!-- 以下修改自 /etc/fonts/conf.avail/70-noto-cjk.conf --&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;ja&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;serif&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend"&gt;
-   &lt;string&gt;Noto Serif CJK JP&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;ko&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;serif&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend"&gt;
-   &lt;string&gt;Noto Serif CJK KR&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;zh-cn&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;serif&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend"&gt;
-   &lt;string&gt;Noto Serif CJK SC&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;zh-tw&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;serif&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend"&gt;
-   &lt;string&gt;Noto Serif CJK TC&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;zh-hk&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;serif&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend"&gt;
-   &lt;string&gt;Noto Serif CJK HK&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;ja&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;sans-serif&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend"&gt;
-   &lt;string&gt;Noto Sans CJK JP&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;ko&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;sans-serif&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend"&gt;
-   &lt;string&gt;Noto Sans CJK KR&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;zh-cn&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;sans-serif&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend"&gt;
-   &lt;string&gt;Noto Sans CJK SC&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;zh-tw&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;sans-serif&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend"&gt;
-   &lt;string&gt;Noto Sans CJK TC&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;zh-hk&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;sans-serif&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend"&gt;
-   &lt;string&gt;Noto Sans CJK HK&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;ja&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;monospace&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend" binding="strong"&gt;
-   &lt;string&gt;Noto Mono&lt;/string&gt;
-   &lt;string&gt;Noto Sans CJK JP&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;ko&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;monospace&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend" binding="strong"&gt;
-   &lt;string&gt;Noto Mono&lt;/string&gt;
-   &lt;string&gt;Noto Sans CJK KR&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;zh-cn&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;monospace&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend" binding="strong"&gt;
-   &lt;string&gt;Noto Mono&lt;/string&gt;
-   &lt;string&gt;Noto Sans CJK SC&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;zh-tw&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;monospace&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend" binding="strong"&gt;
-   &lt;!-- 必須加上 binding="strong"，不然 Noto Mono 的順序會低於 Noto Sans CJK (因為支援 Unicode 的字型比不支援的更 match) --&gt;
-   &lt;string&gt;Noto Mono&lt;/string&gt;
-   &lt;!-- 原本是 Noto Sans Mono，改成 Noto Mono 後加上 Noto Sans CJK 處理 CJK 部份 --&gt;
-   &lt;string&gt;Noto Sans CJK TC&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;match target="pattern"&gt;
-  &lt;test name="lang"&gt;
-   &lt;string&gt;zh-hk&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;test name="family"&gt;
-   &lt;string&gt;monospace&lt;/string&gt;
-  &lt;/test&gt;
-  &lt;edit name="family" mode="prepend" binding="strong"&gt;
-   &lt;string&gt;Noto Mono&lt;/string&gt;
-   &lt;string&gt;Noto Sans CJK HK&lt;/string&gt;
-  &lt;/edit&gt;
- &lt;/match&gt;
- &lt;dir&gt;~/.fonts&lt;/dir&gt;
-&lt;/fontconfig&gt;
+<span class="c">    參考資料：</span>
+<span class="c">        [fonts-conf](https://www.freedesktop.org/software/fontconfig/fontconfig-user.html)</span>
+<span class="c">        [Linux fontconfig 的字体匹配机制 - 双猫CC](https://catcat.cc/post/2020-10-31/)</span>
+<span class="c">        [fc-match 執行檔的程式碼](https://github.com/freedesktop/fontconfig/blob/master/fc-match/fc-match.c)</span>
+<span class="c">        [fontconfig 程式庫中負責 font matching 的程式碼](https://github.com/freedesktop/fontconfig/blob/master/src/fcmatch.c)</span>
+<span class="c">--&gt;</span>
+<span class="nt">&lt;fontconfig&gt;</span>
+ <span class="c">&lt;!-- 如果想用其它字型當作 sans-serif/serif/monospace 的預設字型就修改這裡 --&gt;</span>
+ <span class="c">&lt;!--</span>
+<span class="c">    &lt;alias binding="strong"&gt;</span>
+<span class="c">        &lt;family&gt;sans-serif&lt;/family&gt;</span>
+<span class="c">        &lt;prefer&gt;</span>
+<span class="c">            &lt;family&gt;Noto Sans&lt;/family&gt;</span>
+<span class="c">        &lt;/prefer&gt;</span>
+<span class="c">    &lt;/alias&gt;</span>
+<span class="c">    &lt;alias binding="strong"&gt;</span>
+<span class="c">        &lt;family&gt;serif&lt;/family&gt;</span>
+<span class="c">        &lt;prefer&gt;</span>
+<span class="c">            &lt;family&gt;Noto Serif&lt;/family&gt;</span>
+<span class="c">        &lt;/prefer&gt;</span>
+<span class="c">    &lt;/alias&gt;</span>
+<span class="c">    &lt;alias binding="strong"&gt;</span>
+<span class="c">        &lt;family&gt;monospace&lt;/family&gt;</span>
+<span class="c">        &lt;prefer&gt;</span>
+<span class="c">            &lt;family&gt;DejaVu Sans Mono&lt;/family&gt;</span>
+<span class="c">            &lt;family&gt;Source Han Mono TC&lt;/family&gt;</span>
+<span class="c">        &lt;/prefer&gt;</span>
+<span class="c">    &lt;/alias&gt;</span>
+<span class="c">    --&gt;</span>
+ <span class="c">&lt;!-- 以下修改自 /etc/fonts/conf.avail/70-noto-cjk.conf --&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>ja<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>serif<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Serif CJK JP<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>ko<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>serif<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Serif CJK KR<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>zh-cn<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>serif<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Serif CJK SC<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>zh-tw<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>serif<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Serif CJK TC<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>zh-hk<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>serif<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Serif CJK HK<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>ja<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>sans-serif<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Sans CJK JP<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>ko<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>sans-serif<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Sans CJK KR<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>zh-cn<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>sans-serif<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Sans CJK SC<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>zh-tw<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>sans-serif<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Sans CJK TC<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>zh-hk<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>sans-serif<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Sans CJK HK<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>ja<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>monospace<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span> <span class="na">binding=</span><span class="s">"strong"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Mono<span class="nt">&lt;/string&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Sans CJK JP<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>ko<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>monospace<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span> <span class="na">binding=</span><span class="s">"strong"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Mono<span class="nt">&lt;/string&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Sans CJK KR<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>zh-cn<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>monospace<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span> <span class="na">binding=</span><span class="s">"strong"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Mono<span class="nt">&lt;/string&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Sans CJK SC<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>zh-tw<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>monospace<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span> <span class="na">binding=</span><span class="s">"strong"</span><span class="nt">&gt;</span>
+   <span class="c">&lt;!-- 必須加上 binding="strong"，不然 Noto Mono 的順序會低於 Noto Sans CJK (因為支援 Unicode 的字型比不支援的更 match) --&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Mono<span class="nt">&lt;/string&gt;</span>
+   <span class="c">&lt;!-- 原本是 Noto Sans Mono，改成 Noto Mono 後加上 Noto Sans CJK 處理 CJK 部份 --&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Sans CJK TC<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;match</span> <span class="na">target=</span><span class="s">"pattern"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"lang"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>zh-hk<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;test</span> <span class="na">name=</span><span class="s">"family"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>monospace<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/test&gt;</span>
+  <span class="nt">&lt;edit</span> <span class="na">name=</span><span class="s">"family"</span> <span class="na">mode=</span><span class="s">"prepend"</span> <span class="na">binding=</span><span class="s">"strong"</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Mono<span class="nt">&lt;/string&gt;</span>
+   <span class="nt">&lt;string&gt;</span>Noto Sans CJK HK<span class="nt">&lt;/string&gt;</span>
+  <span class="nt">&lt;/edit&gt;</span>
+ <span class="nt">&lt;/match&gt;</span>
+ <span class="nt">&lt;dir&gt;</span>~/.fonts<span class="nt">&lt;/dir&gt;</span>
+<span class="nt">&lt;/fontconfig&gt;</span>
 </code></pre></div>
 <h2 id="confignviminitvim">~/.config/nvim/init.vim</h2>
 <div class="highlight"><pre><span></span><code>" NeoVim init
