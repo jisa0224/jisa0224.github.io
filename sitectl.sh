@@ -35,11 +35,13 @@ case "$1" in
     ;;
 
   run)
+    ${SCRIPT_DIR}/docs/computer/my-linux-configuration/archlinux-03-configuration-files.generator.sh
     source ${PYTHON_VENV_DIR}/bin/activate
     mkdocs serve
     ;;
 
   upload)
+    ${SCRIPT_DIR}/docs/computer/my-linux-configuration/archlinux-03-configuration-files.generator.sh
     source ${PYTHON_VENV_DIR}/bin/activate
     echo "=============== Pushing website to GitHub Pages ====================="
     mkdocs gh-deploy --site-dir /tmp/jisa0224.github.io-mkdocs-site --force --remote-name https://github.com/jisa0224/jisa0224.github.io --remote-branch master
