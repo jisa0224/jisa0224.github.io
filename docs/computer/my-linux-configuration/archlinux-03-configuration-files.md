@@ -21,9 +21,9 @@ export EDITOR="nvim"
 export PAGER="less"
 
 # Location of configuration and history files
-export LESSHISTFILE="/dev/null"                      # disable less history (default: ~/.lesshst)
-export IPYTHONDIR="$HOME/.config/ipython"            # change IPython configuration files location (default: ~/.ipython)
-export JUPYTER_CONFIG_DIR="$HOME/.config/jupyter"    # change Jupyter configuration files location (default: ~/.jupyter)
+export LESSHISTFILE="/dev/null"                                           # disable less history (default: ~/.lesshst)
+export IPYTHONDIR="${XDG_CONFIG_HOME:-$HOME/.config}/ipython"             # change IPython configuration files location (default: ~/.ipython)
+export JUPYTER_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/jupyter"     # change Jupyter configuration files location (default: ~/.jupyter)
 
 # Fcitx 5 (Input Method Engine)
 export GTK_IM_MODULE="fcitx"
@@ -33,6 +33,10 @@ export SDL_IM_MODULE="fcitx"
 
 # OpenJDK (Java)
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on"
+
+# The following doesn't work
+#export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc"    # change GTK 2 configuration files location (default: ~/.gtkrc-2.0)
+#export _JAVA_OPTIONS="-Djava.util.prefs.userRoot='${XDG_CONFIG_HOME:-$HOME/.config}/java'"    # change Java configuration files location (default: ~/.java)
 ```
 
 ## ~/.bash_profile
@@ -86,6 +90,7 @@ alias nv='nvim'
 alias tree='tree -C'
 alias diff='diff --color=auto'
 alias ip='ip -color=auto'
+alias less='less -r'
 
 # Enable colored man using less
 # https://wiki.archlinux.org/index.php/Color_output_in_console#man
@@ -102,7 +107,7 @@ man() {
 
 ## ~/Desktop/root.desktop
 
-```
+``` 
 [Desktop Entry]
 Name=Root
 Name[zh_TW]=根目錄
@@ -113,7 +118,7 @@ Icon=drive-harddisk-root
 
 ## ~/Desktop/home.desktop
 
-```
+``` 
 [Desktop Entry]
 Name=Home
 Name[zh_TW]=家目錄
@@ -124,7 +129,7 @@ Icon=user-home
 
 ## ~/Desktop/trash.desktop
 
-```
+``` 
 [Desktop Entry]
 Name=Trash
 Name[zh_TW]=垃圾桶
@@ -136,7 +141,7 @@ EmptyIcon=user-trash
 
 ## ~/.local/share/templates/empty-file.desktop
 
-```
+``` 
 [Desktop Entry]
 Name=Empty File...
 Name[zh_TW]=空白檔案...
@@ -149,7 +154,7 @@ Icon=none
 
 ## ~/.config/fontconfig/fonts.conf
 
-```
+``` XML
 <?xml version='1.0'?>
 <!DOCTYPE fontconfig SYSTEM 'fonts.dtd'>
 <!-- 
@@ -390,7 +395,7 @@ Icon=none
 
 ## ~/.config/nvim/init.vim
 
-```
+``` 
 " NeoVim init
 " 安裝 Neovim 後，依照 https://github.com/junegunn/vim-plug 的說明安裝 vim-plug，之後將此文件複製到 ~/.config/nvim/init.vim，最後在 Neovim 中 :PlugUpdate 即可
 
@@ -646,3 +651,4 @@ let g:NERDCompactSexyComs = 1           " Use compact syntax for prettified mult
 let g:NERDCommentEmptyLines = 1         " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDTrimTrailingWhitespace = 1    " Enable trimming of trailing whitespace when uncommenting
 ```
+
