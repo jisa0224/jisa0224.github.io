@@ -4,9 +4,14 @@
 
 MSI Modern 15 A10M-419TW
 
-* 進入 UEFI 開機選單的方法: 在按下開機鍵後立刻按下 Delete 鍵。
+* 進入 BIOS 管理界面的方法: 按下開機鍵後立刻按下 Delete 鍵。
 * 硬碟為 2 顆 NVMe SSD (`/dev/nvme0n1` 和 `/dev/nvme1n1`)。
 * 顯示卡為內建的 Intel UHD Graphics。
+
+至 BIOS 管理界面設定
+
+* 開機 > 開機配置 > 選擇開機模式: "UEFI"
+* 安全性 > 安全開機選項 > 安全開機: "關閉"
 
 ## 安裝至 VirtualBox 作為 Guest
 

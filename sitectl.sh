@@ -17,6 +17,7 @@ case "$1" in
     rm -rf ${PYTHON_VENV_DIR}
     python3 -m venv ${PYTHON_VENV_DIR}
     rm -rf ${SCRIPT_DIR}/custom_extensions/__pycache__
+    chmod +x ${SCRIPT_DIR}/docs/computer/my-linux-configuration/archlinux-03-configuration-files.generator.sh
     ;;
 
   upgrade)

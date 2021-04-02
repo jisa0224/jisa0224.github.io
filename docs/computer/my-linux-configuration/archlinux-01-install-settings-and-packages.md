@@ -103,7 +103,12 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 
 * 系統設定
     * 解決關機時出現 `A stop job is running for ... (... / 1min 30s)`，需要等待很長時間的問題: 
-      於 `/etc/systemd/system.conf` 中修改或加入 `DefaultTimeoutStopSec=10s`，儲存後重開機。  
+      建立 `/etc/systemd/system.conf.d/DefaultTimeoutStopSec.conf`，內容為
+      ```
+      [Manager]
+      DefaultTimeoutStopSec=10s
+      ```
+      儲存後重開機。  
       參考資料: [systemd - A stop job is running for Session c2 of user - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/273876/a-stop-job-is-running-for-session-c2-of-user)
     * 預設情況下，使用者密碼輸入錯誤 3 次，就會鎖定 10 分鐘
         * 此功能由 `pam_faillock` 模組提供 (以前是 `pam_tally2`)。
@@ -152,6 +157,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 * 使用 `sudo pacman -S --needed <package>` 可以避免重新安裝已經安裝(且為最新版本)的軟體包。
 * 使用 `sudo pacman -D --asdeps <package>` 可以指定軟體包為 "作為其他軟體包的依賴安裝"，
   使用 `sudo pacman -D --asexplicit <package>` 可以指定軟體包為 "單獨指定安裝"。
+* 使用 `pacman -Qm` 可以列出所有已安裝的，非 Arch Linux 官方軟體庫的軟體包 (如: AUR)。
 * 使用 AUR 所安裝的 Python 軟體包，需在 Python 更新後重新 `makepkg`(3.8 -> 3.9 才要，3.8.1 -> 3.8.2 不用)。
 
 ### 系統程式
@@ -265,6 +271,14 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     * 虛擬機器: virtualbox(依賴於: virtualbox-host-modules-arch) virtualbox-guest-iso virtualbox-ext-oracle@A
         - virtualbox: 安裝完後執行 `sudo usermod -a -G vboxusers $USER` 並重開機，才能找到 USB 裝置。
         - virtualbox-ext-oracle@A: **警告**: virtualbox 和 virtualbox-ext-oracle@A 的版本必須相同，否則無法啟動虛擬機器。
+    * Qemu: qemu qemu-arch-extra
+    * RISC-V 裸機工具鏈: riscv64-elf-binutils riscv64-elf-gcc riscv64-elf-gdb riscv64-elf-newlib
+        - 注意: `riscv32-elf-*` 和 `riscv64-elf-*` 是裸機 (baremetal) 工具鏈，無法用來編譯 Linux kernel。
+    * RISC-V Linux 工具鏈: riscv64-linux-gnu-binutils riscv64-linux-gnu-gcc riscv64-linux-gnu-gdb riscv64-linux-gnu-glibc riscv64-linux-gnu-linux-api-headers
+        - 注意: `	riscv64-linux-gnu-*` 是 Linux 工具鏈，無法用來編譯裸機程式。
+    * 編譯 Linux kernel 所需的工具: xmlto inetutils bc cpio
+        - 根據 [Kernel/Traditional compilation - ArchWiki](https://wiki.archlinux.org/index.php/Kernel/Traditional_compilation#Install_the_core_packages)
+          執行 `sudo pacman -S --needed base-devel xmlto kmod inetutils bc libelf git cpio perl tar xz` 安裝所需工具。
     * IDE: visual-studio-code-bin@A
         - visual-studio-code-bin@A 跟官方軟體庫的 code 的差別在於: 前者是 Microsoft 官方發布的 binary 包，包含一些 proprietary 的功能；
           後者是從原始碼建置的開源版本。
