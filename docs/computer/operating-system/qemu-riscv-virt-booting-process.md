@@ -229,8 +229,8 @@ void riscv_rom_copy_firmware_info(hwaddr rom_base, hwaddr rom_size,
 * Firmware with Jump Address (FW_JUMP): 直接跳轉到一個硬編碼的記憶體位址
 * Firmware with Dynamic Information (FW_DYNAMIC): 利用暫存器傳遞關於下一階段程式的資訊 (像是程式進入點的記憶體位址)
 
-    The previous booting stage will pass information to FW_DYNAMIC by creating struct `fw_dynamic_info` in memory and 
-    passing it's address to FW_DYNAMIC via a2 register of RISC-V CPU.
+> The previous booting stage will pass information to FW_DYNAMIC by creating struct `fw_dynamic_info` in memory and 
+> passing it's address to FW_DYNAMIC via a2 register of RISC-V CPU.
 
 ## 執行
 
@@ -311,7 +311,7 @@ _start:
 然後編譯
 
 ``` shell
-riscv64-elf-gcc -c -o sbi_demo.o sbi_demo.S                          # 只編譯，不連結
+riscv64-elf-gcc -c -g -o sbi_demo.o sbi_demo.S                       # 只編譯，不連結
 riscv64-elf-ld -e _start -Ttext=0x80200000 -o sbi_demo sbi_demo.o    # 設置 entry point 為 `_start`，程式開頭為 0x80200000 (Qemu RISC-V VirtIO board 指定的開頭)
 ```
 

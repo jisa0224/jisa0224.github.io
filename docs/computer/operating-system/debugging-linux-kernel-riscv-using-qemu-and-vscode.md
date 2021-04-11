@@ -74,6 +74,8 @@ make distclean
 make CROSS_COMPILE=riscv64-linux-gnu- menuconfig
 ```
 
+編譯靜態連結的 Busybox
+
 ```
 Settings  --->
     --- Build Options
@@ -153,7 +155,9 @@ Ctrl-P 開啟 "C/C++: Edit Configurations (JSON)"
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/include/**",
-                "${workspaceFolder}/arch/riscv/include/**"
+                "${workspaceFolder}/include/generated/**",
+                "${workspaceFolder}/arch/riscv/include/**",
+                "${workspaceFolder}/arch/riscv/include/generated/**"
             ],
             "defines": [
                 "__GNUC__",

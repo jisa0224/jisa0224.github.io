@@ -8,7 +8,7 @@ Oracle VM VirtualBox Disk Image
 2. 我的電腦 > 對著硬碟按右鍵 > 內容 > 一般 >  磁碟清理 > 磁碟清理 > 更多選項 > 程式和功能
 3. 我的電腦 > 對著硬碟按右鍵 > 內容 > 一般 >  磁碟清理 > 磁碟清理 > 更多選項 > 系統還原和陰影複製
 
-## 磁碟重整（guest: Windows）
+## 磁碟重整（guest: Windows, 可選）
 
 我的電腦 > 對著硬碟按右鍵 > 內容 > 工具 > 重組
 
@@ -16,7 +16,7 @@ Oracle VM VirtualBox Disk Image
 
 ### guest 為 Linux
 
-在 guest 執行 `dd if=/dev/zero of=bigemptyfile status=progress && rm bigemptyfile`
+在 guest 執行 `dd if=/dev/zero of=bigemptyfile status=progress`，然後執行 `rm bigemptyfile`
 
 (host 的 vdi 檔不會變大，不用擔心)
 

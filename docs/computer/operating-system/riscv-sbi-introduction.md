@@ -52,7 +52,7 @@ _start:
 然後編譯
 
 ``` shell
-riscv64-elf-gcc -c -o sbi_demo.o sbi_demo.S                          # 只編譯，不連結
+riscv64-elf-gcc -c -g -o sbi_demo.o sbi_demo.S                       # 只編譯，不連結
 riscv64-elf-ld -e _start -Ttext=0x80200000 -o sbi_demo sbi_demo.o    # 設置 entry point 為 `_start`，程式開頭為 0x80200000 (Qemu RISC-V VirtIO board 指定的開頭)
 ```
 

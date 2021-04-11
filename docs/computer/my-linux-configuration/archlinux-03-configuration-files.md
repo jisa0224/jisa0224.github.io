@@ -56,6 +56,9 @@ export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on"
 # ~/.bashrc
 #
 
+# Clear Bash history every boot (`$HOME/.cache` is mouted as tmpfs)
+HISTFILE="$HOME/.cache/bash_history"
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -72,29 +75,35 @@ else
 fi
 
 # Command alias
+alias more='less'
+alias nv='nvim'
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -lh'
 alias lld='ls --color=auto -ldh'
 alias la='ls --color=auto -a'
 alias lla='ls --color=auto -alh'
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias rm='rm -i'
-alias cp='cp -i'                          # confirm before overwriting something
-alias df='df -hT -x tmpfs -x devtmpfs'    # human-readable sizes and ignore tmpfs
-alias du='du -h'                          # human-readable sizes
-alias free='free -h'                      # human-readable sizes
-alias more='less'
-alias nv='nvim'
-alias tree='tree -C'
-alias diff='diff --color=auto'
-alias ip='ip -color=auto'
-alias less='less -r'
+alias rm='rm -i'                    # confirm before delete something
+alias cp='cp -i'                    # confirm before overwriting something
+alias du='du -h'                    # human-readable sizes
+alias free='free -h'                # human-readable sizes
+alias grep='grep --color=auto'      # colored output
+alias egrep='egrep --color=auto'    # colored output
+alias fgrep='fgrep --color=auto'    # colored output
+alias tree='tree -C'                # colored output
+alias diff='diff --color=auto'      # colored output
+alias ip='ip -color=auto'           # colored output
+alias bc='bc -l'                    # show decimals (equal to `scale=20`)
 
-# Enable colored man using less
-# https://wiki.archlinux.org/index.php/Color_output_in_console#man
+df() {
+	# sort without header: https://unix.stackexchange.com/questions/11856/sort-but-keep-header-line-at-the-top/71949#71949
+	# sort by ASCII: https://stackoverflow.com/questions/5296428/how-to-sort-a-text-file-according-to-character-code-or-ascii-code-value/5296453#5296453
+	# `command` suppress shell function lookup (so it will not cause infinite loop)
+	command df -hT "$@" | awk 'NR == 1; NR > 1 {print $0 | "LC_COLLATE=C sort"}'
+}
+
 man() {
+	# Enable colored man using less
+	# https://wiki.archlinux.org/index.php/Color_output_in_console#man
     LESS_TERMCAP_md=$'\e[01;31m' \
     LESS_TERMCAP_me=$'\e[0m' \
     LESS_TERMCAP_se=$'\e[0m' \

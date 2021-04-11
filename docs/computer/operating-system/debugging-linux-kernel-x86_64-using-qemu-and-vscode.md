@@ -15,7 +15,6 @@
 
 ``` shell
 sudo pacman -S --needed base-devel xmlto kmod inetutils bc libelf git cpio perl tar xz    # 編譯 Linux kernel
-sudo pacman -S --needed musl kernel-headers-musl    # 編譯靜態連結的 Busybox
 sudo pacman -S --needed qemu
 ```
 
@@ -77,15 +76,20 @@ make distclean
 make menuconfig
 ```
 
+編譯靜態連結的 Busybox
+
 ```
 Settings  --->
     --- Build Options
     [*] Build static binary (no shared libs)
 ```
 
+編譯靜態連結的 Busybox 需要 libcrypt.a，但 Arch Linux 官方軟體庫的 libxcrypt 只提供動態連結版本的 libcrypt.so，因此連結時會出錯。
+解決方法為: 編輯 Makefile.flags，刪除 `LDLIBS += m rt crypt` 中的 `crypt`。 (或者，也可以使用 musl libc 來編譯，就不會有這個問題)
+
 ``` shell
-make -j$(nproc) CC=musl-gcc    # Arch Linux 自帶的 gcc 不包含一些靜態函式庫 (如 libcrypt.a)，所以連結時會出錯，改用 musl 就沒問題
-make install CC=musl-gcc       # Busybox 會被複製到 $WORK/busybox/_install，並建立連結
+make -j$(nproc)
+make install    # Busybox 會被複製到 $WORK/busybox/_install，並建立連結
 ```
 
 ## 建立 initramfs
@@ -156,7 +160,9 @@ Ctrl-P 開啟 "C/C++: Edit Configurations (JSON)"
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/include/**",
-                "${workspaceFolder}/arch/x86/include/**"
+                "${workspaceFolder}/include/generated/**",
+                "${workspaceFolder}/arch/x86/include/**",
+                "${workspaceFolder}/arch/x86/include/generated/**"
             ],
             "defines": [
                 "__GNUC__",

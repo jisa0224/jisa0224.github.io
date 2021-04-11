@@ -102,7 +102,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 以下在新安裝的系統執行。
 
 * 系統設定
-    * 解決關機時出現 `A stop job is running for ... (... / 1min 30s)`，需要等待很長時間的問題: 
+    * 解決關機時出現 `A stop job is running for ... (... / 1min 30s)`，需要等待很長時間的問題:  
       建立 `/etc/systemd/system.conf.d/DefaultTimeoutStopSec.conf`，內容為
       ```
       [Manager]
@@ -115,10 +115,18 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         * 完全關閉此功能: 編輯 `/etc/security/faillock.conf`，修改為 `deny = 0`。
         * 不關閉此功能，取消當下的鎖定: 以 root 登入 (因為 sudo 也被鎖起來了)，執行 `faillock --user <username> --reset`。
         * 參考資料: [Security - ArchWiki](https://wiki.archlinux.org/index.php/Security#Lock_out_user_after_three_failed_login_attempts)。
+    * `tmpfs /root/.cache tmpfs rw,nosuid,nodev,relatime,size=50%,mode=755,uid=0,gid=0 0 0`
     * 由於許多程式都會在 `~/.cache` 快取，卻不會自動清理不再使用的快取，因此把它掛載為 tmpfs，每次關機自動清理:   
       在不登入的情況下清空 `~/.cache`，然後在 `/etc/fstab` 中加入 `tmpfs /home/jisa/.cache tmpfs rw,nosuid,nodev,relatime,size=50%,mode=755,uid=1000,gid=1000 0 0`，儲存後重開機。  
       (雖然重開機後第一次執行程式會比較慢(其實感覺不太出來)，但是之後因為快取位於 tmpfs 上，反而會比較快。)  
       [~/.cache][Cache]
+    * 預設情況下 systemd-journald 可以儲存高達 4 GB 的日誌，會佔用太多儲存空間，修改成只儲存 1 週內的日誌:  
+      建立 `/etc/systemd/journald.conf.d/MaxRetentionSec.conf`，內容為
+      ```
+      [Journal]
+      MaxRetentionSec=1week
+      ```
+      儲存後重開機。
 * 桌面環境 (KDE) 設定
     * 設定語言及地區
         * 到 System Settings > Regional Settings > Language 加入"繁體中文"，並移到最上面。
@@ -164,13 +172,13 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 
 * 基本
     * 最小可用: base linux linux-lts linux-firmware  
-        - base 是一個 meta package，它包含 bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 
-          iputils licenses pacman pciutils procps-ng psmisc sed shadow systemd systemd-sysvcompat tar util-linux xz)  
+        - base 元軟體包 (meta package) 包含 bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 
+          iputils licenses pacman pciutils procps-ng psmisc sed shadow systemd systemd-sysvcompat tar util-linux xz
         - 開啟 pacman 彩色輸出: uncomment `/etc/pacman.conf` 中的 `Color` 選項 (用 `alias` 的話 `sudo` 時會失效)。
         - linux-lts 是 Linux LTS kernel，作為萬一最新的 kernel 無法使用時的備用。
     * 基本工具: base-devel bash-completion cmake diffutils less lsb-release man-db neovim rsync tree wget xdg-user-dirs xdg-utils
-        - base-devel 軟體包群組包含 autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff 
-          gzip libtool m4 make pacman patch pkgconf sed sudo texinfo which
+        - base-devel 軟體包群組包含 autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool 
+          m4 make pacman patch pkgconf sed sudo texinfo which
         - 避免 less 在家目錄底下建立紀錄檔 `~/.lesshst`: 在 `~/.bashrc` 中加入 `export LESSHISTFILE=/dev/null`。
         - pacman 依賴於 base-devel 軟體包群組裡的其它軟體包。
         - 如果在建立使用者後才裝 xdg-user-dirs，
@@ -194,15 +202,21 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 * 圖形界面與多媒體
     * Display server: xorg-server xorg-xset
     * Display drivers: mesa(可選依賴於: libva-mesa-driver mesa-vdpau) xf86-video-intel vulkan-intel libva(可選依賴於: intel-media-driver)  
-        - Intel UHD Graphics 為 Skylake 微架構 > Broadwell > Haswell。
+        -  intel-media-driver: backend for Intel GPUs (>= Broadwell) (Intel UHD Graphics 為 Skylake 微架構 > Broadwell 微架構 > Haswell 微架構)。
     * 輸入: xf86-input-libinput
     * 音訊: (ALSA is a set of built-in Linux kernel modules. Therefore, manual installation is not necessary.)
     * Display manager: sddm
         - 之後還需要在新安裝的系統裡執行 `systemctl enable sddm` 才會開機進入圖形界面。
     * 桌面環境: plasma konsole dolphin
-        - plasma 是一個軟體包群組，安裝除了 discover kwallet-pam oxygen plasma-systemmonitor plasma-thunderbolt 以外的軟體包，
+        - plasma 是一個軟體包群組，安裝除了 discover kwallet-pam oxygen plasma-browser-integration plasma-systemmonitor plasma-thunderbolt plasma-vault 以外的軟體包，
           phonon-qt5-backend 選擇 phonon-qt5-vlc。
         - 安裝軟體包群組時如何只安裝或排除特定幾個，參考 <https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups>。
+        - plasma 軟體包群組包含 bluedevil breeze breeze-gtk discover drkonqi kactivitymanagerd kde-cli-tools kde-gtk-config kdecoration 
+          kdeplasma-addons kgamma5 khotkeys kinfocenter kmenuedit kscreen kscreenlocker ksshaskpass ksysguard kwallet-pam 
+          kwayland-integration kwayland-server kwin kwrited libkscreen libksysguard milou oxygen plasma-browser-integration 
+          plasma-desktop plasma-disks plasma-firewall plasma-integration plasma-nm plasma-pa plasma-sdk plasma-systemmonitor 
+          plasma-thunderbolt plasma-vault plasma-workspace plasma-workspace-wallpapers polkit-kde-agent powerdevil sddm-kcm 
+          systemsettings xdg-desktop-portal-kde
         - konsole: 配色 "微風"，背景透明 "10%"，字型 "Noto Mono 12pt"。
         - dolphin: 到 Dolphin 設定 > 一般 > 行為 選擇 "對所有資料夾使用相同的顯示模式"，不然 Dolphin 會在每個資料夾下建立 ".directory" 檔案。
         - dolphin: 到系統設定 > 工作空間行為 > 一般行為 > 點擊行為 選擇 "按兩下開啟檔案或資料夾 (按一下選取)"。
@@ -242,10 +256,8 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     * viewnior kcolorchooser kolourpaint vlc kid3
 
 * 網路
-    * 瀏覽器: google-chrome@A
-        - Chromium 自 88 版開始，停止 Google 帳戶同步功能，所以只好改用 Google Chrome。
-        - 使用久了之後會儲存大量的快取，"清除瀏覽資料" 裡的 "Cookie 和其他網站資料" 可以清除 `~/.config/google-chrome` 裡的快取，
-          "快取圖片和檔案" 可以清除 `~/.cache/google-chrome` 裡的快取。
+    * 瀏覽器: firefox firefox-i18n-zh-tw firefox-adblock-plus firefox-clearurls
+        - 新增檔案: `~/.mozilla`, `~/.cache/mozilla`
     * (JDownloader 2)@O(依賴於: jre-openjdk)
         - 執行 `sudo mkdir /opt/jd2 && sudo chown jisa:jisa /opt/jd2` (因為 JDownloader 2 會更新檔案，所以需要權限)
         - 到官方網站下載 Other 的 MULTIOS JAR without Installer（只有一個 `JDownloader.jar`，Linux 的 Installer 會多安裝 JRE，這個不會）複製到 `/opt/jd2` 資料夾中
@@ -283,11 +295,13 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         - visual-studio-code-bin@A 跟官方軟體庫的 code 的差別在於: 前者是 Microsoft 官方發布的 binary 包，包含一些 proprietary 的功能；
           後者是從原始碼建置的開源版本。
         - 選用此版本的原因在於: code 會另外安裝 electron，而此版本自帶 electron，所以不用多安裝。
-        - 新增檔案: `~/.config/Code`, `~/.vscode`, `~/.cache/vscode-cpptools`
+        - 新增檔案: `~/.config/Code`, `~/.vscode`, `~/.cache/vscode-cpptools`, `~/.pki`
         - 會佔用很大空間的快取或資料庫，可以手動刪除: 
             - `~/.config/Code/User/workspaceStorage` (曾開過的工作區資訊，有些 extensions (如：vscode.cpptools) 會儲存很大的資料庫)
             - `~/.config/Code/{Cache,CachedData,CachedExtensions,CachedExtensionVSIXs}`
             - `~/.cache/vscode-cpptools/ipch` (IntelliSense precompiled headers)
+        - [Settings Sync](https://code.visualstudio.com/docs/editor/settings-sync) 功能需要 `gnome-keyring` 才能登入 GitHub (目前未使用此功能，所以沒安裝)。
+    * 資料庫: sqlitebrowser
 
 * 系統
     * 軟體包: pacman-contrib pacman-cleanup-hook@A reflector pamac-cli@A
