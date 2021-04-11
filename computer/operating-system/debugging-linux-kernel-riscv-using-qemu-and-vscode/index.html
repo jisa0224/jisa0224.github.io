@@ -1108,6 +1108,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-mode-linux/" class="md-nav__link">
+        User-Mode Linux
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -1166,6 +1178,18 @@
     <li class="md-nav__item">
       <a href="../../other/coscup-2018/" class="md-nav__link">
         開源人年會 COSCUP 2018 會後筆記(未完成)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/firefox-techniques/" class="md-nav__link">
+        Firefox 使用技巧
       </a>
     </li>
   
@@ -2172,6 +2196,7 @@ make <span class="nv">ARCH</span><span class="o">=</span>riscv <span class="nv">
 make distclean
 make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>riscv64-linux-gnu- menuconfig
 </code></pre></div>
+<p>編譯靜態連結的 Busybox</p>
 <div class="highlight"><pre><span></span><code>Settings  ---&gt;
     --- Build Options
     [*] Build static binary (no shared libs)
@@ -2227,7 +2252,9 @@ Breakpoint 1, start_kernel () at init/main.c:849
             <span class="nt">"includePath"</span><span class="p">:</span> <span class="p">[</span>
                 <span class="s2">"${workspaceFolder}/**"</span><span class="p">,</span>
                 <span class="s2">"${workspaceFolder}/include/**"</span><span class="p">,</span>
-                <span class="s2">"${workspaceFolder}/arch/riscv/include/**"</span>
+                <span class="s2">"${workspaceFolder}/include/generated/**"</span><span class="p">,</span>
+                <span class="s2">"${workspaceFolder}/arch/riscv/include/**"</span><span class="p">,</span>
+                <span class="s2">"${workspaceFolder}/arch/riscv/include/generated/**"</span>
             <span class="p">],</span>
             <span class="nt">"defines"</span><span class="p">:</span> <span class="p">[</span>
                 <span class="s2">"__GNUC__"</span><span class="p">,</span>

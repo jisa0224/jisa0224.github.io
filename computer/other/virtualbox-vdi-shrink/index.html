@@ -998,6 +998,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operating-system/user-mode-linux/" class="md-nav__link">
+        User-Mode Linux
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -1058,6 +1070,18 @@
     <li class="md-nav__item">
       <a href="../coscup-2018/" class="md-nav__link">
         開源人年會 COSCUP 2018 會後筆記(未完成)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../firefox-techniques/" class="md-nav__link">
+        Firefox 使用技巧
       </a>
     </li>
   
@@ -1251,7 +1275,7 @@
       
         <li class="md-nav__item">
   <a href="#guest-windows_1" class="md-nav__link">
-    磁碟重整（guest: Windows）
+    磁碟重整（guest: Windows, 可選）
   </a>
   
 </li>
@@ -2036,7 +2060,7 @@
       
         <li class="md-nav__item">
   <a href="#guest-windows_1" class="md-nav__link">
-    磁碟重整（guest: Windows）
+    磁碟重整（guest: Windows, 可選）
   </a>
   
 </li>
@@ -2123,11 +2147,11 @@
 <li>我的電腦 &gt; 對著硬碟按右鍵 &gt; 內容 &gt; 一般 &gt;  磁碟清理 &gt; 磁碟清理 &gt; 更多選項 &gt; 程式和功能</li>
 <li>我的電腦 &gt; 對著硬碟按右鍵 &gt; 內容 &gt; 一般 &gt;  磁碟清理 &gt; 磁碟清理 &gt; 更多選項 &gt; 系統還原和陰影複製</li>
 </ol>
-<h2 id="guest-windows_1">磁碟重整（guest: Windows）</h2>
+<h2 id="guest-windows_1">磁碟重整（guest: Windows, 可選）</h2>
 <p>我的電腦 &gt; 對著硬碟按右鍵 &gt; 內容 &gt; 工具 &gt; 重組</p>
 <h2 id="0">將未用到的磁碟空間寫 0</h2>
 <h3 id="guest-linux">guest 為 Linux</h3>
-<p>在 guest 執行 <code>dd if=/dev/zero of=bigemptyfile status=progress &amp;&amp; rm bigemptyfile</code></p>
+<p>在 guest 執行 <code>dd if=/dev/zero of=bigemptyfile status=progress</code>，然後執行 <code>rm bigemptyfile</code></p>
 <p>(host 的 vdi 檔不會變大，不用擔心)</p>
 <h3 id="guest-windows_2">guest 為 Windows</h3>
 <p>下載 <a href="https://docs.microsoft.com/zh-tw/sysinternals/downloads/sdelete">SDelete - Windows Sysinternals | Microsoft Docs</a> 後，

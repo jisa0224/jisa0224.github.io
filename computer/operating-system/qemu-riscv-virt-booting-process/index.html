@@ -1059,6 +1059,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-mode-linux/" class="md-nav__link">
+        User-Mode Linux
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -1117,6 +1129,18 @@
     <li class="md-nav__item">
       <a href="../../other/coscup-2018/" class="md-nav__link">
         開源人年會 COSCUP 2018 會後筆記(未完成)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/firefox-techniques/" class="md-nav__link">
+        Firefox 使用技巧
       </a>
     </li>
   
@@ -2242,12 +2266,12 @@ virt                 RISC-V VirtIO board
 <ul>
 <li>Firmware with Payload (FW_PAYLOAD): 直接將下一階段程式黏在 OpenSBI 後面</li>
 <li>Firmware with Jump Address (FW_JUMP): 直接跳轉到一個硬編碼的記憶體位址</li>
-<li>
-<p>Firmware with Dynamic Information (FW_DYNAMIC): 利用暫存器傳遞關於下一階段程式的資訊 (像是程式進入點的記憶體位址)</p>
+<li>Firmware with Dynamic Information (FW_DYNAMIC): 利用暫存器傳遞關於下一階段程式的資訊 (像是程式進入點的記憶體位址)</li>
+</ul>
+<blockquote>
 <p>The previous booting stage will pass information to FW_DYNAMIC by creating struct <code>fw_dynamic_info</code> in memory and 
 passing it's address to FW_DYNAMIC via a2 register of RISC-V CPU.</p>
-</li>
-</ul>
+</blockquote>
 <h2 id="_2">執行</h2>
 <p>由 GDB 的 <code>info all-registers</code> 可以看到 (以下省略無法顯示和不太重要的暫存器)，開機後</p>
 <ul>
@@ -2315,7 +2339,7 @@ _start:
         # Never goes here
 </code></pre></div>
 <p>然後編譯</p>
-<div class="highlight"><pre><span></span><code>riscv64-elf-gcc -c -o sbi_demo.o sbi_demo.S                          <span class="c1"># 只編譯，不連結</span>
+<div class="highlight"><pre><span></span><code>riscv64-elf-gcc -c -g -o sbi_demo.o sbi_demo.S                       <span class="c1"># 只編譯，不連結</span>
 riscv64-elf-ld -e _start -Ttext<span class="o">=</span>0x80200000 -o sbi_demo sbi_demo.o    <span class="c1"># 設置 entry point 為 `_start`，程式開頭為 0x80200000 (Qemu RISC-V VirtIO board 指定的開頭)</span>
 </code></pre></div>
 <p>執行 <code>qemu-system-riscv64 -nographic -serial mon:stdio -machine virt -kernel sbi_demo</code> 啟動虛擬機器</p>

@@ -1086,6 +1086,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operating-system/user-mode-linux/" class="md-nav__link">
+        User-Mode Linux
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -1144,6 +1156,18 @@
     <li class="md-nav__item">
       <a href="../../other/coscup-2018/" class="md-nav__link">
         開源人年會 COSCUP 2018 會後筆記(未完成)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/firefox-techniques/" class="md-nav__link">
+        Firefox 使用技巧
       </a>
     </li>
   
@@ -2181,7 +2205,7 @@ options root=UUID=&lt;執行 `lsblk -f` 找出 UUID&gt; rw nvme_core.default_ps_
 <p>以下在新安裝的系統執行。</p>
 <ul>
 <li>系統設定<ul>
-<li>解決關機時出現 <code>A stop job is running for ... (... / 1min 30s)</code>，需要等待很長時間的問題: 
+<li>解決關機時出現 <code>A stop job is running for ... (... / 1min 30s)</code>，需要等待很長時間的問題:<br/>
   建立 <code>/etc/systemd/system.conf.d/DefaultTimeoutStopSec.conf</code>，內容為
   <div class="highlight"><pre><span></span><code>[Manager]
 DefaultTimeoutStopSec=10s
@@ -2195,10 +2219,17 @@ DefaultTimeoutStopSec=10s
 <li>參考資料: <a href="https://wiki.archlinux.org/index.php/Security#Lock_out_user_after_three_failed_login_attempts">Security - ArchWiki</a>。</li>
 </ul>
 </li>
+<li><code>tmpfs /root/.cache tmpfs rw,nosuid,nodev,relatime,size=50%,mode=755,uid=0,gid=0 0 0</code></li>
 <li>由於許多程式都會在 <code>~/.cache</code> 快取，卻不會自動清理不再使用的快取，因此把它掛載為 tmpfs，每次關機自動清理: <br/>
   在不登入的情況下清空 <code>~/.cache</code>，然後在 <code>/etc/fstab</code> 中加入 <code>tmpfs /home/jisa/.cache tmpfs rw,nosuid,nodev,relatime,size=50%,mode=755,uid=1000,gid=1000 0 0</code>，儲存後重開機。<br/>
   (雖然重開機後第一次執行程式會比較慢(其實感覺不太出來)，但是之後因為快取位於 tmpfs 上，反而會比較快。)<br/>
 <a href="../archlinux-02-details-and-miscellaneous/">~/.cache</a></li>
+<li>預設情況下 systemd-journald 可以儲存高達 4 GB 的日誌，會佔用太多儲存空間，修改成只儲存 1 週內的日誌:<br/>
+  建立 <code>/etc/systemd/journald.conf.d/MaxRetentionSec.conf</code>，內容為
+  <div class="highlight"><pre><span></span><code>[Journal]
+MaxRetentionSec=1week
+</code></pre></div>
+  儲存後重開機。</li>
 </ul>
 </li>
 <li>桌面環境 (KDE) 設定<ul>
@@ -2260,15 +2291,15 @@ DefaultTimeoutStopSec=10s
 <p>基本</p>
 <ul>
 <li>最小可用: base linux linux-lts linux-firmware  <ul>
-<li>base 是一個 meta package，它包含 bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 
-  iputils licenses pacman pciutils procps-ng psmisc sed shadow systemd systemd-sysvcompat tar util-linux xz)  </li>
+<li>base 元軟體包 (meta package) 包含 bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 
+  iputils licenses pacman pciutils procps-ng psmisc sed shadow systemd systemd-sysvcompat tar util-linux xz</li>
 <li>開啟 pacman 彩色輸出: uncomment <code>/etc/pacman.conf</code> 中的 <code>Color</code> 選項 (用 <code>alias</code> 的話 <code>sudo</code> 時會失效)。</li>
 <li>linux-lts 是 Linux LTS kernel，作為萬一最新的 kernel 無法使用時的備用。</li>
 </ul>
 </li>
 <li>基本工具: base-devel bash-completion cmake diffutils less lsb-release man-db neovim rsync tree wget xdg-user-dirs xdg-utils<ul>
-<li>base-devel 軟體包群組包含 autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff 
-  gzip libtool m4 make pacman patch pkgconf sed sudo texinfo which</li>
+<li>base-devel 軟體包群組包含 autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool 
+  m4 make pacman patch pkgconf sed sudo texinfo which</li>
 <li>避免 less 在家目錄底下建立紀錄檔 <code>~/.lesshst</code>: 在 <code>~/.bashrc</code> 中加入 <code>export LESSHISTFILE=/dev/null</code>。</li>
 <li>pacman 依賴於 base-devel 軟體包群組裡的其它軟體包。</li>
 <li>如果在建立使用者後才裝 xdg-user-dirs，
@@ -2309,7 +2340,7 @@ DefaultTimeoutStopSec=10s
 <ul>
 <li>Display server: xorg-server xorg-xset</li>
 <li>Display drivers: mesa(可選依賴於: libva-mesa-driver mesa-vdpau) xf86-video-intel vulkan-intel libva(可選依賴於: intel-media-driver)  <ul>
-<li>Intel UHD Graphics 為 Skylake 微架構 &gt; Broadwell &gt; Haswell。</li>
+<li>intel-media-driver: backend for Intel GPUs (&gt;= Broadwell) (Intel UHD Graphics 為 Skylake 微架構 &gt; Broadwell 微架構 &gt; Haswell 微架構)。</li>
 </ul>
 </li>
 <li>輸入: xf86-input-libinput</li>
@@ -2319,9 +2350,15 @@ DefaultTimeoutStopSec=10s
 </ul>
 </li>
 <li>桌面環境: plasma konsole dolphin<ul>
-<li>plasma 是一個軟體包群組，安裝除了 discover kwallet-pam oxygen plasma-systemmonitor plasma-thunderbolt 以外的軟體包，
+<li>plasma 是一個軟體包群組，安裝除了 discover kwallet-pam oxygen plasma-browser-integration plasma-systemmonitor plasma-thunderbolt plasma-vault 以外的軟體包，
   phonon-qt5-backend 選擇 phonon-qt5-vlc。</li>
 <li>安裝軟體包群組時如何只安裝或排除特定幾個，參考 <a href="https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups">https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups</a>。</li>
+<li>plasma 軟體包群組包含 bluedevil breeze breeze-gtk discover drkonqi kactivitymanagerd kde-cli-tools kde-gtk-config kdecoration 
+  kdeplasma-addons kgamma5 khotkeys kinfocenter kmenuedit kscreen kscreenlocker ksshaskpass ksysguard kwallet-pam 
+  kwayland-integration kwayland-server kwin kwrited libkscreen libksysguard milou oxygen plasma-browser-integration 
+  plasma-desktop plasma-disks plasma-firewall plasma-integration plasma-nm plasma-pa plasma-sdk plasma-systemmonitor 
+  plasma-thunderbolt plasma-vault plasma-workspace plasma-workspace-wallpapers polkit-kde-agent powerdevil sddm-kcm 
+  systemsettings xdg-desktop-portal-kde</li>
 <li>konsole: 配色 "微風"，背景透明 "10%"，字型 "Noto Mono 12pt"。</li>
 <li>dolphin: 到 Dolphin 設定 &gt; 一般 &gt; 行為 選擇 "對所有資料夾使用相同的顯示模式"，不然 Dolphin 會在每個資料夾下建立 ".directory" 檔案。</li>
 <li>dolphin: 到系統設定 &gt; 工作空間行為 &gt; 一般行為 &gt; 點擊行為 選擇 "按兩下開啟檔案或資料夾 (按一下選取)"。</li>
@@ -2384,10 +2421,8 @@ DefaultTimeoutStopSec=10s
 <li>
 <p>網路</p>
 <ul>
-<li>瀏覽器: google-chrome@A<ul>
-<li>Chromium 自 88 版開始，停止 Google 帳戶同步功能，所以只好改用 Google Chrome。</li>
-<li>使用久了之後會儲存大量的快取，"清除瀏覽資料" 裡的 "Cookie 和其他網站資料" 可以清除 <code>~/.config/google-chrome</code> 裡的快取，
-  "快取圖片和檔案" 可以清除 <code>~/.cache/google-chrome</code> 裡的快取。</li>
+<li>瀏覽器: firefox firefox-i18n-zh-tw firefox-adblock-plus firefox-clearurls<ul>
+<li>新增檔案: <code>~/.mozilla</code>, <code>~/.cache/mozilla</code></li>
 </ul>
 </li>
 <li>(JDownloader 2)@O(依賴於: jre-openjdk)<ul>
@@ -2447,15 +2482,17 @@ DefaultTimeoutStopSec=10s
 <li>visual-studio-code-bin@A 跟官方軟體庫的 code 的差別在於: 前者是 Microsoft 官方發布的 binary 包，包含一些 proprietary 的功能；
   後者是從原始碼建置的開源版本。</li>
 <li>選用此版本的原因在於: code 會另外安裝 electron，而此版本自帶 electron，所以不用多安裝。</li>
-<li>新增檔案: <code>~/.config/Code</code>, <code>~/.vscode</code>, <code>~/.cache/vscode-cpptools</code></li>
+<li>新增檔案: <code>~/.config/Code</code>, <code>~/.vscode</code>, <code>~/.cache/vscode-cpptools</code>, <code>~/.pki</code></li>
 <li>會佔用很大空間的快取或資料庫，可以手動刪除: <ul>
 <li><code>~/.config/Code/User/workspaceStorage</code> (曾開過的工作區資訊，有些 extensions (如：vscode.cpptools) 會儲存很大的資料庫)</li>
 <li><code>~/.config/Code/{Cache,CachedData,CachedExtensions,CachedExtensionVSIXs}</code></li>
 <li><code>~/.cache/vscode-cpptools/ipch</code> (IntelliSense precompiled headers)</li>
 </ul>
 </li>
+<li><a href="https://code.visualstudio.com/docs/editor/settings-sync">Settings Sync</a> 功能需要 <code>gnome-keyring</code> 才能登入 GitHub (目前未使用此功能，所以沒安裝)。</li>
 </ul>
 </li>
+<li>資料庫: sqlitebrowser</li>
 </ul>
 </li>
 <li>

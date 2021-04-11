@@ -1108,6 +1108,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-mode-linux/" class="md-nav__link">
+        User-Mode Linux
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -1166,6 +1178,18 @@
     <li class="md-nav__item">
       <a href="../../other/coscup-2018/" class="md-nav__link">
         開源人年會 COSCUP 2018 會後筆記(未完成)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/firefox-techniques/" class="md-nav__link">
+        Firefox 使用技巧
       </a>
     </li>
   
@@ -2132,7 +2156,6 @@
 <p>註：由於本機就是 x86_64，所以不用特別指定 <code>ARCH</code>。</p>
 <h2 id="_2">準備工具</h2>
 <div class="highlight"><pre><span></span><code>sudo pacman -S --needed base-devel xmlto kmod inetutils bc libelf git cpio perl tar xz    <span class="c1"># 編譯 Linux kernel</span>
-sudo pacman -S --needed musl kernel-headers-musl    <span class="c1"># 編譯靜態連結的 Busybox</span>
 sudo pacman -S --needed qemu
 </code></pre></div>
 <p>另外安裝 Visual Studio Code</p>
@@ -2174,12 +2197,15 @@ Kernel hacking  ---&gt;
 make distclean
 make menuconfig
 </code></pre></div>
+<p>編譯靜態連結的 Busybox</p>
 <div class="highlight"><pre><span></span><code>Settings  ---&gt;
     --- Build Options
     [*] Build static binary (no shared libs)
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>make -j<span class="k">$(</span>nproc<span class="k">)</span> <span class="nv">CC</span><span class="o">=</span>musl-gcc    <span class="c1"># Arch Linux 自帶的 gcc 不包含一些靜態函式庫 (如 libcrypt.a)，所以連結時會出錯，改用 musl 就沒問題</span>
-make install <span class="nv">CC</span><span class="o">=</span>musl-gcc       <span class="c1"># Busybox 會被複製到 $WORK/busybox/_install，並建立連結</span>
+<p>編譯靜態連結的 Busybox 需要 libcrypt.a，但 Arch Linux 官方軟體庫的 libxcrypt 只提供動態連結版本的 libcrypt.so，因此連結時會出錯。
+解決方法為: 編輯 Makefile.flags，刪除 <code>LDLIBS += m rt crypt</code> 中的 <code>crypt</code>。 (或者，也可以使用 musl libc 來編譯，就不會有這個問題)</p>
+<div class="highlight"><pre><span></span><code>make -j<span class="k">$(</span>nproc<span class="k">)</span>
+make install    <span class="c1"># Busybox 會被複製到 $WORK/busybox/_install，並建立連結</span>
 </code></pre></div>
 <h2 id="initramfs">建立 initramfs</h2>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span> <span class="nv">$WORK</span>
@@ -2229,7 +2255,9 @@ Breakpoint 1, start_kernel () at init/main.c:849
             <span class="nt">"includePath"</span><span class="p">:</span> <span class="p">[</span>
                 <span class="s2">"${workspaceFolder}/**"</span><span class="p">,</span>
                 <span class="s2">"${workspaceFolder}/include/**"</span><span class="p">,</span>
-                <span class="s2">"${workspaceFolder}/arch/x86/include/**"</span>
+                <span class="s2">"${workspaceFolder}/include/generated/**"</span><span class="p">,</span>
+                <span class="s2">"${workspaceFolder}/arch/x86/include/**"</span><span class="p">,</span>
+                <span class="s2">"${workspaceFolder}/arch/x86/include/generated/**"</span>
             <span class="p">],</span>
             <span class="nt">"defines"</span><span class="p">:</span> <span class="p">[</span>
                 <span class="s2">"__GNUC__"</span><span class="p">,</span>

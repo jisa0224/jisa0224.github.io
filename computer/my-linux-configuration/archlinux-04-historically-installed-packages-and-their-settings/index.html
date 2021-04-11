@@ -1038,6 +1038,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../operating-system/user-mode-linux/" class="md-nav__link">
+        User-Mode Linux
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -1096,6 +1108,18 @@
     <li class="md-nav__item">
       <a href="../../other/coscup-2018/" class="md-nav__link">
         開源人年會 COSCUP 2018 會後筆記(未完成)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/firefox-techniques/" class="md-nav__link">
+        Firefox 使用技巧
       </a>
     </li>
   
@@ -1982,13 +2006,37 @@
                 <h1 id="arch-linux">Arch Linux (四) 以前安裝過的軟體包及相關設定</h1>
 <h2 id="_1">應用程式</h2>
 <ul>
-<li>教育<ul>
+<li>
+<p>網路</p>
+<ul>
+<li>瀏覽器: google-chrome@A<ul>
+<li>Chromium 自 88 版開始，停止 Google 帳戶同步功能，所以只好改用 Google Chrome。</li>
+<li>使用久了之後會儲存大量的快取，"清除瀏覽資料" 裡的 "Cookie 和其他網站資料" 可以清除 <code>~/.config/google-chrome</code> 裡的快取，
+  "快取圖片和檔案" 可以清除 <code>~/.cache/google-chrome</code> 裡的快取。</li>
+<li>安裝 extension: <a href="https://github.com/1995eaton/chromium-vim">1995eaton/chromium-vim: Vim bindings for Google Chrome.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>教育</p>
+<ul>
 <li>數學: (Mathematica 12.0)@O (MATLAB R2020a)@O(依賴於: libselinux@A(依賴於: libsepol@A))<ul>
 <li>Mathematica: 不使用 root 權限安裝在 <code>~/.local/opt</code>，安裝與啟用說明跟安裝檔在一起，
   另外還在 <code>~/.local/share/applications/wolfram-mathematica12.desktop</code> 加入 <code>Categories=Education;</code>。</li>
 </ul>
 </li>
 <li>jupyter-calysto_scheme-git@A(依賴於: jupyter-metakernel@A)</li>
+</ul>
+</li>
+<li>
+<p>系統</p>
+<ul>
+<li>密碼管理: gnome-keyring<ul>
+<li>gnome-keyring: 第一次使用時，會詢問「預設鑰匙圈」的密碼，<strong>留空後按確認</strong>，不然每次使用時都會跳出視窗要求輸入密碼。</li>
+<li>gnome-keyring: 新增檔案: <code>~/.local/share/keyrings</code>。</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
