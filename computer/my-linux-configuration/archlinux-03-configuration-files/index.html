@@ -742,6 +742,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../linux/x-window-system-how-does-x-client-communicate-with-x-server/" class="md-nav__link">
+        X Window System: X Client 如何與 X Server 通訊
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../linux/xterm-alternate-screen-buffer/" class="md-nav__link">
         XTerm 的 Alternate Screen Buffer
       </a>
@@ -1380,18 +1392,30 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../programming/programming-in-text-mode/" class="md-nav__link">
+        反樸歸真: 文字模式下的程式設計
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_2" type="checkbox" id="__nav_3_8_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_3" type="checkbox" id="__nav_3_8_3" >
       
-      <label class="md-nav__link" for="__nav_3_8_2">
+      <label class="md-nav__link" for="__nav_3_8_3">
         C/C++
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="C/C++" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_8_2">
+        <label class="md-nav__title" for="__nav_3_8_3">
           <span class="md-nav__icon md-icon"></span>
           C/C++
         </label>
@@ -1483,14 +1507,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_3" type="checkbox" id="__nav_3_8_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_4" type="checkbox" id="__nav_3_8_4" >
       
-      <label class="md-nav__link" for="__nav_3_8_3">
+      <label class="md-nav__link" for="__nav_3_8_4">
         資料結構與演算法
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="資料結構與演算法" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_8_3">
+        <label class="md-nav__title" for="__nav_3_8_4">
           <span class="md-nav__icon md-icon"></span>
           資料結構與演算法
         </label>
@@ -1582,14 +1606,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_4" type="checkbox" id="__nav_3_8_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_5" type="checkbox" id="__nav_3_8_5" >
       
-      <label class="md-nav__link" for="__nav_3_8_4">
+      <label class="md-nav__link" for="__nav_3_8_5">
         LeetCode
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="LeetCode" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_8_4">
+        <label class="md-nav__title" for="__nav_3_8_5">
           <span class="md-nav__icon md-icon"></span>
           LeetCode
         </label>
@@ -2201,11 +2225,15 @@
 <span class="nb">alias</span> <span class="nv">ip</span><span class="o">=</span><span class="s1">'ip -color=auto'</span>           <span class="c1"># colored output</span>
 <span class="nb">alias</span> <span class="nv">bc</span><span class="o">=</span><span class="s1">'bc -l'</span>                    <span class="c1"># show decimals (equal to `scale=20`)</span>
 
+<span class="c1">#df() {</span>
+<span class="c1">#   # sort without header: https://unix.stackexchange.com/questions/11856/sort-but-keep-header-line-at-the-top/71949#71949</span>
+<span class="c1">#   # sort by ASCII: https://stackoverflow.com/questions/5296428/how-to-sort-a-text-file-according-to-character-code-or-ascii-code-value/5296453#5296453</span>
+<span class="c1">#   # `command` suppress shell function lookup (so it will not cause infinite loop)</span>
+<span class="c1">#   command df -hT "$@" | awk 'NR == 1; NR &gt; 1 {print $0 | "LC_COLLATE=C sort"}'</span>
+<span class="c1">#}</span>
+
 df<span class="o">()</span> <span class="o">{</span>
-    <span class="c1"># sort without header: https://unix.stackexchange.com/questions/11856/sort-but-keep-header-line-at-the-top/71949#71949</span>
-    <span class="c1"># sort by ASCII: https://stackoverflow.com/questions/5296428/how-to-sort-a-text-file-according-to-character-code-or-ascii-code-value/5296453#5296453</span>
-    <span class="c1"># `command` suppress shell function lookup (so it will not cause infinite loop)</span>
-    <span class="nb">command</span> df -hT <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> <span class="p">|</span> awk <span class="s1">'NR == 1; NR &gt; 1 {print $0 | "LC_COLLATE=C sort"}'</span>
+    <span class="o">(</span><span class="nb">command</span> df -hT <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> <span class="p">|</span> <span class="nb">command</span> grep -v <span class="s1">'^/dev'</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="nb">command</span> df -hT <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span> <span class="p">|</span> <span class="nb">command</span> grep <span class="s1">'^/dev'</span><span class="o">)</span>
 <span class="o">}</span>
 
 man<span class="o">()</span> <span class="o">{</span>

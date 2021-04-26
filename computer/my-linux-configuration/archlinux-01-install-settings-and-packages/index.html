@@ -742,6 +742,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../linux/x-window-system-how-does-x-client-communicate-with-x-server/" class="md-nav__link">
+        X Window System: X Client 如何與 X Server 通訊
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../linux/xterm-alternate-screen-buffer/" class="md-nav__link">
         XTerm 的 Alternate Screen Buffer
       </a>
@@ -1372,18 +1384,30 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../programming/programming-in-text-mode/" class="md-nav__link">
+        反樸歸真: 文字模式下的程式設計
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_2" type="checkbox" id="__nav_3_8_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_3" type="checkbox" id="__nav_3_8_3" >
       
-      <label class="md-nav__link" for="__nav_3_8_2">
+      <label class="md-nav__link" for="__nav_3_8_3">
         C/C++
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="C/C++" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_8_2">
+        <label class="md-nav__title" for="__nav_3_8_3">
           <span class="md-nav__icon md-icon"></span>
           C/C++
         </label>
@@ -1475,14 +1499,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_3" type="checkbox" id="__nav_3_8_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_4" type="checkbox" id="__nav_3_8_4" >
       
-      <label class="md-nav__link" for="__nav_3_8_3">
+      <label class="md-nav__link" for="__nav_3_8_4">
         資料結構與演算法
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="資料結構與演算法" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_8_3">
+        <label class="md-nav__title" for="__nav_3_8_4">
           <span class="md-nav__icon md-icon"></span>
           資料結構與演算法
         </label>
@@ -1574,14 +1598,14 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_4" type="checkbox" id="__nav_3_8_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_8_5" type="checkbox" id="__nav_3_8_5" >
       
-      <label class="md-nav__link" for="__nav_3_8_4">
+      <label class="md-nav__link" for="__nav_3_8_5">
         LeetCode
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="LeetCode" data-md-level="3">
-        <label class="md-nav__title" for="__nav_3_8_4">
+        <label class="md-nav__title" for="__nav_3_8_5">
           <span class="md-nav__icon md-icon"></span>
           LeetCode
         </label>
@@ -2274,7 +2298,7 @@ MaxRetentionSec=1week
 <h2 id="_3">軟體包</h2>
 <ul>
 <li>軟體包名稱沒有後綴的來自 Arch Linux 官方軟體庫，有 <code>@A</code> 後綴的來自 Arch User Repository (AUR)，有 <code>@O</code> 後綴的代表其它安裝方式。</li>
-<li>更新前軟體包前，建議先更新鏡像伺服器列表: 執行 <code>sudo reflector @/etc/xdg/reflector/reflector.conf</code>。</li>
+<li>更新前軟體包前，建議先更新鏡像伺服器列表: 執行 <code>sudo systemctl start reflector.service &amp;&amp; journalctl --no-pager -b -u reflector.service</code>。</li>
 <li>更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。<br/>
   在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。<br/>
 <a href="https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system">System maintenance - ArchWiki</a></li>
@@ -2338,7 +2362,7 @@ MaxRetentionSec=1week
 <li>
 <p>圖形界面與多媒體</p>
 <ul>
-<li>Display server: xorg-server xorg-xset</li>
+<li>Display server: xorg-server</li>
 <li>Display drivers: mesa(可選依賴於: libva-mesa-driver mesa-vdpau) xf86-video-intel vulkan-intel libva(可選依賴於: intel-media-driver)  <ul>
 <li>intel-media-driver: backend for Intel GPUs (&gt;= Broadwell) (Intel UHD Graphics 為 Skylake 微架構 &gt; Broadwell 微架構 &gt; Haswell 微架構)。</li>
 </ul>
@@ -2432,7 +2456,7 @@ MaxRetentionSec=1week
 <li>手動建立應用程式選單項目，<code>/opt/jd2/themes/standard/org/jdownloader/images/logo/icon.ico</code> 可以用來作為 Desktop Entry 的 icon</li>
 </ul>
 </li>
-<li>transmission-qt 4kvideodownloader@A</li>
+<li>transmission-qt</li>
 </ul>
 </li>
 <li>

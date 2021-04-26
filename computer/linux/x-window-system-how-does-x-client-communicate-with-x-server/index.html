@@ -14,7 +14,7 @@
     
     
       
-        <title>Google Chrome 強制使用繁中作為 UI 語言(未完成) - Jisa's Notebook</title>
+        <title>X Window System: X Client 如何與 X Server 通訊 - Jisa's Notebook</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#google-chrome-ui" class="md-skip">
+        <a href="#x-window-system-x-client-x-server" class="md-skip">
           跳轉到
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Google Chrome 強制使用繁中作為 UI 語言(未完成)
+              X Window System: X Client 如何與 X Server 通訊
             
           </span>
         </div>
@@ -634,20 +634,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../google-chrome-force-ui-language-chinese-traditional/" class="md-nav__link">
         Google Chrome 強制使用繁中作為 UI 語言(未完成)
       </a>
-      
     </li>
   
 
@@ -751,11 +742,63 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../x-window-system-how-does-x-client-communicate-with-x-server/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          X Window System: X Client 如何與 X Server 通訊
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         X Window System: X Client 如何與 X Server 通訊
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    建立連線
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    總結
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    結論
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1972,6 +2015,35 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    建立連線
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    總結
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    結論
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1983,30 +2055,325 @@
               
                 
                 
-                <h1 id="google-chrome-ui">Google Chrome 強制使用繁中作為 UI 語言(未完成)</h1>
-<p>Linux 下的 Google Chrome 會自動根據 <code>LANG</code> 來調整語言</p>
-<div class="highlight"><pre><span></span><code>$ <span class="nb">echo</span> <span class="nv">$LANG</span>
-en_US.UTF-8
-</code></pre></div>
-<p>要使按下開始選單用繁中開啟很簡單<br/>
-修改 <code>/usr/share/applications/google-chrome.desktop</code> (需要 <code>sudo</code>)</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Exec=/usr/bin/google-chrome-stable %U</span>
-<span class="nv">Exec</span><span class="o">=</span>sh -c <span class="s2">"LANG=zh_TW.UTF-8 /usr/bin/google-chrome-stable %U"</span>
+                <h1 id="x-window-system-x-client-x-server">X Window System: X Client 如何與 X Server 通訊</h1>
+<p>X Window System Protocol 只定義了 X Client 與 X Server 間的通訊協定，卻沒有規範如何實做，即具體使用哪種 IPC (Inter-Process Communication) 技術。</p>
+<p>本文透過追蹤 <a href="https://xcb.freedesktop.org/">XCB (X protocol C-language Binding)</a> 函式庫的實做，來了解 X Client 和 X Server 間如何通訊。</p>
+<p>開發環境為 Linux，XCB 版本為 <a href="https://lists.x.org/archives/xorg-announce/2020-February/003039.html">libxcb 1.14</a>。</p>
+<p>本文會以 <a href="https://en.wikipedia.org/wiki/XCB">XCB - Wikipedia</a> 中所提供的範例來追蹤函式。</p>
+<h2 id="_1">建立連線</h2>
+<p>來看連線相關的程式碼 (以下省略其它部份的內容)。</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span> <span class="cpf">&lt;xcb/xcb.h&gt;</span><span class="cp"></span>
 
-<span class="c1"># Exec=/usr/bin/google-chrome-stable</span>
-<span class="nv">Exec</span><span class="o">=</span>sh -c <span class="s2">"LANG=zh_TW.UTF-8 /usr/bin/google-chrome-stable"</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">xcb_connection_t</span>    <span class="o">*</span><span class="n">c</span><span class="p">;</span>
 
-<span class="c1"># Exec=/usr/bin/google-chrome-stable --incognito</span>
-<span class="nv">Exec</span><span class="o">=</span>sh -c <span class="s2">"LANG=zh_TW.UTF-8 /usr/bin/google-chrome-stable --incognito"</span>
+  <span class="c1">// open connection to the server</span>
+  <span class="n">c</span> <span class="o">=</span> <span class="n">xcb_connect</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="nb">NULL</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">xcb_connection_has_error</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Cannot open display</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 這裡是主要程式功能</span>
+
+  <span class="c1">// close connection to server</span>
+  <span class="n">xcb_disconnect</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+
+  <span class="n">exit</span><span class="p">(</span><span class="n">EXIT_SUCCESS</span><span class="p">);</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>分別把註解的部份(原本的)修改成各自下面的版本即可，我留著原本的把它註解掉作為備份。<br/>
-用 <code>sh</code> 或 <code>bash</code> 都可以，因為它是 <code>bash</code> 的符號連結，在要執行的程式前修改環境變數可以讓這個修改只在這次生效。</p>
-<p>然後必須到開始功能表右鍵>「Edit Menus」>「Revert」(選單會恢復初始狀態)，這樣開始功能表才不會去用本地的 <code>.desktop</code> 檔。</p>
-<p>此方法也適用 Chromium。</p>
-<p>如果不使用 <code>sh -c</code> 的方式來開，而直接 <code>LANG=zh_TW.UTF-8 google-chrome-stable</code>，其實也可以換語言，但會因為不明原因無法在 Preferred Applications 裡將它設為預設瀏覽器。</p>
-<p>參考網站：<a href="https://askubuntu.com/questions/202670/change-google-chrome-language/484302#484302">Change Google Chrome language? - Ask Ubuntu</a></p>
-<p>TBD: 圖形界面(Gnome, KDE)的開始功能表，啟動程式的方式是用 shell 執行命令，還是 fork-and-exec?</p>
-<p><a href="https://wiki.archlinux.org/index.php/Desktop_entries#Modify_environment_variables">Desktop entries - ArchWiki</a> 說明，改成 <code>Exec=env LANG=zh_TW.UTF-8 google-chrome-stable</code> 可以。</p>
+<p>追蹤 <code>xcb_connect()</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// src/xcb.h</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief Connects to the X server.</span>
+<span class="cm"> * @param displayname The name of the display.</span>
+<span class="cm"> * @param screenp A pointer to a preferred screen number.</span>
+<span class="cm"> * @return A newly allocated xcb_connection_t structure.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Connects to the X server specified by @p displayname. If @p</span>
+<span class="cm"> * displayname is @c NULL, uses the value of the DISPLAY environment</span>
+<span class="cm"> * variable. If a particular screen on that server is preferred, the</span>
+<span class="cm"> * int pointed to by @p screenp (if not @c NULL) will be set to that</span>
+<span class="cm"> * screen; otherwise the screen will be set to 0.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Always returns a non-NULL pointer to a xcb_connection_t, even on failure.</span>
+<span class="cm"> * Callers need to use xcb_connection_has_error() to check for failure.</span>
+<span class="cm"> * When finished, use xcb_disconnect() to close the connection and free</span>
+<span class="cm"> * the structure.</span>
+<span class="cm"> */</span>
+<span class="n">xcb_connection_t</span> <span class="o">*</span><span class="nf">xcb_connect</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">displayname</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">screenp</span><span class="p">);</span>
+
+<span class="c1">// src/xcb_util.c</span>
+
+<span class="n">xcb_connection_t</span> <span class="o">*</span><span class="nf">xcb_connect</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">displayname</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">screenp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">xcb_connect_to_display_with_auth_info</span><span class="p">(</span><span class="n">displayname</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">screenp</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在我的電腦上，環境變數 <code>DISPLAY</code> 的值是 <code>:0</code>，所以範例程式中的 <code>xcb_connect(NULL,NULL)</code> 展開來會變成 <code>xcb_connect(displayname = ":0", screenp = NULL)</code>。</p>
+<p>根據<a href="https://www.x.org/releases/X11R7.7/doc/man/man7/X.7.xhtml">X11R7.7 的 man pages</a>，每個 X Server 都會有一個 Display name，
+格式為 <code>[hostname]:displaynumber.[screennumber]</code>。</p>
+<p><code>:0</code> 相當於 <code>localhost:0.0</code>。</p>
+<p>追蹤 <code>xcb_connect_to_display_with_auto_info()</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// src/xcb.h</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * @brief Connects to the X server, using an authorization information.</span>
+<span class="cm"> * @param display The name of the display.</span>
+<span class="cm"> * @param auth The authorization information.</span>
+<span class="cm"> * @param screen A pointer to a preferred screen number.</span>
+<span class="cm"> * @return A newly allocated xcb_connection_t structure.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Connects to the X server specified by @p displayname, using the</span>
+<span class="cm"> * authorization @p auth. If a particular screen on that server is</span>
+<span class="cm"> * preferred, the int pointed to by @p screenp (if not @c NULL) will</span>
+<span class="cm"> * be set to that screen; otherwise @p screenp will be set to 0.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Always returns a non-NULL pointer to a xcb_connection_t, even on failure.</span>
+<span class="cm"> * Callers need to use xcb_connection_has_error() to check for failure.</span>
+<span class="cm"> * When finished, use xcb_disconnect() to close the connection and free</span>
+<span class="cm"> * the structure.</span>
+<span class="cm"> */</span>
+<span class="n">xcb_connection_t</span> <span class="o">*</span><span class="nf">xcb_connect_to_display_with_auth_info</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">display</span><span class="p">,</span> <span class="n">xcb_auth_info_t</span> <span class="o">*</span><span class="n">auth</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">screen</span><span class="p">);</span>
+
+<span class="c1">// src/xcb_util.c</span>
+
+<span class="n">xcb_connection_t</span> <span class="o">*</span><span class="nf">xcb_connect_to_display_with_auth_info</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">displayname</span><span class="p">,</span> <span class="n">xcb_auth_info_t</span> <span class="o">*</span><span class="n">auth</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">screenp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">,</span> <span class="n">display</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">host</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">protocol</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">xcb_auth_info_t</span> <span class="n">ourauth</span><span class="p">;</span>
+    <span class="n">xcb_connection_t</span> <span class="o">*</span><span class="n">c</span><span class="p">;</span>
+
+    <span class="kt">int</span> <span class="n">parsed</span> <span class="o">=</span> <span class="n">_xcb_parse_display</span><span class="p">(</span><span class="n">displayname</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">host</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">protocol</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">display</span><span class="p">,</span> <span class="n">screenp</span><span class="p">);</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">parsed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">_xcb_conn_ret_error</span><span class="p">(</span><span class="n">XCB_CONN_CLOSED_PARSE_ERR</span><span class="p">);</span>
+        <span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">fd</span> <span class="o">=</span> <span class="n">_xcb_open</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">display</span><span class="p">);</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="mi">-1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">_xcb_conn_ret_error</span><span class="p">(</span><span class="n">XCB_CONN_ERROR</span><span class="p">);</span>
+        <span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">xcb_connect_to_fd</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">auth</span><span class="p">);</span>
+        <span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">_xcb_get_auth_info</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ourauth</span><span class="p">,</span> <span class="n">display</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">xcb_connect_to_fd</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ourauth</span><span class="p">);</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">ourauth</span><span class="p">.</span><span class="n">name</span><span class="p">);</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">ourauth</span><span class="p">.</span><span class="n">data</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">xcb_connect_to_fd</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">c</span><span class="o">-&gt;</span><span class="n">has_error</span><span class="p">)</span>
+        <span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+
+    <span class="cm">/* Make sure requested screen number is in bounds for this server */</span>
+    <span class="k">if</span><span class="p">((</span><span class="n">screenp</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="n">screenp</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">c</span><span class="o">-&gt;</span><span class="n">setup</span><span class="o">-&gt;</span><span class="n">roots_len</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">xcb_disconnect</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">_xcb_conn_ret_error</span><span class="p">(</span><span class="n">XCB_CONN_CLOSED_INVALID_SCREEN</span><span class="p">);</span>
+        <span class="k">goto</span> <span class="n">out</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="nl">out</span><span class="p">:</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">host</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">protocol</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>追蹤 <code>_xcb_parse_display()</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// src/xcb_util.c</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">_xcb_parse_display</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">host</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">protocol</span><span class="p">,</span>
+                      <span class="kt">int</span> <span class="o">*</span><span class="n">displayp</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">screenp</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">len</span><span class="p">,</span> <span class="n">display</span><span class="p">,</span> <span class="n">screen</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">slash</span><span class="p">,</span> <span class="o">*</span><span class="n">colon</span><span class="p">,</span> <span class="o">*</span><span class="n">dot</span><span class="p">,</span> <span class="o">*</span><span class="n">end</span><span class="p">;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">name</span> <span class="o">||</span> <span class="o">!*</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s">"DISPLAY"</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">slash</span> <span class="o">=</span> <span class="n">strrchr</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="sc">'/'</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">slash</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">len</span> <span class="o">=</span> <span class="n">slash</span> <span class="o">-</span> <span class="n">name</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">protocol</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">*</span><span class="n">protocol</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!*</span><span class="n">protocol</span><span class="p">)</span>
+                <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">memcpy</span><span class="p">(</span><span class="o">*</span><span class="n">protocol</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+            <span class="p">(</span><span class="o">*</span><span class="n">protocol</span><span class="p">)[</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">slash</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
+            <span class="o">*</span><span class="n">protocol</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+    <span class="n">colon</span> <span class="o">=</span> <span class="n">strrchr</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="sc">':'</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">colon</span><span class="p">)</span>
+        <span class="k">goto</span> <span class="n">error_out</span><span class="p">;</span>
+    <span class="n">len</span> <span class="o">=</span> <span class="n">colon</span> <span class="o">-</span> <span class="n">name</span><span class="p">;</span>
+    <span class="o">++</span><span class="n">colon</span><span class="p">;</span>
+    <span class="n">display</span> <span class="o">=</span> <span class="n">strtoul</span><span class="p">(</span><span class="n">colon</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">dot</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">dot</span> <span class="o">==</span> <span class="n">colon</span><span class="p">)</span>
+        <span class="k">goto</span> <span class="n">error_out</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">*</span><span class="n">dot</span> <span class="o">==</span> <span class="sc">'\0'</span><span class="p">)</span>
+        <span class="n">screen</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">*</span><span class="n">dot</span> <span class="o">!=</span> <span class="sc">'.'</span><span class="p">)</span>
+            <span class="k">goto</span> <span class="n">error_out</span><span class="p">;</span>
+        <span class="o">++</span><span class="n">dot</span><span class="p">;</span>
+        <span class="n">screen</span> <span class="o">=</span> <span class="n">strtoul</span><span class="p">(</span><span class="n">dot</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">end</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">end</span> <span class="o">==</span> <span class="n">dot</span> <span class="o">||</span> <span class="o">*</span><span class="n">end</span> <span class="o">!=</span> <span class="sc">'\0'</span><span class="p">)</span>
+            <span class="k">goto</span> <span class="n">error_out</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="cm">/* At this point, the display string is fully parsed and valid, but</span>
+<span class="cm">     * the caller's memory is untouched. */</span>
+
+    <span class="o">*</span><span class="n">host</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!*</span><span class="n">host</span><span class="p">)</span>
+        <span class="k">goto</span> <span class="n">error_out</span><span class="p">;</span>
+    <span class="n">memcpy</span><span class="p">(</span><span class="o">*</span><span class="n">host</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+    <span class="p">(</span><span class="o">*</span><span class="n">host</span><span class="p">)[</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
+    <span class="o">*</span><span class="n">displayp</span> <span class="o">=</span> <span class="n">display</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">screenp</span><span class="p">)</span>
+        <span class="o">*</span><span class="n">screenp</span> <span class="o">=</span> <span class="n">screen</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="nl">error_out</span><span class="p">:</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">protocol</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">free</span><span class="p">(</span><span class="o">*</span><span class="n">protocol</span><span class="p">);</span>
+        <span class="o">*</span><span class="n">protocol</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在 <code>_xcb_parse_display()</code> 函數裡，代表 Display name 的 <code>name</code> 會被拆解成 <code>protocol</code>, <code>host</code>, <code>displayp</code>, <code>screenp</code> 四部份分別放入變數中。</p>
+<p>追蹤 <code>_xcb_open()</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// src/xcb_util.c</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">_xcb_open</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">host</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">protocol</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">display</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+    <span class="k">static</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">unix_base</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"/tmp/.X11-unix/X"</span><span class="p">;</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">base</span> <span class="o">=</span> <span class="n">unix_base</span><span class="p">;</span>
+    <span class="kt">size_t</span> <span class="n">filelen</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">file</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">actual_filelen</span><span class="p">;</span>
+
+    <span class="cm">/* If protocol or host is "unix", fall through to Unix socket code below */</span>
+    <span class="k">if</span> <span class="p">((</span><span class="o">!</span><span class="n">protocol</span> <span class="o">||</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="s">"unix"</span><span class="p">,</span><span class="n">protocol</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&amp;&amp;</span>
+        <span class="p">(</span><span class="o">*</span><span class="n">host</span> <span class="o">!=</span> <span class="sc">'\0'</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="s">"unix"</span><span class="p">,</span><span class="n">host</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="cm">/* display specifies TCP */</span>
+        <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">port</span> <span class="o">=</span> <span class="n">X_TCP_PORT</span> <span class="o">+</span> <span class="n">display</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nf">_xcb_open_tcp</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">port</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="p">{</span>
+        <span class="n">filelen</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">display</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">file</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">filelen</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">file</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+
+        <span class="cm">/* display specifies Unix socket */</span>
+        <span class="n">actual_filelen</span> <span class="o">=</span> <span class="n">snprintf</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">filelen</span><span class="p">,</span> <span class="s">"%s%d"</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">display</span><span class="p">);</span>    <span class="c1">// actual_filelen 被設為 "/tmp/.X11-unix/X0"</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">actual_filelen</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="cm">/* snprintf may truncate the file */</span>
+    <span class="n">filelen</span> <span class="o">=</span> <span class="n">MIN</span><span class="p">(</span><span class="n">actual_filelen</span><span class="p">,</span> <span class="n">filelen</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">fd</span> <span class="o">=</span> <span class="n">_xcb_open_unix</span><span class="p">(</span><span class="n">protocol</span><span class="p">,</span> <span class="n">file</span><span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">file</span><span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">protocol</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">host</span> <span class="o">==</span> <span class="sc">'\0'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">port</span> <span class="o">=</span> <span class="n">X_TCP_PORT</span> <span class="o">+</span> <span class="n">display</span><span class="p">;</span>
+            <span class="n">fd</span> <span class="o">=</span> <span class="n">_xcb_open_tcp</span><span class="p">(</span><span class="n">host</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">port</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">fd</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span> <span class="cm">/* if control reaches here then something has gone wrong */</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>追蹤 <code>_xcb_open_unix()</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// src/xcb_util.c</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">_xcb_open_unix</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">protocol</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">file</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="nc">sockaddr_un</span> <span class="n">addr</span><span class="p">;</span>
+    <span class="kt">socklen_t</span> <span class="n">len</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="n">val</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">protocol</span> <span class="o">&amp;&amp;</span> <span class="n">strcmp</span><span class="p">(</span><span class="s">"unix"</span><span class="p">,</span><span class="n">protocol</span><span class="p">))</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+
+    <span class="n">strcpy</span><span class="p">(</span><span class="n">addr</span><span class="p">.</span><span class="n">sun_path</span><span class="p">,</span> <span class="n">file</span><span class="p">);</span>
+    <span class="n">addr</span><span class="p">.</span><span class="n">sun_family</span> <span class="o">=</span> <span class="n">AF_UNIX</span><span class="p">;</span>
+    <span class="n">fd</span> <span class="o">=</span> <span class="n">_xcb_socket</span><span class="p">(</span><span class="n">AF_UNIX</span><span class="p">,</span> <span class="n">SOCK_STREAM</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="mi">-1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">getsockopt</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_SNDBUF</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">len</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">64</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="mi">64</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">;</span>
+        <span class="n">setsockopt</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">SO_SNDBUF</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">val</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">connect</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="p">(</span><span class="k">struct</span> <span class="nc">sockaddr</span> <span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">addr</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">addr</span><span class="p">))</span> <span class="o">==</span> <span class="mi">-1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">-1</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">fd</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>追蹤 <code>_xcb_socket()</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// src/xcb_util.c</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">_xcb_socket</span><span class="p">(</span><span class="kt">int</span> <span class="n">family</span><span class="p">,</span> <span class="kt">int</span> <span class="n">type</span><span class="p">,</span> <span class="kt">int</span> <span class="n">proto</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span>
+
+    <span class="p">{</span>
+        <span class="n">fd</span> <span class="o">=</span> <span class="n">socket</span><span class="p">(</span><span class="n">family</span><span class="p">,</span> <span class="n">type</span><span class="p">,</span> <span class="n">proto</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">fcntl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="n">F_SETFD</span><span class="p">,</span> <span class="n">FD_CLOEXEC</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">fd</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_2">總結</h2>
+<p>以下是函式呼叫鏈</p>
+<div class="highlight"><pre><span></span><code>xcb_connect(NULL, NULL)
+    xcb_connect_to_display_with_auth_info(displayname, NULL, screenp)
+        _xcb_parse_display(displayname, &amp;host, &amp;protocol, &amp;display, screenp)
+        _xcb_open(host, protocol, display)
+            _xcb_open_unix(protocol, file)
+                _xcb_socket(AF_UNIX, SOCK_STREAM, 0)
+                    socket(family, type, proto)
+                connect(fd, (struct sockaddr *) &amp;addr, sizeof(addr))
+</code></pre></div>
+<p><code>xcb_connect()</code> 所作的兩大工作，就是先找出 X Server 的 Display name 並分解為 protocol, hostname, display number, screen number 四個部份，
+接著透過 <a href="https://en.wikipedia.org/wiki/Berkeley_sockets">Berkeley socket API</a> 的方式連接到 X Server，<code>:0</code> 在本機上就是 <code>/tmp/.X11-unix/X0</code> 這個 socket 檔案。</p>
+<h2 id="_3">結論</h2>
+<p>在本機上 X Client 透過 Berkeley socket API 連接到 <code>/tmp/.X11-unix/X0</code> 與 X Server 通訊。</p>
                 
               
               
@@ -2024,7 +2391,7 @@ en_US.UTF-8
   
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
-        <a href="../environment-variables/" class="md-footer__link md-footer__link--prev" rel="prev">
+        <a href="../vim-open-as-root-and-write-as-root/" class="md-footer__link md-footer__link--prev" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -2033,19 +2400,19 @@ en_US.UTF-8
               <span class="md-footer__direction">
                 上一頁
               </span>
-              環境變數
+              Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問
             </div>
           </div>
         </a>
       
       
-        <a href="../linux-c-library-creation-usage-and-search-paths/" class="md-footer__link md-footer__link--next" rel="next">
+        <a href="../xterm-alternate-screen-buffer/" class="md-footer__link md-footer__link--next" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一頁
               </span>
-              Linux 的 C 語言函式庫建立、使用與搜尋路徑(未完成)
+              XTerm 的 Alternate Screen Buffer
             </div>
           </div>
           <div class="md-footer__button md-icon">
