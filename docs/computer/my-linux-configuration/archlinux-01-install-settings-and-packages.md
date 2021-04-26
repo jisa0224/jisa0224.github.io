@@ -157,7 +157,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 ## 軟體包
 
 * 軟體包名稱沒有後綴的來自 Arch Linux 官方軟體庫，有 `@A` 後綴的來自 Arch User Repository (AUR)，有 `@O` 後綴的代表其它安裝方式。
-* 更新前軟體包前，建議先更新鏡像伺服器列表: 執行 `sudo reflector @/etc/xdg/reflector/reflector.conf`。
+* 更新前軟體包前，建議先更新鏡像伺服器列表: 執行 `sudo systemctl start reflector.service && journalctl --no-pager -b -u reflector.service`。
 * 更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。  
   在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。  
   [System maintenance - ArchWiki](https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system)
@@ -200,7 +200,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         - 警告: 不能同時啟用 `ufw` 和 `iptables/ip6tables` 服務。
 
 * 圖形界面與多媒體
-    * Display server: xorg-server xorg-xset
+    * Display server: xorg-server
     * Display drivers: mesa(可選依賴於: libva-mesa-driver mesa-vdpau) xf86-video-intel vulkan-intel libva(可選依賴於: intel-media-driver)  
         -  intel-media-driver: backend for Intel GPUs (>= Broadwell) (Intel UHD Graphics 為 Skylake 微架構 > Broadwell 微架構 > Haswell 微架構)。
     * 輸入: xf86-input-libinput
@@ -263,7 +263,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         - 到官方網站下載 Other 的 MULTIOS JAR without Installer（只有一個 `JDownloader.jar`，Linux 的 Installer 會多安裝 JRE，這個不會）複製到 `/opt/jd2` 資料夾中
         - 執行 `java -jar /opt/jd2/JDownloader.jar` 啟動 JDownloader 2，第一次執行會下載必須的檔案到 `~/.local/opt/jd2`
         - 手動建立應用程式選單項目，`/opt/jd2/themes/standard/org/jdownloader/images/logo/icon.ico` 可以用來作為 Desktop Entry 的 icon
-    * transmission-qt 4kvideodownloader@A
+    * transmission-qt
 
 * 教育
     * 翻譯: stardict

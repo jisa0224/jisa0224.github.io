@@ -1,5 +1,11 @@
 # Firefox 使用技巧
 
+## 關閉表單自動填入功能
+
+到 "偏好設定 > 隱私與安全性 > 瀏覽紀錄" 選擇 "Firefox 將 使用自訂的設定" 並取消勾選 "保留我的搜尋列與表單輸入的內容"。
+
+參考資料: [How to Turn Off Autocomplete in Firefox: 8 Steps (with Pictures)](https://www.wikihow.com/Turn-Off-Autocomplete-in-Firefox)
+
 ## 顯示完整網址
 
 預設會隱藏 `http`。
@@ -13,6 +19,12 @@
 在網址列輸入 `about:config` 按 Enter，搜尋 `toolkit.tabbox.switchByScrolling` 設為 `true`。
 
 參考資料: [Is there way switch tabs using mouse wheel? | Firefox Support Forum | Mozilla Support](https://support.mozilla.org/en-US/questions/1285434)
+
+# 以純文字貼上
+
+右鍵選單沒有「以純文字貼上」按鈕 (「貼上」按鈕會貼上包含格式的文字)。
+
+使用 `Ctrl-Shift-V`。
 
 ## 關閉 Pocket 功能
 

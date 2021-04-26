@@ -8,6 +8,7 @@
         - 使用久了之後會儲存大量的快取，"清除瀏覽資料" 裡的 "Cookie 和其他網站資料" 可以清除 `~/.config/google-chrome` 裡的快取，
           "快取圖片和檔案" 可以清除 `~/.cache/google-chrome` 裡的快取。
         - 安裝 extension: [1995eaton/chromium-vim: Vim bindings for Google Chrome.](https://github.com/1995eaton/chromium-vim)
+    * 4kvideodownloader@A
 
 * 教育
     * 數學: (Mathematica 12.0)@O (MATLAB R2020a)@O(依賴於: libselinux@A(依賴於: libsepol@A))

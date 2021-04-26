@@ -94,11 +94,15 @@ alias diff='diff --color=auto'      # colored output
 alias ip='ip -color=auto'           # colored output
 alias bc='bc -l'                    # show decimals (equal to `scale=20`)
 
+#df() {
+#	# sort without header: https://unix.stackexchange.com/questions/11856/sort-but-keep-header-line-at-the-top/71949#71949
+#	# sort by ASCII: https://stackoverflow.com/questions/5296428/how-to-sort-a-text-file-according-to-character-code-or-ascii-code-value/5296453#5296453
+#	# `command` suppress shell function lookup (so it will not cause infinite loop)
+#	command df -hT "$@" | awk 'NR == 1; NR > 1 {print $0 | "LC_COLLATE=C sort"}'
+#}
+
 df() {
-	# sort without header: https://unix.stackexchange.com/questions/11856/sort-but-keep-header-line-at-the-top/71949#71949
-	# sort by ASCII: https://stackoverflow.com/questions/5296428/how-to-sort-a-text-file-according-to-character-code-or-ascii-code-value/5296453#5296453
-	# `command` suppress shell function lookup (so it will not cause infinite loop)
-	command df -hT "$@" | awk 'NR == 1; NR > 1 {print $0 | "LC_COLLATE=C sort"}'
+	(command df -hT "$@" | command grep -v '^/dev') && (command df -hT "$@" | command grep '^/dev')
 }
 
 man() {
