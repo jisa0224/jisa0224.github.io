@@ -2083,6 +2083,14 @@
 <h2 id="pocket">關閉 Pocket 功能</h2>
 <p>在網址列輸入 <code>about:config</code> 按 Enter，搜尋 <code>extensions.pocket.enabled</code> 設為 <code>false</code>。</p>
 <p>參考資料: <a href="https://support.mozilla.org/en-US/kb/disable-or-re-enable-pocket-for-firefox">Disable or re-enable Pocket for Firefox | Firefox Help</a></p>
+<h2 id="firefox_1">避免選取的內容被放到 Firefox 的剪貼簿裡</h2>
+<p>選取一段文字後，在網頁輸入框或網址欄按下滑鼠中鍵後，會貼上該段文字。（但不會複製到系統剪貼簿裡，所以一般的複製貼上不會有此現象）</p>
+<p>在網址列輸入 <code>about:config</code> 按 Enter，搜尋 <code>clipboard.autocopy</code> 設為 <code>false</code>。</p>
+<p>參考資料: <a href="http://forums.mozillazine.org/viewtopic.php?f=7&amp;t=62606">about:config -&gt; clipboard.autocopy what is it ? • mozillaZine Forums</a></p>
+<h2 id="_5">避免在網頁輸入框或網址欄按下滑鼠中鍵後貼上剪貼簿文字</h2>
+<p>在網址列輸入 <code>about:config</code> 按 Enter，搜尋 <code>middlemouse.contentLoadURL</code> 設為 <code>false</code>。</p>
+<p>但如果原本就是 <code>false</code>，代表這個功能可能是由 Window Manager 提供。KDE 預設開啟這個功能，因此需要從 KDE 設定裡關閉它。</p>
+<p>參考資料: <a href="https://www.reddit.com/r/firefox/comments/499zcn/psa_the_middle_mouse_button_load_content_from/">PSA: The middle mouse button "load content from clipboard as URL" behaviour can be easily disabled/enabled. : firefox</a></p>
 <h2 id="datareporting">避免產生大量 datareporting</h2>
 <p>預設會在 <code>~/.mozilla/firefox/*.default-release/datareporting/archived/*/</code> 中產生大量的檔案。</p>
 <p>在網址列輸入 <code>about:config</code> 按 Enter，搜尋 <code>toolkit.telemetry.archive.enabled</code> 設為 <code>false</code>，然後刪除 <code>~/.mozilla/firefox/*.default-release/datareporting/archived</code>。</p>
