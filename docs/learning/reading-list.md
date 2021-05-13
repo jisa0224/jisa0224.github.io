@@ -2,38 +2,79 @@
 
 ## 數學
 
-### 微積分
-
-- [微積分一 / 齊震宇](https://www.youtube.com/playlist?list=PLVJXJebpO4PhAc21JW-cYbzT3sq4s7Qg8)、[微積分二 / 齊震宇](https://www.youtube.com/playlist?list=PLil-R4o6jmGihq7XzdNzb0d5hHqEJbr6L)<sup>OCW,116段長影片</sup>
-
-### 分析
-
-- [高等微積分 / 陳金次](http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S130)<sup>OCW,64段長影片</sup>
-- [實分析 / 劉豐哲](http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/105S109)<sup>OCW,50段長影片</sup>
-- [分析一 / 齊震宇](https://www.youtube.com/playlist?list=PLil-R4o6jmGhUqtKbZf0LIFKd-xN__g_M)、[分析二 / 齊震宇](https://www.youtube.com/playlist?list=PLil-R4o6jmGhkuZPmKL_A5Y7N4HOsa1nX)<sup>OCW,131段長影片</sup>
-- [變分學導論 / 林琦焜](http://ocw.nctu.edu.tw/course_detail.php?bgid=1&gid=1&nid=171)<sup>OCW,25段長影片</sup>
-
-#### 微分方程
-
 ### 代數
+
+#### 抽象代數
+
+##### 群論
+
+##### 近世代數
 
 #### 線性代數
 
 ### 幾何
+
+### 分析
+
+- [微積分一 / 齊震宇](https://www.youtube.com/playlist?list=PLVJXJebpO4PhAc21JW-cYbzT3sq4s7Qg8)、[微積分二 / 齊震宇](https://www.youtube.com/playlist?list=PLil-R4o6jmGihq7XzdNzb0d5hHqEJbr6L)<sup>OCW,116段長影片</sup>
+- [分析一 / 齊震宇](https://www.youtube.com/playlist?list=PLil-R4o6jmGhUqtKbZf0LIFKd-xN__g_M)、[分析二 / 齊震宇](https://www.youtube.com/playlist?list=PLil-R4o6jmGhkuZPmKL_A5Y7N4HOsa1nX)<sup>OCW,131段長影片</sup>
+
+#### 實分析
+
+- [高等微積分 / 陳金次](http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/101S130)<sup>OCW,64段長影片</sup>
+- [實分析 / 劉豐哲](http://ocw.aca.ntu.edu.tw/ntu-ocw/index.php/ocw/cou/105S109)<sup>OCW,50段長影片</sup>
+
+#### 複分析
+
+#### 微分方程
+
+#### 傅立葉分析及拉普拉斯轉換
+
+#### 向量分析
+
+#### 泛函分析
+
+- [變分學導論 / 林琦焜](http://ocw.nctu.edu.tw/course_detail.php?bgid=1&gid=1&nid=171)<sup>OCW,25段長影片</sup>
 
 ### 離散數學
 
 - Discrete Mathematics and Its Applications, 7th Edition
 - Concrete Mathematics: A Foundation for Computer Science
 
-### 工程數學
+### 數論
 
-- [工程數學 / 呂志宗](https://ocw.chu.edu.tw/)<sup>OCW,400段短影片</sup>
+### 拓撲學
 
-### 機率與統計
+### 統計學
 
 - Probability & Statistics  
   [課程網站](http://oli.cmu.edu/courses/all-oli-courses/statistics-course-details/)
+
+#### 機率
+
+#### 數理統計
+
+### 計算機數學
+
+#### 數值分析
+
+### 應用數學
+
+#### 工程數學
+
+工程數學涵蓋了：實分析、複分析、微分方程、傅立葉分析及拉普拉斯轉換、向量分析、線性代數、數值分析等。
+
+- [工程數學 / 呂志宗](https://ocw.chu.edu.tw/)<sup>OCW,400段短影片</sup>
+
+- 高等工程數學 (上、下冊)  
+  作者：程雋  
+  內容（依章節順序）：向量分析、線性代數、複分析、微分方程、傅立葉分析及拉普拉斯轉換
+
+- 工程數學學習要訣 (上、下冊)  
+  作者：劉明昌  
+  內容（依章節順序）：微分方程、傅立葉分析及拉普拉斯轉換、向量分析、線性代數、複分析
+
+「高等工程數學」和「工程數學學習要訣」適合配合起來看，前者著重於概念，後者著重於計算方法。但我還是想找數學系的書來看。
 
 ## 自然科學
 

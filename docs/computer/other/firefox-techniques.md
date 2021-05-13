@@ -32,6 +32,22 @@
 
 參考資料: [Disable or re-enable Pocket for Firefox | Firefox Help](https://support.mozilla.org/en-US/kb/disable-or-re-enable-pocket-for-firefox)
 
+## 避免選取的內容被放到 Firefox 的剪貼簿裡
+
+選取一段文字後，在網頁輸入框或網址欄按下滑鼠中鍵後，會貼上該段文字。（但不會複製到系統剪貼簿裡，所以一般的複製貼上不會有此現象）
+
+在網址列輸入 `about:config` 按 Enter，搜尋 `clipboard.autocopy` 設為 `false`。
+
+參考資料: [about:config -> clipboard.autocopy what is it ? • mozillaZine Forums](http://forums.mozillazine.org/viewtopic.php?f=7&t=62606)
+
+## 避免在網頁輸入框或網址欄按下滑鼠中鍵後貼上剪貼簿文字
+
+在網址列輸入 `about:config` 按 Enter，搜尋 `middlemouse.contentLoadURL` 設為 `false`。
+
+但如果原本就是 `false`，代表這個功能可能是由 Window Manager 提供。KDE 預設開啟這個功能，因此需要從 KDE 設定裡關閉它。
+
+參考資料: [PSA: The middle mouse button "load content from clipboard as URL" behaviour can be easily disabled/enabled. : firefox](https://www.reddit.com/r/firefox/comments/499zcn/psa_the_middle_mouse_button_load_content_from/)
+
 ## 避免產生大量 datareporting
 
 預設會在 `~/.mozilla/firefox/*.default-release/datareporting/archived/*/` 中產生大量的檔案。

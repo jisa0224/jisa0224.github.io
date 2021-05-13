@@ -208,8 +208,8 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     * Display manager: sddm
         - 之後還需要在新安裝的系統裡執行 `systemctl enable sddm` 才會開機進入圖形界面。
     * 桌面環境: plasma konsole dolphin
-        - plasma 是一個軟體包群組，安裝除了 discover kwallet-pam oxygen plasma-browser-integration plasma-systemmonitor plasma-thunderbolt plasma-vault 以外的軟體包，
-          phonon-qt5-backend 選擇 phonon-qt5-vlc。
+        - plasma 是一個軟體包群組，安裝除了 discover kdeplasma-addons kwallet-pam oxygen plasma-browser-integration plasma-systemmonitor 
+          plasma-thunderbolt plasma-vault plasma-workspace-wallpapers 以外的軟體包，phonon-qt5-backend 選擇 phonon-qt5-vlc。
         - 安裝軟體包群組時如何只安裝或排除特定幾個，參考 <https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups>。
         - plasma 軟體包群組包含 bluedevil breeze breeze-gtk discover drkonqi kactivitymanagerd kde-cli-tools kde-gtk-config kdecoration 
           kdeplasma-addons kgamma5 khotkeys kinfocenter kmenuedit kscreen kscreenlocker ksshaskpass ksysguard kwallet-pam 
@@ -302,6 +302,8 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
             - `~/.cache/vscode-cpptools/ipch` (IntelliSense precompiled headers)
         - [Settings Sync](https://code.visualstudio.com/docs/editor/settings-sync) 功能需要 `gnome-keyring` 才能登入 GitHub (目前未使用此功能，所以沒安裝)。
     * 資料庫: sqlitebrowser
+    * Rust: rust
+        - `cargo` 會新增 `~/.cargo`。
 
 * 系統
     * 軟體包: pacman-contrib pacman-cleanup-hook@A reflector pamac-cli@A
