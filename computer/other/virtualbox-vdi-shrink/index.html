@@ -1392,7 +1392,7 @@
   
     <li class="md-nav__item">
       <a href="../../programming/how-to-read-code-efficiently/" class="md-nav__link">
-        如何高效阅读代码？
+        如何高效阅读代码？ (轉載)
       </a>
     </li>
   
@@ -1404,7 +1404,7 @@
   
     <li class="md-nav__item">
       <a href="../../programming/programming-in-text-mode/" class="md-nav__link">
-        反樸歸真: 文字模式下的程式設計
+        反樸歸真: 文字模式下的程式設計 (轉載)
       </a>
     </li>
   
@@ -1416,7 +1416,7 @@
   
     <li class="md-nav__item">
       <a href="../../programming/unicode-you-dont-know/" class="md-nav__link">
-        其实你并不懂 Unicode
+        其实你并不懂 Unicode (轉載)
       </a>
     </li>
   
@@ -1898,6 +1898,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../math/singular-value-and-eigenvalue/" class="md-nav__link">
+        奇异值与特征值辨析 (轉載)
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../math/vector-calculus/" class="md-nav__link">
         簡單易懂的向量微積分(未完成)
       </a>
@@ -2186,8 +2198,8 @@
 <p>我的電腦 &gt; 對著硬碟按右鍵 &gt; 內容 &gt; 工具 &gt; 重組</p>
 <h2 id="0">將未用到的磁碟空間寫 0</h2>
 <h3 id="guest-linux">guest 為 Linux</h3>
-<p>在 guest 執行 <code>dd if=/dev/zero of=bigemptyfile status=progress</code>，然後執行 <code>rm bigemptyfile</code></p>
-<p>(host 的 vdi 檔不會變大，不用擔心)</p>
+<p>在 guest 執行 <code>dd if=/dev/zero of=bigemptyfile status=progress; rm bigemptyfile</code> (不能用 <code>&amp;&amp;</code>，因為 <code>dd</code> 會因為無空間可寫入而失敗退出。)</p>
+<p>(host 的 vdi 檔不會變大，RAM 也不會使用超過分配給虛擬機的量，不用擔心)</p>
 <h3 id="guest-windows_2">guest 為 Windows</h3>
 <p>下載 <a href="https://docs.microsoft.com/zh-tw/sysinternals/downloads/sdelete">SDelete - Windows Sysinternals | Microsoft Docs</a> 後，
 在命令提示字元 (cmd.exe) 執行 <code>sdelete64.exe -z C:</code></p>
@@ -2242,7 +2254,7 @@
               <span class="md-footer__direction">
                 下一頁
               </span>
-              如何高效阅读代码？
+              如何高效阅读代码？ (轉載)
             </div>
           </div>
           <div class="md-footer__button md-icon">
