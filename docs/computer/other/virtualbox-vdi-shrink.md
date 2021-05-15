@@ -16,9 +16,9 @@ Oracle VM VirtualBox Disk Image
 
 ### guest 為 Linux
 
-在 guest 執行 `dd if=/dev/zero of=bigemptyfile status=progress`，然後執行 `rm bigemptyfile`
+在 guest 執行 `dd if=/dev/zero of=bigemptyfile status=progress; rm bigemptyfile` (不能用 `&&`，因為 `dd` 會因為無空間可寫入而失敗退出。)
 
-(host 的 vdi 檔不會變大，不用擔心)
+(host 的 vdi 檔不會變大，RAM 也不會使用超過分配給虛擬機的量，不用擔心)
 
 ### guest 為 Windows
 
