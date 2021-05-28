@@ -264,6 +264,9 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         - 執行 `java -jar /opt/jd2/JDownloader.jar` 啟動 JDownloader 2，第一次執行會下載必須的檔案到 `~/.local/opt/jd2`
         - 手動建立應用程式選單項目，`/opt/jd2/themes/standard/org/jdownloader/images/logo/icon.ico` 可以用來作為 Desktop Entry 的 icon
     * transmission-qt
+    * VPN: networkmanager-openconnect(依賴於: openconnect)
+        - Pulse Connect Secure 連線方式: (1) 執行 `sudo openconnect --protocol=pulse https://vpn.example.com/` (2) 到 NetworkManager 新增 `Pulse Connect Secure (openconnect)`，VPN 協定 `Pulse Connect Secure`，閘道 `vpn.example.com`，其餘留空即可，連線時需要先按連線 VPN 主機的按鈕。
+        - networkmanager-openconnect 和 openconnect 不會新增任何檔案。
 
 * 教育
     * 翻譯: stardict
