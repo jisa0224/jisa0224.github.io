@@ -161,7 +161,7 @@ Name[zh_TW]=空白檔案...
 Comment=Enter filename:
 Comment[zh_TW]=輸入檔名：
 Type=Link
-URL=.source/empty-file.txt
+URL=.source/empty-file
 Icon=none
 ```
 

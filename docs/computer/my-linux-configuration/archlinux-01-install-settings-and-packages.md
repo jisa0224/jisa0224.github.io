@@ -225,7 +225,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
           [~/Desktop/home.desktop](archlinux-03-configuration-files.md), 
           [~/Desktop/trash.desktop](archlinux-03-configuration-files.md) 三個檔案。
         - dolphin: 為了讓圖示正確，"檔案 > 建立新的 > 文字檔案..." 建立的檔案中有一個空格和換行，如果要建立空白檔案的功能，必須自己新增模板。
-          執行 `mkdir -p ~/.local/share/templates/.source && touch ~/.local/share/templates/.source/empty-file.txt` 建立零位元組的空白檔案，
+          執行 `mkdir -p ~/.local/share/templates/.source && touch ~/.local/share/templates/.source/empty-file` 建立零位元組的空白檔案，
           然後新增 [~/.local/share/templates/empty-file.desktop](archlinux-03-configuration-files.md)。
           參考資料：[KDE Neon > Dolphin > Create New > Text File: File not empty. • KDE Community Forums](https://forum.kde.org/viewtopic.php?f=224&t=142366)。
     * GUI 函式庫: gtk3
