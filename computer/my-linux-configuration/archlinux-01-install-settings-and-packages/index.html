@@ -2480,6 +2480,11 @@ MaxRetentionSec=1week
 </ul>
 </li>
 <li>transmission-qt</li>
+<li>VPN: networkmanager-openconnect(依賴於: openconnect)<ul>
+<li>Pulse Connect Secure 連線方式: (1) 執行 <code>sudo openconnect --protocol=pulse https://vpn.example.com/</code> (2) 到 NetworkManager 新增 <code>Pulse Connect Secure (openconnect)</code>，VPN 協定 <code>Pulse Connect Secure</code>，閘道 <code>vpn.example.com</code>，其餘留空即可，連線時需要先按連線 VPN 主機的按鈕。</li>
+<li>networkmanager-openconnect 和 openconnect 不會新增任何檔案。</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
