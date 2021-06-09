@@ -363,6 +363,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../computer-science/continuation-using-scheme-call-cc-to-implement-generator/" class="md-nav__link">
+        Continuation: 使用 Scheme 的 call/cc 實現 generator
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../computer-science/csapp-notes-01-problem-2.27/" class="md-nav__link">
         【CS:APP 筆記】Problem 2.27 檢查無號整數相加是否溢位
       </a>
@@ -620,6 +632,18 @@
     <li class="md-nav__item">
       <a href="../../linux/environment-variables/" class="md-nav__link">
         環境變數
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/gcc-linking-parameter-order-is-significant/" class="md-nav__link">
+        GCC 連結時的參數有先後順序
       </a>
     </li>
   
@@ -2297,6 +2321,11 @@ MaxRetentionSec=1week
   然後執行 <code>balooctl purge</code> 刪除已建立的索引 (<code>~/.local/share/baloo/index</code>)。</li>
 <li>Windows 鍵無法開啟 "應用程式選單": 如果到應用程式選單的快捷鍵設定按下 Windows 鍵，會被識別成 "Meta 鍵" 而無法作為快捷鍵 (因為 Meta 鍵是修飾鍵，必須配合其它按鍵使用)，
   但如果將快捷鍵設定為 "Alt+F1"，就可以使用 Windows 鍵開啟應用程式選單，目前原理不明。</li>
+<li>隱私設定<ul>
+<li>到 設定 &gt; 工作空間行為 &gt; 活動 &gt; 活動，修改 Default 的設定，勾選 "請勿追蹤此活動的使用量"。</li>
+<li>到 設定 &gt; 工作空間行為 &gt; 活動 &gt; 隱私，紀錄以開啟的文件選 "不要保留"。</li>
+</ul>
+</li>
 <li>字型設定: 把字型檔放到 <code>~/.local/share/fonts</code>，<a href="../archlinux-03-configuration-files/">fontconfig 設定檔</a>
   放到 <code>~/.config/fontconfig/fonts.conf</code> (這個 fontconfig 設定檔非常重要，如果沒有它，放進去的字型檔會把預設的配置搞的亂七八糟)。</li>
 </ul>
@@ -2577,7 +2606,7 @@ SDL_IM_MODULE=fcitx
 <li>baobab: mate-disk-usage-analyzer 被包在 <code>mate-utils</code> 裡，<code>mate-utils</code> 又有太多其它東西，所以不採用。</li>
 </ul>
 </li>
-<li>Java: jre-openjdk<ul>
+<li>Java: jre-openjdk java-openjfx<ul>
 <li>修正字型很丑的問題：在 <code>/etc/environment</code> 加入 <code>_JAVA_OPTIONS=-Dawt.useSystemAAFontSettings=on</code>。<br/>
   參考資料：<a href="https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts#Overriding_the_automatically_picked_up_settings">Java Runtime Environment fonts - ArchWiki</a>、
   <a href="https://unix.stackexchange.com/questions/151733/where-can-i-set-global-java-options">environment variables - Where can I set global Java Options? - Unix &amp; Linux Stack Exchange</a></li>
