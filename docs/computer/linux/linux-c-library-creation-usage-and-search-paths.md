@@ -12,9 +12,12 @@
 
 <https://unix.stackexchange.com/questions/22926/where-do-executables-look-for-shared-objects-at-runtime>
 
+<https://www.zhihu.com/question/442855055/answer/1780804024>
+
 LD_LIBRARY_PATH
 
 rpath
 
 chrpath
  
+[GCC 連結時的參數有先後順序](gcc-linking-parameter-order-is-significant.md)

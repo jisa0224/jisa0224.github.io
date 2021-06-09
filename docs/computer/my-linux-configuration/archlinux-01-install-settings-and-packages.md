@@ -141,6 +141,9 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
       然後執行 `balooctl purge` 刪除已建立的索引 (`~/.local/share/baloo/index`)。
     * Windows 鍵無法開啟 "應用程式選單": 如果到應用程式選單的快捷鍵設定按下 Windows 鍵，會被識別成 "Meta 鍵" 而無法作為快捷鍵 (因為 Meta 鍵是修飾鍵，必須配合其它按鍵使用)，
       但如果將快捷鍵設定為 "Alt+F1"，就可以使用 Windows 鍵開啟應用程式選單，目前原理不明。
+    * 隱私設定
+         * 到 設定 > 工作空間行為 > 活動 > 活動，修改 Default 的設定，勾選 "請勿追蹤此活動的使用量"。
+         * 到 設定 > 工作空間行為 > 活動 > 隱私，紀錄以開啟的文件選 "不要保留"。
     * 字型設定: 把字型檔放到 `~/.local/share/fonts`，[fontconfig 設定檔](archlinux-03-configuration-files.md)
       放到 `~/.config/fontconfig/fonts.conf` (這個 fontconfig 設定檔非常重要，如果沒有它，放進去的字型檔會把預設的配置搞的亂七八糟)。
 * 環境變數設定
@@ -327,7 +330,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     * 備份: timeshift@A
     * 磁碟: baobab partitionmanager
         - baobab: mate-disk-usage-analyzer 被包在 `mate-utils` 裡，`mate-utils` 又有太多其它東西，所以不採用。
-    * Java: jre-openjdk
+    * Java: jre-openjdk java-openjfx
         - 修正字型很丑的問題：在 `/etc/environment` 加入 `_JAVA_OPTIONS=-Dawt.useSystemAAFontSettings=on`。  
           參考資料：[Java Runtime Environment fonts - ArchWiki](https://wiki.archlinux.org/index.php/Java_Runtime_Environment_fonts#Overriding_the_automatically_picked_up_settings)、
           [environment variables - Where can I set global Java Options? - Unix & Linux Stack Exchange](https://unix.stackexchange.com/questions/151733/where-can-i-set-global-java-options)
