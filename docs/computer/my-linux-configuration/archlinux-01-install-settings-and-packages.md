@@ -144,6 +144,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     * 隱私設定
          * 到 設定 > 工作空間行為 > 活動 > 活動，修改 Default 的設定，勾選 "請勿追蹤此活動的使用量"。
          * 到 設定 > 工作空間行為 > 活動 > 隱私，紀錄以開啟的文件選 "不要保留"。
+    * 到 設定 > 啟動與關閉 > 桌面作業階段，"When logging in" 選擇 "Start with an empty session"。
     * 字型設定: 把字型檔放到 `~/.local/share/fonts`，[fontconfig 設定檔](archlinux-03-configuration-files.md)
       放到 `~/.config/fontconfig/fonts.conf` (這個 fontconfig 設定檔非常重要，如果沒有它，放進去的字型檔會把預設的配置搞的亂七八糟)。
 * 環境變數設定
@@ -153,6 +154,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
         * 執行 `ln -s ../../../.envars ~/.config/plasma-workspace/env/envars.sh`。
         * 執行 `sudo ln -s ~jisa/.envars /root`。
         * [環境變數][EnvVars]
+    * 確認 `~/.config/user-dirs.dirs` 和 `~/.config/user-dirs.locale` 的內容是正確的。
 * Shell 設定
     * 修改 [~/.bash_profile](archlinux-03-configuration-files.md) 和 [~/.bashrc](archlinux-03-configuration-files.md)。
     * 由於 root 沒有 `~/.bash_profile` 和 `~/.bashrc`，所以 `sudo -i` 出來的結果是黑白的，執行 `sudo ln -s ~jisa/{.bash_profile,.bashrc} /root`。
@@ -160,7 +162,7 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
 ## 軟體包
 
 * 軟體包名稱沒有後綴的來自 Arch Linux 官方軟體庫，有 `@A` 後綴的來自 Arch User Repository (AUR)，有 `@O` 後綴的代表其它安裝方式。
-* 更新前軟體包前，建議先更新鏡像伺服器列表: 執行 `sudo systemctl start reflector.service && journalctl --no-pager -b -u reflector.service`。
+* 更新前軟體包前，建議先更新鏡像伺服器列表。
 * 更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。  
   在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。  
   [System maintenance - ArchWiki](https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system)
@@ -310,9 +312,12 @@ Boot Loader 採用 systemd-boot 單 Linux 方案。
     * 資料庫: sqlitebrowser
     * Rust: rust
         - `cargo` 會新增 `~/.cargo`。
+    * scrcpy@A(依賴於: android-tools)
+        - android-tools: 會新增 `~/.android`
 
 * 系統
-    * 軟體包: pacman-contrib pacman-cleanup-hook@A reflector pamac-cli@A
+    * 軟體包: pacman-contrib pacman-cleanup-hook@A rate-arch-mirrors-bin@A pamac-cli@A
+        - rate-arch-mirrors-bin@A: 更新鏡像伺服器列表: 執行 `rate-arch-mirrors | sudo tee /etc/pacman.d/mirrorlist`。
         - pamac-cli@A: `pamac checkupdates -a` 可以在不修改系統資料庫 (`/var/lib/pacman/sync`) 的情況下檢查更新，
           因為它會維持自己的資料庫 (`/tmp/pamac/dbs/sync`)，所以也不需要 root 權限。
     * 語言包: poppler-data qt5-translations

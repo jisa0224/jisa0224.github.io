@@ -16,7 +16,14 @@
           另外還在 `~/.local/share/applications/wolfram-mathematica12.desktop` 加入 `Categories=Education;`。
     * jupyter-calysto_scheme-git@A(依賴於: jupyter-metakernel@A)
 
+* 開發
+    * android-studio@A
+        - 執行 `sudo mkdir /opt/android-sdk && sudo chown jisa:jisa /opt/android-sdk`，SDK 位置選擇 `/opt/android-sdk`。
+        - 新增 `~/.android`、`~/{.config,.cache,.local/share}/Google` 和 `~/{.config,.cache,.local/share}/Android Open Source Project`。
+
 * 系統
+    * 軟體包: reflector
+        - reflector: 更新鏡像伺服器列表: 執行 `sudo systemctl start reflector.service && journalctl --no-pager -b -u reflector.service`。
     * 密碼管理: gnome-keyring
         - gnome-keyring: 第一次使用時，會詢問「預設鑰匙圈」的密碼，**留空後按確認**，不然每次使用時都會跳出視窗要求輸入密碼。
         - gnome-keyring: 新增檔案: `~/.local/share/keyrings`。

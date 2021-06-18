@@ -62,6 +62,9 @@ HISTFILE="$HOME/.cache/bash_history"
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Add ~/.local/bin to PATH
+export PATH="$HOME/.local/bin:${PATH}"
+
 # Load environment variables
 [[ -f ~/.envars ]] && . ~/.envars
 
