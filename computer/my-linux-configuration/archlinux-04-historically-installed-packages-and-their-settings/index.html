@@ -2102,8 +2102,22 @@
 </ul>
 </li>
 <li>
+<p>開發</p>
+<ul>
+<li>android-studio@A<ul>
+<li>執行 <code>sudo mkdir /opt/android-sdk &amp;&amp; sudo chown jisa:jisa /opt/android-sdk</code>，SDK 位置選擇 <code>/opt/android-sdk</code>。</li>
+<li>新增 <code>~/.android</code>、<code>~/{.config,.cache,.local/share}/Google</code> 和 <code>~/{.config,.cache,.local/share}/Android Open Source Project</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
 <p>系統</p>
 <ul>
+<li>軟體包: reflector<ul>
+<li>reflector: 更新鏡像伺服器列表: 執行 <code>sudo systemctl start reflector.service &amp;&amp; journalctl --no-pager -b -u reflector.service</code>。</li>
+</ul>
+</li>
 <li>密碼管理: gnome-keyring<ul>
 <li>gnome-keyring: 第一次使用時，會詢問「預設鑰匙圈」的密碼，<strong>留空後按確認</strong>，不然每次使用時都會跳出視窗要求輸入密碼。</li>
 <li>gnome-keyring: 新增檔案: <code>~/.local/share/keyrings</code>。</li>

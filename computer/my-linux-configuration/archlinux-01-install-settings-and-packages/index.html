@@ -2326,6 +2326,7 @@ MaxRetentionSec=1week
 <li>到 設定 &gt; 工作空間行為 &gt; 活動 &gt; 隱私，紀錄以開啟的文件選 "不要保留"。</li>
 </ul>
 </li>
+<li>到 設定 &gt; 啟動與關閉 &gt; 桌面作業階段，"When logging in" 選擇 "Start with an empty session"。</li>
 <li>字型設定: 把字型檔放到 <code>~/.local/share/fonts</code>，<a href="../archlinux-03-configuration-files/">fontconfig 設定檔</a>
   放到 <code>~/.config/fontconfig/fonts.conf</code> (這個 fontconfig 設定檔非常重要，如果沒有它，放進去的字型檔會把預設的配置搞的亂七八糟)。</li>
 </ul>
@@ -2339,6 +2340,7 @@ MaxRetentionSec=1week
 <li><a href="../archlinux-02-details-and-miscellaneous/">環境變數</a></li>
 </ul>
 </li>
+<li>確認 <code>~/.config/user-dirs.dirs</code> 和 <code>~/.config/user-dirs.locale</code> 的內容是正確的。</li>
 </ul>
 </li>
 <li>Shell 設定<ul>
@@ -2350,7 +2352,7 @@ MaxRetentionSec=1week
 <h2 id="_3">軟體包</h2>
 <ul>
 <li>軟體包名稱沒有後綴的來自 Arch Linux 官方軟體庫，有 <code>@A</code> 後綴的來自 Arch User Repository (AUR)，有 <code>@O</code> 後綴的代表其它安裝方式。</li>
-<li>更新前軟體包前，建議先更新鏡像伺服器列表: 執行 <code>sudo systemctl start reflector.service &amp;&amp; journalctl --no-pager -b -u reflector.service</code>。</li>
+<li>更新前軟體包前，建議先更新鏡像伺服器列表。</li>
 <li>更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。<br/>
   在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。<br/>
 <a href="https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system">System maintenance - ArchWiki</a></li>
@@ -2578,12 +2580,17 @@ MaxRetentionSec=1week
 <li><code>cargo</code> 會新增 <code>~/.cargo</code>。</li>
 </ul>
 </li>
+<li>scrcpy@A(依賴於: android-tools)<ul>
+<li>android-tools: 會新增 <code>~/.android</code></li>
+</ul>
+</li>
 </ul>
 </li>
 <li>
 <p>系統</p>
 <ul>
-<li>軟體包: pacman-contrib pacman-cleanup-hook@A reflector pamac-cli@A<ul>
+<li>軟體包: pacman-contrib pacman-cleanup-hook@A rate-arch-mirrors-bin@A pamac-cli@A<ul>
+<li>rate-arch-mirrors-bin@A: 更新鏡像伺服器列表: 執行 <code>rate-arch-mirrors | sudo tee /etc/pacman.d/mirrorlist</code>。</li>
 <li>pamac-cli@A: <code>pamac checkupdates -a</code> 可以在不修改系統資料庫 (<code>/var/lib/pacman/sync</code>) 的情況下檢查更新，
   因為它會維持自己的資料庫 (<code>/tmp/pamac/dbs/sync</code>)，所以也不需要 root 權限。</li>
 </ul>

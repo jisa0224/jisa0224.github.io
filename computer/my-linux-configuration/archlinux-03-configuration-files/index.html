@@ -2240,6 +2240,9 @@
 <span class="c1"># If not running interactively, don't do anything</span>
 <span class="o">[[</span> <span class="nv">$-</span> !<span class="o">=</span> *i* <span class="o">]]</span> <span class="o">&amp;&amp;</span> <span class="k">return</span>
 
+<span class="c1"># Add ~/.local/bin to PATH</span>
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.local/bin:</span><span class="si">${</span><span class="nv">PATH</span><span class="si">}</span><span class="s2">"</span>
+
 <span class="c1"># Load environment variables</span>
 <span class="o">[[</span> -f ~/.envars <span class="o">]]</span> <span class="o">&amp;&amp;</span> . ~/.envars
 
