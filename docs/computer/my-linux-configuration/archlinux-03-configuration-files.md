@@ -34,6 +34,9 @@ export SDL_IM_MODULE="fcitx"
 # OpenJDK (Java)
 export _JAVA_OPTIONS="-Dawt.useSystemAAFontSettings=on"
 
+# Python (ref: `python --help`)
+export PYTHONDONTWRITEBYTECODE=1    # don't write .pyc files on import
+
 # The following doesn't work
 #export GTK2_RC_FILES="${XDG_CONFIG_HOME:-$HOME/.config}/gtk-2.0/gtkrc"    # change GTK 2 configuration files location (default: ~/.gtkrc-2.0)
 #export _JAVA_OPTIONS="-Djava.util.prefs.userRoot='${XDG_CONFIG_HOME:-$HOME/.config}/java'"    # change Java configuration files location (default: ~/.java)
