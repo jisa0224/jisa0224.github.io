@@ -1,4 +1,5 @@
 site_name: Jisa's Notebook
+site_url: 'https://jisa0224.github.io/'
 
 #nav:
 # 使用 awesome-pages 所以沒有 nav。在 docs 中的每個資料夾裡有 `.pages`，設定它們以控制導覽列的顯示方式。
@@ -17,6 +18,8 @@ extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
   - https://unpkg.com/mermaid/dist/mermaid.min.js
+
+use_directory_urls: true
 
 markdown_extensions:
   - md_in_html
