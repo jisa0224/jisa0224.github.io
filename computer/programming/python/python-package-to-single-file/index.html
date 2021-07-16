@@ -2212,7 +2212,12 @@
 <h2 id="zip">自解壓縮 zip 檔</h2>
 <p>若是每次都要以 <code>python script.pyz</code> 方式執行，看起來有點不直觀。</p>
 <p>我們可以利用 Unix-like 作業系統的 shebang 支援，把 <code>script.pyz</code> 變成<strong>看起來像是</strong>普通可執行檔。</p>
-<p>執行 <code>echo '#!/usr/bin/env python3' | cat - script.zip &gt; script</code>，然後執行 <code>chmod +x script</code>，就可以像普通可執行檔一樣用 <code>./script</code> 執行。</p>
+<ul>
+<li>執行 <code>echo '#!/usr/bin/env python3' | cat - script.zip &gt; app</code>，然後執行 <code>chmod +x app</code>。</li>
+<li>或者執行 <code>python -m zipapp script -p '/usr/bin/env python3' -o app</code>。</li>
+</ul>
+<p>(因為會與資料夾同名，所以這裡改為用 <code>app</code> 作為可執行檔的檔名。)</p>
+<p>這樣可以像普通可執行檔一樣用 <code>./app</code> 執行。</p>
 <p>原理只是把 <code>#!/usr/bin/env python3</code> 給加到 zip 檔的最前端而已。</p>
 <p>當然這個檔案就無法用普通的 zip 檔案管理器打開了。</p>
 <h2 id="_2">參考資料</h2>
