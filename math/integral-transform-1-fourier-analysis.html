@@ -14,7 +14,7 @@
     
     
       
-        <title>Welcome to MkDocs - Jisa's Notebook</title>
+        <title>積分變換(一)：傅立葉分析(未完成) - Jisa's Notebook</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome-to-mkdocs" class="md-skip">
+        <a href="#_1" class="md-skip">
           跳轉到
         </a>
       
@@ -97,7 +97,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Welcome to MkDocs
+              積分變換(一)：傅立葉分析(未完成)
             
           </span>
         </div>
@@ -1816,12 +1816,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
       
       <label class="md-nav__link" for="__nav_5">
         數學
@@ -1839,7 +1841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../math/bessel-s-correction.html" class="md-nav__link">
+      <a href="bessel-s-correction.html" class="md-nav__link">
         Bessel's Correction: 統計學裡的 n-1(未完成)
       </a>
     </li>
@@ -1851,7 +1853,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../math/convolution.html" class="md-nav__link">
+      <a href="convolution.html" class="md-nav__link">
         卷積 Convolution
       </a>
     </li>
@@ -1861,11 +1863,255 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../math/integral-transform-1-fourier-analysis.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          積分變換(一)：傅立葉分析(未完成)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="integral-transform-1-fourier-analysis.html" class="md-nav__link md-nav__link--active">
         積分變換(一)：傅立葉分析(未完成)
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    三角函數與週期波
+  </a>
+  
+    <nav class="md-nav" aria-label="三角函數與週期波">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    三角函數的恆等式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    三角函數的指數定義
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    三角函數的正交性
+  </a>
+  
+    <nav class="md-nav" aria-label="三角函數的正交性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    推導
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    週期波的數學表示
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    傅立葉級數
+  </a>
+  
+    <nav class="md-nav" aria-label="傅立葉級數">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sine-cosine" class="md-nav__link">
+    Sine-Cosine 形式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    振幅-相位形式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    指數形式
+  </a>
+  
+    <nav class="md-nav" aria-label="指數形式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    使用指數形式的理由
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    指數形式的推導
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    週期不是 2π 的情況
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    傅立葉正弦級數：偶函數的特殊情況
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    傅立葉餘弦級數：奇函數的特殊情況
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    非週期函數的情況
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    傅立葉級數的線性代數觀點
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    連續傅立葉變換
+  </a>
+  
+    <nav class="md-nav" aria-label="連續傅立葉變換">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    推導
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    週期不是 2π 的情況
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    非週期函數的情況
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    離散傅立葉變換
+  </a>
+  
+    <nav class="md-nav" aria-label="離散傅立葉變換">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    快速傅立葉轉換
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    離散時間傅立葉變換
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    參考資料
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1875,7 +2121,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../math/singular-value-and-eigenvalue.html" class="md-nav__link">
+      <a href="singular-value-and-eigenvalue.html" class="md-nav__link">
         奇异值与特征值辨析 (轉載)
       </a>
     </li>
@@ -1887,7 +2133,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../math/vector-calculus.html" class="md-nav__link">
+      <a href="vector-calculus.html" class="md-nav__link">
         簡單易懂的向量微積分(未完成)
       </a>
     </li>
@@ -2002,14 +2248,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
       
       <label class="md-nav__link" for="__nav_8">
         網站除錯
@@ -2025,58 +2269,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Welcome to MkDocs
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../website-debug/index.html" class="md-nav__link">
         Welcome to MkDocs
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="目錄">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目錄
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
-    Commands
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
-    Project layout
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2086,7 +2283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="debug.html" class="md-nav__link">
+      <a href="../website-debug/debug.html" class="md-nav__link">
         網頁 Debug
       </a>
     </li>
@@ -2125,15 +2322,212 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
-    Commands
+  <a href="#_2" class="md-nav__link">
+    三角函數與週期波
+  </a>
+  
+    <nav class="md-nav" aria-label="三角函數與週期波">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    三角函數的恆等式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    三角函數的指數定義
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    三角函數的正交性
+  </a>
+  
+    <nav class="md-nav" aria-label="三角函數的正交性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    推導
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    週期波的數學表示
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    傅立葉級數
+  </a>
+  
+    <nav class="md-nav" aria-label="傅立葉級數">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sine-cosine" class="md-nav__link">
+    Sine-Cosine 形式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    振幅-相位形式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    指數形式
+  </a>
+  
+    <nav class="md-nav" aria-label="指數形式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    使用指數形式的理由
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    指數形式的推導
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    週期不是 2π 的情況
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    傅立葉正弦級數：偶函數的特殊情況
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    傅立葉餘弦級數：奇函數的特殊情況
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    非週期函數的情況
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    傅立葉級數的線性代數觀點
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
-    Project layout
+  <a href="#_16" class="md-nav__link">
+    連續傅立葉變換
+  </a>
+  
+    <nav class="md-nav" aria-label="連續傅立葉變換">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    推導
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    週期不是 2π 的情況
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    非週期函數的情況
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    離散傅立葉變換
+  </a>
+  
+    <nav class="md-nav" aria-label="離散傅立葉變換">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    快速傅立葉轉換
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    離散時間傅立葉變換
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    參考資料
   </a>
   
 </li>
@@ -2151,21 +2545,271 @@
               
                 
                 
-                <h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+                <h1 id="_1">積分變換(一)：傅立葉分析(未完成)</h1>
+<h2 id="_2">三角函數與週期波</h2>
+<h3 id="_3">三角函數的恆等式</h3>
+<p>推導過程中會用到一些三角函數的恆等式，整理如下：</p>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li>反射於 <span class="arithmatex">\(\theta =0\)</span>
+  <div class="arithmatex">\[ \begin{aligned}
+  \sin(-\theta) &amp; = -\sin(\theta) \\
+  \cos(-\theta) &amp; = \cos(\theta)
+  \end{aligned} \]</div></li>
+<li>移位 <span class="arithmatex">\(\frac{\pi}{2}\)</span>
+  <div class="arithmatex">\[ \begin{aligned}
+  \sin(\theta+\frac{\pi}{2}) &amp; = \cos \theta \\
+  \cos(\theta-\frac{\pi}{2}) &amp; = \sin \theta
+  \end{aligned} \]</div></li>
+<li>和差公式
+  <div class="arithmatex">\[ \begin{aligned}
+  \sin(\alpha \pm \beta)&amp;=\sin \alpha \cos \beta \pm \cos \alpha \sin \beta \\
+  \cos(\alpha \pm \beta)&amp;=\cos \alpha \cos \beta \mp \sin \alpha \sin \beta
+  \end{aligned} \]</div></li>
+<li>線性組合
+  <div class="arithmatex">\[ a\cos x + b\sin x = \sqrt{a^2 + b^2} \cos(x - \phi) \]</div>
+  其中 <span class="arithmatex">\(\phi = \tan^{-1} \frac{b}{a}\)</span></li>
 </ul>
-<h2 id="project-layout">Project layout</h2>
-<div class="highlight"><pre><span></span><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
-</code></pre></div>
+<p>根據以上的公式，可以得知正弦波可以表示成</p>
+<ul>
+<li>
+<p>振幅-相位形式
+  <div class="arithmatex">\[ \begin{aligned}
+  f(t) &amp; = A \cos(\omega t + \phi) \\
+  &amp; = A \sin(\omega t + (\phi - \frac{\pi}{2}))
+  \end{aligned} \]</div></p>
+</li>
+<li>
+<p>Sine-Cosine 形式
+  <div class="arithmatex">\[ f(t) = a \cos(\omega t) + b \sin(\omega t) \]</div></p>
+</li>
+</ul>
+<p>其中 <span class="arithmatex">\(\begin{cases} a = A \cos(\phi) \\ b = -A \sin(\phi) \end{cases}\)</span>，推導如下</p>
+<p><div class="arithmatex">\[ \begin{aligned}
+  f(t) &amp; = A \cos(\omega t + \phi) \\
+  &amp; = A \cos(\omega t)\cos(\phi) - A \sin(\omega t)\sin(\phi) \\
+  &amp; = \color{red}{A \cos(\phi)} \cos(\omega t) \color{blue}{- A \sin(\phi)} \sin(\omega t) \\
+  &amp; = \color{red}{a} \cos(\omega t) + \color{blue}{b} \sin(\omega t)
+  \end{aligned} \]</div></p>
+<h3 id="_4">三角函數的指數定義</h3>
+<p>定義</p>
+<div class="arithmatex">\[ \begin{cases}
+\sin \theta = \frac{e^{i\theta} - e^{-i\theta}}{2i} \\
+\cos \theta = \frac{e^{i\theta} + e^{-i\theta}}{2}
+\end{cases} \]</div>
+<p>因此</p>
+<div class="arithmatex">\[ e^{i\theta} ＝ \cos \theta + i \sin \theta \]</div>
+<h3 id="_5">三角函數的正交性</h3>
+<p>傅立葉變換能夠成立都是基於以下幾個恆等式：</p>
+<div class="arithmatex">\[ \int_{-\pi}^{\pi} \sin(mx) dx = 0 \\
+\int_{-\pi}^{\pi} \cos(mx) dx = 0 \]</div>
+<div class="arithmatex">\[ \begin{aligned}
+&amp; \int_{-\pi}^{\pi} \sin(mx) \sin(nx) dx = \begin{cases}\pi &amp; m = n\\0 &amp; m \neq n\end{cases} \\
+&amp; \int_{-\pi}^{\pi} \cos(mx) \cos(nx) dx = \begin{cases}\pi &amp; m = n\\0 &amp; m \neq n\end{cases} \\
+&amp; \int_{-\pi}^{\pi} \sin(mx) \cos(nx) dx = 0
+\end{aligned} \]</div>
+<h4 id="_6">推導</h4>
+<h3 id="_7">週期波的數學表示</h3>
+<p>表示一個週期波需要波型、振幅 <span class="arithmatex">\(A\)</span>、頻率 <span class="arithmatex">\(f\)</span>（或角頻率 <span class="arithmatex">\(\omega\)</span> 或週期 <span class="arithmatex">\(T\)</span>）和相位差 <span class="arithmatex">\(\phi\)</span>，如果是正弦波的話可以表示成</p>
+<div class="arithmatex">\[ f(t) = A \cos(\omega t + \phi) \]</div>
+<p>由於 <span class="arithmatex">\(\sin\)</span> 跟 <span class="arithmatex">\(\cos\)</span> 只是平移了 <span class="arithmatex">\(\frac{\pi}{2}\)</span> 個相位差，所以 <span class="arithmatex">\(\cos\)</span> 也算正弦函數。</p>
+<h2 id="_8">傅立葉級數</h2>
+<p>傅立葉級數（FS, Fourier Series）將一個週期函數 <span class="arithmatex">\(f(t)\)</span> 展開成不同頻率的正弦函數與餘弦函數的線性組合。</p>
+<h3 id="sine-cosine">Sine-Cosine 形式</h3>
+<div class="arithmatex">\[ f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos(nt) + b_n \sin(nt) \]</div>
+<p>其中</p>
+<div class="arithmatex">\[ a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \cos(nt) dt \\
+b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \sin(nt) dt \]</div>
+<h3 id="-">振幅-相位形式</h3>
+<p>透過三角恆等式，也可以把 Sine-Cosine 形式換成其它形式</p>
+<div class="arithmatex">\[ f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty A_n \cos(nt + \phi_n) \]</div>
+<p>其中</p>
+<div class="arithmatex">\[ A_n = \sqrt{a_n^2+b_n^2} \\
+  \phi_n = -\tan^{-1} \frac{b_n}{a_n} \]</div>
+<p>Sine-Cosine 形式中的係數 <span class="arithmatex">\(a_n\)</span> 和 <span class="arithmatex">\(b_n\)</span> 沒有物理意義；振幅-相位形式中的係數 <span class="arithmatex">\(A_n\)</span> 和 <span class="arithmatex">\(\phi_n\)</span> 則分別代表振幅與相位。</p>
+<h3 id="_9">指數形式</h3>
+<p>不過在實際計算上更常用的是指數形式：</p>
+<div class="arithmatex">\[ f(t) = \sum_{n=-\infty}^{\infty} c_n e^{int} \]</div>
+<p>其中</p>
+<div class="arithmatex">\[ c_n = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(t) e^{-int} dt \]</div>
+<p>且</p>
+<div class="arithmatex">\[ c_n = \begin{cases}
+\frac{a_0}{2} &amp; n = 0 \\
+\frac{1}{2} (a_n - i b_n) &amp; n &gt; 0 \\
+\frac{1}{2} (a_{|n|} + i b_{|n|}) = c_{|n|}^* &amp; n &lt; 0
+\end{cases} \]</div>
+<div class="arithmatex">\[ A_n = 2 \sqrt{c_n c_{-n}} \]</div>
+<p><span class="arithmatex">\(c_{|n|}^*\)</span> 表示 <span class="arithmatex">\(c_{|n|}\)</span> 的共軛複數。</p>
+<h4 id="_10">使用指數形式的理由</h4>
+<p>儘管振幅-相位形式有物理意義，但因為它在 <span class="arithmatex">\(\sin\)</span> 和 <span class="arithmatex">\(\cos\)</span> 裡還有一個相位差，導致我們無法使用 <a href="#三角函數的正交性">三角函數的正交性</a> 中那三個公式來得到係數，所以還是必須回歸到 Sine-Cosine 形式。</p>
+<p>但 Sine-Cosine 形式必須分開計算 <span class="arithmatex">\(a_n\)</span> 和 <span class="arithmatex">\(b_n\)</span>，我們可以使用一個複數來同時表示 <span class="arithmatex">\(a_n\)</span> 和 <span class="arithmatex">\(b_n\)</span>，在表達上會比較簡潔。</p>
+<h4 id="_11">指數形式的推導</h4>
+<p>從傅立葉級數的 Sine-Cosine 形式開始：</p>
+<div class="arithmatex">\[ \begin{aligned}
+f(t) &amp; = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos(nt) + b_n \sin(nt) \\
+&amp; = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \frac{e^{int} + e^{-int}}{2} + b_n \frac{e^{int} - e^{-int}}{2i} \\
+&amp; = \frac{a_0}{2} + \sum_{n=1}^\infty (\frac{a_n}{2}+\frac{b_n}{2i})e^{int} + (\frac{a_n}{2}-\frac{b_n}{2i})e^{-int} \\
+&amp; = \color{red}{\frac{a_0}{2}} + \sum_{n=1}^\infty \color{blue}{\frac{1}{2}(a_n-i b_n)}e^{int} + \color{green}{\frac{1}{2}(a_n+i b_n)}e^{-int} \\
+&amp; = \color{red}{c_0} + \sum_{n=1}^\infty \color{blue}{c_n} e^{int} + \color{green}{c_{-n}} e^{i(-n)t} \\
+&amp; = \sum_{n=-\infty}^\infty c_n e^{int}
+\end{aligned} \]</div>
+<div class="arithmatex">\[ \begin{aligned}
+c_n &amp; = \frac{1}{2} (a_n - i b_n) &amp; n &gt; 0 \\
+&amp; = \frac{1}{2} \left( \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \cos(nt) dt - i \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(t) (\cos(nt)-i\sin(nt)) dt \\
+&amp; = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(t) (\cos(-nt)+i\sin(-nt)) dt \\
+&amp; = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(t) e^{-int} dt \\
+\\
+c_n &amp; = \frac{1}{2} (a_{|n|} + i b_{|n|}) &amp; n &lt; 0 \\
+&amp; = \frac{1}{2} \left( \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \cos(-nt) dt + i \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \sin(-nt) dt \right) \\
+&amp; = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(t) (\cos(-nt)+i\sin(-nt)) dt \\
+&amp; = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(t) e^{-int} dt
+\end{aligned} \]</div>
+<p>對於 <span class="arithmatex">\(n &lt; 0\)</span> 的係數 <span class="arithmatex">\(c_n\)</span>，其計算式與 <span class="arithmatex">\(n &gt; 0\)</span> 的情況相同</p>
+<div class="arithmatex">\[ \begin{aligned}
+A_n &amp; = \sqrt{a_n^2+b_n^2} \\
+&amp; = |2 c_n| \\
+&amp; = 2 \sqrt{c_n c_n^*} \\
+&amp; = 2 \sqrt{c_n c_{-n}}
+\end{aligned} \]</div>
+<h3 id="2">週期不是 2π 的情況</h3>
+<p>仔細看上面 Sine-Cosine 形式的公式</p>
+<div class="arithmatex">\[ f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos(nt) + b_n \sin(nt) \]</div>
+<p>會發現我們把 <span class="arithmatex">\(f(t)\)</span> 分解成角頻率 1, 2, 3, ... ──即 1 的整數倍──的正弦函數與餘弦函數的線性組合。</p>
+<p>對於週期為 <span class="arithmatex">\(T\)</span> 的週期函數 <span class="arithmatex">\(f(t)\)</span>，其傅立葉級數（Sine-Cosine 形式）為</p>
+<div class="arithmatex">\[ f(t) = \frac{a_0}{2} + \sum_{n=1}^\infty a_n \cos(n\omega_0 t) + b_n \sin(n\omega_0 t) \]</div>
+<p>其中</p>
+<div class="arithmatex">\[ \begin{aligned}
+\omega_0 &amp; = \frac{2\pi}{T} \\
+a_n &amp; = \frac{2}{T} \int_{t_0}^{t_0+T} f(t) \cos(n\omega_0 t) dt \\
+b_n &amp; = \frac{2}{T} \int_{t_0}^{t_0+T} f(t) \sin(n\omega_0 t) dt
+\end{aligned} \]</div>
+<p>因為只要有積分到一個週期就可以，所以 <span class="arithmatex">\(t_0\)</span> 可以是任意數，為了積分方便通常都會使用 <span class="arithmatex">\(t_0 = -\frac{T}{2}\)</span>，即</p>
+<div class="arithmatex">\[ \begin{aligned}
+a_n &amp; = \frac{2}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t) \cos(n\omega_0 t) dt \\
+b_n &amp; = \frac{2}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t) \sin(n\omega_0 t) dt
+\end{aligned} \]</div>
+<p>把 <span class="arithmatex">\(f(t)\)</span> 分解成「角頻率 <span class="arithmatex">\(\omega_0\)</span> 整數倍」的正弦函數與餘弦函數的線性組合。</p>
+<h3 id="_12">傅立葉正弦級數：偶函數的特殊情況</h3>
+<p>若 <span class="arithmatex">\(f(t)\)</span> 為偶函數，則 <span class="arithmatex">\(f(-t) = f(t)\)</span>，其傅立葉級數（Sine-Cosine 形式）退化為</p>
+<div class="arithmatex">\[ f(t) = \sum_{n=1}^\infty b_n \sin(nt) \]</div>
+<p>其中</p>
+<div class="arithmatex">\[ b_n = \frac{2}{\pi} \int_{0}^{\pi} f(t) \sin(nt) dt \]</div>
+<p>推導如下</p>
+<div class="arithmatex">\[ \begin{aligned}
+a_0 &amp; = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \cos(nt) dt \\
+&amp; = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) dt \\
+&amp; = 0 \\
+\\
+a_n &amp; = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \cos(nt) dt \\
+&amp; = \frac{1}{\pi} \left( \int_{-\pi}^{0} f(t) \cos(nt) dt + \int_{0}^{\pi} f(t) \cos(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{-\pi} f(t) \cos(nt) dt + \int_{0}^{\pi} f(t) \cos(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{\pi} \color{red}{f(-t)} \color{blue}{\cos(-nt)} dt + \int_{0}^{\pi} f(t) \cos(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{\pi} \color{red}{f(t)} \color{blue}{\cos(nt)} dt + \int_{0}^{\pi} f(t) \cos(nt) dt \right) \\
+&amp; = 0
+\\
+b_n &amp; = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \sin(nt) dt \\
+&amp; = \frac{1}{\pi} \left( \int_{-\pi}^{0} f(t) \sin(nt) dt + \int_{0}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{-\pi} f(t) \sin(nt) dt + \int_{0}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{\pi} \color{red}{f(-t)} \color{blue}{\sin(-nt)} dt + \int_{0}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{\pi} \color{red}{f(t)} \color{blue}{(-\sin(nt))} dt + \int_{0}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( \int_{0}^{\pi} f(t) \sin(nt) dt + \int_{0}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = \frac{2}{\pi} \int_{0}^{\pi} f(t) \sin(nt) dt
+\end{aligned} \]</div>
+<p>只剩下 Sine 的項，且相當於只積分半個週期。</p>
+<p>即便 <span class="arithmatex">\(f(t)\)</span> 不是偶函數，還是可以求其傅立葉正弦級數，結果就相當於求 <span class="arithmatex">\(\begin{cases} f(t) &amp; t \geq 0 \\ f(-t) &amp; t &lt; 0 \end{cases}\)</span> 的傅立葉級數。</p>
+<h3 id="_13">傅立葉餘弦級數：奇函數的特殊情況</h3>
+<p>若 <span class="arithmatex">\(f(t)\)</span> 為奇函數，則 <span class="arithmatex">\(f(-t) = -f(t)\)</span>，其傅立葉級數（Sine-Cosine 形式）退化為</p>
+<div class="arithmatex">\[ f(t) = a_0 + \sum_{n=1}^\infty a_n \cos(nt) \]</div>
+<p>其中</p>
+<div class="arithmatex">\[ \begin{aligned}
+a_0 &amp; = \frac{1}{\pi} \int_{0}^{\pi} f(t) dt \\
+a_n &amp; = \frac{2}{\pi} \int_{0}^{\pi} f(t) \cos(nt) dt
+\end{aligned} \]</div>
+<p>推導如下</p>
+<div class="arithmatex">\[ \begin{aligned}
+a_0 &amp; = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \cos(nt) dt \\
+&amp; = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) dt \\
+\\
+a_n &amp; = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \cos(nt) dt \\
+&amp; = \frac{1}{\pi} \left( \int_{-\pi}^{0} f(t) \cos(nt) dt + \int_{0}^{\pi} f(t) \cos(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{-\pi} f(t) \cos(nt) dt + \int_{0}^{\pi} f(t) \cos(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{\pi} \color{red}{f(-t)} \color{blue}{\cos(-nt)} dt + \int_{0}^{\pi} f(t) \cos(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{\pi} \color{red}{-f(t)} \color{blue}{\cos(nt)} dt + \int_{0}^{\pi} f(t) \cos(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( \int_{0}^{\pi} f(t) \cos(nt) dt + \int_{0}^{\pi} f(t) \cos(nt) dt \right) \\
+&amp; = \frac{2}{\pi} \int_{0}^{\pi} f(t) \cos(nt) dt \\
+\\
+b_n &amp; = \frac{1}{\pi} \int_{-\pi}^{\pi} f(t) \sin(nt) dt \\
+&amp; = \frac{1}{\pi} \left( \int_{-\pi}^{0} f(t) \sin(nt) dt + \int_{0}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{-\pi} f(t) \sin(nt) dt + \int_{0}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{\pi} \color{red}{f(-t)} \color{blue}{\sin(-nt)} dt + \int_{0}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{\pi} \color{red}{(-f(t))} \color{blue}{(-\sin(nt))} dt + \int_{0}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = \frac{1}{\pi} \left( -\int_{0}^{\pi} f(t) \sin(nt) dt + \int_{0}^{\pi} f(t) \sin(nt) dt \right) \\
+&amp; = 0
+\end{aligned} \]</div>
+<p>只剩下 Cosine 的項，且相當於只積分半個週期。</p>
+<p>即便 <span class="arithmatex">\(f(t)\)</span> 不是奇函數，還是可以求其傅立葉餘弦級數，結果就相當於求 <span class="arithmatex">\(\begin{cases} f(t) &amp; t \geq 0 \\ f(-t) &amp; t &lt; 0 \end{cases}\)</span> 的傅立葉級數。</p>
+<h3 id="_14">非週期函數的情況</h3>
+<h2 id="_15">傅立葉級數的線性代數觀點</h2>
+<h2 id="_16">連續傅立葉變換</h2>
+<p>連續傅立葉變換（CFT, Continuous Fourier Transform）將一個週期函數 <span class="arithmatex">\(f(t)\)</span> 從時域轉換到頻域。</p>
+<div class="arithmatex">\[ \hat{f}(\omega) = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(t) e^{-i\omega t} dt \]</div>
+<p>以及其逆轉換：</p>
+<div class="arithmatex">\[ f(t) = \int_{-\infty}^{\infty} \hat{f}(\omega) e^{i\omega t} d\omega \]</div>
+<h3 id="_17">推導</h3>
+<p>觀察傅立葉級數的指數形式：</p>
+<div class="arithmatex">\[ f(t) = \sum_{n=-\infty}^{\infty} c_n e^{int} \]</div>
+<p>其中</p>
+<div class="arithmatex">\[ c_n = \frac{1}{2\pi} \int_{-\pi}^{\pi} f(t) e^{-int} dt \]</div>
+<p>把 <span class="arithmatex">\(n\)</span> 換成 <span class="arithmatex">\(\omega\)</span>、<span class="arithmatex">\(c_n\)</span> 換成 <span class="arithmatex">\(\hat{f}(\omega)\)</span>、<span class="arithmatex">\(\sum\)</span> 換成 <span class="arithmatex">\(\int\)</span> 即可。</p>
+<h3 id="2_1">週期不是 2π 的情況</h3>
+<p>與傅立葉級數相同，對於週期為 <span class="arithmatex">\(T\)</span> 的週期函數 <span class="arithmatex">\(f(t)\)</span>，其傅立葉轉換為</p>
+<div class="arithmatex">\[ \hat{f}(\omega) = \frac{1}{T} \int_{t_0}^{t_0+T} f(t) e^{-i\omega t} dt \]</div>
+<p>因為只要有積分到一個週期就可以，所以 <span class="arithmatex">\(t_0\)</span> 可以是任意數，為了積分方便通常都會使用 <span class="arithmatex">\(t_0 = -\frac{T}{2}\)</span>，即
+<div class="arithmatex">\[ \hat{f}(\omega) = \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t) e^{-i\omega t} dt \]</div></p>
+<h3 id="_18">非週期函數的情況</h3>
+<p>非週期函數其實就是週期無限大的週期函數，所以只要對週期為 <span class="arithmatex">\(T\)</span> 的傅立葉轉換取極限即可。</p>
+<div class="arithmatex">\[ \hat{f}(\omega) = \lim_{T \rightarrow \infty} \frac{1}{T} \int_{-\frac{T}{2}}^{\frac{T}{2}} f(t) e^{-i\omega t} dt \]</div>
+<p>然而，我並不知道這個極限如何求解，只知道結果應該是</p>
+<div class="arithmatex">\[ \hat{f}(\omega) = \frac{1}{2\pi} \int_{-\infty}^{\infty} f(t) e^{-i\omega t} dt \]</div>
+<h2 id="_19">離散傅立葉變換</h2>
+<p>離散傅立葉變換（DFT, Discrete Fourier Transform）</p>
+<h3 id="_20">快速傅立葉轉換</h3>
+<p>快速傅立葉轉換（FFT, Fast Fourier Transform）</p>
+<h2 id="_21">離散時間傅立葉變換</h2>
+<p>離散時間傅立葉變換（DTFT, Discrete-Time Fourier Transform）</p>
+<h2 id="_22">參考資料</h2>
+<ul>
+<li>
+<p>三角函數<br/>
+<a href="https://zh.wikipedia.org/zh-tw/%E4%B8%89%E8%A7%92%E6%81%92%E7%AD%89%E5%BC%8F">三角恆等式 - 維基百科，自由的百科全書</a></p>
+</li>
+<li>
+<p>傅立葉分析計算公式<br/>
+<a href="https://reference.wolfram.com/language/guide/FourierAnalysis.html">Fourier Analysis—Wolfram Language Documentation</a></p>
+</li>
+<li>
+<p>傅立葉級數<br/>
+<a href="https://en.wikipedia.org/wiki/Fourier_series">Fourier series - Wikipedia</a><br/>
+<a href="https://mathworld.wolfram.com/FourierSeries.html">Fourier Series -- from Wolfram MathWorld</a><br/>
+<a href="https://tw.answers.yahoo.com/question/index?qid=20091207000010KK00570">如何理解傅立葉變換中的複數？ | Yahoo奇摩知識+</a><br/>
+<a href="https://zhuanlan.zhihu.com/p/41455378">傅里叶系列（一）傅里叶级数的推导 - 知乎</a></p>
+</li>
+<li>
+<p>傅立葉正弦/餘弦級數<br/>
+<a href="https://en.wikipedia.org/wiki/Fourier_sine_and_cosine_series">Fourier sine and cosine series - Wikipedia</a><br/>
+<a href="https://en.wikipedia.org/wiki/Half_range_Fourier_series">Half range Fourier series - Wikipedia</a><br/>
+<a href="https://mathworld.wolfram.com/FourierSineSeries.html">Fourier Sine Series -- from Wolfram MathWorld</a><br/>
+<a href="https://mathworld.wolfram.com/FourierCosineSeries.html">Fourier Cosine Series -- from Wolfram MathWorld</a></p>
+</li>
+<li>
+<p>連續傅立葉變換<br/>
+<a href="https://zhuanlan.zhihu.com/p/41875010">傅里叶系列（二）傅里叶变换的推导 - 知乎</a></p>
+</li>
+<li>
+<p>離散傅立葉變換<br/>
+<a href="https://zhuanlan.zhihu.com/p/75521342">傅里叶系列（三）离散傅里叶变换（DFT） - 知乎</a></p>
+</li>
+</ul>
                 
               
               
@@ -2185,7 +2829,7 @@ docs/
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../physics/physical-interpretations-of-laplace-transform.html" class="md-footer__link md-footer__link--prev" aria-label="上一頁: 拉普拉斯轉換的物理意義(未完成)" rel="prev">
+        <a href="convolution.html" class="md-footer__link md-footer__link--prev" aria-label="上一頁: 卷積 Convolution" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -2194,20 +2838,20 @@ docs/
               <span class="md-footer__direction">
                 上一頁
               </span>
-              拉普拉斯轉換的物理意義(未完成)
+              卷積 Convolution
             </div>
           </div>
         </a>
       
       
         
-        <a href="debug.html" class="md-footer__link md-footer__link--next" aria-label="下一頁: 網頁 Debug" rel="next">
+        <a href="singular-value-and-eigenvalue.html" class="md-footer__link md-footer__link--next" aria-label="下一頁: 奇异值与特征值辨析 (轉載)" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一頁
               </span>
-              網頁 Debug
+              奇异值与特征值辨析 (轉載)
             </div>
           </div>
           <div class="md-footer__button md-icon">
