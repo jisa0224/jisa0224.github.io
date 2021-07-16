@@ -1,6 +1,6 @@
 # Python 巢狀 module 和 relative import
 
-假設現在有以下 script
+假設現在有以下資料夾型 script
 
 ```
 app/
