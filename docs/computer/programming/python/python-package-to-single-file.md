@@ -42,7 +42,12 @@ script/
 
 我們可以利用 Unix-like 作業系統的 shebang 支援，把 `script.pyz` 變成**看起來像是**普通可執行檔。
 
-執行 `echo '#!/usr/bin/env python3' | cat - script.zip > script`，然後執行 `chmod +x script`，就可以像普通可執行檔一樣用 `./script` 執行。
+* 執行 `echo '#!/usr/bin/env python3' | cat - script.zip > app`，然後執行 `chmod +x app`。
+* 或者執行 `python -m zipapp script -p '/usr/bin/env python3' -o app`。
+
+(因為會與資料夾同名，所以這裡改為用 `app` 作為可執行檔的檔名。)
+
+這樣可以像普通可執行檔一樣用 `./app` 執行。
 
 原理只是把 `#!/usr/bin/env python3` 給加到 zip 檔的最前端而已。
 
