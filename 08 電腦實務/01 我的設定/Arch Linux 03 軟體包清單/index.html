@@ -1,0 +1,5931 @@
+
+<!doctype html>
+<html lang="zh-TW" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jisa0224.github.io/08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Arch%20Linux%2003%20%E8%BB%9F%E9%AB%94%E5%8C%85%E6%B8%85%E5%96%AE/">
+      
+      
+        <link rel="prev" href="../Arch%20Linux%2002%20%E8%A8%AD%E5%AE%9A%E8%88%87%E5%B7%B2%E7%9F%A5%E5%95%8F%E9%A1%8C/">
+      
+      
+        <link rel="next" href="../Arch%20Linux%2004%20%E9%9B%9C%E9%A0%85/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+    
+    
+      
+        <title>Arch Linux 03 軟體包清單 - Jisa's Notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/markdown-material-fix.css">
+    
+      <link rel="stylesheet" href="../../../css/disable-footer-nav.css">
+    
+      <link rel="stylesheet" href="../../../css/arithmatex.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#arch-linux-03" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href="../../.." title="Jisa&#39;s Notebook" class="md-header__button md-logo" aria-label="Jisa's Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jisa's Notebook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arch Linux 03 軟體包清單
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="搜尋">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清除" aria-label="清除" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜尋引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="導覽列" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jisa&#39;s Notebook" class="md-nav__button md-logo" aria-label="Jisa's Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Jisa's Notebook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        首頁
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          01 學習
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          01 學習
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01%20%E5%AD%B8%E7%BF%92/C%20%E8%AA%9E%E8%A8%80%E7%B7%A8%E7%A8%8B/" class="md-nav__link">
+        C 語言編程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01%20%E5%AD%B8%E7%BF%92/%E6%9B%B8%E5%96%AE/" class="md-nav__link">
+        書單
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          02 哲學
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          02 哲學
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02%20%E5%93%B2%E5%AD%B8/%5B%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98%5D%20%E8%AA%B0%E6%98%AF%E6%88%91%EF%BC%9F%E6%84%8F%E8%AD%98%E7%9A%84%E5%93%B2%E5%AD%B8%E8%88%87%E7%A7%91%E5%AD%B8/" class="md-nav__link">
+        [讀書筆記] 誰是我？意識的哲學與科學 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          03 數學
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          03 數學
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/Bessel%27s%20Correction%20-%20%E7%B5%B1%E8%A8%88%E5%AD%B8%E8%A3%A1%E7%9A%84%20n-1/" class="md-nav__link">
+        Bessel's Correction: 統計學裡的 n-1 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/convolution/" class="md-nav__link">
+        卷積 Convolution
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/singular-value-and-eigenvalue/" class="md-nav__link">
+        奇异值与特征值辨析 (轉載)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/%E4%B8%80%E5%80%8B%E5%9C%96%E8%AB%96%E9%A1%8C%E7%9B%AE/" class="md-nav__link">
+        一個圖論題目 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/%E7%A9%8D%E5%88%86%E8%AE%8A%E6%8F%9B%28%E4%B8%80%29%EF%BC%9A%E5%82%85%E7%AB%8B%E8%91%89%E5%88%86%E6%9E%90/" class="md-nav__link">
+        積分變換(一)：傅立葉分析 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/%E7%B0%A1%E5%96%AE%E6%98%93%E6%87%82%E7%9A%84%E5%90%91%E9%87%8F%E5%BE%AE%E7%A9%8D%E5%88%86/" class="md-nav__link">
+        簡單易懂的向量微積分 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          04 物理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          04 物理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04%20%E7%89%A9%E7%90%86/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E8%BD%89%E6%8F%9B%E7%9A%84%E7%89%A9%E7%90%86%E6%84%8F%E7%BE%A9/" class="md-nav__link">
+        拉普拉斯轉換的物理意義 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          06 生物
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          06 生物
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/Body%20Transfer%20Illusion/" class="md-nav__link">
+        Body Transfer Illusion (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/RNA%20sequencing%20%28RNA-Seq%29/" class="md-nav__link">
+        RNA sequencing (RNA-Seq) (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/%5B%E6%9C%89%E8%B6%A3%E7%A0%94%E7%A9%B6%5D%20%E9%BB%8F%E8%8F%8C/" class="md-nav__link">
+        [有趣研究] 黏菌 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/%5B%E7%9C%8B%E5%BD%B1%E7%89%87%5D%20%E4%BC%8A%E8%8E%89%E8%8E%8E%E7%99%BD%EF%BC%8E%E7%BE%85%E8%8A%99%E6%89%98%E6%96%AF%20%28Elizabeth%20Loftus%29%EF%BC%9A%E8%99%9B%E6%A7%8B%E7%9A%84%E8%A8%98%E6%86%B6%20-%20TED%20Talk/" class="md-nav__link">
+        [看影片] 伊莉莎白．羅芙托斯 (Elizabeth Loftus)：虛構的記憶 - TED Talk (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/%5B%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98%5D%20%E5%A4%A7%E8%85%A6%E7%B0%A1%E5%8F%B2%EF%BC%9A%E7%94%9F%E7%89%A9%E7%B6%93%E9%81%8E%E5%9B%9B%E5%8D%81%E5%84%84%E5%B9%B4%E7%9A%84%E6%BC%94%E5%8C%96%EF%BC%8C%E5%A4%A7%E8%85%A6%E6%98%AF%E5%90%A6%E5%B7%B2%E7%B6%93%E8%B6%85%E8%84%AB%E8%87%AA%E7%A7%81%E5%9F%BA%E5%9B%A0%E7%9A%84%E6%8E%8C%E6%8E%A7%EF%BC%9F/" class="md-nav__link">
+        [讀書筆記] 大腦簡史：生物經過四十億年的演化，大腦是否已經超脫自私基因的掌控？ (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/%E6%BB%B2%E9%80%8F%E6%80%A7%EF%BC%88Osmolarity%EF%BC%89vs.%20%E5%BC%B5%E6%80%A7%EF%BC%88Tonicity%EF%BC%89%EF%BC%8C%E5%8F%8A%E6%BB%B2%E9%80%8F%E6%BF%83%E5%BA%A6%EF%BC%88Osmolarity%EF%BC%89/" class="md-nav__link">
+        滲透性（Osmolarity）vs. 張性（Tonicity），及滲透濃度（Osmolarity）
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          07 電腦科學
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          07 電腦科學
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+          Linux
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/C%20%E8%AA%9E%E8%A8%80%20printf%20%E5%92%8C%20write%20%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        C 語言 printf 和 write 原理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20Job%20Control%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux Job Control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20TTY%20and%20VT%20subsystem%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux TTY and VT subsystem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20driver%20%E8%BC%89%E5%85%A5%E6%B5%81%E7%A8%8B%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux driver 載入流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20-%20Device%20%E5%8F%8A%20Device%20driver%20%28%E6%96%B0%29%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: Device 及 Device driver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20-%20Device%20%E5%8F%8A%20Device%20driver%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: Device 及 Device driver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20-%20Storage%20stack%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: Storage stack
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20-%20character%20devices%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: character devices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20-%20console%20%E5%88%9D%E5%A7%8B%E5%8C%96%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: console 初始化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20-%20framebuffer%20device%20%E5%8F%8A%20framebuffer%20console%20%E5%88%9D%E5%A7%8B%E5%8C%96%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: framebuffer device 及 framebuffer console 初始化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20-%20kernel%20logging%2C%20kernel%20ring%20buffer%2C%20printk%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: kernel logging, kernel ring buffer, printk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20-%20system%20call%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: system call
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20-%20virtual%20file%20system%20%28VFS%29%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: virtual file system (VFS)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20macro%20-%20container_of%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel macro: container_of
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20module%20%E8%BC%89%E5%85%A5%E6%B5%81%E7%A8%8B%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel module 載入流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20%E5%95%9F%E5%8B%95%E6%B5%81%E7%A8%8B%20%28%E5%BE%9E%20architecture-dependent%20kernel%20entry%20%E5%88%B0%20init%29%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel 啟動流程 (從 architecture dependent kernel entry 到 init) (草稿)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20%E5%87%BD%E5%BC%8F%E5%BA%AB%E7%9A%84%E5%BB%BA%E7%AB%8B%E3%80%81%E4%BD%BF%E7%94%A8%E8%88%87%E6%90%9C%E5%B0%8B%E8%B7%AF%E5%BE%91%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux 函式庫的建立、使用與搜尋路徑
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20%E5%89%AA%E8%B2%BC%E7%B0%BF%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        Linux 剪貼簿
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20%E5%95%9F%E5%8B%95%E6%B5%81%E7%A8%8B%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux 啟動流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20%E6%AA%94%E6%A1%88%E6%AC%8A%E9%99%90%E8%88%87%E5%B1%AC%E6%80%A7%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux 檔案權限與屬性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20%E9%97%9C%E9%96%89%E6%B5%81%E7%A8%8B%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux 關閉流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/X%20Window%20System%20-%20Display%20Name%20%E8%88%87%20X%20Server-Client%20%E7%9A%84%E5%95%9F%E5%8B%95/" class="md-nav__link">
+        X Window System: Display Name 與 X Server/Client 的啟動
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/X%20Window%20System%20-%20X%20Client%20%E5%A6%82%E4%BD%95%E8%88%87%20X%20Server%20%E9%80%9A%E8%A8%8A/" class="md-nav__link">
+        X Window System: X Client 如何與 X Server 通訊
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/XTerm%20%E7%9A%84%20Alternate%20Screen%20Buffer/" class="md-nav__link">
+        XTerm 的 Alternate Screen Buffer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/systemd-logind%20%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        systemd-logind 原理
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+          Web
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Web
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Web/%E7%B6%B2%E9%A0%81%E5%9C%96%E7%A4%BA/" class="md-nav__link">
+        網頁圖示 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+          Windows
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Windows
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Windows/Windows%20%E9%9A%B1%E8%97%8F%E7%A3%81%E5%8D%80/" class="md-nav__link">
+        Windows 隱藏磁區 (草稿)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+          作業系統
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          作業系統
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/MIT%206.S081%202021%20-%20xv6%20Labs%20%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE%20%28%E6%96%B0%29%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        MIT 6.S081 2021: xv6 Labs 環境配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/MIT%206.S081%202021%20-%20xv6%20Labs%20%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE%20%28%E8%88%8A%29/" class="md-nav__link">
+        xv6 (RISC-V 版本)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/Qemu%20RISC-V%20VirtIO%20board%20%E9%96%8B%E6%A9%9F%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        Qemu RISC-V VirtIO board 開機流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/RISC-V%20SBI%20%E4%BB%8B%E7%B4%B9/" class="md-nav__link">
+        RISC-V SBI 介紹
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/User-Mode%20Linux/" class="md-nav__link">
+        User-Mode Linux
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E4%BD%BF%E7%94%A8%20Qemu%20%E5%92%8C%20Visual%20Studio%20Code%20%E9%99%A4%E9%8C%AF%20Linux%20kernel%20%28RISC-V%29/" class="md-nav__link">
+        使用 Qemu 和 Visual Studio Code 除錯 Linux kernel (RISC-V)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E4%BD%BF%E7%94%A8%20Qemu%20%E5%92%8C%20Visual%20Studio%20Code%20%E9%99%A4%E9%8C%AF%20Linux%20kernel%20%28x86_64%29/" class="md-nav__link">
+        使用 Qemu 和 Visual Studio Code 除錯 Linux kernel (x86_64)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="0">
+          未分類
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          未分類
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/Continuation%20-%20%E4%BD%BF%E7%94%A8%20Scheme%20%E7%9A%84%20callcc%20%E5%AF%A6%E7%8F%BE%20generator/" class="md-nav__link">
+        Continuation: 使用 Scheme 的 call/cc 實現 generator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-01-problem-2.27/" class="md-nav__link">
+        【CS:APP 筆記】Problem 2.27 檢查無號整數相加是否溢位
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-02-c-details-of-declaring-pointers/" class="md-nav__link">
+        【CS:APP 筆記】C 語言中宣告指標的小細節
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-03-x86_64-jmp-notes/" class="md-nav__link">
+        【CS:APP 筆記】x86_64 中的 JMP 指令整理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-04-x86_64-flags/" class="md-nav__link">
+        【CS:APP 筆記】x86_64 旗標暫存器與大小判斷
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-05-rounding/" class="md-nav__link">
+        【CS:APP 筆記】數值修約(rounding)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-06-why-callee-saved-registers/" class="md-nav__link">
+        【CS:APP 筆記】為什麼要有 callee-saved 暫存器？(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-07-array-vs-pointer/" class="md-nav__link">
+        【CS:APP 筆記】陣列與指標間的一些區別與可變大小陣列
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-08-stack-and-uninitialized-local-variables/" class="md-nav__link">
+        【CS:APP 筆記】Stack 與未初始化的區域變數
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-09-x86_64-byte-order-of-push-and-pop/" class="md-nav__link">
+        【CS:APP 筆記】x86_64 PUSH 與 POP 的 byte order
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-10-p.259/" class="md-nav__link">
+        【CS:APP 筆記】P.259 多維陣列取值的組合語言另解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/io-models-blocking-nonblocking-synchronous-asynchronous/" class="md-nav__link">
+        I/O 模型：阻塞、非阻塞、同步、異步
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/%E4%BA%8B%E4%BB%B6%E8%BF%B4%E5%9C%88%E3%80%81IO%20%E6%A9%9F%E5%88%B6%E8%88%87%20CPU%20idle/" class="md-nav__link">
+        事件迴圈、I/O 機制與 CPU idle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%9C%AA%E5%88%86%E9%A1%9E/%E9%9B%BB%E8%B7%AF%E3%80%81%E9%82%8F%E8%BC%AF%E9%96%98%E3%80%81%E8%A8%88%E7%AE%97%E6%A9%9F%E5%92%8C%E9%9B%BB%E8%85%A6%E7%9A%84%E5%85%B6%E5%AE%83%E5%AF%A6%E7%8F%BE/" class="md-nav__link">
+        電路、邏輯閘、計算機和電腦的其它實現
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
+          機器學習
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          機器學習
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92/%5B%E8%AE%80%E8%AB%96%E6%96%87%5D%20Large-Scale%20Study%20of%20Curiosity-Driven%20Learning/" class="md-nav__link">
+        [讀論文] Large-Scale Study of Curiosity-Driven Learning
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="0">
+          程式設計
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          程式設計
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/how-to-read-code-efficiently/" class="md-nav__link">
+        如何高效阅读代码？ (轉載)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/unicode-you-dont-know/" class="md-nav__link">
+        其实你并不懂 Unicode (轉載)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7_3" id="__nav_7_7_3_label" tabindex="0">
+          資料結構與演算法
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_7_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          資料結構與演算法
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/%5B%E6%9C%89%E8%B6%A3%E7%A0%94%E7%A9%B6%5D%20%E5%BE%9E%E5%BD%B1%E5%83%8F%E7%9A%84%E6%A5%B5%E8%BC%95%E5%BE%AE%E9%9C%87%E5%8B%95%E9%82%84%E5%8E%9F%E5%87%BA%E7%8F%BE%E5%A0%B4%E8%81%B2%E9%9F%B3/" class="md-nav__link">
+        [有趣研究] 從影像的極輕微震動還原出現場聲音 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/%5B%E6%BC%94%E7%AE%97%E6%B3%95%E7%AD%86%E8%A8%98%5D%20%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B8%E5%88%97%E5%95%8F%E9%A1%8C%20Maximum%20Subarray%20Problem/" class="md-nav__link">
+        [演算法筆記] 最大子數列問題 Maximum Subarray Problem (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/algorithm-notes-optimal-substructure/" class="md-nav__link">
+        [演算法筆記] 最優子結構 Optimal Substructure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/fun-research-computational-periscopy-with-an-ordinary-digital-camera/" class="md-nav__link">
+        [有趣研究] 只要算法够厉害，白墙能当镜子用：我初中物理都白学了 | Nature新论文 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/%E7%94%9F%E6%88%90%E4%B8%8D%E9%87%8D%E8%A4%87%E9%9A%A8%E6%A9%9F%E6%95%B8%EF%BC%9AFisher-Yates%20shuffle/" class="md-nav__link">
+        生成不重複隨機數：Fisher-Yates shuffle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/%E7%9D%A1%E7%9C%A0%E6%8E%92%E5%BA%8F%20Sleep%20Sort/" class="md-nav__link">
+        睡眠排序 Sleep Sort
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="0">
+          計算數學
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_8">
+          <span class="md-nav__icon md-icon"></span>
+          計算數學
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/%E8%A8%88%E7%AE%97%E6%95%B8%E5%AD%B8/%E8%87%AA%E5%8B%95%E5%BE%AE%E5%88%86%20Automatic%20Differentiation/" class="md-nav__link">
+        自動微分 Automatic Differentiation (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          08 電腦實務
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          08 電腦實務
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1" id="__nav_8_1_label" tabindex="0">
+          01 我的設定
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_1_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          01 我的設定
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Arch%20Linux%20%28%E8%99%9B%E6%93%AC%E6%A9%9F%29/" class="md-nav__link">
+        Arch Linux (虛擬機)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Arch%20Linux%2001%20%E7%B3%BB%E7%B5%B1%E5%AE%89%E8%A3%9D/" class="md-nav__link">
+        Arch Linux 01 系統安裝
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Arch%20Linux%2002%20%E8%A8%AD%E5%AE%9A%E8%88%87%E5%B7%B2%E7%9F%A5%E5%95%8F%E9%A1%8C/" class="md-nav__link">
+        Arch Linux 02 設定與已知問題
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Arch Linux 03 軟體包清單
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Arch Linux 03 軟體包清單
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    說明
+  </a>
+  
+    <nav class="md-nav" aria-label="說明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    本文撰寫規則
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    更新注意事項
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pacman" class="md-nav__link">
+    Pacman 指令速查
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    系統程式
+  </a>
+  
+    <nav class="md-nav" aria-label="系統程式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    最小可用系統
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-kernel-module" class="md-nav__link">
+    Linux Kernel Module
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    網路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    開機
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    虛擬機工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    圖形界面
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    應用程式
+  </a>
+  
+    <nav class="md-nav" aria-label="應用程式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    實用工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    文書處理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    圖形與多媒體
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    網際網路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    教育
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    開發
+  </a>
+  
+    <nav class="md-nav" aria-label="開發">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    開發工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    程式語言
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    系統
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    棄用的軟體包
+  </a>
+  
+    <nav class="md-nav" aria-label="棄用的軟體包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    系統程式
+  </a>
+  
+    <nav class="md-nav" aria-label="系統程式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    系統
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    圖形界面
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    應用程式
+  </a>
+  
+    <nav class="md-nav" aria-label="應用程式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    文書處理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    圖形與多媒體
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    網際網路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    教育
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    開發
+  </a>
+  
+    <nav class="md-nav" aria-label="開發">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    開發工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    程式語言
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    系統
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Arch%20Linux%2004%20%E9%9B%9C%E9%A0%85/" class="md-nav__link">
+        Arch Linux 04 雜項
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Arch%20Linux%2005%20%E4%BD%BF%E7%94%A8%20Wayland%20%E5%92%8C%20PipeWire%20%E5%8F%96%E4%BB%A3%20X%20Window%20System%20%E5%92%8C%20Pulseaudio%20%E8%88%87%20JACK/" class="md-nav__link">
+        Arch Linux 05 使用 Wayland 和 PipeWire 取代 X Window System 和 Pulseaudio 與 JACK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../VMware%20Workstation/" class="md-nav__link">
+        VMware Workstation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Visual%20Studio%20Code/" class="md-nav__link">
+        Visual Studio Code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows%2010%20%28%E8%99%9B%E6%93%AC%E6%A9%9F%29/" class="md-nav__link">
+        Windows 10 (虛擬機)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows%2010/" class="md-nav__link">
+        Windows 10
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows%2011%20%28%E8%99%9B%E6%93%AC%E6%A9%9F%29/" class="md-nav__link">
+        Windows 11 (虛擬機)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows%2011%20%E5%B7%A5%E5%85%B7%E5%88%97%E3%80%81%E9%96%8B%E5%A7%8B%E5%8A%9F%E8%83%BD%E8%A1%A8%E9%82%84%E5%8E%9F%E7%A8%8B%E5%BC%8F%E8%A9%95%E6%B8%AC/" class="md-nav__link">
+        Windows 11 工具列、開始功能表還原程式評測
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows%2011%20%E7%95%8C%E9%9D%A2%E8%AA%BF%E6%A0%A1/" class="md-nav__link">
+        Windows 11 界面調校
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Windows%20Subsystem%20for%20Linux%20%28WSL%29/" class="md-nav__link">
+        Windows Subsystem for Linux (WSL)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+          02 Linux
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_2">
+          <span class="md-nav__icon md-icon"></span>
+          02 Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Bash%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        Bash 使用技巧 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Bash%20%E5%9C%A8%20Emacs%20%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E5%BF%AB%E9%80%9F%E9%8D%B5%E5%92%8C%E5%85%B6%E8%A1%9D%E7%AA%81%E5%88%97%E8%A1%A8/" class="md-nav__link">
+        Bash 在 Emacs 模式下的快速鍵和其衝突列表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Bash%20%E5%A6%82%E4%BD%95%E5%B1%95%E9%96%8B%20asterisk%20%E8%87%AA%E5%8B%95%E8%A3%9C%E5%85%A8/" class="md-nav__link">
+        Bash 如何展開 * 自動補全
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Bash%20%E5%A6%82%E4%BD%95%E8%BC%B8%E5%85%A5%E5%90%8C%E8%B3%87%E6%96%99%E5%A4%BE%E4%B8%8B%E7%9A%84%E6%AA%94%E5%90%8D%E4%BD%86%E4%B8%8D%E9%87%8D%E8%A4%87%E8%BC%B8%E5%85%A5%E8%B7%AF%E5%BE%91/" class="md-nav__link">
+        Bash 如何輸入同資料夾下的檔名但不重複輸入路徑
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/GCC%20%E9%80%A3%E7%B5%90%E6%99%82%E7%9A%84%E5%8F%83%E6%95%B8%E6%9C%89%E5%85%88%E5%BE%8C%E9%A0%86%E5%BA%8F/" class="md-nav__link">
+        GCC 連結時的參數有先後順序
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/GNU%20Binutils%20-%20a%20collection%20of%20binary%20tools%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        GNU Binutils: a collection of binary tools
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/GNU%20Coreutils%20-%20the%20basic%20file%2C%20shell%20and%20text%20manipulation%20utilities%20of%20the%20GNU%20operating%20system/" class="md-nav__link">
+        GNU Coreutils: the basic file, shell and text manipulation utilities of the GNU operating system
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Linux%20Kernel%20%E5%BB%BA%E7%BD%AE%20-%20%E8%A8%AD%E5%AE%9A%E7%89%88%E6%9C%AC%E8%99%9F/" class="md-nav__link">
+        Linux Kernel 建置: 設定版本號
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Linux%20cp%20%E8%88%87%20install%20%E6%8C%87%E4%BB%A4%E6%AF%94%E8%BC%83/" class="md-nav__link">
+        Linux cp 與 install 指令比較
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Linux%20%E5%9B%A0%E7%82%BA%20Intel%20IBT%20%E5%B0%8E%E8%87%B4%E7%84%A1%E6%B3%95%E8%BC%89%E5%85%A5%20module%20%E5%95%8F%E9%A1%8C/" class="md-nav__link">
+        Linux 因為 Intel IBT 導致無法載入 module 問題
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Linux%20%E5%9F%B7%E8%A1%8C%E7%A8%8B%E5%BC%8F%E6%99%82%E5%87%BA%E7%8F%BE%20No%20such%20file%20or%20directory%20%E9%8C%AF%E8%AA%A4/" class="md-nav__link">
+        Linux 執行程式時出現 No such file or directory 錯誤
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Linux%20%E5%BC%B7%E5%88%B6%E6%9B%B4%E6%96%B0%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E6%B8%85%E5%96%AE%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux 強制更新應用程式清單
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Linux%20%E5%BE%9E%20kernel%20parameter%20%E7%A6%81%E7%94%A8%E7%89%B9%E5%AE%9A%20module/" class="md-nav__link">
+        Linux 從 kernel parameter 禁用特定 module
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Linux%20%E6%AF%94%E8%BC%83%E5%92%8C%E5%90%8C%E6%AD%A5%E5%85%A9%E5%80%8B%E8%B3%87%E6%96%99%E5%A4%BE%E7%9A%84%E6%93%81%E6%9C%89%E8%80%85%E5%92%8C%E6%AC%8A%E9%99%90/" class="md-nav__link">
+        Linux 比較和同步兩個資料夾的所有權和權限
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Linux%20%E7%95%B6%E6%A9%9F%E8%99%95%E7%90%86%E8%88%87%20Magic%20SysRq%20Key/" class="md-nav__link">
+        Linux 當機處理與 Magic SysRq Key
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Linux%20%E9%9A%B1%E8%97%8F%20Windows%20%E7%B3%BB%E7%B5%B1%E6%AA%94%E6%A1%88/" class="md-nav__link">
+        Linux 隱藏 Windows 系統檔案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Linux%20%E9%A1%AF%E7%A4%BA%E6%8E%9B%E8%BC%89%E9%BB%9E%E8%B3%87%E8%A8%8A/" class="md-nav__link">
+        Linux 顯示已掛載的裝置資訊
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Readline%20%28%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8%E8%80%85%20Bash%29%20%E6%8C%89%E9%8D%B5%E9%80%9F%E6%9F%A5%E8%A1%A8%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Readline (及其使用者 Bash) 按鍵速查表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Systemd%20%E9%80%9F%E6%9F%A5%E8%A1%A8/" class="md-nav__link">
+        Systemd 速查表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Vim%20%E4%BB%A5%20root%20%E6%AC%8A%E9%99%90%E9%96%8B%E5%95%9F%E3%80%81%E9%96%8B%E5%95%9F%E5%BE%8C%E4%BB%A5%20root%20%E6%AC%8A%E9%99%90%E5%84%B2%E5%AD%98%E4%BB%A5%E5%8F%8A%E5%BC%B7%E5%88%B6%E5%AF%AB%E5%85%A5%E7%9A%84%E7%96%91%E5%95%8F/" class="md-nav__link">
+        Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Vim%20%E5%9F%B7%E8%A1%8C%20shell%20%E6%8C%87%E4%BB%A4%E5%92%8C%E8%BC%B8%E5%87%BA%E5%85%A5%E9%87%8D%E5%AE%9A%E5%90%91/" class="md-nav__link">
+        Vim 執行 shell 指令和輸出入重定向
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/Virtualbox%20-%20%E6%8E%9B%E8%BC%89%20VirtualBox%20VDI%20%E7%A3%81%E7%A2%9F%E6%98%A0%E5%83%8F%E6%AA%94/" class="md-nav__link">
+        Virtualbox: 掛載 VirtualBox VDI 磁碟映像檔
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/cp%20-%20omitting%20directory%20%E9%8C%AF%E8%AA%A4/" class="md-nav__link">
+        cp: omitting directory 錯誤
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/cp%20%E8%A4%87%E8%A3%BD%E5%8C%85%E5%90%AB%E9%9A%B1%E8%97%8F%E6%AA%94%E5%9C%A8%E5%85%A7%E7%9A%84%E6%89%80%E6%9C%89%E6%AA%94%E6%A1%88/" class="md-nav__link">
+        cp 複製包含隱藏檔在內的所有檔案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/dd%20-%20%E8%A3%BD%E4%BD%9C%E5%8F%AF%E9%96%8B%E6%A9%9F%20USB/" class="md-nav__link">
+        dd: 製作可開機 USB
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/ps%20%E5%8F%83%E6%95%B8%E6%95%B4%E7%90%86/" class="md-nav__link">
+        ps 參數整理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/sudo%20-%20%E7%82%BA%E4%BB%80%E9%BA%BC%E4%BD%BF%E7%94%A8%20sudo%20%E4%BB%8D%E5%BE%97%E5%88%B0%20Permission%20denied%EF%BC%9F/" class="md-nav__link">
+        sudo: 為什麼使用 sudo 仍得到 Permission denied？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/util-linux%20-%20a%20random%20collection%20of%20Linux%20utilities%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        util-linux: a random collection of Linux utilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02%20Linux/%E4%BF%AE%E5%BE%A9%E5%BC%B7%E5%88%B6%E9%97%9C%E6%A9%9F%E5%B0%8E%E8%87%B4%E7%84%A1%E6%B3%95%E6%8E%9B%E8%BC%89%20NTFS%20%E5%88%86%E5%89%B2%E5%8D%80/" class="md-nav__link">
+        修復強制關機導致無法掛載 NTFS 分割區
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_3" id="__nav_8_3_label" tabindex="0">
+          03 Windows
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_3">
+          <span class="md-nav__icon md-icon"></span>
+          03 Windows
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Windows/Windows%2010%20%E6%9C%AC%E6%A9%9F%E9%9A%B1%E8%97%8F%E9%A0%90%E8%A8%AD%E8%B3%87%E6%96%99%E5%A4%BE/" class="md-nav__link">
+        Windows 10 本機隱藏預設資料夾 (TBD)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Windows/Windows%20%E5%81%9C%E6%AD%A2%E7%94%A2%E7%94%9F%20Zone.Identifier%20%E6%AA%94%E6%A1%88/" class="md-nav__link">
+        Windows 停止產生 Zone.Identifier 檔案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03%20Windows/Windows%20%E5%8F%B3%E9%8D%B5%E9%81%B8%E5%96%AE%E5%8A%A0%E5%85%A5%E5%9C%A8%E9%80%99%E8%A3%A1%E9%96%8B%E5%95%9F%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E5%AD%97%E5%85%83/" class="md-nav__link">
+        Windows 右鍵選單加入「在這裡開啟命令提示字元」 (TBD)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_4" id="__nav_8_4_label" tabindex="0">
+          04 應用程式
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_4">
+          <span class="md-nav__icon md-icon"></span>
+          04 應用程式
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Adobe%20Flash%20Player%20%E7%B5%90%E6%9D%9F%E6%9C%8D%E5%8B%99%E5%BE%8C%E7%B9%BC%E7%BA%8C%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        Adobe Flash Player 結束服務後繼續使用的方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Android%20%E5%81%9C%E7%94%A8%E7%84%A1%E6%B3%95%E5%81%9C%E7%94%A8%E7%9A%84%E5%85%A7%E5%BB%BA%20APP/" class="md-nav__link">
+        Android 停用無法停用的內建 APP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Android%20%E7%99%BB%E5%85%A5%20Gmail%20%E4%BD%86%E4%B8%8D%E8%A6%81%E5%8A%A0%E5%85%A5%20Google%20%E5%B8%B3%E8%99%9F%E5%88%B0%E6%89%8B%E6%A9%9F/" class="md-nav__link">
+        Android 登入 Gmail 但不要加入 Google 帳號到手機
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Firefox%20AV1%20glitch%20%E5%95%8F%E9%A1%8C/" class="md-nav__link">
+        Firefox AV1 glitch 問題
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Firefox%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        Firefox 使用技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Git%20-%20Rebase%20a%20Merge%20Commit/" class="md-nav__link">
+        Git: Rebase a Merge Commit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Git%20%E6%AA%94%E6%A1%88%E7%A7%BB%E5%8B%95%E5%92%8C%E6%9B%B4%E5%90%8D/" class="md-nav__link">
+        Git 檔案移動和更名
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Google%20Chrome%20%28Android%20%E7%89%88%29%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        Google Chrome (Android 版) 使用技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Google%20Chrome%20%28%E9%9B%BB%E8%85%A6%E7%89%88%29%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        Google Chrome (電腦版) 使用技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Google%20Chrome%20%E5%BC%B7%E5%88%B6%E4%BD%BF%E7%94%A8%E7%B9%81%E4%B8%AD%E4%BD%9C%E7%82%BA%20UI%20%E8%AA%9E%E8%A8%80/" class="md-nav__link">
+        Google Chrome 強制使用繁中作為 UI 語言 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Microsoft%20Office%20PowerPoint%20%E4%B8%8D%E8%A6%81%E9%81%B8%E5%8F%96%E6%AE%B5%E8%90%BD%E6%A8%99%E8%A8%98/" class="md-nav__link">
+        Microsoft Office PowerPoint 不要選取段落標記
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Microsoft%20Office%20PowerPoint%20%E5%8C%AF%E5%87%BA%20PDF%20%E5%BE%8C%E5%9C%96%E7%89%87%E6%B6%88%E5%A4%B1/" class="md-nav__link">
+        Microsoft Office PowerPoint 匯出 PDF 後圖片消失
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Microsoft%20Office%20Word%20%E4%B8%8D%E8%A6%81%E9%81%B8%E5%8F%96%E6%AE%B5%E8%90%BD%E6%A8%99%E8%A8%98/" class="md-nav__link">
+        Microsoft Office Word 不要選取段落標記
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Microsoft%20Office%20Word%20%E4%BF%AE%E6%AD%A3%E8%AE%8A%E6%9B%B4%E5%AD%97%E9%AB%94%E5%A4%A7%E5%B0%8F%E5%BE%8C%E8%A1%8C%E8%B7%9D%E8%B7%91%E6%8E%89%E7%9A%84%E5%95%8F%E9%A1%8C/" class="md-nav__link">
+        Microsoft Office Word 修正變更字體大小後行距跑掉的問題
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Microsoft%20Office%20Word%20%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87%E4%B8%A6%E8%A8%AD%E7%BD%AE%E7%82%BA%E3%80%8C%E8%88%87%E6%96%87%E5%AD%97%E6%8E%92%E5%88%97%E3%80%8D%EF%BC%8C%E5%9C%96%E7%89%87%E5%8D%BB%E8%A2%AB%E5%88%87%E6%8E%89/" class="md-nav__link">
+        Microsoft Office Word 插入圖片並設置為「與文字排列」，圖片卻被切掉
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/PDF%20-%20%E5%B0%87%20PDF%20%E7%9A%84%E6%89%80%E6%9C%89%E6%9B%B8%E7%B1%A4%E4%B8%80%E6%AC%A1%E6%94%B9%E7%82%BA%E6%89%BF%E8%A5%B2%E7%B8%AE%E6%94%BE/" class="md-nav__link">
+        PDF: 將 PDF 的所有書籤一次改為承襲縮放
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Python%20%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%AB%8B%E4%B8%80%E5%80%8B%E7%B0%A1%E5%96%AE%E7%9A%84%20HTTP%20%E4%BC%BA%E6%9C%8D%E5%99%A8/" class="md-nav__link">
+        Python 快速建立一個簡單的 HTTP 伺服器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/VirtualBox%20-%20%E7%B8%AE%E5%B0%8F%20VirtualBox%20VDI%20%E8%99%9B%E6%93%AC%E7%A1%AC%E7%A2%9F%E6%AA%94%E5%A4%A7%E5%B0%8F/" class="md-nav__link">
+        VirtualBox: 縮小 VirtualBox VDI 虛擬硬碟檔大小
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Word%20%E6%96%87%E4%BB%B6%E6%A0%BC%E7%B7%9A%E8%88%87%E8%A1%8C%E8%B7%9D%E5%8E%9F%E7%90%86%EF%BC%9A%E7%82%BA%E4%BD%95%E8%AA%BF%E6%95%B4%E5%AD%97%E5%9E%8B%E6%88%96%E5%AD%97%E9%AB%94%E5%A4%A7%E5%B0%8F%E5%BE%8C%E8%A1%8C%E8%B7%9D%E6%9C%83%E6%94%B9%E8%AE%8A%EF%BC%9F/" class="md-nav__link">
+        Word 文件格線與行距原理：為何調整字型或字體大小後行距會改變？
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5" id="__nav_8_5_label" tabindex="0">
+          05 程式設計
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5">
+          <span class="md-nav__icon md-icon"></span>
+          05 程式設計
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5_1" id="__nav_8_5_1_label" tabindex="0">
+          C 與 C++
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_5_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          C 與 C++
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20Compound%20Literals/" class="md-nav__link">
+        C 語言: Compound Literals
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20Compound%20Statement/" class="md-nav__link">
+        C 語言: Compound Statement
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20Declaration%20and%20Definition%20%E8%88%87%20Storage-Class/" class="md-nav__link">
+        C 語言: Declaration/Definition 與 Storage-Class
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20Expression%20%E8%88%87%20Statement%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        C 語言: Expression 與 Statement
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20%E5%8F%96%E5%BE%97%E5%96%AE%E4%B8%80%E5%AD%97%E5%85%83%E7%9A%84%E5%87%BD%E6%95%B8%20-%20getchar%28%29%2C%20getch%28%29%2C%20getche%28%29/" class="md-nav__link">
+        C 語言: 取得單一字元的函數: getchar(), getch(), getche()
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20%E7%9B%B4%E6%8E%A5%E5%B0%8D%20String%20literal%20%E5%81%9A%20Array%20subscripting/" class="md-nav__link">
+        C 語言: 直接對 String literal 做 Array subscripting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20%E8%B7%A8%E5%B9%B3%E5%8F%B0%20sleep%28%29/" class="md-nav__link">
+        C 語言: 跨平台 sleep()
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/c-error-a-label-can-only-be-part-of-a-statement-and-a-declaration-is-not-a-statement/" class="md-nav__link">
+        C語言編譯時的 a label can only be part of a statement and a declaration is not a statement 錯誤
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/cling-interactive-cpp-interpreter-tutorial/" class="md-nav__link">
+        Cling: Interactive C++ Interpreter 使用指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/cpp-class-default-constructor-copy-constructor-copy-assignment-operator-and-destructor/" class="md-nav__link">
+        C++ Class: default constructor, copy constructor, copy-assignment operator, and destructor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/cpp11-rvalue-reference-move-semantics-and-perfect-forwarding/" class="md-nav__link">
+        C++11 右值引用、移動語意和完美轉發
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5_2" id="__nav_8_5_2_label" tabindex="0">
+          Java
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_5_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Java
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Java/java-compilation-and-execution/" class="md-nav__link">
+        Java 編譯與執行 (TBD)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Java/java-notes/" class="md-nav__link">
+        Java 筆記
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Java/java-packaging/" class="md-nav__link">
+        Java 打包程式 (TBD)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Java/javafx-compilation-and-execution/" class="md-nav__link">
+        JavaFX 編譯與執行
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Java/junit-5-without-buid-tools/" class="md-nav__link">
+        不使用建置工具使用 JUnit 5
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5_3" id="__nav_8_5_3_label" tabindex="0">
+          LeetCode
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_5_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          LeetCode
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-1-two-sum/" class="md-nav__link">
+        [LeetCode] 1. Two Sum(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-198-house-robber/" class="md-nav__link">
+        [LeetCode] 198. House Robber(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-213-house-robber-ii/" class="md-nav__link">
+        [LeetCode] 213. House Robber II(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-338-counting-bits/" class="md-nav__link">
+        [LeetCode] 338. Counting Bits(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-343-integer-break/" class="md-nav__link">
+        [LeetCode] 343. Integer Break(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-5-longest-palindromic-substring/" class="md-nav__link">
+        [LeetCode] 5. Longest Palindromic Substring(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-70-climbing-stairs/" class="md-nav__link">
+        [LeetCode] 70. Climbing Stairs(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-747-largest-number-at-least-twice-of-others/" class="md-nav__link">
+        [LeetCode] 747. Largest Number At Least Twice of Others(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-88-merge-sorted-array/" class="md-nav__link">
+        [LeetCode] 88. Merge Sorted Array(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5_4" id="__nav_8_5_4_label" tabindex="0">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_5_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Python/python-execution-model/" class="md-nav__link">
+        Python 執行模式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Python/python-nested-module-and-relative-import/" class="md-nav__link">
+        Python 巢狀 module 和 relative import
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Python/python-package-to-single-file/" class="md-nav__link">
+        Python 打包資料夾成單一檔案
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5_5" id="__nav_8_5_5_label" tabindex="0">
+          Text Based User Interfaces (TUI)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_5_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Text Based User Interfaces (TUI)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Text-Based%20User%20Interfaces%20%28TUI%29/Curses/" class="md-nav__link">
+        Curses
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Text-Based%20User%20Interfaces%20%28TUI%29/%E5%8F%8D%E6%A8%B8%E6%AD%B8%E7%9C%9F%20-%20%E6%96%87%E5%AD%97%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%20%28%E8%BD%89%E8%BC%89%29/" class="md-nav__link">
+        反樸歸真: 文字模式下的程式設計 (轉載)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_6" id="__nav_8_6_label" tabindex="0">
+          06 未分類
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_6">
+          <span class="md-nav__icon md-icon"></span>
+          06 未分類
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20%E6%9C%AA%E5%88%86%E9%A1%9E/Linux%20%E5%92%8C%20Windows%20%E6%AA%94%E6%A1%88%E5%90%8D%E7%A8%B1%E5%AD%97%E5%85%83%E9%99%90%E5%88%B6/" class="md-nav__link">
+        Linux 和 Windows 檔案名稱字元限制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20%E6%9C%AA%E5%88%86%E9%A1%9E/MM%20Sorting%20Machine/" class="md-nav__link">
+        M&M Sorting Machine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20%E6%9C%AA%E5%88%86%E9%A1%9E/Noto%20CJK%20%E5%92%8C%20Source%20Han%20%E5%AD%97%E5%9E%8B%E6%AF%94%E8%BC%83/" class="md-nav__link">
+        Noto CJK 和 Source Han 字型比較 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20%E6%9C%AA%E5%88%86%E9%A1%9E/%E4%BD%BF%E7%94%A8%20FFmpeg%20%E4%B8%8B%E8%BC%89%20HLS%20%28m3u8%29%20%E4%B8%B2%E6%B5%81%E5%BD%B1%E7%89%87/" class="md-nav__link">
+        使用 FFmpeg 下載 HLS (m3u8) 串流影片
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../06%20%E6%9C%AA%E5%88%86%E9%A1%9E/%E9%96%8B%E6%BA%90%E4%BA%BA%E5%B9%B4%E6%9C%83%20COSCUP%202018%20%E6%9C%83%E5%BE%8C%E7%AD%86%E8%A8%98/" class="md-nav__link">
+        開源人年會 COSCUP 2018 會後筆記 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          10 其他
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          10 其他
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10%20%E5%85%B6%E4%BB%96/%5B%E6%97%A5%E8%AA%9E%E7%B7%B4%E7%BF%92-%E6%AD%8C%E8%A9%9E%E7%BF%BB%E8%AD%AF%5D%20%E5%83%95%E3%81%8C%E6%AD%BB%E3%81%AE%E3%81%86%E3%81%A8%E6%80%9D%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%AF/" class="md-nav__link">
+        [日語練習-歌詞翻譯] 僕が死のうと思ったのは (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10%20%E5%85%B6%E4%BB%96/%E4%BD%BF%E7%94%A8%E7%A4%BA%E6%B3%A2%E5%99%A8%20XY%20%E6%A8%A1%E5%BC%8F%E7%95%AB%E5%9C%96/" class="md-nav__link">
+        使用示波器 XY 模式畫圖
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+          網站除錯
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_9_3">
+          <span class="md-nav__icon md-icon"></span>
+          網站除錯
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10%20%E5%85%B6%E4%BB%96/%E7%B6%B2%E7%AB%99%E9%99%A4%E9%8C%AF/" class="md-nav__link">
+        Welcome to MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10%20%E5%85%B6%E4%BB%96/%E7%B6%B2%E7%AB%99%E9%99%A4%E9%8C%AF/debug/" class="md-nav__link">
+        網頁 Debug
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    說明
+  </a>
+  
+    <nav class="md-nav" aria-label="說明">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    本文撰寫規則
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    更新注意事項
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pacman" class="md-nav__link">
+    Pacman 指令速查
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    系統程式
+  </a>
+  
+    <nav class="md-nav" aria-label="系統程式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    最小可用系統
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-kernel-module" class="md-nav__link">
+    Linux Kernel Module
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    網路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    開機
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    虛擬機工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    圖形界面
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    應用程式
+  </a>
+  
+    <nav class="md-nav" aria-label="應用程式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    實用工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    文書處理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    圖形與多媒體
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    網際網路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    教育
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    開發
+  </a>
+  
+    <nav class="md-nav" aria-label="開發">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    開發工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    程式語言
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    系統
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    棄用的軟體包
+  </a>
+  
+    <nav class="md-nav" aria-label="棄用的軟體包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    系統程式
+  </a>
+  
+    <nav class="md-nav" aria-label="系統程式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    系統
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    圖形界面
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    應用程式
+  </a>
+  
+    <nav class="md-nav" aria-label="應用程式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    文書處理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    圖形與多媒體
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    網際網路
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    教育
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    開發
+  </a>
+  
+    <nav class="md-nav" aria-label="開發">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    開發工具
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    程式語言
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    系統
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="arch-linux-03">Arch Linux 03 軟體包清單</h1>
+<h2 id="_1">說明</h2>
+<h3 id="_2">本文撰寫規則</h3>
+<ul>
+<li>軟體包名稱沒有後綴的來自 Arch Linux 官方軟體庫，有 <code>@A</code> 後綴的來自 Arch User Repository (AUR)，有 <code>@O</code> 後綴的代表其它安裝方式。</li>
+<li>若軟體包名稱中有空格，則使用括號將其包起來，例如: <code>(Package 1)</code></li>
+<li>標注 <code>[未安裝]</code> 表示目前電腦上未<strong>手動</strong>安裝的軟體包 (但有可能作為依賴被安裝)</li>
+<li>標注 <code>[不須手動安裝]</code> 表示會作為其他軟體包的依賴被安裝，不須手動安裝</li>
+</ul>
+<p>條目範本:</p>
+<div class="highlight"><pre><span></span><code>## 大分類
+### 小分類
+* **軟體名稱或群組名稱** (軟體種類或簡易說明)    &lt;!-- 二擇一，群組不一定需要加上說明 (因為群組名稱就是說明了) --&gt;
+    * 軟體包: `package1 package2 package3 ...`，可選: `package4 ...`    &lt;!-- 全部放在同一個程式碼區塊內，以方便複製 --&gt;
+        * 依賴關係: `package1` 依賴於 `package2`，可選依賴於 `package2`；`package2` 依賴於 `package3`
+            * 依賴關係說明
+        * 軟體包功能說明和安裝理由
+    * 新增檔案: `~/.package1`, `~/.package2`, ...
+        * 新增檔案說明
+    * 設定
+        * 設定說明
+    * 說明
+        * 其他說明
+</code></pre></div>
+<h3 id="_3">更新注意事項</h3>
+<ul>
+<li>更新前軟體包前，建議先更新鏡像伺服器列表。</li>
+<li>更新前記得閱讀 Arch Linux 首頁的 news (或訂閱 arch-announce)，確認是否有需要人工干預的更新。<br/>
+  在更新重要軟體包 (如: kernel, xorg, systemd, glibc) 前，先進行備份，並到論壇看看是否有災情，不要在要使用電腦執行重要工作前更新。<br/>
+<a href="https://wiki.archlinux.org/index.php/System_maintenance#Read_before_upgrading_the_system">System maintenance - ArchWiki</a></li>
+<li>使用 AUR 所安裝的 Python 模組，需在 Python 更新後重新 <code>makepkg</code>(3.8 -&gt; 3.9 才要，3.8.1 -&gt; 3.8.2 不用)</li>
+</ul>
+<h3 id="pacman">Pacman 指令速查</h3>
+<ul>
+<li>pacman 會保留所有下載過的軟體包作為快取，佔用很大儲存空間，可以執行 <code>sudo pacman -Scc</code> 清理全部，或執行 <code>sudo paccache -r</code> 保留最新的三個版本並清除其它更舊的版本。</li>
+<li>使用 <code>sudo pacman -S --needed &lt;package&gt;</code> 可以避免重新安裝已經安裝(且為最新版本)的軟體包。</li>
+<li>使用 <code>sudo pacman -D --asdeps &lt;package&gt;</code> 可以指定軟體包為 "作為其他軟體包的依賴安裝"，
+  使用 <code>sudo pacman -D --asexplicit &lt;package&gt;</code> 可以指定軟體包為 "單獨指定安裝"。</li>
+<li>使用 <code>pacman -Qm</code> 可以列出所有已安裝的，非 Arch Linux 官方軟體庫的軟體包 (如: AUR)。</li>
+<li>查看軟體包擁有的檔案<ul>
+<li>已安裝的軟體包: <code>pacman -Ql &lt;package&gt;</code></li>
+<li>未安裝的軟體包<ul>
+<li>下載檔案資料庫: <code>sudo pacman -Fyy</code> (會下載到 <code>/var/lib/pacman/sync/&lt;repo&gt;.files</code>，裡面包含該 repo 的軟體包所擁有的檔案清單)</li>
+<li>查詢: <code>pacman -Fl &lt;package&gt;</code> (<code>pacman -Sl &lt;package&gt;</code> 沒用)</li>
+<li>刪除檔案資料庫: 刪除 <code>/var/lib/pacman/sync/&lt;repo&gt;.files</code> 即可</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>查看 orphan packages: 執行 <code>pacman -Qtdq</code> (還可以安裝 <code>pacman-log-orphans-hook@A</code> (見下文))</li>
+<li><a href="https://wiki.archlinux.org/title/Arch_Linux_Archive">Arch Linux Archive</a> 提供官方編譯的舊版本軟體包，可供降級時使用 (詳細說明見該網頁)<ul>
+<li>軟體包可下載後執行 <code>sudo pacman -U &lt;file&gt;</code> 安裝，亦可直接執行 <code>sudo pacman -U &lt;URL&gt;</code> 安裝 (後者會自動下載 <code>&lt;URL&gt;.sig</code> (detached OpenPGP signature) 並驗證軟體包)</li>
+</ul>
+</li>
+</ul>
+<h2 id="_4">系統程式</h2>
+<h3 id="_5">最小可用系統</h3>
+<ul>
+<li>
+<p><strong>基本工具</strong></p>
+<ul>
+<li>軟體包: <code>base bash-completion</code><ul>
+<li>依賴關係: <code>bash</code> 可選依賴於 <code>bash-completion</code></li>
+<li><code>base</code>: 為 meta package，包含 <code>archlinux-keyring bash bzip2 coreutils file filesystem findutils gawk gcc-libs gettext glibc grep gzip iproute2 iputils licenses pacman pciutils procps-ng psmisc sed shadow systemd systemd-sysvcompat tar util-linux xz</code> (執行 <code>LC_ALL=C pacman -Qi base | grep 'Depends On' | sed 's/Depends On.*: //' | tr -s ' ' '\n' | sort | tr '\n' ' '</code> 可得此清單)</li>
+<li><code>bash-completion</code>: 不屬於最小可用系統，但因為 <code>bash</code> 在此安裝，故同樣註記於此</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Linux kernel</strong></p>
+<ul>
+<li>軟體包: <code>linux</code> 或其他 Arch Linux 預編譯的 kernel，推薦 (但不一定要) 同時安裝 <code>linux-lts</code><ul>
+<li><a href="https://wiki.archlinux.org/title/kernel#Officially_supported_kernels">Kernel - ArchWiki</a></li>
+<li><code>linux-lts</code>: Linux LTS kernel，作為萬一最新的 kernel 無法使用時的備用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Firmware</strong></p>
+<ul>
+<li>軟體包: <code>linux-firmware</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="linux-kernel-module">Linux Kernel Module</h3>
+<ul>
+<li><strong>Dynamic Kernel Module Support (DKMS)</strong><ul>
+<li>軟體包: <code>dkms</code> <strong>及</strong>已安裝的 kernel 的 header files (例如: <code>linux</code> 需要 <code>linux-headers</code>、<code>linux-lts</code> 需要 <code>linux-lts-headers</code>)<ul>
+<li>Arch Linux 已經預編譯了一些 kernel module，但只有給最新的 kernel (<code>linux</code>)</li>
+<li>若 (1) 不使用最新的 kernel (<code>linux</code>) 或 (2) 同時有安裝其他 kernel，就必須使用 <code>dkms</code></li>
+<li>另外，Arch Linux 預編譯的 kernel module 通常會與 <code>dkms</code> 衝突，只能安裝該軟體包或 <code>dkms</code> 其中一個</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>通常當 kernel 或某個 kernel module 更新後，pacman 會自動執行 DKMS 來重新建置 kernel module</li>
+<li>若需要手動重新建置，見 <a href="https://wiki.archlinux.org/title/Dynamic_Kernel_Module_Support">Dynamic Kernel Module Support - ArchWiki</a></li>
+<li>見 VirtualBox 一節</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_6">網路</h3>
+<ul>
+<li>
+<p><strong>Netfilter framework</strong></p>
+<ul>
+<li>軟體包: <code>nftables iptables-nft</code><ul>
+<li>依賴關係: <code>iptables-nft</code> 依賴於 <code>nftables</code>；<code>iptables-nft</code> 取代 <code>iptables</code>；<code>iptables-nft</code> 提供 <code>iptables</code></li>
+<li><code>base</code> meta package 的 <code>iproute2</code> 和 <code>systemd</code> 依賴於 <code>iptables</code>，但於安裝 <code>base</code> 時，無法選擇使用 <code>iptables-nft</code>，所以要手動安裝</li>
+</ul>
+</li>
+<li>設定<ul>
+<li><code>nftables.service</code>、<code>iptables.service</code> 和 <code>ip6tables.service</code> 是 <code>nftables</code> 和 <code>iptables/iptables-nft</code> 自帶的簡單防火牆，若有使用其他防火牆管理工具 (如: UFW)，就不需要啟動</li>
+</ul>
+</li>
+<li>說明<ul>
+<li><a href="https://en.wikipedia.org/wiki/Netfilter">Netfilter - Wikipedia</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/81866818">理解 Linux 下的 Netfilter/iptables - 知乎</a></li>
+<li>Netfilter framework<ul>
+<li>Netfilter framework 提供了 packet filtering, network address translation (NAT), 和 port translation 功能</li>
+<li>從網路界面卡進入本機的 packet 會 "流經 Netfilter" 往送往本機應用程式或送出網路介面卡，Netfilter 在此 "流動過程" 中提供了數個 hooks</li>
+<li>kernel modules 可以向 Netfilter hooks 註冊 callback functions 來達成前述功能，複數 kernel module 提供了不同的功能</li>
+</ul>
+</li>
+<li>iptables<ul>
+<li><code>ip_tables</code>, <code>ip6_tables</code>, <code>arp_tables</code>, 和 <code>ebtables</code> kernel modules 提供 packet filtering 功能，有鑑於它們共用了許多程式碼，共用的部份後來獨立成 <code>x_tables</code> kernel module (由 <code>modinfo</code> 可知，前 4 個 module 皆依賴於它)</li>
+<li><code>iptables*</code>, <code>ip6tables*</code>, <code>arptables*</code>, 和 <code>ebtables*</code> userspace 指令用來操作前述的 5 個 kernel module</li>
+</ul>
+</li>
+<li>nftables<ul>
+<li>nftables 是 iptables 的繼承者</li>
+<li><code>nf_tables</code> kernel modules 提供 packet filtering 功能 (由於 nftables 的特性，不需要像 iptables 拆成複數 kernel module)</li>
+<li><code>nft</code> userspace 指令用來操作 <code>nf_tables</code> kernel module</li>
+</ul>
+</li>
+<li>iptables-legacy (<code>iptables</code> 軟體包) v.s. iptables-nft (<code>iptables-nft</code> 軟體包) v.s. nftables (<code>nftables</code> 軟體包)<ul>
+<li><a href="https://developers.redhat.com/blog/2020/08/18/iptables-the-two-variants-and-their-relationship-with-nftables">iptables: The two variants and their relationship with nftables | Red Hat Developer</a></li>
+<li>iptables-legacy 和 iptables-nft 的指令使用方式完全相同</li>
+<li><code>iptables</code> 和 <code>iptables-nft</code> 主要的差別是: 前者的命令大多連結到 <code>xtables-legacy-multi</code>，而後者則大多連結到 <code>xtables-nft-multi</code></li>
+<li>iptables-legacy 的 filtering rules 是由 <code>x_tables</code> kernel module 管理，nftables 的 filtering rules 則是由 <code>nf_tables</code> kernel module 管理，因此雖然他們同時都可以向 Netfilter 註冊 callback function，但使用 <code>iptables-legacy</code> 和 <code>nft</code> 指令卻無法看到對方的 filtering rules (TBD: 缺乏資料佐證，可能要翻程式碼看 rules 儲存在哪裡，但應該是這樣沒錯)</li>
+<li>iptables-nft 可以想像成是一個 "指令翻譯器"，其 backend 為 <code>nf_tables</code> kernel module，因此 filtering rules 亦由它管理，當然使用 <code>iptables-nft</code> 和 <code>nft</code> 看到的 filtering rules 完全相同，看到的 filtering rules 和 <code>iptables-legacy</code> 完全不同 (TBD: 同前一條)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Uncomplicated Firewall (UFW)</strong> (簡易的防火牆 (nftables/iptables) 配置管理工具)</p>
+<ul>
+<li>軟體包: <code>ufw</code><ul>
+<li>依賴關係: <code>ufw</code> 依賴於 <code>iptables</code>；<code>plasma-firewall</code> 可選依賴於 <code>ufw</code></li>
+<li><code>plasma-firewall</code> 可以作為 ufw 的 GUI 前端 (見 "KDE Plasma" 一節)</li>
+</ul>
+</li>
+<li>設定<ul>
+<li><code>systemctl enable ufw</code></li>
+<li><strong>警告</strong>: 不要同時使用 ufw (<code>ufw.service</code>) 和其他防火牆 (如 <code>nftables</code> 和 <code>iptables/iptables-nft</code> 自帶的簡單防火牆，見 "Netfilter" 一節)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>NetworkManager</strong> (網路管理程式)</p>
+<ul>
+<li>軟體包: <code>networkmanager ppp</code><ul>
+<li>依賴關係: <code>networkmanager</code> 依賴於 <code>wpa_supplicant</code>，可選依賴於 <code>ppp</code></li>
+</ul>
+</li>
+<li>設定<ul>
+<li>NetworkManager 需要執行 <code>systemctl enable NetworkManager</code> 才會在開機時自動啟動</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>NetworkManager 內建 DHCP client，不須另外安裝 <code>dhclient</code> 或 <code>dhcpcd</code></li>
+<li>NetworkManager 可以用來連線 Wi-Fi 無線網路，不須另外安裝 <code>iwd</code> 或 <code>iw</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_7">開機</h3>
+<ul>
+<li>
+<p><strong>systemd-boot</strong> (boot loader)</p>
+<ul>
+<li>軟體包: <code>systemd[不須手動安裝] systemd-boot-pacman-hook@A</code><ul>
+<li>依賴關係: <code>base</code> meta package 包含 <code>systemd</code></li>
+<li><code>systemd-boot</code> 包含在 <code>systemd</code> 軟體包內</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>開機選單的項目順序<ul>
+<li>開機選單的項目順序是按照檔案名稱 (<code>/boot/loader/entries/*.conf</code>) 的字典序<strong>由下而上</strong>排列，排序結果會顯示於 <code>bootctl list</code></li>
+<li>參考資料: <a href="https://uapi-group.org/specifications/specs/boot_loader_specification/#sorting">Boot Loader Specification | UAPI Group Specifications</a><ul>
+<li>參考資料說會去掉後綴 (應該是指副檔名) 再排序，但實際上就是會包含後綴</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>efibootmgr</strong> (manipulate the EFI Boot Manager)</p>
+<ul>
+<li>軟體包: <code>efibootmgr</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Intel Processor Microcode Update (MCU)</strong> (processor microcode)</p>
+<ul>
+<li>軟體包: <code>intel-ucode</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_8">虛擬機工具</h3>
+<ul>
+<li>(僅虛擬機) <strong>VirtualBox Guest Additions</strong> (虛擬機 guest 工具)<ul>
+<li>軟體包: <code>virtualbox-guest-utils</code></li>
+<li>設定<ul>
+<li><code>systemctl enable vboxservice</code></li>
+<li>使用共用資料夾，需要把使用者加入 <code>vboxsf</code> 群組才有存取權限，執行 <code>usermod -a -G vboxsf $USER</code> 後重新登入即可</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_9">圖形界面</h3>
+<ul>
+<li>
+<p><strong>X.Org X server</strong> (X Window System display server)</p>
+<ul>
+<li>軟體包: <code>xorg-server</code></li>
+</ul>
+</li>
+<li>
+<p>(僅實體機) <strong>X.Org server 顯示驅動程式</strong></p>
+<ul>
+<li>軟體包: <code>xf86-video-intel[未安裝]</code>，可選: <code>intel-gpu-tools[未安裝]</code><ul>
+<li><del><code>xf86-video-intel</code>: 在本機使用 <code>xf86-video-modesetting</code> (已併入 <code>xorg-server</code> 軟體包) (即不安裝 <code>xf86-video-intel</code>)，視窗大小和圖示大小會怪怪的 (可能跟全域縮放有關？)，所以還是使用 <code>xf86-video-intel</code></del> (調整成 100% 套用後，再調整成 125% 套用，重開機後即可)</li>
+<li><code>xf86-video-intel</code>: 不安裝之理由<ul>
+<li>見 "Arch Linux 02 設定與已知問題" 一文中，"擷取螢幕畫面時，顯示舊的 (一段時間前的) 螢幕畫面" 一節</li>
+<li>好幾年沒更新了</li>
+</ul>
+</li>
+<li><code>xf86-video-intel</code>: 由於內建顯示卡 Intel Iris Xe 的效能比獨立顯示卡 NVIDIA GeForce MX330 好，就不使用 PRIME GPU offloading (見 <a href="https://wiki.archlinux.org/title/PRIME">PRIME - ArchWiki</a>，無論有無安裝 <code>xf86-video-nouveau</code> 皆可使用 <code>DRI_PRIME=1</code>)，亦不安裝 <code>xf86-video-nouveau</code></li>
+<li><code>intel-gpu-tools</code>: <code>intel_gpu_top</code> 可以看 Intel GPU 使用率</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>Linux 的 GPU driver 包含三部份: <ul>
+<li>Linux kernel 的 Direct Rendering Manager (DRM) driver<ul>
+<li>包含在 <code>linux</code> 軟體包 (位於 <code>/lib/modules/&lt;linux-version&gt;/kernel/drivers/gpu/drm</code> 資料夾內)</li>
+</ul>
+</li>
+<li>Mesa (開源 OpenGL implementation) 的 Direct Rendering Infrastructure (DRI) driver<ul>
+<li>包含在 <code>mesa</code> 軟體包 (位於 <code>/usr/lib/dri</code> 資料夾內)</li>
+</ul>
+</li>
+<li>X.Org server 的 Device Dependent X (DDX) driver<ul>
+<li>包含在 <code>xf86-video-modesetting</code> (已併入 <code>xorg-server</code> 軟體包), <code>xf86-video-intel</code>, <code>xf86-video-nouveau</code>, <code>xf86-video-vmware</code> 及其他以 <code>xf86-video-</code> 開頭的軟體包內 (位於 <code>/lib/xorg/modules/drivers</code> 資料夾內)</li>
+<li>必須有 DDX driver 才能讓 X.Org server 顯示圖形。預設是使用 <code>xf86-video-modesetting</code> (一個 generic DDX driver)，它包含了幾乎所有可用的 GPU，所以不安裝其他 DDX driver 仍可以使用 X server。若有安裝特定廠牌顯示卡的 DDX driver，則會改用它們。</li>
+</ul>
+</li>
+<li>參考資料<ul>
+<li><a href="https://kezeodsnx.pixnet.net/blog/post/28575646">Linux 的3D加速--DRI @ 心的距離 :: 痞客邦 ::</a></li>
+<li><a href="https://www.cnblogs.com/super119/archive/2012/07/11/2586220.html">Linux “Graphics Driver Stack” Explained - 把Mesa/DRI/X server/OpenGL等的关系解释的最清楚的一篇 - super119 - 博客园</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>(僅虛擬機) <strong>X.Org server 顯示驅動程式</strong></p>
+<ul>
+<li>軟體包: <code>xf86-video-vmware</code><ul>
+<li>依賴關係: <code>virtualbox-guest-utils</code> 依賴於 <code>xf86-video-vmware</code></li>
+<li>VMware 虛擬機 guest 才需要裝 <code>xf86-video-vmware</code>，VirtualBox 不需要它也可以正常顯示；但 VirtualBox Guest Additions 會使用它來讓視窗大小可以調整。<ul>
+<li><a href="https://wiki.archlinux.org/title/VMware/Install_Arch_Linux_as_a_guest#Xorg_configuration">VMware/Install Arch Linux as a guest - ArchWiki</a></li>
+</ul>
+</li>
+<li><code>xf86-video-vmware</code>: 會作為 <code>virtualbox-guest-utils</code> 的依賴被自動安裝，不須手動安裝</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>X.Org server 輸入驅動程式</strong></p>
+<ul>
+<li>軟體包: <code>xf86-input-libinput[不須手動安裝]</code><ul>
+<li>依賴關係: <code>xorg-server</code> 依賴於 <code>xf86-input-libinput</code></li>
+<li><code>xf86-input-libinput</code>: 會作為 <code>xorg-server</code> 的依賴被自動安裝，不須手動安裝</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>(僅實體機) <strong>硬體圖形加速函式庫</strong></p>
+<ul>
+<li>軟體包: <code>mesa libva-mesa-driver mesa-vdpau</code>，可選: <code>mesa-utils vulkan-intel[未安裝] vulkan-tools[未安裝]</code><ul>
+<li>依賴關係: <code>mesa</code> 可選依賴於 <code>libva-mesa-driver</code> 和 <code>mesa-vdpau</code></li>
+<li><code>mesa</code>: An open-source implementation of the OpenGL (各家 GPU 開發商都有自己的專有 OpenGL 實現)</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>硬體圖形加速函式庫主要有 <a href="https://wiki.archlinux.org/title/OpenGL">OpenGL</a> 和 <a href="https://wiki.archlinux.org/title/Vulkan">Vulkan</a></li>
+<li>OpenGL 也可以進行硬體視訊加速，但需要 VA-API backend (<code>libva-mesa-driver</code>) 或 VDPAU backend (<code>mesa-vdpau</code>) (見下文)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>(僅實體機) <strong>硬體視訊加速函式庫</strong></p>
+<ul>
+<li>軟體包: <code>libva intel-media-driver libvdpau libvdpau-va-gl</code>，可選: <code>libva-utils[未安裝] vdpauinfo[未安裝]</code><ul>
+<li>依賴關係: <code>libva</code> 可選依賴於 <code>intel-media-driver</code></li>
+<li><code>intel-media-driver</code>: backend for Intel GPUs (&gt;= Broadwell) (Intel UHD Graphics 為 Tiger Lake 微架構 &gt; Broadwell 微架構 &gt; Haswell 微架構)。</li>
+<li><code>libvdpau-va-gl</code>: VDPAU driver with OpenGL/VAAPI backend (由於內建顯示卡 Intel Iris Xe 的效能比獨立顯示卡 NVIDIA GeForce MX330 好，就全部使用 Intel 來加速視訊編/解碼)</li>
+<li><code>libva-utils</code> 和 <code>vdpauinfo</code>: VA-API 和 VDPAU 的工具程式</li>
+</ul>
+</li>
+<li>設定<ul>
+<li>有安裝硬體視訊加速函式庫<strong>不代表</strong>程式會使用它，有些需要手動開啟，見 <a href="https://wiki.archlinux.org/title/Hardware_video_acceleration#Configuring_applications">https://wiki.archlinux.org/title/Hardware_video_acceleration#Configuring_applications</a></li>
+</ul>
+</li>
+<li>說明<ul>
+<li><a href="https://wiki.archlinux.org/title/Hardware_video_acceleration">Hardware video acceleration - ArchWiki</a></li>
+<li>硬體視訊加速函式庫主要有 Video Acceleration API (VA-API) 和 Video Decode and Presentation API for Unix (VDPAU)，兩者都必須要安裝 backend，如特定顯示卡的 backend 或 translation layers (如: VA-API 使用 VDPAU translation backend，當程式使用 VA-API 時，實際執行會被轉換到 VDPAU)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>音訊</strong></p>
+<ul>
+<li>ALSA is a set of built-in Linux kernel modules. Therefore, manual installation is not necessary.</li>
+</ul>
+</li>
+<li>
+<p><strong>字型</strong></p>
+<ul>
+<li>軟體包: <code>ttf-dejavu ttf-inconsolata noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-croscore ttf-carlito ttf-caladea (Wingdings)@O (Wingdings 2)@O (Wingdings 3)@O (Webdings)@O</code><ul>
+<li><code>ttf-croscore ttf-carlito ttf-caladea</code> 是來自 Chrome OS 的字型，提供 Microsoft 的 Arial, Times New Roman, Courier New, Calibri, Cambria 的 開源 metric-compatible fonts<ul>
+<li><a href="https://wiki.archlinux.org/title/Metric-compatible_fonts">Metric-compatible fonts - ArchWiki</a></li>
+</ul>
+</li>
+<li><code>(Wingdings)@O (Wingdings 2)@O (Wingdings 3)@O (Webdings)@O</code> 四個 dingbat (雜錦字型) 來自 Microsoft Windows</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>見 "雜項" 一文</li>
+<li>Noto Sans/Serif CJK TC/HK/SC 的 typographic quotation marks (<code>‘…’</code> and <code>“…”</code>) 會變成全形 (不過 Noto Sans/Serif 和 Noto Sans/Serif CJK JP/KR 就是半形)<ul>
+<li><a href="https://raw.githubusercontent.com/adobe-fonts/source-han-sans/release/SourceHanSansReadMe.pdf">Source Han Sans Version 2.004 ReadMe (Released 2021-04-28) - SourceHanSansReadMe.pdf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>SDDM</strong> (display manager (login manager))</p>
+<ul>
+<li>軟體包: <code>sddm</code></li>
+<li>設定<ul>
+<li>執行 <code>systemctl enable sddm</code> 才會開機進入圖形界面。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>KDE Plasma</strong> (desktop environment)</p>
+<ul>
+<li>軟體包: <code>plasma</code><ul>
+<li><code>plasma</code>: 為軟體包群組，KDE Plasma 5.25 包含 <code>bluedevil breeze breeze-gtk discover drkonqi kactivitymanagerd kde-cli-tools kde-gtk-config kdecoration kdeplasma-addons kgamma5 khotkeys kinfocenter kmenuedit kscreen kscreenlocker ksshaskpass ksystemstats kwallet-pam kwayland-integration kwin kwrited layer-shell-qt libkscreen libksysguard milou oxygen oxygen-sounds plasma-browser-integration plasma-desktop plasma-disks plasma-firewall plasma-integration plasma-nm plasma-pa plasma-sdk plasma-systemmonitor plasma-thunderbolt plasma-vault plasma-workspace plasma-workspace-wallpapers polkit-kde-agent powerdevil sddm-kcm systemsettings xdg-desktop-portal-kde</code></li>
+<li><code>plasma</code> 安裝除了 <code>discover kwallet-pam oxygen oxygen-sounds plasma-browser-integration plasma-sdk plasma-thunderbolt plasma-vault</code> 以外的軟體包。<ul>
+<li>安裝軟體包群組時如何只安裝或排除特定幾個，參考 <a href="https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups">https://wiki.archlinux.org/index.php/Pacman#Installing_package_groups</a></li>
+</ul>
+</li>
+<li><code>kdeplasma-addons</code>: Lock Keys Status (<code>org.kde.plasma.keyboardindicator</code>) 可在系統匣顯示有無按下大寫鎖定鍵，但其他的東西就用不到了<ul>
+<li>Lock Keys Status 跟 <a href="https://store.kde.org/p/1217159/">Plasma Keyboard Indicator - KDE Store</a> 應該是同樣的東西，但我希望使用 <code>pacman</code> 管理而不是手動安裝在家目錄裡</li>
+</ul>
+</li>
+<li><code>plasma-workspace-wallpapers</code>: KDE 的 Breeze 主題每次更新次版號 (主版號.次版號.修訂號) 時，會變更預設桌布，並將舊版 Breeze 的預設桌布放到 <a href="https://github.com/KDE/plasma-workspace-wallpapers">KDE/plasma-workspace-wallpapers: Wallpapers for Plasma Workspaces</a> 裡</li>
+</ul>
+</li>
+<li>設定<ul>
+<li>見 "設定與已知問題" 一文</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>qt5-translations</strong> (Qt 5 internationalization)</p>
+<ul>
+<li>軟體包: <code>qt5-translations[不須手動安裝]</code><ul>
+<li>依賴關係: <code>qt5-base</code> 依賴於 <code>qt5-translations</code></li>
+<li><code>qt5-translations</code>: 會作為 <code>qt5-base</code> 的依賴被自動安裝，不須手動安裝</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Fcitx5</strong> (輸入法)</p>
+<ul>
+<li>軟體包: <code>fcitx5 fcitx5-qt fcitx5-gtk fcitx5-configtool fcitx5-chewing fcitx5-breeze@A</code></li>
+<li>設定<ul>
+<li>在環境變數中加入
+  <div class="highlight"><pre><span></span><code><span class="nv">GTK_IM_MODULE</span><span class="o">=</span>fcitx
+<span class="nv">QT_IM_MODULE</span><span class="o">=</span>fcitx
+<span class="nv">XMODIFIERS</span><span class="o">=</span>@im<span class="o">=</span>fcitx
+<span class="nv">SDL_IM_MODULE</span><span class="o">=</span>fcitx
+</code></pre></div></li>
+<li>安裝後 Fcitx5 會自動被加到 <code>/etc/xdg/autostart</code> 裡，所以可以自動啟動。若沒有自動啟動可以執行 <code>ln -s /usr/share/applications/org.fcitx.Fcitx5.desktop ~/.config/autostart/</code><ul>
+<li><a href="https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8">https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="_10">應用程式</h2>
+<h3 id="_11">實用工具</h3>
+<ul>
+<li>
+<p><strong>man pages</strong></p>
+<ul>
+<li>軟體包: <code>man-db man-pages</code><ul>
+<li><code>man-db</code>: man pages reader</li>
+<li><code>man-pages</code>: 個別程式的 man pages 由那些程式提供，<code>man-pages</code> 提供的是與 Linux 相關的 man pages，如: Linux kernel、Linux 系統程式設計、Linux 系統程式等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Konsole</strong> (終端機) (KDE Applications)</p>
+<ul>
+<li>軟體包: <code>konsole</code></li>
+<li>設定<ul>
+<li>設定 Konsole &gt; 一般 &gt; 程式及視窗 &gt; 記住視窗大小: "取消打勾"</li>
+<li>新增設定檔<ul>
+<li>預設設定檔: "打勾"</li>
+<li>終端機初始大小: "80 欄, 25 行"</li>
+<li>配色 "微風"，背景透明 "10%"，字型 "DejaVu Sans Mono 12pt" (見 "雜項" 一文)</li>
+<li>捲動列 &gt; 往回捲動: "無限"</li>
+<li>捲動列 &gt; 標注 &gt; 在捲軸對側標注目前捲動的位置所看見的終端機輸出: "取消打勾"</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>檔案管理工具</strong></p>
+<ul>
+<li>軟體包: <code>exa tree fd ncdu baobab trash-cli</code><ul>
+<li><code>exa</code>: A modern replacement for <code>ls</code></li>
+<li><code>fd</code>: A simple, fast and user-friendly alternative to <code>find</code></li>
+<li><code>ncdu</code>: NCurses Disk Usage (disk usage analyzer with an ncurses interface)</li>
+<li><code>baobab</code>: <code>mate-disk-usage-analyzer</code> 被包在 <code>mate-utils</code> 裡，<code>mate-utils</code> 又有太多其它東西，所以不採用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>批次更名工具</strong></p>
+<ul>
+<li>軟體包: <code>pipe-rename krename[未安裝]</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Dolphin</strong> (檔案管理程式) (KDE Applications)</p>
+<ul>
+<li>軟體包: <code>dolphin</code></li>
+<li>設定<ul>
+<li>到 Dolphin 設定 &gt; 一般 &gt; 行為 &gt; 檢視 選擇 "對所有資料夾使用相同的顯示模式"，不然 Dolphin 會在每個資料夾下建立 <code>.directory</code> 檔案</li>
+<li>到 Dolphin 設定 &gt; 一般 &gt; 行為 &gt; 排序樣式 選擇 "字母，不區分大小寫"</li>
+<li>到 Dolphin 設定 &gt; 一般 &gt; 預覽 &gt; 取消打勾 資料夾</li>
+<li>到 Dolphin 設定 &gt; 啟動 &gt; 啟動時顯示: 家目錄</li>
+<li>到 Dolphin 設定 &gt; 啟動 &gt; 新增視窗 &gt; 能夠編輯位置列: "打勾"</li>
+<li>到 Dolphin 設定 &gt; 啟動 &gt; 一般 &gt; 在新分頁中開啟資料夾: "不打勾"</li>
+<li>工具列 "往回|往前|向上|分隔|剪下|複製|貼上|Location Bar|重新整理|開啟終端機|分割|暫存|搜尋|Open Menu|分隔|圖示|簡潔模式|詳細模式"</li>
+<li>書籤順序 "家目錄|垃圾桶|桌面|下載|文件|圖片|音樂|影片"</li>
+<li>在 "標題/大小/已變更" 處按右鍵取消勾選 "Leading Column Padding"</li>
+<li>字型問題<ul>
+<li>預設情況下，各檢視模式的標籤字型是系統字型，即 Noto Sans 並藉由 fontconfig fallback 至 Noto Sans CJK TC</li>
+<li>但可能是因為排版引擎的問題，混有英文 (Noto Sans) 和中文 (Noto Sans CJK TC) 的檔名在 "詳細資料" 檢視模式下，會無法對齊</li>
+<li>解決方法是直接將 "詳細資料" 檢視模式的標籤字型設定為 Noto Sans CJK TC，就不會有對齊的問題了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Ark</strong> (壓縮/解壓縮工具) (KDE Applications)</p>
+<ul>
+<li>軟體包: <code>ark p7zip unrar</code><ul>
+<li>依賴關係: <code>ark</code> 可選依賴於 <code>p7zip</code> 和 <code>unrar</code></li>
+<li><code>p7zip</code>: <code>p7zip</code> 可以壓縮和解壓縮 ZIP 壓縮檔，所以不用再裝 <code>zip</code> 和 <code>unzip</code></li>
+<li><code>unrar</code>: 雖然 <code>p7zip</code> 可以解壓縮 RAR 壓縮檔，但 <code>ark</code> 需要 <code>unrar</code> 才能解壓縮 RAR 壓縮檔，所以還是得裝</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>計算機</strong></p>
+<ul>
+<li>軟體包: <code>libqalculate qalculate-gtk grpn@A[未安裝] mate-calc</code><ul>
+<li><code>libqalculate</code>: CLI 計算機 <code>qalc</code></li>
+<li><code>qalculate-gtk</code>: Qalculate!，<code>qalc</code> 的 GUI frontend</li>
+<li><code>grpn@A</code>: GTK+ RPN 計算機</li>
+<li><code>mate-calc</code>: MATE 計算機，為了使用它的進制轉換功能 (畫面提供 64 位數的二進位數字，可以直接按下 <code>0</code> 或 <code>1</code> 切換數字，十進位結果會即時更新)</li>
+</ul>
+</li>
+<li>設定<ul>
+<li>Qalculate! (<code>qalculate-gtk</code>)<ul>
+<li>Edit &gt; Preferences &gt; Behavior &gt; Clear history on exit: "打勾"</li>
+<li>Edit &gt; Preferences &gt; Behavior &gt; Allow multiple instances: "打勾"</li>
+<li>Mode &gt; Calculate As You Type: "打勾"</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>rsync</strong> (檔案同步與備份工具) [未安裝]</p>
+<ul>
+<li>軟體包: <code>rsync</code></li>
+</ul>
+</li>
+<li>
+<p><strong>FreeFileSync</strong> (檔案同步與備份工具)</p>
+<ul>
+<li>軟體包: <code>freefilesync-bin@A</code></li>
+<li>設定<ul>
+<li>把 Configuration Files (<code>*.ffs_gui</code> 檔案) 存到 <code>~/.local/share/FreeFileSync</code> 資料夾裡</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>AUR 網頁的 <code>lib32-*</code> 依賴軟體包只有在 x86_32 機器上才需要安裝 (PKGBUILD 是在 <code>depends_i686</code>)，x64 機器不需要</li>
+<li>記得排除 Windows 的 <code>/System Volume Information/</code> 和 <code>/$RECYCLE.BIN/</code> 資料夾</li>
+<li>FreeFileSync 無法同步 Linux 檔案的所有權和權限，須手動同步 (見 "Linux 比較和同步兩個資料夾的所有權和權限" 一文)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>GNU Stow</strong> (symlink farm manager)</p>
+<ul>
+<li>軟體包: <code>stow</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Ventoy</strong> (從 ISO 光碟映像檔建立可開機 USB 隨身碟)</p>
+<ul>
+<li>軟體包: <code>ventoy-bin@A</code></li>
+</ul>
+</li>
+<li>
+<p><strong>socat</strong> (multi-purpose relay) [未安裝]</p>
+<ul>
+<li>軟體包: <code>socat</code></li>
+</ul>
+</li>
+<li>
+<p><strong>scrcpy</strong> (顯示與控制 Android 裝置螢幕) [未安裝]</p>
+<ul>
+<li>軟體包: <code>scrcpy@A</code><ul>
+<li>依賴關係: <code>scrcpy@A</code> 依賴於 <code>android-tools</code></li>
+</ul>
+</li>
+<li>新增檔案<ul>
+<li><code>android-tools</code>: <code>~/.android</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_12">文書處理</h3>
+<ul>
+<li>
+<p><strong>文字工具</strong></p>
+<ul>
+<li>軟體包: <code>bat less diffutils the_silver_searcher</code><ul>
+<li><code>bat</code>: A <code>cat(1)</code> clone with syntax highlighting and Git integration.</li>
+</ul>
+</li>
+<li>設定<ul>
+<li>less: 避免 less 在家目錄底下建立紀錄檔 <code>~/.lesshst</code>: 在環境變數中加入 <code>export LESSHISTFILE=/dev/null</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Neovim</strong> (文字編輯器)</p>
+<ul>
+<li>軟體包: <code>neovim python-pynvim[未安裝] xsel[未安裝]</code><ul>
+<li>依賴關係: <code>neovim</code> 可選依賴於 <code>python-pynvim</code> 和 <code>xsel</code></li>
+<li>Neovim 的 Plug-in 管理器可能需要 Git，應視情況安裝</li>
+</ul>
+</li>
+<li>設定<ul>
+<li>Neovim 設定檔: <code>~/.config/nvim/init.vim</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>KWrite</strong> (文字編輯器) (KDE Applications)</p>
+<ul>
+<li>軟體包: <code>kate</code><ul>
+<li>自 22.08 版開始，KWrite (原 <code>kwrite</code> 軟體包) 和 Kate (原 <code>kate</code> 軟體包) 合併成單一軟體包 <code>kate</code></li>
+</ul>
+</li>
+<li>設定<ul>
+<li>刪除 Kate 的圖示和檔案連結: 刪除 <code>/usr/share/applications/org.kde.kate.desktop</code></li>
+<li>刪除 Kate 的設定檔 (如果存在): 刪除 <code>~/.config/{kate,katemetainfos,katerc,kateschemarc,katevirc}</code></li>
+<li>設定 &gt; 外觀 &gt; 一般 &gt; Editor font: "Inconsolata 15pt" (見 "雜項" 一文)</li>
+<li>設定 &gt; 外觀 &gt; 一般 &gt; Counts &gt; 顯示單字計數: "打勾"</li>
+<li>設定 &gt; 外觀 &gt; 一般 &gt; Counts &gt; 顯示行數: "打勾"</li>
+<li>設定 &gt; 外觀 &gt; 邊框 &gt; Scrollbars &gt; Show preview when hovering over scrollbar: "不打勾"</li>
+<li>設定 &gt; 外觀 &gt; 邊框 &gt; Minimap &gt; Show minimap: "不打勾"</li>
+<li>設定 &gt; 外觀 &gt; Statusbar: 全部打勾</li>
+<li>設定 &gt; 編輯 &gt; 一般 &gt; Brackets &gt; Automatically close brackets when opening bracket is typed: "不打勾"</li>
+<li>設定 &gt; 編輯 &gt; 一般 &gt; Enclosing characters: "" (功能未啟用) (預設: "&lt;&gt;(){}[]'"")</li>
+<li>設定 &gt; 編輯 &gt; 文字補完 &gt; 一般 &gt; Auto select first completion entry: "不打勾"</li>
+<li>設定 &gt; 編輯 &gt; 文字補完 &gt; 一般 &gt; Cycle through the list of completions using Tab / Shift+Tab: "打勾"</li>
+<li>設定 &gt; 編輯 &gt; 文字補完 &gt; Auto word completion &gt; 完成時移除尾端: "不打勾"</li>
+<li>設定 &gt; 開啟/儲存 &gt; 儲存時自動清除 &gt; 移除結尾的空白: "永不"</li>
+<li>設定 &gt; 開啟/儲存 &gt; 儲存時自動清除 &gt; 儲存時在檔案結尾加入斷行符號: "不打勾"</li>
+<li>設定 &gt; 行為 &gt; 分頁 &gt; Auto hide tabs: "不打勾"</li>
+<li>設定 &gt; 行為 &gt; 分頁 &gt; 展開分頁: "不打勾"</li>
+<li>設定 &gt; 行為 &gt; 分頁 &gt; 雙擊開啟新文件: "不打勾"</li>
+<li>設定 &gt; 工作階段 &gt; Application Startup/Shutdown Behavior &gt; Show welcome view for new windows: "不打勾"</li>
+<li>設定 &gt; 工作階段 &gt; 作業階段元素 &gt; 「最近使用的檔案」清單中最大項目數: "0"</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>OnlyOffice</strong> (office suite)</p>
+<ul>
+<li>軟體包: <code>onlyoffice-bin@A</code></li>
+<li>設定<ul>
+<li>Settings &gt; Open file: "In its own window"</li>
+<li>Document &gt; File &gt; Advanced Settings &gt; Proofing &gt; Spell Checking: "不打勾" (此為預設) (可以在文件狀態列手動開啟，以避免干擾打字)</li>
+<li>Document &gt; File &gt; Advanced Settings &gt; Workspace &gt; Default Zoom Value: "120%"</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>Document 新建文件常用格式設定<ul>
+<li>Home &gt; Font: "Arial" (此為預設)</li>
+<li>Home &gt; Font size: "12" (預設為 "11")</li>
+<li>Layout &gt; Margins: "US Normal" (左右等寬) (預設為 "Normal" (左右不等寬))</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Okular</strong> (PDF 閱讀器) (KDE Applications)</p>
+<ul>
+<li>軟體包: <code>okular poppler-data</code><ul>
+<li>依賴關係: <code>okular</code> 依賴於 <code>poppler-qt5</code>；<code>poppler-qt5</code> 依賴於 <code>poppler</code>；<code>poppler</code> 可選依賴於 <code>poppler-data</code></li>
+<li><code>poppler-data</code>: 不安裝 <code>poppler-data</code> 會導致 Okular 無法顯示 PDF 的文字註釋</li>
+</ul>
+</li>
+<li>設定<ul>
+<li>Okular 工具列: "Show Sidebar|分隔|頁面編號|上一步|分隔|縮小|縮放|放大|分隔|符合頁面|符合寬度|繼續|展開間隔|瀏覽|選擇工具"</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_13">圖形與多媒體</h3>
+<ul>
+<li>
+<p><strong>Viewnior</strong> (圖片瀏覽器)</p>
+<ul>
+<li>軟體包: <code>viewnior</code></li>
+</ul>
+</li>
+<li>
+<p><strong>VLC</strong> (影音播放器)</p>
+<ul>
+<li>軟體包: <code>vlc</code></li>
+</ul>
+</li>
+<li>
+<p><strong>KColorChooser</strong> (顏色選擇器) (KDE Applications)</p>
+<ul>
+<li>軟體包: <code>kcolorchooser</code></li>
+</ul>
+</li>
+<li>
+<p><strong>KolourPaint</strong> (小畫家) (KDE Applications)</p>
+<ul>
+<li>軟體包: <code>kolourpaint</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Spectale</strong> (螢幕截圖工具) (KDE Applications)</p>
+<ul>
+<li>軟體包: <code>spectacle</code></li>
+<li>依賴關係: <code>spectacle</code> 依賴於 <code>qt5-tools</code></li>
+<li>說明<ul>
+<li>"Print Screen" 鍵盤捷徑須到 "設定 &gt; 捷徑 &gt; 捷徑 &gt; 新增應用程式" 手動加入 Spectale</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Kid3</strong> (媒體標籤編輯器)</p>
+<ul>
+<li>軟體包: <code>kid3</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_14">網際網路</h3>
+<ul>
+<li>
+<p><strong>下載工具</strong></p>
+<ul>
+<li>軟體包: <code>wget curl[未安裝]</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Firefox</strong> (網頁瀏覽器)</p>
+<ul>
+<li>軟體包: <code>firefox firefox-i18n-zh-tw</code></li>
+<li>新增檔案: <code>~/.mozilla</code>, <code>~/.cache/mozilla</code></li>
+<li>設定<ul>
+<li>設定 &gt; 一般 &gt; 字型 &gt; 進階<ul>
+<li>對應此種語言: "正體中文 (繁體，台灣)"</li>
+<li>比例字型: "無襯線字型 (sans-serif)"</li>
+<li>襯線字型: "Timos"，並藉由 fontconfig fallback 至 Noto Serif CJK TC</li>
+<li>無襯線字型: "Arimo"，並藉由 fontconfig fallback 至 Noto Sans CJK TC</li>
+<li>等寬字型: "Cousine" (TBD: 無法符合 "符合一個全形大小等於半個全形大小"，見 "雜項" 一文，須注意 CSS <code>font-family</code>)</li>
+</ul>
+</li>
+<li>啟動硬體圖形及視訊加速: 至 <code>about:config</code> 設定 <code>gfx.webrender.all</code> 及 <code>media.ffmpeg.vaapi.enabled</code> 為 <code>true</code><ul>
+<li><a href="https://wiki.archlinux.org/title/Firefox#Hardware_video_acceleration">https://wiki.archlinux.org/title/Firefox#Hardware_video_acceleration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Chromium</strong> (網頁瀏覽器) [未安裝]</p>
+<ul>
+<li>軟體包: <code>chromium</code></li>
+</ul>
+</li>
+<li>
+<p><strong>ELinks</strong> (文字模式網頁瀏覽器)</p>
+<ul>
+<li>軟體包: <code>elinks</code></li>
+<li>設定<ul>
+<li>修改設定檔位置: 在環境變數中加入 <code>export ELINKS_CONFDIR="${XDG_CONFIG_HOME:-$HOME/.config}/elinks"</code> (預設在 <code>~/.elinks</code>)</li>
+<li>刪除 ELinks 的圖示和檔案連結: 刪除 <code>/usr/share/applications/elinks.desktop</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>JDownloader 2</strong> (下載工具)</p>
+<ul>
+<li>軟體包: <code>(JDownloader 2)@O jre-openjdk</code><ul>
+<li>依賴關係: <code>(JDownloader 2)@O</code> 依賴於 <code>jre-openjdk</code></li>
+</ul>
+</li>
+<li>說明<ul>
+<li>安裝說明<ul>
+<li>執行 <code>mkdir -p ~/.local/opt/JDownloader2</code> (因為 JDownloader 2 會更新檔案，所以需要讀寫權限)</li>
+<li>到官方網站下載 Other 的 MULTIOS JAR without Installer（只有一個 <code>JDownloader.jar</code>，Linux 的 Installer 會多安裝 JRE，這個不會）複製到 <code>~/.local/opt/JDownloader2</code> 資料夾中</li>
+<li>執行 <code>java -jar ~/.local/opt/JDownloader2/JDownloader.jar</code> 啟動 JDownloader 2，第一次執行會下載必須的檔案到 <code>~/.local/opt/JDownloader2</code></li>
+<li>手動建立應用程式選單項目，<code>~/.local/opt/JDownloader2/themes/standard/org/jdownloader/images/logo/icon.ico</code> 可以用來作為 Desktop Entry 的 icon</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Transmission</strong> (BitTorrent client)</p>
+<ul>
+<li>軟體包: <code>transmission-qt</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Pulse Connect Secure</strong> (OpenConnect VPN client)</p>
+<ul>
+<li>軟體包: <code>networkmanager-openconnect</code><ul>
+<li>依賴關係: <code>networkmanager-openconnect</code> 依賴於 <code>openconnect</code></li>
+</ul>
+</li>
+<li>新增檔案: <code>networkmanager-openconnect</code> 和 <code>openconnect</code> 不會新增任何檔案</li>
+<li>說明<ul>
+<li>Pulse Connect Secure 連線方式（擇一）<ul>
+<li>執行 <code>sudo openconnect --protocol=pulse https://vpn.example.com/</code></li>
+<li>到 NetworkManager 新增 <code>Pulse Connect Secure (openconnect)</code>，VPN 協定 <code>Pulse Connect Secure</code>，閘道 <code>vpn.example.com</code>，其餘留空即可，連線時需要先按連線 VPN 主機的按鈕</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>4K Video Downloader</strong> (下載 YouTube 和其它網站的影片)</p>
+<ul>
+<li>軟體包: <code>4kvideodownloader@A</code></li>
+<li>新增檔案: <code>~/.config/4kdownload.com</code>, <code>~/.local/share/4kdownload.com</code></li>
+</ul>
+</li>
+<li>
+<p><strong>AnyDesk</strong> (遠程桌面軟體)</p>
+<ul>
+<li>軟體包: <code>anydesk-bin@A</code></li>
+<li>新增檔案: <code>~/.anydesk</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_15">教育</h3>
+<ul>
+<li>
+<p><strong>GoldenDict</strong> (翻譯程式)</p>
+<ul>
+<li>軟體包: <code>goldendict-webengine-git@A</code><ul>
+<li>依賴關係: <code>goldendict-webengine-git@A</code> 依賴於: <code>libeb@A</code></li>
+</ul>
+</li>
+<li>新增檔案: <code>~/.config/goldendict</code>, <code>~/.local/share/Goldendict</code></li>
+<li>設定<ul>
+<li>需自行新增資料夾，並於字典設定界面加入該資料夾 (例如: <code>~/.local/share/Goldendict/Dictionary</code>)</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>相較於 StarDict 的優點<ul>
+<li>GoldenDict 仍在更新 (GitHub)；StarDict 已停止更新</li>
+<li>GoldenDict 的螢幕取詞可以在選取文字後顯示漂浮按鈕 (按下顯示翻譯結果)；StarDict 沒有此功能</li>
+<li>GoldenDict 可以在 Wikipedia 和 Wiktionary 搜尋；StarDict 沒有此功能</li>
+</ul>
+</li>
+<li>GoldenDict 未註記功能: 複製文字到剪貼簿後，對 GoldenDict 的系統匣圖示點擊滑鼠中鍵，可進行翻譯 (不須開啟螢幕取詞)</li>
+<li>於 Wayland 無法螢幕取詞 (嚴格來說可以，但是要先選好文字，開啟 GoldenDict 主視窗，才會出現懸浮視窗顯示結果)<ul>
+<li>暫時解決方法: 設定 GoldenDict 將螢幕取詞結果傳送至主視窗 (不要設定取詞作用鍵)，選取單詞之後再開啟 GoldenDict 主視窗看結果</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Mathematica 13.2</strong> (科學計算軟體/電腦代數系統)</p>
+<ul>
+<li>軟體包: <code>mathematica@A</code></li>
+<li>新增檔案: <code>~/.Mathematica</code> 和 <code>~/.Wolfram</code></li>
+</ul>
+</li>
+<li>
+<p><strong>MATLAB</strong> (科學計算軟體/數值計算) [未安裝]</p>
+<ul>
+<li>軟體包: <code>(MATLAB R2020a)@O</code><ul>
+<li>依賴關係: <code>(MATLAB R2020a)@O</code> 依賴於 <code>libselinux@A</code>；<code>libselinux@A</code> 依賴於 <code>libsepol@A</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Zotero</strong> (文獻管理軟體)</p>
+<ul>
+<li>軟體包: <code>zotero-bin@A</code></li>
+<li>新增檔案: <code>~/Zotero</code> 和 <code>~/.zotero</code></li>
+<li>設定<ul>
+<li>修改文獻資料庫儲存位置: 編輯 &gt; 偏好設定 &gt; 進階 &gt; 檔案與資料夾 &gt; 資料目錄所在位置 (預設為 <code>~/Zotero</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_16">開發</h3>
+<h4 id="_17">開發工具</h4>
+<ul>
+<li>
+<p><strong>基本開發工具</strong></p>
+<ul>
+<li>軟體包: <code>base-devel</code><ul>
+<li><code>base-devel</code>: 為 meta package，包含 <code>archlinux-keyring autoconf automake binutils bison debugedit fakeroot file findutils flex gawk gcc gettext grep groff gzip libtool m4 make pacman patch pkgconf sed sudo texinfo which</code> (執行 <code>LC_ALL=C pacman -Qi base-devel | grep 'Depends On' | sed 's/Depends On.*: //' | tr -s ' ' '\n' | sort | tr '\n' ' '</code> 可得此清單)<ul>
+<li>與 <code>base</code> 重複的軟體包: <code>archlinux-keyring file findutils gawk gettext grep gzip pacman sed</code></li>
+<li>與 <code>base</code> 不同的軟體包: <code>autoconf automake binutils bison debugedit fakeroot flex gcc groff libtool m4 make patch pkgconf sudo texinfo which</code></li>
+</ul>
+</li>
+<li>建置 AUR 軟體包時，常會用到 <code>base-devel</code> 包含的建置工具，因此即使平常不會使用這些工具，仍建議安裝 <code>base-devel</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>CMake</strong> (專案建置工具)</p>
+<ul>
+<li>軟體包: <code>cmake</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Git</strong> (程式碼版本管理工具): </p>
+<ul>
+<li>軟體包: <code>git</code></li>
+<li>設定<ul>
+<li>不要建立設定擋在 <code>~/.gitconfig</code>: 執行 <code>mkdir ~/.config/git &amp;&amp; touch ~/.config/git/config</code>，然後執行 <code>git config --global user.name "USER_NAME"</code> 等設定</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>2020/8/13 後，GitHub 禁止 <code>git</code> 使用密碼登入，需改用 Personal access token 代替密碼登入。建立 Personal access token 後，
+執行 <code>git config --global credential.helper store &amp;&amp; echo 'https://&lt;USERNAME&gt;:&lt;TOKEN&gt;@github.com' &gt; ~/.config/git/credentials &amp;&amp; chmod 600 ~/.config/git/credentials</code>，之後就可以不用輸入密碼 (<strong>注意：明碼儲存！</strong>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>除錯工具</strong> [未安裝]</p>
+<ul>
+<li>軟體包: <code>ltrace strace</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Visual Studio Code</strong> (IDE)</p>
+<ul>
+<li>軟體包: <code>visual-studio-code-bin@A python-ipykernel</code><ul>
+<li>依賴關係: Visual Studio Code 的 Jupyter 延伸模組需要 <code>python-ipykernel</code></li>
+<li><code>visual-studio-code-bin@A</code> 跟官方軟體庫的 <code>code</code> 的差別在於: 前者是 Microsoft 官方發布的 binary 包，包含一些 proprietary 的功能；後者是從原始碼建置的開源版本</li>
+<li>選用 Microsoft 官方發布的版本的原因在於: <code>code</code> 會另外安裝 <code>electron</code> 軟體包，而此版本自帶 Electron，所以不用多安裝</li>
+</ul>
+</li>
+<li>新增檔案: <code>~/.config/Code</code>, <code>~/.vscode</code>, <code>~/.cache/vscode-cpptools</code>, <code>~/.pki</code></li>
+<li>說明<ul>
+<li>會佔用很大空間的快取或資料庫，可以手動刪除: </li>
+<li><code>~/.config/Code/User/workspaceStorage</code> (曾開過的工作區資訊，有些 extensions (如：vscode.cpptools) 會儲存很大的資料庫)</li>
+<li><code>~/.config/Code/{Cache,CachedData,CachedExtensions,CachedExtensionVSIXs}</code></li>
+<li><code>~/.cache/vscode-cpptools/ipch</code> (IntelliSense precompiled headers)</li>
+<li><a href="https://code.visualstudio.com/docs/editor/settings-sync">Settings Sync</a> 功能需要 <code>gnome-keyring</code> 才能登入 GitHub (目前未使用此功能，所以沒安裝)。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>VirtualBox</strong> (x86 虛擬機器監視器 (hypervisor, virtual machine monitor (VMM)))</p>
+<ul>
+<li>軟體包: <code>virtualbox virtualbox-host-modules-arch或virtualbox-host-dkms virtualbox-guest-iso virtualbox-ext-oracle@A</code><ul>
+<li>依賴關係: <code>virtualbox</code> 依賴於 <code>virtualbox-host-modules-arch</code> 或 <code>virtualbox-host-dkms</code>；<code>virtualbox-host-modules-arch</code> 與 <code>virtualbox-host-dkms</code> 衝突 (見 DKMS 一節)</li>
+<li>若系統中只有安裝最新的 kernel (<code>linux</code>)，則安裝 <code>virtualbox-host-modules-arch</code> (注意不要安裝 <code>dkms</code>，見 DKMS 一節)</li>
+<li>若系統中沒有安裝最新的 kernel (<code>linux</code>) 或同時安裝了其他的 kernel，則安裝 <code>virtualbox-host-dkms</code></li>
+<li><code>virtualbox-ext-oracle@A</code>: <strong>警告</strong>: <code>virtualbox</code> 和 <code>virtualbox-ext-oracle@A</code> 的版本必須相同，否則無法啟動虛擬機器</li>
+</ul>
+</li>
+<li>設定<ul>
+<li>安裝完後執行 <code>sudo usermod -a -G vboxusers $USER</code> 並重開機，才能找到 USB 裝置。</li>
+<li>預設機器資料夾選擇 <code>~/.local/share/VirtualBoxVMs</code> (預設位置是 <code>~/VirtualBox VMs</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_18">程式語言</h4>
+<ul>
+<li>
+<p><strong>Python</strong></p>
+<ul>
+<li>軟體包: <code>python python-pip ipython jupyterlab[未安裝] ptpython@A[未安裝]</code><ul>
+<li>依賴關係: <code>ptpython@A</code> 可選依賴於 <code>ipython</code></li>
+<li><code>ptpython@A</code>: 提供比 <code>ipython</code> 更好的 Python REPL，特別是可以顯示 signature 和 docstring、可以用 VI 模式編輯等，也可以使用 <code>ipython</code> 作為後端 (即 <code>ptipython</code>)，使用 <code>ipython</code> 的特殊功能</li>
+</ul>
+</li>
+<li>設定<ul>
+<li><code>python</code><ul>
+<li>啟用 startup file: 在環境變數中加入 <code>export PYTHONSTARTUP="${XDG_CONFIG_HOME:-$HOME/.config}/python/python_startup.py"</code> (預設沒有 startup file)</li>
+<li>使用歷史紀錄，但不儲存歷史紀錄到檔案: 先啟用 startup file，然後加入 <code>import readline; readline.write_history_file = lambda *args: None</code> (預設歷史紀錄檔位置 <code>~/.python_history</code>)<ul>
+<li>參考資料: <a href="https://stackoverflow.com/questions/62063414/how-to-disable-python-history-saving/63653039#63653039">How to disable python history saving? - Stack Overflow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>ipython</code><ul>
+<li>修改設定檔位置: 在環境變數中加入 <code>export IPYTHONDIR="${XDG_CONFIG_HOME:-$HOME/.config}/ipython"</code> (預設在 <code>~/.ipython</code>)</li>
+<li>使用歷史紀錄，但不儲存歷史紀錄到檔案: 於 <code>${IPYTHONDIR}/profile_default/ipython_config.py</code> 中加入 <code>get_config().HistoryManager.hist_file = ':memory:'</code>；或直接執行 <code>ipython --HistoryManager.hist_file=:memory:</code> (預設歷史紀錄檔位置 <code>${IPYTHONDIR}/profile_default/history.sqlite</code>)<ul>
+<li>參考資料: <a href="https://stackoverflow.com/questions/75238504/how-can-i-make-ipython-incognito-for-a-session/75238614#75238614">python - How can I make ipython incognito for a session? - Stack Overflow</a></li>
+<li>參考資料: <a href="https://ipython.readthedocs.io/en/stable/api/generated/IPython.core.history.html#IPython.core.history.HistoryAccessor.hist_file">Module: core.history — IPython 8.11.0 documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>jupyterlab</code><ul>
+<li>修改設定檔位置: 在環境變數中加入 <code>export JUPYTER_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/jupyter"</code> (預設在 <code>~/.jupyter</code>)</li>
+<li>避免到處建立 <code>.ipynb_checkpoints</code>: 執行 <code>jupyter lab --generate-config</code>，在 <code>${JUPYTER_CONFIG_DIR}/jupyter_lab_config.py</code> 中加入 <code>c.FileCheckpoints.checkpoint_dir = '/home/jisa/.cache/ipynb_checkpoints'</code> (因為前面設定 <code>~/.cache</code> 是 tmpfs，所以關機後就會清除)</li>
+</ul>
+</li>
+<li><code>ptpython</code><ul>
+<li>使用歷史紀錄，但不儲存歷史紀錄到檔案: 執行 <code>ptpython --history-file /dev/null</code> (預設歷史紀錄檔位置 <code>~/.local/share/ptpython/history</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Python 模組</strong></p>
+<ul>
+<li>軟體包: <code>python-sympy python-numpy python-matplotlib pyside2 python-scipy python-tqdm</code><ul>
+<li>依賴關係: <code>python-matplotlib</code> 可選依賴於 <code>pyside2</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Qt</strong> [未安裝]</p>
+<ul>
+<li>軟體包: <code>qt5-tools qt5-webkit qt5-doc qt5-examples qtcreator pyside2</code><ul>
+<li>依賴關係: <code>qt5-tools</code> 可選依賴於 <code>qt5-webkit</code></li>
+<li><code>qt5-webkit</code>: 不安裝 <code>qt5-webkit</code> 會導致 Qt Assistant 無法正常執行</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>KDE Plasma SDK</strong> [未安裝]</p>
+<ul>
+<li>軟體包: <code>plasma-sdk</code><ul>
+<li><code>plasma-sdk</code>: Cuttlefish Icon Browser 可以用來看圖示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Rust</strong> [未安裝]</p>
+<ul>
+<li>軟體包: <code>rust</code></li>
+<li>新增檔案: 執行 <code>cargo</code> 命令會新增 <code>~/.cargo</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Java</strong> [未安裝]</p>
+<ul>
+<li>軟體包: <code>jdk-openjdk openjdk-src gradle jadx-bin@A</code><ul>
+<li><code>openjdk-src</code>: JDK 的 JShell 需要此軟體包的 <code>src.zip</code> 才能看到說明文件</li>
+<li><code>jadx-bin</code>: 這個軟體包就包含了命令列程式 (<code>jadx</code>) 和圖形界面程式 (<code>jadx-gui</code>)</li>
+<li><code>jadx-bin</code>: Jadx 可以直接反編譯 <code>.class</code>, <code>.jar</code>, <code>.apk</code>，故不需要再安裝 <code>jd-gui-bin</code>、<code>android-apktool</code> 和 <code>dex2jar</code></li>
+<li><code>jadx-bin</code>: 官方軟體庫的 jadx 強制使用 JRE 11，AUR 的 jadx-bin 無此限制</li>
+</ul>
+</li>
+<li>新增檔案: <ul>
+<li><code>gradle</code>: <code>~/.gradle</code></li>
+<li><code>jadx-bin</code>: <code>~/.java/.userPrefs/jadx</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Android Studio</strong> [未安裝]</p>
+<ul>
+<li>軟體包: <code>android-studio@A</code></li>
+<li>新增檔案<ul>
+<li>Android Studio: <code>~/.android</code>, <code>~/{.config,.local/share,.cache}/Google</code></li>
+<li>Android Virtual Device (AVD): <code>~/{.config,.local/share,.cache}/Android Open Source Project</code>, <code>~/.emulator_console_auth_token</code></li>
+<li>Gradle: <code>~/.gradle</code></li>
+<li>SDK Folder</li>
+</ul>
+</li>
+<li>設定<ul>
+<li>SDK Folder 選擇 <code>~/.local/share/Andorid/Sdk</code> (預設位置是 <code>~/Android/Sdk</code>)</li>
+<li>File &gt; Settings &gt; Appearance &amp; Behaviour &gt; System Settings &gt; Project &gt; Reopen projects on startup: 取消勾選</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Linux kernel 建置工具</strong> [未安裝]</p>
+<ul>
+<li>軟體包: <code>base-devel xmlto kmod inetutils bc libelf git cpio perl tar xz</code><ul>
+<li>這些軟體包為建置 Linux kernel 所需的工具</li>
+<li><a href="https://wiki.archlinux.org/index.php/Kernel/Traditional_compilation#Install_the_core_packages">Kernel/Traditional compilation - ArchWiki</a></li>
+<li>因為很多與前面重複的，建議使用 <code>pamcan -S --needed</code> 以避免重新安裝</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>RISC-V 裸機工具鏈</strong> [未安裝]</p>
+<ul>
+<li>軟體包: <code>riscv64-elf-binutils riscv64-elf-gcc riscv64-elf-gdb riscv64-elf-newlib</code><ul>
+<li>注意: <code>riscv32-elf-*</code> 和 <code>riscv64-elf-*</code> 是裸機 (baremetal) 工具鏈，無法用來編譯 Linux kernel</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>RISC-V Linux 工具鏈</strong> [未安裝]</p>
+<ul>
+<li>軟體包: <code>riscv64-linux-gnu-binutils riscv64-linux-gnu-gcc riscv64-linux-gnu-gdb riscv64-linux-gnu-glibc riscv64-linux-gnu-linux-api-headers</code><ul>
+<li>注意: <code>riscv64-linux-gnu-*</code> 是 Linux 工具鏈，無法用來編譯裸機程式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>DB Browser for SQLite</strong> [未安裝]</p>
+<ul>
+<li>軟體包: <code>sqlitebrowser</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="_19">系統</h3>
+<ul>
+<li>
+<p><strong>XDG 工具</strong> (freedesktop.org)</p>
+<ul>
+<li>軟體包: <code>xdg-user-dirs</code>，可選: <code>xdg-utils</code><ul>
+<li><code>xdg-utils</code>: <code>xdg-open</code> 可以從終端機用預設程式開啟指定的檔案或網址，跟在檔案管理程式中點兩下的效果一樣<ul>
+<li><a href="https://wiki.archlinux.org/title/Xdg-utils#xdg-open">xdg-utils - ArchWiki</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>若在建立使用者後才裝 <code>xdg-user-dirs</code>，之後必須手動執行 <code>LC_ALL=C xdg-user-dirs-update --force &amp;&amp; echo -n en_US &gt; ~/.config/user-dirs.locale</code> 建立英文 XDG 資料夾</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>sudo</strong></p>
+<ul>
+<li>軟體包: <code>sudo</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Arch Linux 軟體包管理工具</strong></p>
+<ul>
+<li>軟體包: <code>pacman pacman-contrib rate-mirrors-bin@A pacman-log-orphans-hook@A</code><ul>
+<li>依賴關係: <code>base</code> meta package 包含 <code>pacman</code></li>
+<li><code>rate-mirrors-bin@A</code>: 原本叫做 "Rate Arch Mirrors"，後來新增其它 Linux 發行版的功能，才改名叫做現在的 "Rate Mirrors"</li>
+<li><code>pacman-log-orphans-hook@A</code>: 每次執行 Pacman (安裝、移除、系統升級) 後，顯示 orphan packages</li>
+</ul>
+</li>
+<li>設定<ul>
+<li><code>pacman</code>: 開啟彩色輸出: uncomment <code>/etc/pacman.conf</code> 中的 <code>Color</code> 選項 (用 <code>alias</code> 的話 <code>sudo</code> 時會失效)</li>
+</ul>
+</li>
+<li>說明<ul>
+<li><code>rate-mirrors-bin@A</code>: 更新鏡像伺服器列表: 執行 <code>rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>檔案系統工具</strong></p>
+<ul>
+<li>軟體包: <code>dosfstools e2fsprogs exfat-utils</code></li>
+</ul>
+</li>
+<li>
+<p><strong>系統資源監控工具</strong></p>
+<ul>
+<li>軟體包: <code>procs htop lsof usbutils</code><ul>
+<li><code>procs</code>: A modern replacement for <code>ps</code> (包含於軟體包 <code>procps-ng</code>) written in Rust</li>
+<li><code>procs</code>: <code>ps</code> 無法設定顏色，但 <code>procs</code> 預設有顏色</li>
+<li><code>procs</code>: <code>ps</code> 搜尋時必須先用 <code>pgrep</code> 找到 PID 再用 <code>ps</code> 查詢，但 <code>procs</code> 可以直接搜尋及查詢</li>
+</ul>
+</li>
+<li>設定<ul>
+<li><code>procs</code>: 相較於 <code>ps</code> 使用參數來調整，<code>procs</code> 主要用設定檔調整</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>KDE Partition Manager</strong> (磁碟分割區管理工具)</p>
+<ul>
+<li>軟體包: <code>partitionmanager</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Timeshift</strong> (系統備份工具)</p>
+<ul>
+<li>軟體包: <code>timeshift-bin@A</code></li>
+<li>說明<ul>
+<li>測試過程見 "雜項" 一文</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>OpenJDK JRE</strong> (Java JRE)</p>
+<ul>
+<li>軟體包: <code>jre-openjdk</code></li>
+<li>設定<ul>
+<li>安裝完 JRE 後，若執行 <code>java</code> 時提示找不到可執行檔，則需手動執行 <code>archlinux-java</code> 設定預設 JVM 版本</li>
+<li>修正字型很丑的問題：在環境變數中加入 <code>JDK_JAVA_OPTIONS="$JDK_JAVA_OPTIONS -Dawt.useSystemAAFontSettings=on -Dswing.aatext=true"</code><ul>
+<li><a href="https://wiki.archlinux.org/title/java#Better_font_rendering">Java - ArchWiki</a></li>
+<li><a href="https://unix.stackexchange.com/questions/151733/where-can-i-set-global-java-options">environment variables - Where can I set global Java Options? - Unix &amp; Linux Stack Exchange</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>說明<ul>
+<li><code>man java</code> 對 <code>--class-path</code> 的說明是 "A semicolon (;) separated list of..."，然而實際上要使用 "colon (:)" 才能正常執行。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr/>
+<h2 id="_20">棄用的軟體包</h2>
+<h3 id="_21">系統程式</h3>
+<h4 id="_22">系統</h4>
+<ul>
+<li>
+<p>(僅實體機) <strong>無線網路卡驅動程式/韌體</strong></p>
+<ul>
+<li>軟體包: <code>ipw2100-fw ipw2200-fw</code><ul>
+<li>本機無線網路卡為 Intel® Wireless Wi-Fi 6 AX201，韌體為 iwlwifi (包含在 <code>linux-firmware</code> 軟體包)，故不須安裝 ipw2100 或 ipw2200 韌體<ul>
+<li><a href="https://wireless.wiki.kernel.org/en/users/drivers">en:users:drivers [Linux Wireless]</a></li>
+<li><a href="https://wireless.wiki.kernel.org/en/users/drivers/iwlwifi">en:users:drivers:iwlwifi [Linux Wireless]</a></li>
+<li><a href="https://www.intel.com.tw/content/www/tw/zh/support/articles/000005511/wireless.html">Linux* 支援 Intel® 無線網路卡</a></li>
+<li>ipw2100 和 ipw2200 是舊型 Intel 無線網路卡所使用的韌體，新型 Intel 無線網路卡都使用 iwlwifi 韌體</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>(僅虛擬機) <strong>虛擬機 guest 工具</strong></p>
+<ul>
+<li>軟體包: <code>open-vm-tools spice-vdagent</code><ul>
+<li><code>open-vm-tools</code>: VMware 虛擬機 guest 才需要裝 open-vm-tools，使用 VirtualBox 完全不用裝 (裝了也沒功能)<ul>
+<li><a href="https://wiki.archlinux.org/title/VMware/Install_Arch_Linux_as_a_guest#Open-VM-Tools">VMware/Install Arch Linux as a guest - ArchWiki</a></li>
+</ul>
+</li>
+<li><code>spice-vdagent</code>: QEMU 虛擬機 guest 才需要裝 spice-vdagent，使用 VirtualBox 完全不用裝 (裝了也沒功能)<ul>
+<li><a href="https://wiki.archlinux.org/title/QEMU#Enabling_SPICE_support_on_the_guest">QEMU - ArchWiki</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_23">圖形界面</h4>
+<ul>
+<li>
+<p>(僅虛擬機) <strong>X.Org server 輸入驅動程式</strong></p>
+<ul>
+<li>軟體包: <code>xf86-input-vmmouse</code><ul>
+<li>VMware 虛擬機 guest 才需要裝 xf86-input-vmmouse，VirtualBox 不需要它也可以正常輸入<ul>
+<li><a href="https://wiki.archlinux.org/title/VMware/Install_Arch_Linux_as_a_guest#Xorg_configuration">VMware/Install Arch Linux as a guest - ArchWiki</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>字型</strong></p>
+<ul>
+<li>軟體包: <code>noto-fonts-compat@O</code><ul>
+<li>依賴關係: <code>noto-fonts-compat@O</code> 依賴於 <code>noto-fonts</code></li>
+</ul>
+</li>
+<li>說明<ul>
+<li><code>PKGBUILD</code> 可以從 <a href="https://github.com/manjaro/packages-community/tree/master/noto-fonts-compat">https://github.com/manjaro/packages-community/tree/master/noto-fonts-compat</a> 下載</li>
+<li>預打包可以從 <a href="https://repo.manjaro.org/">https://repo.manjaro.org/</a> 找到一個鏡像伺服器下載 <code>/stable/community/x86_64/noto-fonts-compat-&lt;version&gt;.pkg.tar.xz</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="_24">應用程式</h3>
+<h4 id="_25">文書處理</h4>
+<ul>
+<li>
+<p><strong>Kate</strong> (文字編輯器) (KDE Applications)</p>
+<ul>
+<li>軟體包: <code>kate</code></li>
+<li>設定<ul>
+<li>字型 "Noto Mono 11pt"。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>LibreOffice</strong> (office suite)</p>
+<ul>
+<li>軟體包: <code>libreoffice-fresh libreoffice-fresh-zh-tw</code></li>
+<li>設定<ul>
+<li>停止紀錄 "最近使用的文件"：開啟 LibreOffice &gt; 工具 &gt; 選項 &gt; 進階 &gt; 開啟專家設定 &gt; 搜尋 "PickListSize"，將值設為 "0"，重啟軟體後生效。</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>LibreOffice Impress 在編輯模式無法使用滑鼠滾輪切換投影片，暫時解決方法是把畫面拉遠 (縮小投影片至大約 60% 才行)。<ul>
+<li><a href="https://www.reddit.com/r/libreoffice/comments/7qpb61/scrolling_between_slides_while_editing/">Scrolling between slides while editing : libreoffice</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_26">圖形與多媒體</h4>
+<ul>
+<li><strong>ScreenGrab</strong> (螢幕截圖工具)<ul>
+<li>軟體包: <code>screengrab</code></li>
+<li>設定<ul>
+<li>"Print Screen" 鍵盤捷徑須到 "設定 &gt; 捷徑 &gt; 捷徑 &gt; 新增應用程式" 手動加入 ScreenGrab</li>
+<li>於 Wayland 截圖沒有畫面</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_27">網際網路</h4>
+<ul>
+<li>
+<p><strong>Google Chrome</strong> (網頁瀏覽器)</p>
+<ul>
+<li>軟體包: <code>google-chrome@A</code></li>
+<li>說明<ul>
+<li>Chromium 自 88 版開始，停止 Google 帳戶同步功能，所以只好改用 Google Chrome。</li>
+<li>使用久了之後會儲存大量的快取，"清除瀏覽資料" 裡的 "Cookie 和其他網站資料" 可以清除 <code>~/.config/google-chrome</code> 裡的快取，"快取圖片和檔案" 可以清除 <code>~/.cache/google-chrome</code> 裡的快取。</li>
+<li>安裝 extension: <a href="https://github.com/1995eaton/chromium-vim">1995eaton/chromium-vim: Vim bindings for Google Chrome.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Microsoft Edge</strong> (網頁瀏覽器)</p>
+<ul>
+<li>軟體包: microsoft-edge-beta-bin@A</li>
+<li>新增檔案: <code>~/.config/microsoft-edge-beta</code>, <code>~/.cache/Microsoft/Edge</code>, <code>~/.cache/microsoft-edge-beta</code></li>
+<li>說明<ul>
+<li>同步功能不穩定，放棄使用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>KDE Connect</strong> (Android 裝置同步工具) (KDE Applications)</p>
+<ul>
+<li>軟體包: <code>kdeconnect</code></li>
+<li>設定<ul>
+<li>kdeconnect: 需要開啟防火牆，執行 <code>sudo ufw allow 1714:1764/udp</code>, <code>sudo ufw allow 1714:1764/tcp</code>, <code>sudo ufw reload</code><ul>
+<li><a href="https://userbase.kde.org/KDEConnect">KDEConnect - KDE UserBase Wiki</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>新增檔案: <code>~/.config/kdeconnect</code>, <code>~/.config/kde.org/kdeconnect.*.conf</code>, <code>~/.cache/kdeconnect*</code></li>
+<li>說明<ul>
+<li>電腦端沒有系統匣圖示可以隨時顯示手機狀態 (是否連線、電量等) 和 KDE Connect 的狀態 (甚至無法關閉 KDE Connect 的背景程式)</li>
+<li>無法手動斷線，網路一連上就自動連線</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_28">教育</h4>
+<ul>
+<li><strong>StarDict</strong> (翻譯程式)<ul>
+<li>軟體包: <code>stardict</code></li>
+<li>新增檔案: <code>~/.stardict</code>, <code>~/.config/stardict</code></li>
+<li>說明<ul>
+<li>於 Wayland 無法螢幕取詞 (嚴格來說可以，但是要先選好文字，開啟 StarDict 主視窗，再按下取詞作用鍵，才會出現懸浮視窗顯示結果)</li>
+<li>於 Wayland 最小化後無法開啟 (對系統匣圖示按左鍵或右鍵都無效)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_29">開發</h4>
+<h5 id="_30">開發工具</h5>
+<ul>
+<li><strong>QEMU</strong> (多平台虛擬機器)<ul>
+<li>軟體包: <code>qemu qemu-arch-extra</code><ul>
+<li>此為 QEMU &lt; 7.0.0 版本的軟體包，在 &gt;= 7.0.0 版本的軟體包重新進行分割<ul>
+<li><a href="https://archlinux.org/news/qemu-700-changes-split-package-setup/">Arch Linux - News: QEMU &gt;= 7.0.0 changes split package setup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="_31">程式語言</h5>
+<ul>
+<li>
+<p><strong>JD-GUI</strong> (Java 反編譯工具)</p>
+<ul>
+<li>軟體包: <code>jd-gui-bin@A</code></li>
+<li>新增檔案: <code>~/.config/jd-gui.cfg</code></li>
+<li>說明<ul>
+<li>JD-GUI 無法反編譯太新版本的 JDK 編譯的 class 檔</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Android 工具</strong></p>
+<ul>
+<li>軟體包: <code>android-apktool@A dex2jar@A</code><ul>
+<li>Jadx 可以直接反編譯 <code>.class</code>, <code>.jar</code>, <code>.apk</code>，故不需要再安裝 <code>jd-gui-bin</code>、<code>android-apktool</code> 和 <code>dex2jar</code></li>
+</ul>
+</li>
+<li>新增檔案<ul>
+<li><code>android-apktool</code>: 新增檔案 <code>~/.local/share/apktool</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Calysto Scheme</strong> (Scheme kernel for Jupyter)</p>
+<ul>
+<li>軟體包: <code>jupyter-calysto_scheme-git@A jupyter-metakernel@A</code><ul>
+<li>依賴關係: <code>jupyter-calysto_scheme-git@A</code> 依賴於 <code>jupyter-metakernel@A</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_32">系統</h4>
+<ul>
+<li>
+<p><strong>Linux Standard Base (LSB) 工具</strong></p>
+<ul>
+<li>軟體包: <code>lsb-release</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Arch Linux 軟體包管理工具</strong></p>
+<ul>
+<li>軟體包: <code>reflector pamac-cli@A pacman-cleanup-hook@A</code><ul>
+<li><code>pamac-cli@A</code>: <code>pamac checkupdates -a</code> 可以在不修改系統資料庫 (<code>/var/lib/pacman/sync</code>) 的情況下檢查更新，因為它會維持自己的資料庫 (<code>/tmp/pamac/dbs/sync</code>)，所以也不需要 root 權限</li>
+<li><code>pacman-cleanup-hook@A</code>: 已經把 pacman 快取資料夾 (<code>/var/cache/pacman/pkg</code>) 移到記憶體裡 (tmpfs) 了，所以不需要再手動清理</li>
+</ul>
+</li>
+<li>說明<ul>
+<li><code>reflector</code>: 更新鏡像伺服器列表: 執行 <code>sudo systemctl start reflector.service &amp;&amp; journalctl --no-pager -b -u reflector.service</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>檔案系統工具</strong></p>
+<ul>
+<li>軟體包: <code>ntfs-3g</code><ul>
+<li>Since Linux 5.15, ntfs3 provides read and write support for the file system.</li>
+<li>For kernels &lt; 5.15, NTFS read and write support is provided by the NTFS-3G FUSE file system.</li>
+<li><a href="https://wiki.archlinux.org/title/NTFS">NTFS - ArchWiki</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>GNOME Keyring</strong> (密碼管理器)</p>
+<ul>
+<li>軟體包: <code>gnome-keyring</code></li>
+<li>新增檔案: <code>~/.local/share/keyrings</code></li>
+<li>設定<ul>
+<li>gnome-keyring: 第一次使用時，會詢問「預設鑰匙圈」的密碼，<strong>留空後按確認</strong>，不然每次使用時都會跳出視窗要求輸入密碼</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>KSysGuard</strong> (系統監視器)</p>
+<ul>
+<li>軟體包: <code>ksysguard</code><ul>
+<li>在 KDE Plasma &lt; 5.22，Arch Linux 把它放在 <code>plasma</code> 軟體包群組內；在 KDE Plasma &gt;= 5.22，就沒有在 <code>plasma</code> 軟體包群組內 (因為從 KDE Plasma &gt;= 5.21，就換成 <code>plasma-systemmonitor</code> 了)，需要另外手動安裝。</li>
+<li>KSysGuard 的系統負載歷史圖沒有平滑更新功能，故改用有平滑更新的 MATE System Monitor (<code>mate-system-monitor</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>MATE System Monitor</strong> (系統監控程式)</p>
+<ul>
+<li>軟體包: <code>mate-system-monitor</code><ul>
+<li><code>gnome-system-monitor</code> 跟 <code>mate-system-monitor</code> 是同樣的東西，只是前者使用 GTK3 而後者使用 GTK2，GTK3 的標題列和工具列合併在一起，不符合我的喜好</li>
+<li>因為功能太弱，改用 <code>plasma-systemmonitor</code></li>
+</ul>
+</li>
+<li>設定<ul>
+<li>修正應用程式選單圖示未出現: 執行 <code>grep --invert-match 'OnlyShowIn=MATE' /usr/share/applications/mate-system-monitor.desktop &gt; ~/.local/share/applications/mate-system-monitor.desktop</code>，執行後若應用程式選單未出現，執行 <code>kbuildsycoca5</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>bbswitch</strong> (關閉獨立 NVIDIA GPU 電源)</p>
+<ul>
+<li>軟體包: <code>bbswitch</code><ul>
+<li>在 Acer TravelMate P2 (TMP215-53G-73RB) 機器上測試，關閉獨立顯示卡並不會降低電源使用功率，故不安裝</li>
+</ul>
+</li>
+<li>設定<ol>
+<li>新增 <code>/etc/modprobe.d/bbswitch.conf</code>，內容為
+   <div class="highlight"><pre><span></span><code>blacklist nouveau
+blacklist nvidia
+options bbswitch load_state=0 unload_state=1
+</code></pre></div></li>
+<li>新增 <code>/etc/modules-load.d/bbswitch.conf</code>，內容為
+   <div class="highlight"><pre><span></span><code>bbswitch
+</code></pre></div></li>
+<li>重啟後生效</li>
+<li>參考資料：<a href="https://wiki.archlinux.org/index.php/Bumblebee#Power_management">Bumblebee - ArchWiki</a></li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>JavaFX</strong></p>
+<ul>
+<li>軟體包: java-openjfx<ul>
+<li>Oracle 在 JDK 11 之後不再包含 JavaFX，之後只作為第三方函式庫，因此只會越來越少人用，故不安裝</li>
+</ul>
+</li>
+<li>說明<ul>
+<li>Arch Linux 把 JavaFX SDK 直接放在 Java 的資料夾 (<code>/usr/lib/jvm/default/lib</code>) 裡，跟 JRE 產生衝突，因此 JavaFX 程式無法正常執行。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

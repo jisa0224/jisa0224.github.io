@@ -1,0 +1,7 @@
+.md-typeset ul ol, .md-typeset ol ol {
+    list-style-type: decimal;
+}
+
+.md-typeset ul ol ol, .md-typeset ol ol ol {
+    list-style-type: decimal;
+}

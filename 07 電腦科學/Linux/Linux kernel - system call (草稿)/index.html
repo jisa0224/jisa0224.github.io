@@ -1,0 +1,4610 @@
+
+<!doctype html>
+<html lang="zh-TW" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jisa0224.github.io/07%20%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/Linux/Linux%20kernel%20-%20system%20call%20%28%E8%8D%89%E7%A8%BF%29/">
+      
+      
+        <link rel="prev" href="../Linux%20kernel%20-%20kernel%20logging%2C%20kernel%20ring%20buffer%2C%20printk%20%28%E8%8D%89%E7%A8%BF%29/">
+      
+      
+        <link rel="next" href="../Linux%20kernel%20-%20virtual%20file%20system%20%28VFS%29%20%28%E8%8D%89%E7%A8%BF%29/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.12">
+    
+    
+      
+        <title>Linux kernel: system call - Jisa's Notebook</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../css/markdown-material-fix.css">
+    
+      <link rel="stylesheet" href="../../../css/disable-footer-nav.css">
+    
+      <link rel="stylesheet" href="../../../css/arithmatex.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux-kernel-system-call" class="md-skip">
+          跳轉到
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="頁首">
+    <a href="../../.." title="Jisa&#39;s Notebook" class="md-header__button md-logo" aria-label="Jisa's Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jisa's Notebook
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux kernel: system call
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜尋" placeholder="搜尋" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="搜尋">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清除" aria-label="清除" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜尋引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="導覽列" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jisa&#39;s Notebook" class="md-nav__button md-logo" aria-label="Jisa's Notebook" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Jisa's Notebook
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        首頁
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          01 學習
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          01 學習
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01%20%E5%AD%B8%E7%BF%92/C%20%E8%AA%9E%E8%A8%80%E7%B7%A8%E7%A8%8B/" class="md-nav__link">
+        C 語言編程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01%20%E5%AD%B8%E7%BF%92/%E6%9B%B8%E5%96%AE/" class="md-nav__link">
+        書單
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          02 哲學
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          02 哲學
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02%20%E5%93%B2%E5%AD%B8/%5B%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98%5D%20%E8%AA%B0%E6%98%AF%E6%88%91%EF%BC%9F%E6%84%8F%E8%AD%98%E7%9A%84%E5%93%B2%E5%AD%B8%E8%88%87%E7%A7%91%E5%AD%B8/" class="md-nav__link">
+        [讀書筆記] 誰是我？意識的哲學與科學 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          03 數學
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          03 數學
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/Bessel%27s%20Correction%20-%20%E7%B5%B1%E8%A8%88%E5%AD%B8%E8%A3%A1%E7%9A%84%20n-1/" class="md-nav__link">
+        Bessel's Correction: 統計學裡的 n-1 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/convolution/" class="md-nav__link">
+        卷積 Convolution
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/singular-value-and-eigenvalue/" class="md-nav__link">
+        奇异值与特征值辨析 (轉載)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/%E4%B8%80%E5%80%8B%E5%9C%96%E8%AB%96%E9%A1%8C%E7%9B%AE/" class="md-nav__link">
+        一個圖論題目 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/%E7%A9%8D%E5%88%86%E8%AE%8A%E6%8F%9B%28%E4%B8%80%29%EF%BC%9A%E5%82%85%E7%AB%8B%E8%91%89%E5%88%86%E6%9E%90/" class="md-nav__link">
+        積分變換(一)：傅立葉分析 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03%20%E6%95%B8%E5%AD%B8/%E7%B0%A1%E5%96%AE%E6%98%93%E6%87%82%E7%9A%84%E5%90%91%E9%87%8F%E5%BE%AE%E7%A9%8D%E5%88%86/" class="md-nav__link">
+        簡單易懂的向量微積分 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          04 物理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          04 物理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04%20%E7%89%A9%E7%90%86/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E8%BD%89%E6%8F%9B%E7%9A%84%E7%89%A9%E7%90%86%E6%84%8F%E7%BE%A9/" class="md-nav__link">
+        拉普拉斯轉換的物理意義 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          06 生物
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          06 生物
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/Body%20Transfer%20Illusion/" class="md-nav__link">
+        Body Transfer Illusion (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/RNA%20sequencing%20%28RNA-Seq%29/" class="md-nav__link">
+        RNA sequencing (RNA-Seq) (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/%5B%E6%9C%89%E8%B6%A3%E7%A0%94%E7%A9%B6%5D%20%E9%BB%8F%E8%8F%8C/" class="md-nav__link">
+        [有趣研究] 黏菌 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/%5B%E7%9C%8B%E5%BD%B1%E7%89%87%5D%20%E4%BC%8A%E8%8E%89%E8%8E%8E%E7%99%BD%EF%BC%8E%E7%BE%85%E8%8A%99%E6%89%98%E6%96%AF%20%28Elizabeth%20Loftus%29%EF%BC%9A%E8%99%9B%E6%A7%8B%E7%9A%84%E8%A8%98%E6%86%B6%20-%20TED%20Talk/" class="md-nav__link">
+        [看影片] 伊莉莎白．羅芙托斯 (Elizabeth Loftus)：虛構的記憶 - TED Talk (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/%5B%E8%AE%80%E6%9B%B8%E7%AD%86%E8%A8%98%5D%20%E5%A4%A7%E8%85%A6%E7%B0%A1%E5%8F%B2%EF%BC%9A%E7%94%9F%E7%89%A9%E7%B6%93%E9%81%8E%E5%9B%9B%E5%8D%81%E5%84%84%E5%B9%B4%E7%9A%84%E6%BC%94%E5%8C%96%EF%BC%8C%E5%A4%A7%E8%85%A6%E6%98%AF%E5%90%A6%E5%B7%B2%E7%B6%93%E8%B6%85%E8%84%AB%E8%87%AA%E7%A7%81%E5%9F%BA%E5%9B%A0%E7%9A%84%E6%8E%8C%E6%8E%A7%EF%BC%9F/" class="md-nav__link">
+        [讀書筆記] 大腦簡史：生物經過四十億年的演化，大腦是否已經超脫自私基因的掌控？ (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../06%20%E7%94%9F%E7%89%A9/%E6%BB%B2%E9%80%8F%E6%80%A7%EF%BC%88Osmolarity%EF%BC%89vs.%20%E5%BC%B5%E6%80%A7%EF%BC%88Tonicity%EF%BC%89%EF%BC%8C%E5%8F%8A%E6%BB%B2%E9%80%8F%E6%BF%83%E5%BA%A6%EF%BC%88Osmolarity%EF%BC%89/" class="md-nav__link">
+        滲透性（Osmolarity）vs. 張性（Tonicity），及滲透濃度（Osmolarity）
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          07 電腦科學
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          07 電腦科學
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+          Linux
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../C%20%E8%AA%9E%E8%A8%80%20printf%20%E5%92%8C%20write%20%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        C 語言 printf 和 write 原理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20Job%20Control%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux Job Control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20TTY%20and%20VT%20subsystem%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux TTY and VT subsystem
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20driver%20%E8%BC%89%E5%85%A5%E6%B5%81%E7%A8%8B%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux driver 載入流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20-%20Device%20%E5%8F%8A%20Device%20driver%20%28%E6%96%B0%29%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: Device 及 Device driver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20-%20Device%20%E5%8F%8A%20Device%20driver%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: Device 及 Device driver
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20-%20Storage%20stack%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: Storage stack
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20-%20character%20devices%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: character devices
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20-%20console%20%E5%88%9D%E5%A7%8B%E5%8C%96%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: console 初始化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20-%20framebuffer%20device%20%E5%8F%8A%20framebuffer%20console%20%E5%88%9D%E5%A7%8B%E5%8C%96%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: framebuffer device 及 framebuffer console 初始化
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20-%20kernel%20logging%2C%20kernel%20ring%20buffer%2C%20printk%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: kernel logging, kernel ring buffer, printk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Linux kernel: system call
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Linux kernel: system call
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#syscall" class="md-nav__link">
+    複習: syscall 之前
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-call" class="md-nav__link">
+    System call 初始化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-call_1" class="md-nav__link">
+    System call 處理
+  </a>
+  
+    <nav class="md-nav" aria-label="System call 處理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-macro" class="md-nav__link">
+    C macro 展開：展開過程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-macro_1" class="md-nav__link">
+    C macro 展開：最終結果
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    結尾
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20-%20virtual%20file%20system%20%28VFS%29%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel: virtual file system (VFS)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20macro%20-%20container_of%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel macro: container_of
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20module%20%E8%BC%89%E5%85%A5%E6%B5%81%E7%A8%8B%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel module 載入流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20kernel%20%E5%95%9F%E5%8B%95%E6%B5%81%E7%A8%8B%20%28%E5%BE%9E%20architecture-dependent%20kernel%20entry%20%E5%88%B0%20init%29%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux kernel 啟動流程 (從 architecture dependent kernel entry 到 init) (草稿)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20%E5%87%BD%E5%BC%8F%E5%BA%AB%E7%9A%84%E5%BB%BA%E7%AB%8B%E3%80%81%E4%BD%BF%E7%94%A8%E8%88%87%E6%90%9C%E5%B0%8B%E8%B7%AF%E5%BE%91%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux 函式庫的建立、使用與搜尋路徑
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20%E5%89%AA%E8%B2%BC%E7%B0%BF%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        Linux 剪貼簿
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20%E5%95%9F%E5%8B%95%E6%B5%81%E7%A8%8B%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux 啟動流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20%E6%AA%94%E6%A1%88%E6%AC%8A%E9%99%90%E8%88%87%E5%B1%AC%E6%80%A7%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux 檔案權限與屬性
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%20%E9%97%9C%E9%96%89%E6%B5%81%E7%A8%8B%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux 關閉流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../X%20Window%20System%20-%20Display%20Name%20%E8%88%87%20X%20Server-Client%20%E7%9A%84%E5%95%9F%E5%8B%95/" class="md-nav__link">
+        X Window System: Display Name 與 X Server/Client 的啟動
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../X%20Window%20System%20-%20X%20Client%20%E5%A6%82%E4%BD%95%E8%88%87%20X%20Server%20%E9%80%9A%E8%A8%8A/" class="md-nav__link">
+        X Window System: X Client 如何與 X Server 通訊
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XTerm%20%E7%9A%84%20Alternate%20Screen%20Buffer/" class="md-nav__link">
+        XTerm 的 Alternate Screen Buffer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../systemd-logind%20%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        systemd-logind 原理
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+          Web
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Web
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/%E7%B6%B2%E9%A0%81%E5%9C%96%E7%A4%BA/" class="md-nav__link">
+        網頁圖示 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3" id="__nav_7_3_label" tabindex="0">
+          Windows
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Windows
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/Windows%20%E9%9A%B1%E8%97%8F%E7%A3%81%E5%8D%80/" class="md-nav__link">
+        Windows 隱藏磁區 (草稿)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+          作業系統
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          作業系統
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/MIT%206.S081%202021%20-%20xv6%20Labs%20%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE%20%28%E6%96%B0%29%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        MIT 6.S081 2021: xv6 Labs 環境配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/MIT%206.S081%202021%20-%20xv6%20Labs%20%E7%92%B0%E5%A2%83%E9%85%8D%E7%BD%AE%20%28%E8%88%8A%29/" class="md-nav__link">
+        xv6 (RISC-V 版本)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/Qemu%20RISC-V%20VirtIO%20board%20%E9%96%8B%E6%A9%9F%E6%B5%81%E7%A8%8B/" class="md-nav__link">
+        Qemu RISC-V VirtIO board 開機流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/RISC-V%20SBI%20%E4%BB%8B%E7%B4%B9/" class="md-nav__link">
+        RISC-V SBI 介紹
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/User-Mode%20Linux/" class="md-nav__link">
+        User-Mode Linux
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E4%BD%BF%E7%94%A8%20Qemu%20%E5%92%8C%20Visual%20Studio%20Code%20%E9%99%A4%E9%8C%AF%20Linux%20kernel%20%28RISC-V%29/" class="md-nav__link">
+        使用 Qemu 和 Visual Studio Code 除錯 Linux kernel (RISC-V)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/%E4%BD%BF%E7%94%A8%20Qemu%20%E5%92%8C%20Visual%20Studio%20Code%20%E9%99%A4%E9%8C%AF%20Linux%20kernel%20%28x86_64%29/" class="md-nav__link">
+        使用 Qemu 和 Visual Studio Code 除錯 Linux kernel (x86_64)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="0">
+          未分類
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          未分類
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/Continuation%20-%20%E4%BD%BF%E7%94%A8%20Scheme%20%E7%9A%84%20callcc%20%E5%AF%A6%E7%8F%BE%20generator/" class="md-nav__link">
+        Continuation: 使用 Scheme 的 call/cc 實現 generator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-01-problem-2.27/" class="md-nav__link">
+        【CS:APP 筆記】Problem 2.27 檢查無號整數相加是否溢位
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-02-c-details-of-declaring-pointers/" class="md-nav__link">
+        【CS:APP 筆記】C 語言中宣告指標的小細節
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-03-x86_64-jmp-notes/" class="md-nav__link">
+        【CS:APP 筆記】x86_64 中的 JMP 指令整理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-04-x86_64-flags/" class="md-nav__link">
+        【CS:APP 筆記】x86_64 旗標暫存器與大小判斷
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-05-rounding/" class="md-nav__link">
+        【CS:APP 筆記】數值修約(rounding)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-06-why-callee-saved-registers/" class="md-nav__link">
+        【CS:APP 筆記】為什麼要有 callee-saved 暫存器？(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-07-array-vs-pointer/" class="md-nav__link">
+        【CS:APP 筆記】陣列與指標間的一些區別與可變大小陣列
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-08-stack-and-uninitialized-local-variables/" class="md-nav__link">
+        【CS:APP 筆記】Stack 與未初始化的區域變數
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-09-x86_64-byte-order-of-push-and-pop/" class="md-nav__link">
+        【CS:APP 筆記】x86_64 PUSH 與 POP 的 byte order
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/csapp-notes-10-p.259/" class="md-nav__link">
+        【CS:APP 筆記】P.259 多維陣列取值的組合語言另解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/io-models-blocking-nonblocking-synchronous-asynchronous/" class="md-nav__link">
+        I/O 模型：阻塞、非阻塞、同步、異步
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/%E4%BA%8B%E4%BB%B6%E8%BF%B4%E5%9C%88%E3%80%81IO%20%E6%A9%9F%E5%88%B6%E8%88%87%20CPU%20idle/" class="md-nav__link">
+        事件迴圈、I/O 機制與 CPU idle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9C%AA%E5%88%86%E9%A1%9E/%E9%9B%BB%E8%B7%AF%E3%80%81%E9%82%8F%E8%BC%AF%E9%96%98%E3%80%81%E8%A8%88%E7%AE%97%E6%A9%9F%E5%92%8C%E9%9B%BB%E8%85%A6%E7%9A%84%E5%85%B6%E5%AE%83%E5%AF%A6%E7%8F%BE/" class="md-nav__link">
+        電路、邏輯閘、計算機和電腦的其它實現
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6" id="__nav_7_6_label" tabindex="0">
+          機器學習
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          機器學習
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%A9%9F%E5%99%A8%E5%AD%B8%E7%BF%92/%5B%E8%AE%80%E8%AB%96%E6%96%87%5D%20Large-Scale%20Study%20of%20Curiosity-Driven%20Learning/" class="md-nav__link">
+        [讀論文] Large-Scale Study of Curiosity-Driven Learning
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7" id="__nav_7_7_label" tabindex="0">
+          程式設計
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          程式設計
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/how-to-read-code-efficiently/" class="md-nav__link">
+        如何高效阅读代码？ (轉載)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/unicode-you-dont-know/" class="md-nav__link">
+        其实你并不懂 Unicode (轉載)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_7_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7_3" id="__nav_7_7_3_label" tabindex="0">
+          資料結構與演算法
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_7_7_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          資料結構與演算法
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/%5B%E6%9C%89%E8%B6%A3%E7%A0%94%E7%A9%B6%5D%20%E5%BE%9E%E5%BD%B1%E5%83%8F%E7%9A%84%E6%A5%B5%E8%BC%95%E5%BE%AE%E9%9C%87%E5%8B%95%E9%82%84%E5%8E%9F%E5%87%BA%E7%8F%BE%E5%A0%B4%E8%81%B2%E9%9F%B3/" class="md-nav__link">
+        [有趣研究] 從影像的極輕微震動還原出現場聲音 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/%5B%E6%BC%94%E7%AE%97%E6%B3%95%E7%AD%86%E8%A8%98%5D%20%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B8%E5%88%97%E5%95%8F%E9%A1%8C%20Maximum%20Subarray%20Problem/" class="md-nav__link">
+        [演算法筆記] 最大子數列問題 Maximum Subarray Problem (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/algorithm-notes-optimal-substructure/" class="md-nav__link">
+        [演算法筆記] 最優子結構 Optimal Substructure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/fun-research-computational-periscopy-with-an-ordinary-digital-camera/" class="md-nav__link">
+        [有趣研究] 只要算法够厉害，白墙能当镜子用：我初中物理都白学了 | Nature新论文 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/%E7%94%9F%E6%88%90%E4%B8%8D%E9%87%8D%E8%A4%87%E9%9A%A8%E6%A9%9F%E6%95%B8%EF%BC%9AFisher-Yates%20shuffle/" class="md-nav__link">
+        生成不重複隨機數：Fisher-Yates shuffle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%E8%88%87%E6%BC%94%E7%AE%97%E6%B3%95/%E7%9D%A1%E7%9C%A0%E6%8E%92%E5%BA%8F%20Sleep%20Sort/" class="md-nav__link">
+        睡眠排序 Sleep Sort
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_8" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_8" id="__nav_7_8_label" tabindex="0">
+          計算數學
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_8">
+          <span class="md-nav__icon md-icon"></span>
+          計算數學
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%A8%88%E7%AE%97%E6%95%B8%E5%AD%B8/%E8%87%AA%E5%8B%95%E5%BE%AE%E5%88%86%20Automatic%20Differentiation/" class="md-nav__link">
+        自動微分 Automatic Differentiation (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          08 電腦實務
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          08 電腦實務
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_1" id="__nav_8_1_label" tabindex="0">
+          01 我的設定
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_1">
+          <span class="md-nav__icon md-icon"></span>
+          01 我的設定
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Arch%20Linux%20%28%E8%99%9B%E6%93%AC%E6%A9%9F%29/" class="md-nav__link">
+        Arch Linux (虛擬機)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Arch%20Linux%2001%20%E7%B3%BB%E7%B5%B1%E5%AE%89%E8%A3%9D/" class="md-nav__link">
+        Arch Linux 01 系統安裝
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Arch%20Linux%2002%20%E8%A8%AD%E5%AE%9A%E8%88%87%E5%B7%B2%E7%9F%A5%E5%95%8F%E9%A1%8C/" class="md-nav__link">
+        Arch Linux 02 設定與已知問題
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Arch%20Linux%2003%20%E8%BB%9F%E9%AB%94%E5%8C%85%E6%B8%85%E5%96%AE/" class="md-nav__link">
+        Arch Linux 03 軟體包清單
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Arch%20Linux%2004%20%E9%9B%9C%E9%A0%85/" class="md-nav__link">
+        Arch Linux 04 雜項
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Arch%20Linux%2005%20%E4%BD%BF%E7%94%A8%20Wayland%20%E5%92%8C%20PipeWire%20%E5%8F%96%E4%BB%A3%20X%20Window%20System%20%E5%92%8C%20Pulseaudio%20%E8%88%87%20JACK/" class="md-nav__link">
+        Arch Linux 05 使用 Wayland 和 PipeWire 取代 X Window System 和 Pulseaudio 與 JACK
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/VMware%20Workstation/" class="md-nav__link">
+        VMware Workstation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Visual%20Studio%20Code/" class="md-nav__link">
+        Visual Studio Code
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Windows%2010%20%28%E8%99%9B%E6%93%AC%E6%A9%9F%29/" class="md-nav__link">
+        Windows 10 (虛擬機)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Windows%2010/" class="md-nav__link">
+        Windows 10
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Windows%2011%20%28%E8%99%9B%E6%93%AC%E6%A9%9F%29/" class="md-nav__link">
+        Windows 11 (虛擬機)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Windows%2011%20%E5%B7%A5%E5%85%B7%E5%88%97%E3%80%81%E9%96%8B%E5%A7%8B%E5%8A%9F%E8%83%BD%E8%A1%A8%E9%82%84%E5%8E%9F%E7%A8%8B%E5%BC%8F%E8%A9%95%E6%B8%AC/" class="md-nav__link">
+        Windows 11 工具列、開始功能表還原程式評測
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Windows%2011%20%E7%95%8C%E9%9D%A2%E8%AA%BF%E6%A0%A1/" class="md-nav__link">
+        Windows 11 界面調校
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/01%20%E6%88%91%E7%9A%84%E8%A8%AD%E5%AE%9A/Windows%20Subsystem%20for%20Linux%20%28WSL%29/" class="md-nav__link">
+        Windows Subsystem for Linux (WSL)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
+          02 Linux
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_2">
+          <span class="md-nav__icon md-icon"></span>
+          02 Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Bash%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        Bash 使用技巧 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Bash%20%E5%9C%A8%20Emacs%20%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E5%BF%AB%E9%80%9F%E9%8D%B5%E5%92%8C%E5%85%B6%E8%A1%9D%E7%AA%81%E5%88%97%E8%A1%A8/" class="md-nav__link">
+        Bash 在 Emacs 模式下的快速鍵和其衝突列表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Bash%20%E5%A6%82%E4%BD%95%E5%B1%95%E9%96%8B%20asterisk%20%E8%87%AA%E5%8B%95%E8%A3%9C%E5%85%A8/" class="md-nav__link">
+        Bash 如何展開 * 自動補全
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Bash%20%E5%A6%82%E4%BD%95%E8%BC%B8%E5%85%A5%E5%90%8C%E8%B3%87%E6%96%99%E5%A4%BE%E4%B8%8B%E7%9A%84%E6%AA%94%E5%90%8D%E4%BD%86%E4%B8%8D%E9%87%8D%E8%A4%87%E8%BC%B8%E5%85%A5%E8%B7%AF%E5%BE%91/" class="md-nav__link">
+        Bash 如何輸入同資料夾下的檔名但不重複輸入路徑
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/GCC%20%E9%80%A3%E7%B5%90%E6%99%82%E7%9A%84%E5%8F%83%E6%95%B8%E6%9C%89%E5%85%88%E5%BE%8C%E9%A0%86%E5%BA%8F/" class="md-nav__link">
+        GCC 連結時的參數有先後順序
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/GNU%20Binutils%20-%20a%20collection%20of%20binary%20tools%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        GNU Binutils: a collection of binary tools
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/GNU%20Coreutils%20-%20the%20basic%20file%2C%20shell%20and%20text%20manipulation%20utilities%20of%20the%20GNU%20operating%20system/" class="md-nav__link">
+        GNU Coreutils: the basic file, shell and text manipulation utilities of the GNU operating system
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Linux%20Kernel%20%E5%BB%BA%E7%BD%AE%20-%20%E8%A8%AD%E5%AE%9A%E7%89%88%E6%9C%AC%E8%99%9F/" class="md-nav__link">
+        Linux Kernel 建置: 設定版本號
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Linux%20cp%20%E8%88%87%20install%20%E6%8C%87%E4%BB%A4%E6%AF%94%E8%BC%83/" class="md-nav__link">
+        Linux cp 與 install 指令比較
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Linux%20%E5%9B%A0%E7%82%BA%20Intel%20IBT%20%E5%B0%8E%E8%87%B4%E7%84%A1%E6%B3%95%E8%BC%89%E5%85%A5%20module%20%E5%95%8F%E9%A1%8C/" class="md-nav__link">
+        Linux 因為 Intel IBT 導致無法載入 module 問題
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Linux%20%E5%9F%B7%E8%A1%8C%E7%A8%8B%E5%BC%8F%E6%99%82%E5%87%BA%E7%8F%BE%20No%20such%20file%20or%20directory%20%E9%8C%AF%E8%AA%A4/" class="md-nav__link">
+        Linux 執行程式時出現 No such file or directory 錯誤
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Linux%20%E5%BC%B7%E5%88%B6%E6%9B%B4%E6%96%B0%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E6%B8%85%E5%96%AE%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Linux 強制更新應用程式清單
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Linux%20%E5%BE%9E%20kernel%20parameter%20%E7%A6%81%E7%94%A8%E7%89%B9%E5%AE%9A%20module/" class="md-nav__link">
+        Linux 從 kernel parameter 禁用特定 module
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Linux%20%E6%AF%94%E8%BC%83%E5%92%8C%E5%90%8C%E6%AD%A5%E5%85%A9%E5%80%8B%E8%B3%87%E6%96%99%E5%A4%BE%E7%9A%84%E6%93%81%E6%9C%89%E8%80%85%E5%92%8C%E6%AC%8A%E9%99%90/" class="md-nav__link">
+        Linux 比較和同步兩個資料夾的所有權和權限
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Linux%20%E7%95%B6%E6%A9%9F%E8%99%95%E7%90%86%E8%88%87%20Magic%20SysRq%20Key/" class="md-nav__link">
+        Linux 當機處理與 Magic SysRq Key
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Linux%20%E9%9A%B1%E8%97%8F%20Windows%20%E7%B3%BB%E7%B5%B1%E6%AA%94%E6%A1%88/" class="md-nav__link">
+        Linux 隱藏 Windows 系統檔案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Linux%20%E9%A1%AF%E7%A4%BA%E6%8E%9B%E8%BC%89%E9%BB%9E%E8%B3%87%E8%A8%8A/" class="md-nav__link">
+        Linux 顯示已掛載的裝置資訊
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Readline%20%28%E5%8F%8A%E5%85%B6%E4%BD%BF%E7%94%A8%E8%80%85%20Bash%29%20%E6%8C%89%E9%8D%B5%E9%80%9F%E6%9F%A5%E8%A1%A8%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        Readline (及其使用者 Bash) 按鍵速查表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Systemd%20%E9%80%9F%E6%9F%A5%E8%A1%A8/" class="md-nav__link">
+        Systemd 速查表
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Vim%20%E4%BB%A5%20root%20%E6%AC%8A%E9%99%90%E9%96%8B%E5%95%9F%E3%80%81%E9%96%8B%E5%95%9F%E5%BE%8C%E4%BB%A5%20root%20%E6%AC%8A%E9%99%90%E5%84%B2%E5%AD%98%E4%BB%A5%E5%8F%8A%E5%BC%B7%E5%88%B6%E5%AF%AB%E5%85%A5%E7%9A%84%E7%96%91%E5%95%8F/" class="md-nav__link">
+        Vim 以 root 權限開啟、開啟後以 root 權限儲存以及強制寫入(:w!)的疑問
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Vim%20%E5%9F%B7%E8%A1%8C%20shell%20%E6%8C%87%E4%BB%A4%E5%92%8C%E8%BC%B8%E5%87%BA%E5%85%A5%E9%87%8D%E5%AE%9A%E5%90%91/" class="md-nav__link">
+        Vim 執行 shell 指令和輸出入重定向
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/Virtualbox%20-%20%E6%8E%9B%E8%BC%89%20VirtualBox%20VDI%20%E7%A3%81%E7%A2%9F%E6%98%A0%E5%83%8F%E6%AA%94/" class="md-nav__link">
+        Virtualbox: 掛載 VirtualBox VDI 磁碟映像檔
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/cp%20-%20omitting%20directory%20%E9%8C%AF%E8%AA%A4/" class="md-nav__link">
+        cp: omitting directory 錯誤
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/cp%20%E8%A4%87%E8%A3%BD%E5%8C%85%E5%90%AB%E9%9A%B1%E8%97%8F%E6%AA%94%E5%9C%A8%E5%85%A7%E7%9A%84%E6%89%80%E6%9C%89%E6%AA%94%E6%A1%88/" class="md-nav__link">
+        cp 複製包含隱藏檔在內的所有檔案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/dd%20-%20%E8%A3%BD%E4%BD%9C%E5%8F%AF%E9%96%8B%E6%A9%9F%20USB/" class="md-nav__link">
+        dd: 製作可開機 USB
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/ps%20%E5%8F%83%E6%95%B8%E6%95%B4%E7%90%86/" class="md-nav__link">
+        ps 參數整理
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/sudo%20-%20%E7%82%BA%E4%BB%80%E9%BA%BC%E4%BD%BF%E7%94%A8%20sudo%20%E4%BB%8D%E5%BE%97%E5%88%B0%20Permission%20denied%EF%BC%9F/" class="md-nav__link">
+        sudo: 為什麼使用 sudo 仍得到 Permission denied？
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/util-linux%20-%20a%20random%20collection%20of%20Linux%20utilities%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        util-linux: a random collection of Linux utilities
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/02%20Linux/%E4%BF%AE%E5%BE%A9%E5%BC%B7%E5%88%B6%E9%97%9C%E6%A9%9F%E5%B0%8E%E8%87%B4%E7%84%A1%E6%B3%95%E6%8E%9B%E8%BC%89%20NTFS%20%E5%88%86%E5%89%B2%E5%8D%80/" class="md-nav__link">
+        修復強制關機導致無法掛載 NTFS 分割區
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_3" id="__nav_8_3_label" tabindex="0">
+          03 Windows
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_3">
+          <span class="md-nav__icon md-icon"></span>
+          03 Windows
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/03%20Windows/Windows%2010%20%E6%9C%AC%E6%A9%9F%E9%9A%B1%E8%97%8F%E9%A0%90%E8%A8%AD%E8%B3%87%E6%96%99%E5%A4%BE/" class="md-nav__link">
+        Windows 10 本機隱藏預設資料夾 (TBD)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/03%20Windows/Windows%20%E5%81%9C%E6%AD%A2%E7%94%A2%E7%94%9F%20Zone.Identifier%20%E6%AA%94%E6%A1%88/" class="md-nav__link">
+        Windows 停止產生 Zone.Identifier 檔案
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/03%20Windows/Windows%20%E5%8F%B3%E9%8D%B5%E9%81%B8%E5%96%AE%E5%8A%A0%E5%85%A5%E5%9C%A8%E9%80%99%E8%A3%A1%E9%96%8B%E5%95%9F%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E5%AD%97%E5%85%83/" class="md-nav__link">
+        Windows 右鍵選單加入「在這裡開啟命令提示字元」 (TBD)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_4" id="__nav_8_4_label" tabindex="0">
+          04 應用程式
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_4">
+          <span class="md-nav__icon md-icon"></span>
+          04 應用程式
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Adobe%20Flash%20Player%20%E7%B5%90%E6%9D%9F%E6%9C%8D%E5%8B%99%E5%BE%8C%E7%B9%BC%E7%BA%8C%E4%BD%BF%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        Adobe Flash Player 結束服務後繼續使用的方法
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Android%20%E5%81%9C%E7%94%A8%E7%84%A1%E6%B3%95%E5%81%9C%E7%94%A8%E7%9A%84%E5%85%A7%E5%BB%BA%20APP/" class="md-nav__link">
+        Android 停用無法停用的內建 APP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Android%20%E7%99%BB%E5%85%A5%20Gmail%20%E4%BD%86%E4%B8%8D%E8%A6%81%E5%8A%A0%E5%85%A5%20Google%20%E5%B8%B3%E8%99%9F%E5%88%B0%E6%89%8B%E6%A9%9F/" class="md-nav__link">
+        Android 登入 Gmail 但不要加入 Google 帳號到手機
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Firefox%20AV1%20glitch%20%E5%95%8F%E9%A1%8C/" class="md-nav__link">
+        Firefox AV1 glitch 問題
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Firefox%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        Firefox 使用技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Git%20-%20Rebase%20a%20Merge%20Commit/" class="md-nav__link">
+        Git: Rebase a Merge Commit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Git%20%E6%AA%94%E6%A1%88%E7%A7%BB%E5%8B%95%E5%92%8C%E6%9B%B4%E5%90%8D/" class="md-nav__link">
+        Git 檔案移動和更名
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Google%20Chrome%20%28Android%20%E7%89%88%29%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        Google Chrome (Android 版) 使用技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Google%20Chrome%20%28%E9%9B%BB%E8%85%A6%E7%89%88%29%20%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/" class="md-nav__link">
+        Google Chrome (電腦版) 使用技巧
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Google%20Chrome%20%E5%BC%B7%E5%88%B6%E4%BD%BF%E7%94%A8%E7%B9%81%E4%B8%AD%E4%BD%9C%E7%82%BA%20UI%20%E8%AA%9E%E8%A8%80/" class="md-nav__link">
+        Google Chrome 強制使用繁中作為 UI 語言 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Microsoft%20Office%20PowerPoint%20%E4%B8%8D%E8%A6%81%E9%81%B8%E5%8F%96%E6%AE%B5%E8%90%BD%E6%A8%99%E8%A8%98/" class="md-nav__link">
+        Microsoft Office PowerPoint 不要選取段落標記
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Microsoft%20Office%20PowerPoint%20%E5%8C%AF%E5%87%BA%20PDF%20%E5%BE%8C%E5%9C%96%E7%89%87%E6%B6%88%E5%A4%B1/" class="md-nav__link">
+        Microsoft Office PowerPoint 匯出 PDF 後圖片消失
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Microsoft%20Office%20Word%20%E4%B8%8D%E8%A6%81%E9%81%B8%E5%8F%96%E6%AE%B5%E8%90%BD%E6%A8%99%E8%A8%98/" class="md-nav__link">
+        Microsoft Office Word 不要選取段落標記
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Microsoft%20Office%20Word%20%E4%BF%AE%E6%AD%A3%E8%AE%8A%E6%9B%B4%E5%AD%97%E9%AB%94%E5%A4%A7%E5%B0%8F%E5%BE%8C%E8%A1%8C%E8%B7%9D%E8%B7%91%E6%8E%89%E7%9A%84%E5%95%8F%E9%A1%8C/" class="md-nav__link">
+        Microsoft Office Word 修正變更字體大小後行距跑掉的問題
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Microsoft%20Office%20Word%20%E6%8F%92%E5%85%A5%E5%9C%96%E7%89%87%E4%B8%A6%E8%A8%AD%E7%BD%AE%E7%82%BA%E3%80%8C%E8%88%87%E6%96%87%E5%AD%97%E6%8E%92%E5%88%97%E3%80%8D%EF%BC%8C%E5%9C%96%E7%89%87%E5%8D%BB%E8%A2%AB%E5%88%87%E6%8E%89/" class="md-nav__link">
+        Microsoft Office Word 插入圖片並設置為「與文字排列」，圖片卻被切掉
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/PDF%20-%20%E5%B0%87%20PDF%20%E7%9A%84%E6%89%80%E6%9C%89%E6%9B%B8%E7%B1%A4%E4%B8%80%E6%AC%A1%E6%94%B9%E7%82%BA%E6%89%BF%E8%A5%B2%E7%B8%AE%E6%94%BE/" class="md-nav__link">
+        PDF: 將 PDF 的所有書籤一次改為承襲縮放
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Python%20%E5%BF%AB%E9%80%9F%E5%BB%BA%E7%AB%8B%E4%B8%80%E5%80%8B%E7%B0%A1%E5%96%AE%E7%9A%84%20HTTP%20%E4%BC%BA%E6%9C%8D%E5%99%A8/" class="md-nav__link">
+        Python 快速建立一個簡單的 HTTP 伺服器
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/VirtualBox%20-%20%E7%B8%AE%E5%B0%8F%20VirtualBox%20VDI%20%E8%99%9B%E6%93%AC%E7%A1%AC%E7%A2%9F%E6%AA%94%E5%A4%A7%E5%B0%8F/" class="md-nav__link">
+        VirtualBox: 縮小 VirtualBox VDI 虛擬硬碟檔大小
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/04%20%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/Word%20%E6%96%87%E4%BB%B6%E6%A0%BC%E7%B7%9A%E8%88%87%E8%A1%8C%E8%B7%9D%E5%8E%9F%E7%90%86%EF%BC%9A%E7%82%BA%E4%BD%95%E8%AA%BF%E6%95%B4%E5%AD%97%E5%9E%8B%E6%88%96%E5%AD%97%E9%AB%94%E5%A4%A7%E5%B0%8F%E5%BE%8C%E8%A1%8C%E8%B7%9D%E6%9C%83%E6%94%B9%E8%AE%8A%EF%BC%9F/" class="md-nav__link">
+        Word 文件格線與行距原理：為何調整字型或字體大小後行距會改變？
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5" id="__nav_8_5_label" tabindex="0">
+          05 程式設計
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5">
+          <span class="md-nav__icon md-icon"></span>
+          05 程式設計
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5_1" id="__nav_8_5_1_label" tabindex="0">
+          C 與 C++
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_5_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          C 與 C++
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20Compound%20Literals/" class="md-nav__link">
+        C 語言: Compound Literals
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20Compound%20Statement/" class="md-nav__link">
+        C 語言: Compound Statement
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20Declaration%20and%20Definition%20%E8%88%87%20Storage-Class/" class="md-nav__link">
+        C 語言: Declaration/Definition 與 Storage-Class
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20Expression%20%E8%88%87%20Statement%20%28%E8%8D%89%E7%A8%BF%29/" class="md-nav__link">
+        C 語言: Expression 與 Statement
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20%E5%8F%96%E5%BE%97%E5%96%AE%E4%B8%80%E5%AD%97%E5%85%83%E7%9A%84%E5%87%BD%E6%95%B8%20-%20getchar%28%29%2C%20getch%28%29%2C%20getche%28%29/" class="md-nav__link">
+        C 語言: 取得單一字元的函數: getchar(), getch(), getche()
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20%E7%9B%B4%E6%8E%A5%E5%B0%8D%20String%20literal%20%E5%81%9A%20Array%20subscripting/" class="md-nav__link">
+        C 語言: 直接對 String literal 做 Array subscripting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/C%20%E8%AA%9E%E8%A8%80%20-%20%E8%B7%A8%E5%B9%B3%E5%8F%B0%20sleep%28%29/" class="md-nav__link">
+        C 語言: 跨平台 sleep()
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/c-error-a-label-can-only-be-part-of-a-statement-and-a-declaration-is-not-a-statement/" class="md-nav__link">
+        C語言編譯時的 a label can only be part of a statement and a declaration is not a statement 錯誤
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/cling-interactive-cpp-interpreter-tutorial/" class="md-nav__link">
+        Cling: Interactive C++ Interpreter 使用指南
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/cpp-class-default-constructor-copy-constructor-copy-assignment-operator-and-destructor/" class="md-nav__link">
+        C++ Class: default constructor, copy constructor, copy-assignment operator, and destructor
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/C%20%E8%88%87%20C%2B%2B/cpp11-rvalue-reference-move-semantics-and-perfect-forwarding/" class="md-nav__link">
+        C++11 右值引用、移動語意和完美轉發
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5_2" id="__nav_8_5_2_label" tabindex="0">
+          Java
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_5_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          Java
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Java/java-compilation-and-execution/" class="md-nav__link">
+        Java 編譯與執行 (TBD)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Java/java-notes/" class="md-nav__link">
+        Java 筆記
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Java/java-packaging/" class="md-nav__link">
+        Java 打包程式 (TBD)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Java/javafx-compilation-and-execution/" class="md-nav__link">
+        JavaFX 編譯與執行
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Java/junit-5-without-buid-tools/" class="md-nav__link">
+        不使用建置工具使用 JUnit 5
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5_3" id="__nav_8_5_3_label" tabindex="0">
+          LeetCode
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_5_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          LeetCode
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-1-two-sum/" class="md-nav__link">
+        [LeetCode] 1. Two Sum(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-198-house-robber/" class="md-nav__link">
+        [LeetCode] 198. House Robber(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-213-house-robber-ii/" class="md-nav__link">
+        [LeetCode] 213. House Robber II(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-338-counting-bits/" class="md-nav__link">
+        [LeetCode] 338. Counting Bits(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-343-integer-break/" class="md-nav__link">
+        [LeetCode] 343. Integer Break(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-5-longest-palindromic-substring/" class="md-nav__link">
+        [LeetCode] 5. Longest Palindromic Substring(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-70-climbing-stairs/" class="md-nav__link">
+        [LeetCode] 70. Climbing Stairs(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-747-largest-number-at-least-twice-of-others/" class="md-nav__link">
+        [LeetCode] 747. Largest Number At Least Twice of Others(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/LeetCode/leetcode-88-merge-sorted-array/" class="md-nav__link">
+        [LeetCode] 88. Merge Sorted Array(未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5_4" id="__nav_8_5_4_label" tabindex="0">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_5_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Python/python-execution-model/" class="md-nav__link">
+        Python 執行模式
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Python/python-nested-module-and-relative-import/" class="md-nav__link">
+        Python 巢狀 module 和 relative import
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Python/python-package-to-single-file/" class="md-nav__link">
+        Python 打包資料夾成單一檔案
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_5_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_5_5" id="__nav_8_5_5_label" tabindex="0">
+          Text Based User Interfaces (TUI)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_8_5_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Text Based User Interfaces (TUI)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Text-Based%20User%20Interfaces%20%28TUI%29/Curses/" class="md-nav__link">
+        Curses
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/05%20%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88/Text-Based%20User%20Interfaces%20%28TUI%29/%E5%8F%8D%E6%A8%B8%E6%AD%B8%E7%9C%9F%20-%20%E6%96%87%E5%AD%97%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%20%28%E8%BD%89%E8%BC%89%29/" class="md-nav__link">
+        反樸歸真: 文字模式下的程式設計 (轉載)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8_6" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8_6" id="__nav_8_6_label" tabindex="0">
+          06 未分類
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_8_6">
+          <span class="md-nav__icon md-icon"></span>
+          06 未分類
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/06%20%E6%9C%AA%E5%88%86%E9%A1%9E/Linux%20%E5%92%8C%20Windows%20%E6%AA%94%E6%A1%88%E5%90%8D%E7%A8%B1%E5%AD%97%E5%85%83%E9%99%90%E5%88%B6/" class="md-nav__link">
+        Linux 和 Windows 檔案名稱字元限制
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/06%20%E6%9C%AA%E5%88%86%E9%A1%9E/MM%20Sorting%20Machine/" class="md-nav__link">
+        M&M Sorting Machine
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/06%20%E6%9C%AA%E5%88%86%E9%A1%9E/Noto%20CJK%20%E5%92%8C%20Source%20Han%20%E5%AD%97%E5%9E%8B%E6%AF%94%E8%BC%83/" class="md-nav__link">
+        Noto CJK 和 Source Han 字型比較 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/06%20%E6%9C%AA%E5%88%86%E9%A1%9E/%E4%BD%BF%E7%94%A8%20FFmpeg%20%E4%B8%8B%E8%BC%89%20HLS%20%28m3u8%29%20%E4%B8%B2%E6%B5%81%E5%BD%B1%E7%89%87/" class="md-nav__link">
+        使用 FFmpeg 下載 HLS (m3u8) 串流影片
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../08%20%E9%9B%BB%E8%85%A6%E5%AF%A6%E5%8B%99/06%20%E6%9C%AA%E5%88%86%E9%A1%9E/%E9%96%8B%E6%BA%90%E4%BA%BA%E5%B9%B4%E6%9C%83%20COSCUP%202018%20%E6%9C%83%E5%BE%8C%E7%AD%86%E8%A8%98/" class="md-nav__link">
+        開源人年會 COSCUP 2018 會後筆記 (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          10 其他
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          10 其他
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10%20%E5%85%B6%E4%BB%96/%5B%E6%97%A5%E8%AA%9E%E7%B7%B4%E7%BF%92-%E6%AD%8C%E8%A9%9E%E7%BF%BB%E8%AD%AF%5D%20%E5%83%95%E3%81%8C%E6%AD%BB%E3%81%AE%E3%81%86%E3%81%A8%E6%80%9D%E3%81%A3%E3%81%9F%E3%81%AE%E3%81%AF/" class="md-nav__link">
+        [日語練習-歌詞翻譯] 僕が死のうと思ったのは (未完成)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10%20%E5%85%B6%E4%BB%96/%E4%BD%BF%E7%94%A8%E7%A4%BA%E6%B3%A2%E5%99%A8%20XY%20%E6%A8%A1%E5%BC%8F%E7%95%AB%E5%9C%96/" class="md-nav__link">
+        使用示波器 XY 模式畫圖
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+          網站除錯
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_9_3">
+          <span class="md-nav__icon md-icon"></span>
+          網站除錯
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10%20%E5%85%B6%E4%BB%96/%E7%B6%B2%E7%AB%99%E9%99%A4%E9%8C%AF/" class="md-nav__link">
+        Welcome to MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../10%20%E5%85%B6%E4%BB%96/%E7%B6%B2%E7%AB%99%E9%99%A4%E9%8C%AF/debug/" class="md-nav__link">
+        網頁 Debug
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目錄">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目錄
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#syscall" class="md-nav__link">
+    複習: syscall 之前
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-call" class="md-nav__link">
+    System call 初始化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-call_1" class="md-nav__link">
+    System call 處理
+  </a>
+  
+    <nav class="md-nav" aria-label="System call 處理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#c-macro" class="md-nav__link">
+    C macro 展開：展開過程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-macro_1" class="md-nav__link">
+    C macro 展開：最終結果
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    結尾
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="linux-kernel-system-call">Linux kernel: system call</h1>
+<hr/>
+<p>TBD: System Call 與 Interrupt 原理</p>
+<ol>
+<li>編譯：從 printf() (C Standard Library, libc) 拆到 write() (Linux System Call Wrapper, The GNU C Library, glibc) 再到組合語言 (int 0x80) -&gt; 已完成</li>
+<li>開機到kernel載入初始化</li>
+<li>正式執行時的呼叫，以及電路機制(包含硬體中斷和軟體中斷)</li>
+<li>
+<p>int 16h vs int 0x80<br/>
+   deprecated System Call 原理解析 (以 printf() 到 write() 再到組合語言為例)<br/>
+<a href="https://unix.stackexchange.com/questions/5788/how-is-an-interrupt-handled-in-linux">kernel – How is an Interrupt handled in Linux? – Unix &amp; Linux Stack Exchange</a><br/>
+<a href="http://suoyihen.iteye.com/blog/1372247">Linux 内核–硬件中断初始化及中断描述符表 – suoyihen – ITeye技术网站</a><br/>
+<a href="http://blog.csdn.net/williamwanglei/article/details/10518811">转载_linux内核分析（某位大牛的文章） – williamwanglei的专栏 – 博客频道 – CSDN.NET</a><br/>
+<a href="http://blog.csdn.net/fwqcuc/article/details/5855460">IDT系列：（一）初探IDT，Interrupt Descriptor Table，中断描述符表 – fwqcuc的专栏 – 博客频道 – CSDN.NET</a><br/>
+<a href="http://www.cnblogs.com/tolimit/p/4390724.html">linux中断源码分析 – 概述(一) – tolimit – 博客园</a><br/>
+<a href="http://www.cnblogs.com/tolimit/p/4415348.html">linux中断源码分析 – 初始化(二) – tolimit – 博客园</a><br/>
+<a href="http://www.cnblogs.com/tolimit/p/4444850.html">linux中断源码分析 – 中断发生(三) – tolimit – 博客园</a><br/>
+<a href="http://www.cnblogs.com/tolimit/p/4495128.html">linux中断源码分析 – 软中断(四) – tolimit – 博客园</a><br/>
+<a href="http://woshijpf.github.io/2016/05/10/Linux-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">Linux 系统调用内核源码分析 | woshijpf’s blog</a><br/>
+<a href="http://oss.csie.fju.edu.tw/note/C/syscall.txt">oss.csie.fju.edu.tw/note/C/syscall.txt</a><br/>
+<a href="http://www.jollen.org/blog/2006/10/_asmlinkage.html">什麼是 “asmlinkage”？</a></p>
+</li>
+<li>
+<p><code>man syscall</code></p>
+</li>
+<li><code>man syscalls</code></li>
+<li><a href="https://0xax.gitbooks.io/linux-insides/content/SysCall/linux-syscall-2.html">How the Linux kernel handles a system call · Linux Inside</a></li>
+</ol>
+<hr/>
+<p>本文分析從 x86_64 assembly code <code>syscall</code> 開始，到 kernel system call 函式 (如: <code>write</code>) 的過程。</p>
+<p>相關文章：</p>
+<ul>
+<li><a href="../C%20%E8%AA%9E%E8%A8%80%20printf%20%E5%92%8C%20write%20%E5%8E%9F%E7%90%86/">C 語言 printf 和 write 原理</a></li>
+<li><a href="Linux kernel - virtual file system (VFS).md">Linux kernel: virtual file system (VFS)</a></li>
+</ul>
+<h2 id="syscall">複習: <code>syscall</code> 之前</h2>
+<p>以 system call <code>write()</code> 為例，在 <a href="../C%20%E8%AA%9E%E8%A8%80%20printf%20%E5%92%8C%20write%20%E5%8E%9F%E7%90%86/">C 語言 printf 和 write 原理</a> 一文中，我們知道 POSIX.1 standard <code>write()</code> 最終會執行 x86_64 assembly code <code>syscall</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// musl libc 1.2.3 /src/unistd/write.c</span>
+<span class="kt">ssize_t</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">syscall_cp</span><span class="p">(</span><span class="n">SYS_write</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// musl libc 1.2.3 /arch/x86_64/syscall_arch.h</span>
+<span class="k">static</span><span class="w"> </span><span class="kr">__inline</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">__syscall6</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">a2</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">a3</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">a4</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">a5</span><span class="p">,</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">a6</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="w">    </span><span class="k">register</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">r10</span><span class="w"> </span><span class="n">__asm__</span><span class="p">(</span><span class="s">"r10"</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a4</span><span class="p">;</span>
+<span class="w">    </span><span class="k">register</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">r8</span><span class="w"> </span><span class="n">__asm__</span><span class="p">(</span><span class="s">"r8"</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a5</span><span class="p">;</span>
+<span class="w">    </span><span class="k">register</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">r9</span><span class="w"> </span><span class="n">__asm__</span><span class="p">(</span><span class="s">"r9"</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a6</span><span class="p">;</span>
+<span class="w">    </span><span class="n">__asm__</span><span class="w"> </span><span class="n">__volatile__</span><span class="w"> </span><span class="p">(</span><span class="s">"syscall"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"=a"</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"a"</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="w"> </span><span class="s">"D"</span><span class="p">(</span><span class="n">a1</span><span class="p">),</span><span class="w"> </span><span class="s">"S"</span><span class="p">(</span><span class="n">a2</span><span class="p">),</span>
+<span class="w">                          </span><span class="s">"d"</span><span class="p">(</span><span class="n">a3</span><span class="p">),</span><span class="w"> </span><span class="s">"r"</span><span class="p">(</span><span class="n">r10</span><span class="p">),</span><span class="w"> </span><span class="s">"r"</span><span class="p">(</span><span class="n">r8</span><span class="p">),</span><span class="w"> </span><span class="s">"r"</span><span class="p">(</span><span class="n">r9</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"rcx"</span><span class="p">,</span><span class="w"> </span><span class="s">"r11"</span><span class="p">,</span><span class="w"> </span><span class="s">"memory"</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>syscall</code> 會觸發 CPU 中斷，使 CPU 進入到 kernel space。</p>
+<h2 id="system-call">System call 初始化</h2>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /init/main.c</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="n">__visible</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="n">__no_sanitize_address</span><span class="w"> </span><span class="n">start_kernel</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="c1">// 略</span>
+<span class="w">    </span><span class="n">trap_init</span><span class="p">();</span>
+<span class="w">   </span><span class="c1">// 略</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /arch/x86/kernel/traps.c</span>
+<span class="kt">void</span><span class="w"> </span><span class="n">__init</span><span class="w"> </span><span class="nf">trap_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cm">/* Init cpu_entry_area before IST entries are set up */</span>
+<span class="w">    </span><span class="n">setup_cpu_entry_areas</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/* Init GHCB memory pages when running as an SEV-ES guest */</span>
+<span class="w">    </span><span class="n">sev_es_init_vc_handling</span><span class="p">();</span>
+
+<span class="w">    </span><span class="cm">/* Initialize TSS before setting up traps so ISTs work */</span>
+<span class="w">    </span><span class="n">cpu_init_exception_handling</span><span class="p">();</span>
+<span class="w">    </span><span class="cm">/* Setup traps as cpu_init() might #GP */</span>
+<span class="w">    </span><span class="n">idt_setup_traps</span><span class="p">();</span>
+<span class="w">    </span><span class="n">cpu_init</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /arch/x86/kernel/cpu/common.c</span>
+<span class="cm">/*</span>
+<span class="cm"> * cpu_init() initializes state that is per-CPU. Some data is already</span>
+<span class="cm"> * initialized (naturally) in the bootstrap process, such as the GDT.  We</span>
+<span class="cm"> * reload it nevertheless, this function acts as a 'CPU state barrier',</span>
+<span class="cm"> * nothing should get across.</span>
+<span class="cm"> */</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">cpu_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="o">*</span><span class="n">cur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">current</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raw_smp_processor_id</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">wait_for_master_cpu</span><span class="p">(</span><span class="n">cpu</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">ucode_cpu_init</span><span class="p">(</span><span class="n">cpu</span><span class="p">);</span>
+
+<span class="cp">#ifdef CONFIG_NUMA</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">this_cpu_read</span><span class="p">(</span><span class="n">numa_node</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">        </span><span class="n">early_cpu_to_node</span><span class="p">(</span><span class="n">cpu</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">NUMA_NO_NODE</span><span class="p">)</span>
+<span class="w">        </span><span class="n">set_numa_node</span><span class="p">(</span><span class="n">early_cpu_to_node</span><span class="p">(</span><span class="n">cpu</span><span class="p">));</span>
+<span class="cp">#endif</span>
+<span class="w">    </span><span class="n">pr_debug</span><span class="p">(</span><span class="s">"Initializing CPU#%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="w"> </span><span class="n">cpu</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IS_ENABLED</span><span class="p">(</span><span class="n">CONFIG_X86_64</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">cpu_feature_enabled</span><span class="p">(</span><span class="n">X86_FEATURE_VME</span><span class="p">)</span><span class="w"> </span><span class="o">||</span>
+<span class="w">        </span><span class="n">boot_cpu_has</span><span class="p">(</span><span class="n">X86_FEATURE_TSC</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">boot_cpu_has</span><span class="p">(</span><span class="n">X86_FEATURE_DE</span><span class="p">))</span>
+<span class="w">        </span><span class="n">cr4_clear_bits</span><span class="p">(</span><span class="n">X86_CR4_VME</span><span class="o">|</span><span class="n">X86_CR4_PVI</span><span class="o">|</span><span class="n">X86_CR4_TSD</span><span class="o">|</span><span class="n">X86_CR4_DE</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * Initialize the per-CPU GDT with the boot GDT,</span>
+<span class="cm">     * and set up the GDT descriptor:</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">switch_to_new_gdt</span><span class="p">(</span><span class="n">cpu</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">IS_ENABLED</span><span class="p">(</span><span class="n">CONFIG_X86_64</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">loadsegment</span><span class="p">(</span><span class="n">fs</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">memset</span><span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="kr">thread</span><span class="p">.</span><span class="n">tls_array</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">GDT_ENTRY_TLS_ENTRIES</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
+<span class="w">        </span><span class="n">syscall_init</span><span class="p">();</span>
+
+<span class="w">        </span><span class="n">wrmsrl</span><span class="p">(</span><span class="n">MSR_FS_BASE</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">wrmsrl</span><span class="p">(</span><span class="n">MSR_KERNEL_GS_BASE</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">        </span><span class="n">barrier</span><span class="p">();</span>
+
+<span class="w">        </span><span class="n">x2apic_setup</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">mmgrab</span><span class="p">(</span><span class="o">&amp;</span><span class="n">init_mm</span><span class="p">);</span>
+<span class="w">    </span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">active_mm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">init_mm</span><span class="p">;</span>
+<span class="w">    </span><span class="n">BUG_ON</span><span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">mm</span><span class="p">);</span>
+<span class="w">    </span><span class="n">initialize_tlbstate_and_flush</span><span class="p">();</span>
+<span class="w">    </span><span class="n">enter_lazy_tlb</span><span class="p">(</span><span class="o">&amp;</span><span class="n">init_mm</span><span class="p">,</span><span class="w"> </span><span class="n">cur</span><span class="p">);</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * sp0 points to the entry trampoline stack regardless of what task</span>
+<span class="cm">     * is running.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">load_sp0</span><span class="p">((</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)(</span><span class="n">cpu_entry_stack</span><span class="p">(</span><span class="n">cpu</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+
+<span class="w">    </span><span class="n">load_mm_ldt</span><span class="p">(</span><span class="o">&amp;</span><span class="n">init_mm</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">clear_all_debug_regs</span><span class="p">();</span>
+<span class="w">    </span><span class="n">dbg_restore_debug_regs</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">doublefault_init_cpu_tss</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">fpu__init_cpu</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_uv_system</span><span class="p">())</span>
+<span class="w">        </span><span class="n">uv_cpu_init</span><span class="p">();</span>
+
+<span class="w">    </span><span class="n">load_fixmap_gdt</span><span class="p">(</span><span class="n">cpu</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /arch/x86/kernel/cpu/common.c</span>
+<span class="cm">/* May not be marked __init: used by software suspend */</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">syscall_init</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">wrmsr</span><span class="p">(</span><span class="n">MSR_STAR</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">__USER32_CS</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">__KERNEL_CS</span><span class="p">);</span>
+<span class="w">    </span><span class="n">wrmsrl</span><span class="p">(</span><span class="n">MSR_LSTAR</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">entry_SYSCALL_64</span><span class="p">);</span>
+
+<span class="cp">#ifdef CONFIG_IA32_EMULATION</span>
+<span class="w">    </span><span class="n">wrmsrl_cstar</span><span class="p">((</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">entry_SYSCALL_compat</span><span class="p">);</span>
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * This only works on Intel CPUs.</span>
+<span class="cm">     * On AMD CPUs these MSRs are 32-bit, CPU truncates MSR_IA32_SYSENTER_EIP.</span>
+<span class="cm">     * This does not cause SYSENTER to jump to the wrong location, because</span>
+<span class="cm">     * AMD doesn't allow SYSENTER in long mode (either 32- or 64-bit).</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">wrmsrl_safe</span><span class="p">(</span><span class="n">MSR_IA32_SYSENTER_CS</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">u64</span><span class="p">)</span><span class="n">__KERNEL_CS</span><span class="p">);</span>
+<span class="w">    </span><span class="n">wrmsrl_safe</span><span class="p">(</span><span class="n">MSR_IA32_SYSENTER_ESP</span><span class="p">,</span>
+<span class="w">            </span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)(</span><span class="n">cpu_entry_stack</span><span class="p">(</span><span class="n">smp_processor_id</span><span class="p">())</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">));</span>
+<span class="w">    </span><span class="n">wrmsrl_safe</span><span class="p">(</span><span class="n">MSR_IA32_SYSENTER_EIP</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">u64</span><span class="p">)</span><span class="n">entry_SYSENTER_compat</span><span class="p">);</span>
+<span class="cp">#else</span>
+<span class="w">    </span><span class="n">wrmsrl_cstar</span><span class="p">((</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="n">ignore_sysret</span><span class="p">);</span>
+<span class="w">    </span><span class="n">wrmsrl_safe</span><span class="p">(</span><span class="n">MSR_IA32_SYSENTER_CS</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">u64</span><span class="p">)</span><span class="n">GDT_ENTRY_INVALID_SEG</span><span class="p">);</span>
+<span class="w">    </span><span class="n">wrmsrl_safe</span><span class="p">(</span><span class="n">MSR_IA32_SYSENTER_ESP</span><span class="p">,</span><span class="w"> </span><span class="mi">0ULL</span><span class="p">);</span>
+<span class="w">    </span><span class="n">wrmsrl_safe</span><span class="p">(</span><span class="n">MSR_IA32_SYSENTER_EIP</span><span class="p">,</span><span class="w"> </span><span class="mi">0ULL</span><span class="p">);</span>
+<span class="cp">#endif</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * Flags to clear on syscall; clear as much as possible</span>
+<span class="cm">     * to minimize user space-kernel interference.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="n">wrmsrl</span><span class="p">(</span><span class="n">MSR_SYSCALL_MASK</span><span class="p">,</span>
+<span class="w">           </span><span class="n">X86_EFLAGS_CF</span><span class="o">|</span><span class="n">X86_EFLAGS_PF</span><span class="o">|</span><span class="n">X86_EFLAGS_AF</span><span class="o">|</span>
+<span class="w">           </span><span class="n">X86_EFLAGS_ZF</span><span class="o">|</span><span class="n">X86_EFLAGS_SF</span><span class="o">|</span><span class="n">X86_EFLAGS_TF</span><span class="o">|</span>
+<span class="w">           </span><span class="n">X86_EFLAGS_IF</span><span class="o">|</span><span class="n">X86_EFLAGS_DF</span><span class="o">|</span><span class="n">X86_EFLAGS_OF</span><span class="o">|</span>
+<span class="w">           </span><span class="n">X86_EFLAGS_IOPL</span><span class="o">|</span><span class="n">X86_EFLAGS_NT</span><span class="o">|</span><span class="n">X86_EFLAGS_RF</span><span class="o">|</span>
+<span class="w">           </span><span class="n">X86_EFLAGS_AC</span><span class="o">|</span><span class="n">X86_EFLAGS_ID</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li><a href="https://hackmd.io/@RinHizakura/S1wfy6nQO">Linux 核心設計: System call - HackMD</a></li>
+<li><a href="https://0xax.gitbooks.io/linux-insides/content/SysCall/linux-syscall-2.html#initialization-of-the-system-call-entry">How the Linux kernel handles a system call · Linux Inside</a></li>
+</ul>
+<h2 id="system-call_1">System call 處理</h2>
+<p>進入 system call 中斷，CPU 跳轉到 MSR LSTAR 中的記憶體位址 (<code>entry_SYSCALL_64</code>)</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /arch/x86/entry/entry_64.S</span>
+<span class="cm">/*</span>
+<span class="cm"> * 64-bit SYSCALL instruction entry. Up to 6 arguments in registers.</span>
+<span class="cm"> *</span>
+<span class="cm"> * This is the only entry point used for 64-bit system calls.  The</span>
+<span class="cm"> * hardware interface is reasonably well designed and the register to</span>
+<span class="cm"> * argument mapping Linux uses fits well with the registers that are</span>
+<span class="cm"> * available when SYSCALL is used.</span>
+<span class="cm"> *</span>
+<span class="cm"> * SYSCALL instructions can be found inlined in libc implementations as</span>
+<span class="cm"> * well as some other programs and libraries.  There are also a handful</span>
+<span class="cm"> * of SYSCALL instructions in the vDSO used, for example, as a</span>
+<span class="cm"> * clock_gettimeofday fallback.</span>
+<span class="cm"> *</span>
+<span class="cm"> * 64-bit SYSCALL saves rip to rcx, clears rflags.RF, then saves rflags to r11,</span>
+<span class="cm"> * then loads new ss, cs, and rip from previously programmed MSRs.</span>
+<span class="cm"> * rflags gets masked by a value from another MSR (so CLD and CLAC</span>
+<span class="cm"> * are not needed). SYSCALL does not save anything on the stack</span>
+<span class="cm"> * and does not change rsp.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Registers on entry:</span>
+<span class="cm"> * rax  system call number</span>
+<span class="cm"> * rcx  return address</span>
+<span class="cm"> * r11  saved rflags (note: r11 is callee-clobbered register in C ABI)</span>
+<span class="cm"> * rdi  arg0</span>
+<span class="cm"> * rsi  arg1</span>
+<span class="cm"> * rdx  arg2</span>
+<span class="cm"> * r10  arg3 (needs to be moved to rcx to conform to C ABI)</span>
+<span class="cm"> * r8   arg4</span>
+<span class="cm"> * r9   arg5</span>
+<span class="cm"> * (note: r12-r15, rbp, rbx are callee-preserved in C ABI)</span>
+<span class="cm"> *</span>
+<span class="cm"> * Only called from user space.</span>
+<span class="cm"> *</span>
+<span class="cm"> * When user can change pt_regs-&gt;foo always force IRET. That is because</span>
+<span class="cm"> * it deals with uncanonical addresses better. SYSRET has trouble</span>
+<span class="cm"> * with them due to bugs in both AMD and Intel CPUs.</span>
+<span class="cm"> */</span>
+
+<span class="nf">SYM_CODE_START</span><span class="p">(</span><span class="no">entry_SYSCALL_64</span><span class="p">)</span>
+<span class="w">    </span><span class="nf">UNWIND_HINT_EMPTY</span>
+<span class="w">    </span><span class="nf">ENDBR</span>
+
+<span class="w">    </span><span class="nf">swapgs</span>
+<span class="w">    </span><span class="cm">/* tss.sp2 is scratch space. */</span>
+<span class="w">    </span><span class="nf">movq</span><span class="w">    </span><span class="nv">%rsp</span><span class="p">,</span><span class="w"> </span><span class="no">PER_CPU_VAR</span><span class="p">(</span><span class="no">cpu_tss_rw</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="no">TSS_sp2</span><span class="p">)</span>
+<span class="w">    </span><span class="nf">SWITCH_TO_KERNEL_CR3</span><span class="w"> </span><span class="no">scratch_reg</span><span class="err">=</span><span class="nv">%rsp</span>
+<span class="w">    </span><span class="nf">movq</span><span class="w">    </span><span class="no">PER_CPU_VAR</span><span class="p">(</span><span class="no">cpu_current_top_of_stack</span><span class="p">),</span><span class="w"> </span><span class="nv">%rsp</span>
+
+<span class="nf">SYM_INNER_LABEL</span><span class="p">(</span><span class="no">entry_SYSCALL_64_safe_stack</span><span class="p">,</span><span class="w"> </span><span class="no">SYM_L_GLOBAL</span><span class="p">)</span>
+<span class="w">    </span><span class="nf">ANNOTATE_NOENDBR</span>
+
+<span class="w">    </span><span class="cm">/* Construct struct pt_regs on stack */</span>
+<span class="w">    </span><span class="nf">pushq</span><span class="w">   </span><span class="no">$__USER_DS</span><span class="w">              </span><span class="cm">/* pt_regs-&gt;ss */</span>
+<span class="w">    </span><span class="nf">pushq</span><span class="w">   </span><span class="no">PER_CPU_VAR</span><span class="p">(</span><span class="no">cpu_tss_rw</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="no">TSS_sp2</span><span class="p">)</span><span class="w">   </span><span class="cm">/* pt_regs-&gt;sp */</span>
+<span class="w">    </span><span class="nf">pushq</span><span class="w">   </span><span class="nv">%r11</span><span class="w">                    </span><span class="cm">/* pt_regs-&gt;flags */</span>
+<span class="w">    </span><span class="nf">pushq</span><span class="w">   </span><span class="no">$__USER_CS</span><span class="w">              </span><span class="cm">/* pt_regs-&gt;cs */</span>
+<span class="w">    </span><span class="nf">pushq</span><span class="w">   </span><span class="nv">%rcx</span><span class="w">                    </span><span class="cm">/* pt_regs-&gt;ip */</span>
+<span class="nf">SYM_INNER_LABEL</span><span class="p">(</span><span class="no">entry_SYSCALL_64_after_hwframe</span><span class="p">,</span><span class="w"> </span><span class="no">SYM_L_GLOBAL</span><span class="p">)</span>
+<span class="w">    </span><span class="nf">pushq</span><span class="w">   </span><span class="nv">%rax</span><span class="w">                    </span><span class="cm">/* pt_regs-&gt;orig_ax */</span>
+
+<span class="w">    </span><span class="nf">PUSH_AND_CLEAR_REGS</span><span class="w"> </span><span class="no">rax</span><span class="err">=</span><span class="no">$-ENOSYS</span>
+
+<span class="w">    </span><span class="cm">/* IRQs are off. */</span>
+<span class="w">    </span><span class="nf">movq</span><span class="w">    </span><span class="nv">%rsp</span><span class="p">,</span><span class="w"> </span><span class="nv">%rdi</span>
+<span class="w">    </span><span class="cm">/* Sign extend the lower 32bit as syscall numbers are treated as int */</span>
+<span class="w">    </span><span class="nf">movslq</span><span class="w">  </span><span class="nv">%eax</span><span class="p">,</span><span class="w"> </span><span class="nv">%rsi</span>
+<span class="w">    </span><span class="nf">call</span><span class="w">    </span><span class="no">do_syscall_64</span><span class="w">       </span><span class="cm">/* returns with IRQs disabled */</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * Try to use SYSRET instead of IRET if we're returning to</span>
+<span class="cm">     * a completely clean 64-bit userspace context.  If we're not,</span>
+<span class="cm">     * go to the slow exit path.</span>
+<span class="cm">     * In the Xen PV case we must use iret anyway.</span>
+<span class="cm">     */</span>
+
+<span class="w">    </span><span class="nf">ALTERNATIVE</span><span class="w"> </span><span class="err">""</span><span class="p">,</span><span class="w"> </span><span class="err">"</span><span class="no">jmp</span><span class="w">    </span><span class="no">swapgs_restore_regs_and_return_to_usermode</span><span class="err">"</span><span class="p">,</span><span class="w"> </span><span class="err">\</span>
+<span class="w">        </span><span class="nf">X86_FEATURE_XENPV</span>
+
+<span class="w">    </span><span class="nf">movq</span><span class="w">    </span><span class="no">RCX</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span><span class="w"> </span><span class="nv">%rcx</span>
+<span class="w">    </span><span class="nf">movq</span><span class="w">    </span><span class="no">RIP</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span><span class="w"> </span><span class="nv">%r11</span>
+
+<span class="w">    </span><span class="nf">cmpq</span><span class="w">    </span><span class="nv">%rcx</span><span class="p">,</span><span class="w"> </span><span class="nv">%r11</span><span class="w">  </span><span class="cm">/* SYSRET requires RCX == RIP */</span>
+<span class="w">    </span><span class="nf">jne</span><span class="w"> </span><span class="no">swapgs_restore_regs_and_return_to_usermode</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * On Intel CPUs, SYSRET with non-canonical RCX/RIP will #GP</span>
+<span class="cm">     * in kernel space.  This essentially lets the user take over</span>
+<span class="cm">     * the kernel, since userspace controls RSP.</span>
+<span class="cm">     *</span>
+<span class="cm">     * If width of "canonical tail" ever becomes variable, this will need</span>
+<span class="cm">     * to be updated to remain correct on both old and new CPUs.</span>
+<span class="cm">     *</span>
+<span class="cm">     * Change top bits to match most significant bit (47th or 56th bit</span>
+<span class="cm">     * depending on paging mode) in the address.</span>
+<span class="cm">     */</span>
+<span class="c1">#ifdef CONFIG_X86_5LEVEL</span>
+<span class="w">    </span><span class="nf">ALTERNATIVE</span><span class="w"> </span><span class="err">"</span><span class="no">shl</span><span class="w"> </span><span class="no">$</span><span class="p">(</span><span class="mi">64</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="mi">48</span><span class="p">),</span><span class="w"> </span><span class="nv">%rcx</span><span class="c1">; sar $(64 - 48), %rcx", \</span>
+<span class="w">        </span><span class="err">"</span><span class="nf">shl</span><span class="w"> </span><span class="no">$</span><span class="p">(</span><span class="mi">64</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="mi">57</span><span class="p">),</span><span class="w"> </span><span class="nv">%rcx</span><span class="c1">; sar $(64 - 57), %rcx", X86_FEATURE_LA57</span>
+<span class="c1">#else</span>
+<span class="w">    </span><span class="nf">shl</span><span class="w"> </span><span class="no">$</span><span class="p">(</span><span class="mi">64</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="p">(</span><span class="no">__VIRTUAL_MASK_SHIFT</span><span class="err">+</span><span class="mi">1</span><span class="p">)),</span><span class="w"> </span><span class="nv">%rcx</span>
+<span class="w">    </span><span class="nf">sar</span><span class="w"> </span><span class="no">$</span><span class="p">(</span><span class="mi">64</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="p">(</span><span class="no">__VIRTUAL_MASK_SHIFT</span><span class="err">+</span><span class="mi">1</span><span class="p">)),</span><span class="w"> </span><span class="nv">%rcx</span>
+<span class="c1">#endif</span>
+
+<span class="w">    </span><span class="cm">/* If this changed %rcx, it was not canonical */</span>
+<span class="w">    </span><span class="nf">cmpq</span><span class="w">    </span><span class="nv">%rcx</span><span class="p">,</span><span class="w"> </span><span class="nv">%r11</span>
+<span class="w">    </span><span class="nf">jne</span><span class="w"> </span><span class="no">swapgs_restore_regs_and_return_to_usermode</span>
+
+<span class="w">    </span><span class="nf">cmpq</span><span class="w">    </span><span class="no">$__USER_CS</span><span class="p">,</span><span class="w"> </span><span class="no">CS</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span><span class="w">        </span><span class="cm">/* CS must match SYSRET */</span>
+<span class="w">    </span><span class="nf">jne</span><span class="w"> </span><span class="no">swapgs_restore_regs_and_return_to_usermode</span>
+
+<span class="w">    </span><span class="nf">movq</span><span class="w">    </span><span class="no">R11</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">),</span><span class="w"> </span><span class="nv">%r11</span>
+<span class="w">    </span><span class="nf">cmpq</span><span class="w">    </span><span class="nv">%r11</span><span class="p">,</span><span class="w"> </span><span class="no">EFLAGS</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span><span class="w">      </span><span class="cm">/* R11 == RFLAGS */</span>
+<span class="w">    </span><span class="nf">jne</span><span class="w"> </span><span class="no">swapgs_restore_regs_and_return_to_usermode</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * SYSCALL clears RF when it saves RFLAGS in R11 and SYSRET cannot</span>
+<span class="cm">     * restore RF properly. If the slowpath sets it for whatever reason, we</span>
+<span class="cm">     * need to restore it correctly.</span>
+<span class="cm">     *</span>
+<span class="cm">     * SYSRET can restore TF, but unlike IRET, restoring TF results in a</span>
+<span class="cm">     * trap from userspace immediately after SYSRET.  This would cause an</span>
+<span class="cm">     * infinite loop whenever #DB happens with register state that satisfies</span>
+<span class="cm">     * the opportunistic SYSRET conditions.  For example, single-stepping</span>
+<span class="cm">     * this user code:</span>
+<span class="cm">     *</span>
+<span class="cm">     *           movq   $stuck_here, %rcx</span>
+<span class="cm">     *           pushfq</span>
+<span class="cm">     *           popq %r11</span>
+<span class="cm">     *   stuck_here:</span>
+<span class="cm">     *</span>
+<span class="cm">     * would never get past 'stuck_here'.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="nf">testq</span><span class="w">   </span><span class="no">$</span><span class="p">(</span><span class="no">X86_EFLAGS_RF</span><span class="err">|</span><span class="no">X86_EFLAGS_TF</span><span class="p">),</span><span class="w"> </span><span class="nv">%r11</span>
+<span class="w">    </span><span class="nf">jnz</span><span class="w"> </span><span class="no">swapgs_restore_regs_and_return_to_usermode</span>
+
+<span class="w">    </span><span class="cm">/* nothing to check for RSP */</span>
+
+<span class="w">    </span><span class="nf">cmpq</span><span class="w">    </span><span class="no">$__USER_DS</span><span class="p">,</span><span class="w"> </span><span class="no">SS</span><span class="p">(</span><span class="nv">%rsp</span><span class="p">)</span><span class="w">        </span><span class="cm">/* SS must match SYSRET */</span>
+<span class="w">    </span><span class="nf">jne</span><span class="w"> </span><span class="no">swapgs_restore_regs_and_return_to_usermode</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * We win! This label is here just for ease of understanding</span>
+<span class="cm">     * perf profiles. Nothing jumps here.</span>
+<span class="cm">     */</span>
+<span class="nl">syscall_return_via_sysret:</span>
+<span class="w">    </span><span class="cm">/* rcx and r11 are already restored (see code above) */</span>
+<span class="w">    </span><span class="nf">POP_REGS</span><span class="w"> </span><span class="no">pop_rdi</span><span class="err">=</span><span class="mi">0</span><span class="w"> </span><span class="no">skip_r11rcx</span><span class="err">=</span><span class="mi">1</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * Now all regs are restored except RSP and RDI.</span>
+<span class="cm">     * Save old stack pointer and switch to trampoline stack.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="nf">movq</span><span class="w">    </span><span class="nv">%rsp</span><span class="p">,</span><span class="w"> </span><span class="nv">%rdi</span>
+<span class="w">    </span><span class="nf">movq</span><span class="w">    </span><span class="no">PER_CPU_VAR</span><span class="p">(</span><span class="no">cpu_tss_rw</span><span class="w"> </span><span class="err">+</span><span class="w"> </span><span class="no">TSS_sp0</span><span class="p">),</span><span class="w"> </span><span class="nv">%rsp</span>
+<span class="w">    </span><span class="nf">UNWIND_HINT_EMPTY</span>
+
+<span class="w">    </span><span class="nf">pushq</span><span class="w">   </span><span class="no">RSP-RDI</span><span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span><span class="w">   </span><span class="cm">/* RSP */</span>
+<span class="w">    </span><span class="nf">pushq</span><span class="w">   </span><span class="p">(</span><span class="nv">%rdi</span><span class="p">)</span><span class="w">      </span><span class="cm">/* RDI */</span>
+
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * We are on the trampoline stack.  All regs except RDI are live.</span>
+<span class="cm">     * We can do future final exit work right here.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="nf">STACKLEAK_ERASE_NOCLOBBER</span>
+
+<span class="w">    </span><span class="nf">SWITCH_TO_USER_CR3_STACK</span><span class="w"> </span><span class="no">scratch_reg</span><span class="err">=</span><span class="nv">%rdi</span>
+
+<span class="w">    </span><span class="nf">popq</span><span class="w">    </span><span class="nv">%rdi</span>
+<span class="w">    </span><span class="nf">popq</span><span class="w">    </span><span class="nv">%rsp</span>
+<span class="w">    </span><span class="nf">swapgs</span>
+<span class="w">    </span><span class="nf">sysretq</span>
+<span class="nf">SYM_CODE_END</span><span class="p">(</span><span class="no">entry_SYSCALL_64</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /arch/x86/entry/common.c</span>
+<span class="n">__visible</span><span class="w"> </span><span class="n">noinstr</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">do_syscall_64</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">pt_regs</span><span class="w"> </span><span class="o">*</span><span class="n">regs</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nr</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">add_random_kstack_offset</span><span class="p">();</span>
+<span class="w">    </span><span class="n">nr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">syscall_enter_from_user_mode</span><span class="p">(</span><span class="n">regs</span><span class="p">,</span><span class="w"> </span><span class="n">nr</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">instrumentation_begin</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">do_syscall_x64</span><span class="p">(</span><span class="n">regs</span><span class="p">,</span><span class="w"> </span><span class="n">nr</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">do_syscall_x32</span><span class="p">(</span><span class="n">regs</span><span class="p">,</span><span class="w"> </span><span class="n">nr</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">nr</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* Invalid system call, but still a system call. */</span>
+<span class="w">        </span><span class="n">regs</span><span class="o">-&gt;</span><span class="n">ax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__x64_sys_ni_syscall</span><span class="p">(</span><span class="n">regs</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">instrumentation_end</span><span class="p">();</span>
+<span class="w">    </span><span class="n">syscall_exit_to_user_mode</span><span class="p">(</span><span class="n">regs</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /arch/x86/entry/common.c</span>
+<span class="k">static</span><span class="w"> </span><span class="n">__always_inline</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">do_syscall_x64</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">pt_regs</span><span class="w"> </span><span class="o">*</span><span class="n">regs</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">nr</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cm">/*</span>
+<span class="cm">     * Convert negative numbers to very high and thus out of range</span>
+<span class="cm">     * numbers for comparisons.</span>
+<span class="cm">     */</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">unr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nr</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">likely</span><span class="p">(</span><span class="n">unr</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">NR_syscalls</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">unr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">array_index_nospec</span><span class="p">(</span><span class="n">unr</span><span class="p">,</span><span class="w"> </span><span class="n">NR_syscalls</span><span class="p">);</span><span class="w">    </span><span class="c1">// array index bound check，忽略即可</span>
+<span class="w">        </span><span class="n">regs</span><span class="o">-&gt;</span><span class="n">ax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sys_call_table</span><span class="p">[</span><span class="n">unr</span><span class="p">](</span><span class="n">regs</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>呼叫 <code>sys_call_table[unr]</code>，參數在 registers，system call 的回傳值放入 x86_64 register <code>rax</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /arch/x86/entry/syscall_64.c</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">sys_call_ptr_t</span><span class="w"> </span><span class="n">sys_call_table</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;asm/syscalls_64.h&gt;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>這裡的 <code>asm/syscalls_64.h</code> 在 Linux kernel 原始碼中沒有，是在執行 <code>make prepare</code> 後才產生的。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /arch/x86/include/generated/asm/syscalls_64.h</span>
+<span class="n">__SYSCALL</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">sys_read</span><span class="p">)</span>
+<span class="n">__SYSCALL</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">sys_write</span><span class="p">)</span>
+<span class="n">__SYSCALL</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">sys_open</span><span class="p">)</span>
+<span class="n">__SYSCALL</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">sys_close</span><span class="p">)</span>
+<span class="c1">// 略</span>
+<span class="n">__SYSCALL</span><span class="p">(</span><span class="mi">450</span><span class="p">,</span><span class="w"> </span><span class="n">sys_set_mempolicy_home_node</span><span class="p">)</span>
+</code></pre></div>
+<p>再經過 <code>__SYSCALL</code> macro 展開</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /arch/x86/entry/syscall_64.c</span>
+<span class="cp">#define __SYSCALL(nr, sym) __x64_##sym,</span>
+</code></pre></div>
+<p>最後變成了</p>
+<div class="highlight"><pre><span></span><code><span class="n">asmlinkage</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">sys_call_ptr_t</span><span class="w"> </span><span class="n">sys_call_table</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="n">__x64_sys_read</span><span class="p">,</span><span class="w">                       </span><span class="c1">// system call number (NR) 0，同時也是 `sys_call_table[0]`</span>
+<span class="n">__x64_sys_write</span><span class="p">,</span><span class="w">                      </span><span class="c1">// system call number (NR) 1，同時也是 `sys_call_table[1]`</span>
+<span class="n">__x64_sys_open</span><span class="p">,</span><span class="w">                       </span><span class="c1">// system call number (NR) 2，同時也是 `sys_call_table[2]`</span>
+<span class="n">__x64_sys_close</span><span class="p">,</span><span class="w">                      </span><span class="c1">// system call number (NR) 3，同時也是 `sys_call_table[3]`</span>
+<span class="c1">// 略</span>
+<span class="n">__x64_sys_set_mempolicy_home_node</span><span class="p">,</span><span class="w">    </span><span class="c1">// system call number (NR) 450，同時也是 `sys_call_table[450]`</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>接下來要找出這些 <code>__x64_sys_*()</code> 函式在哪</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /arch/x86/include/asm/syscall_wrapper.h</span>
+<span class="cm">/*</span>
+<span class="cm"> * Instead of the generic __SYSCALL_DEFINEx() definition, the x86 version takes</span>
+<span class="cm"> * struct pt_regs *regs as the only argument of the syscall stub(s) named as:</span>
+<span class="cm"> * __x64_sys_*()         - 64-bit native syscall</span>
+<span class="cm"> * __ia32_sys_*()        - 32-bit native syscall or common compat syscall</span>
+<span class="cm"> * __ia32_compat_sys_*() - 32-bit compat syscall</span>
+<span class="cm"> * __x64_compat_sys_*()  - 64-bit X32 compat syscall</span>
+<span class="cm"> *</span>
+<span class="cm"> * The registers are decoded according to the ABI:</span>
+<span class="cm"> * 64-bit: RDI, RSI, RDX, R10, R8, R9</span>
+<span class="cm"> * 32-bit: EBX, ECX, EDX, ESI, EDI, EBP</span>
+<span class="cm"> *</span>
+<span class="cm"> * The stub then passes the decoded arguments to the __se_sys_*() wrapper to</span>
+<span class="cm"> * perform sign-extension (omitted for zero-argument syscalls).  Finally the</span>
+<span class="cm"> * arguments are passed to the __do_sys_*() function which is the actual</span>
+<span class="cm"> * syscall.  These wrappers are marked as inline so the compiler can optimize</span>
+<span class="cm"> * the functions where appropriate.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Example assembly (slightly re-ordered for better readability):</span>
+<span class="cm"> *</span>
+<span class="cm"> * &lt;__x64_sys_recv&gt;:        &lt;-- syscall with 4 parameters</span>
+<span class="cm"> *  callq   &lt;__fentry__&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> *  mov 0x70(%rdi),%rdi &lt;-- decode regs-&gt;di</span>
+<span class="cm"> *  mov 0x68(%rdi),%rsi &lt;-- decode regs-&gt;si</span>
+<span class="cm"> *  mov 0x60(%rdi),%rdx &lt;-- decode regs-&gt;dx</span>
+<span class="cm"> *  mov 0x38(%rdi),%rcx &lt;-- decode regs-&gt;r10</span>
+<span class="cm"> *</span>
+<span class="cm"> *  xor %r9d,%r9d   &lt;-- clear %r9</span>
+<span class="cm"> *  xor %r8d,%r8d   &lt;-- clear %r8</span>
+<span class="cm"> *</span>
+<span class="cm"> *  callq   __sys_recvfrom  &lt;-- do the actual work in __sys_recvfrom()</span>
+<span class="cm"> *                  which takes 6 arguments</span>
+<span class="cm"> *</span>
+<span class="cm"> *  cltq            &lt;-- extend return value to 64-bit</span>
+<span class="cm"> *  retq            &lt;-- return</span>
+<span class="cm"> *</span>
+<span class="cm"> * This approach avoids leaking random user-provided register content down</span>
+<span class="cm"> * the call chain.</span>
+<span class="cm"> */</span>
+</code></pre></div>
+<p><code>__x64_sys_*()</code> 是 assembly code，根據以下檔案，這些函數會在建置 kernel 時動態生成</p>
+<div class="highlight"><pre><span></span><code>// Linux kernel 5.18.6 //arch/x86/entry/syscalls/syscall_64.tbl
+#
+# 64-bit system call numbers and entry vectors
+#
+# The format is:
+# &lt;number&gt; &lt;abi&gt; &lt;name&gt; &lt;entry point&gt;
+#
+# The __x64_sys_*() stubs are created on-the-fly for sys_*() system calls
+#
+# The abi is "common", "64" or "x32" for this file.
+#
+0   common  read            sys_read
+1   common  write           sys_write
+2   common  open            sys_open
+3   common  close           sys_close
+// 略
+450 common  set_mempolicy_home_node sys_set_mempolicy_home_node
+</code></pre></div>
+<p>但我找不到動態生成的 <code>__x64_sys_*()</code> 程式碼在哪裡，只能放棄。</p>
+<p>回到 <code>/arch/x86/include/asm/syscall_wrapper.h</code>，前面貼出的註釋說 <code>__x64_sys_*()</code> 會呼叫 <code>__se_sys_*()</code>，後者再呼叫 <code>__do_sys_*()</code> 執行真正的 system call 程式。</p>
+<p>先相信 <code>__do_sys_*()</code> 會執行真正的 system call 程式，現在要找出它的程式碼在哪裡</p>
+<p>以 <code>__do_sys_write</code> 來說，其實就是以下這段程式</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /fs/read_write.c</span>
+<span class="n">SYSCALL_DEFINE3</span><span class="p">(</span><span class="n">write</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ksys_write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="c-macro">C macro 展開：展開過程</h3>
+<p>以 <code>SYSCALL_DEFINE3(write, unsigned int, fd, const char __user *, buf, size_t, count)</code> 為例，進行 C macro 展開</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /include/linux/syscalls.h</span>
+<span class="cm">/*</span>
+<span class="cm"> * __MAP - apply a macro to syscall arguments</span>
+<span class="cm"> * __MAP(n, m, t1, a1, t2, a2, ..., tn, an) will expand to</span>
+<span class="cm"> *    m(t1, a1), m(t2, a2), ..., m(tn, an)</span>
+<span class="cm"> * The first argument must be equal to the amount of type/name</span>
+<span class="cm"> * pairs given.  Note that this list of pairs (i.e. the arguments</span>
+<span class="cm"> * of __MAP starting at the third one) is in the same format as</span>
+<span class="cm"> * for SYSCALL_DEFINE&lt;n&gt;/COMPAT_SYSCALL_DEFINE&lt;n&gt;</span>
+<span class="cm"> */</span>
+<span class="cp">#define __MAP0(m,...)</span>
+<span class="cp">#define __MAP1(m,t,a,...) m(t,a)</span>
+<span class="cp">#define __MAP2(m,t,a,...) m(t,a), __MAP1(m,__VA_ARGS__)</span>
+<span class="cp">#define __MAP3(m,t,a,...) m(t,a), __MAP2(m,__VA_ARGS__)</span>
+<span class="cp">#define __MAP4(m,t,a,...) m(t,a), __MAP3(m,__VA_ARGS__)</span>
+<span class="cp">#define __MAP5(m,t,a,...) m(t,a), __MAP4(m,__VA_ARGS__)</span>
+<span class="cp">#define __MAP6(m,t,a,...) m(t,a), __MAP5(m,__VA_ARGS__)</span>
+<span class="cp">#define __MAP(n,...) __MAP##n(__VA_ARGS__)</span>
+
+<span class="cp">#define __SC_DECL(t, a) t a</span>
+<span class="cp">#define __TYPE_AS(t, v) __same_type((__force t)0, v)</span>
+<span class="cp">#define __TYPE_IS_L(t)  (__TYPE_AS(t, 0L))</span>
+<span class="cp">#define __TYPE_IS_UL(t) (__TYPE_AS(t, 0UL))</span>
+<span class="cp">#define __TYPE_IS_LL(t) (__TYPE_AS(t, 0LL) || __TYPE_AS(t, 0ULL))</span>
+<span class="cp">#define __SC_LONG(t, a) __typeof(__builtin_choose_expr(__TYPE_IS_LL(t), 0LL, 0L)) a</span>
+<span class="cp">#define __SC_CAST(t, a) (__force t) a</span>
+<span class="cp">#define __SC_ARGS(t, a) a</span>
+<span class="cp">#define __SC_TEST(t, a) (void)BUILD_BUG_ON_ZERO(!__TYPE_IS_LL(t) &amp;&amp; sizeof(t) &gt; sizeof(long))</span>
+
+<span class="cp">#ifndef SYSCALL_DEFINE0</span>
+<span class="cp">#define SYSCALL_DEFINE0(sname)                  \</span>
+<span class="cp">    SYSCALL_METADATA(_##sname, 0);              \</span>
+<span class="cp">    asmlinkage long sys_##sname(void);          \</span>
+<span class="cp">    ALLOW_ERROR_INJECTION(sys_##sname, ERRNO);      \</span>
+<span class="cp">    asmlinkage long sys_##sname(void)</span>
+<span class="cp">#endif </span><span class="cm">/* SYSCALL_DEFINE0 */</span>
+
+<span class="cp">#define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)</span>
+<span class="cp">#define SYSCALL_DEFINE2(name, ...) SYSCALL_DEFINEx(2, _##name, __VA_ARGS__)</span>
+<span class="cp">#define SYSCALL_DEFINE3(name, ...) SYSCALL_DEFINEx(3, _##name, __VA_ARGS__)</span>
+<span class="cp">#define SYSCALL_DEFINE4(name, ...) SYSCALL_DEFINEx(4, _##name, __VA_ARGS__)</span>
+<span class="cp">#define SYSCALL_DEFINE5(name, ...) SYSCALL_DEFINEx(5, _##name, __VA_ARGS__)</span>
+<span class="cp">#define SYSCALL_DEFINE6(name, ...) SYSCALL_DEFINEx(6, _##name, __VA_ARGS__)</span>
+
+<span class="cp">#define SYSCALL_DEFINE_MAXARGS  6</span>
+
+<span class="cp">#define SYSCALL_DEFINEx(x, sname, ...)              \</span>
+<span class="cp">    SYSCALL_METADATA(sname, x, __VA_ARGS__)         \</span>
+<span class="cp">    __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)</span>
+
+<span class="cp">#define __PROTECT(...) asmlinkage_protect(__VA_ARGS__)</span>
+
+<span class="cm">/*</span>
+<span class="cm"> * The asmlinkage stub is aliased to a function named __se_sys_*() which</span>
+<span class="cm"> * sign-extends 32-bit ints to longs whenever needed. The actual work is</span>
+<span class="cm"> * done within __do_sys_*().</span>
+<span class="cm"> */</span>
+<span class="cp">#ifndef __SYSCALL_DEFINEx</span>
+<span class="cp">#define __SYSCALL_DEFINEx(x, name, ...)                 \</span>
+<span class="cp">    __diag_push();                          \</span>
+<span class="cp">    __diag_ignore(GCC, 8, "-Wattribute-alias",          \</span>
+<span class="cp">              "Type aliasing is used to sanitize syscall arguments");\</span>
+<span class="cp">    asmlinkage long sys##name(__MAP(x,__SC_DECL,__VA_ARGS__))   \</span>
+<span class="cp">        __attribute__((alias(__stringify(__se_sys##name))));    \</span>
+<span class="cp">    ALLOW_ERROR_INJECTION(sys##name, ERRNO);            \</span>
+<span class="cp">    static inline long __do_sys##name(__MAP(x,__SC_DECL,__VA_ARGS__));\</span>
+<span class="cp">    asmlinkage long __se_sys##name(__MAP(x,__SC_LONG,__VA_ARGS__)); \</span>
+<span class="cp">    asmlinkage long __se_sys##name(__MAP(x,__SC_LONG,__VA_ARGS__))  \</span>
+<span class="cp">    {                               \</span>
+<span class="cp">        long ret = __do_sys##name(__MAP(x,__SC_CAST,__VA_ARGS__));\</span>
+<span class="cp">        __MAP(x,__SC_TEST,__VA_ARGS__);             \</span>
+<span class="cp">        __PROTECT(x, ret,__MAP(x,__SC_ARGS,__VA_ARGS__));   \</span>
+<span class="cp">        return ret;                     \</span>
+<span class="cp">    }                               \</span>
+<span class="cp">    __diag_pop();                           \</span>
+<span class="cp">    static inline long __do_sys##name(__MAP(x,__SC_DECL,__VA_ARGS__))</span>
+<span class="cp">#endif </span><span class="cm">/* __SYSCALL_DEFINEx */</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">// 為方便閱讀，與上一步相比未變更的部份，以 `/* */` 形式標注</span>
+<span class="n">SYSCALL_DEFINE3</span><span class="p">(</span><span class="n">write</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="cp">#define SYSCALL_DEFINE3(name, ...) SYSCALL_DEFINEx(3, _##name, __VA_ARGS__)</span>
+<span class="n">SYSCALL_DEFINEx</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">_write</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="cp">#define SYSCALL_DEFINEx(x, sname, ...)              \</span>
+<span class="cp">    </span><span class="cm">/* 略 */</span><span class="cp"> \</span>
+<span class="cp">    __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)</span>
+<span class="n">__SYSCALL_DEFINEx</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">_write</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="cp">#define __SYSCALL_DEFINEx(x, name, ...)                 \</span>
+<span class="cp">    </span><span class="cm">/* 略 */</span><span class="cp"> \</span>
+<span class="cp">    asmlinkage long sys##name(__MAP(x,__SC_DECL,__VA_ARGS__)) __attribute__((alias(__stringify(__se_sys##name))));  \</span>
+<span class="cp">    </span><span class="cm">/* 略 */</span><span class="cp"> \</span>
+<span class="cp">    static inline long __do_sys##name(__MAP(x,__SC_DECL,__VA_ARGS__));\</span>
+<span class="cp">    asmlinkage long __se_sys##name(__MAP(x,__SC_LONG,__VA_ARGS__)); \</span>
+<span class="cp">    asmlinkage long __se_sys##name(__MAP(x,__SC_LONG,__VA_ARGS__))  \</span>
+<span class="cp">    {                               \</span>
+<span class="cp">        long ret = __do_sys##name(__MAP(x,__SC_CAST,__VA_ARGS__));\</span>
+<span class="cp">        </span><span class="cm">/* 略 */</span><span class="cp"> \</span>
+<span class="cp">        return ret;                     \</span>
+<span class="cp">    }                               \</span>
+<span class="cp">    </span><span class="cm">/* 略 */</span><span class="cp"> \</span>
+<span class="cp">    static inline long __do_sys##name(__MAP(x,__SC_DECL,__VA_ARGS__))</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">sys_write</span><span class="p">(</span><span class="n">__MAP</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">__SC_DECL</span><span class="p">,</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">))</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">alias</span><span class="p">(</span><span class="n">__stringify</span><span class="p">(</span><span class="n">__se_sys_write</span><span class="p">))));</span>
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">__do_sys_write</span><span class="p">(</span><span class="n">__MAP</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">__SC_DECL</span><span class="p">,</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">));</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__se_sys_write</span><span class="p">(</span><span class="n">__MAP</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">__SC_LONG</span><span class="p">,</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">));</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__se_sys_write</span><span class="p">(</span><span class="n">__MAP</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">__SC_LONG</span><span class="p">,</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__do_sys_write</span><span class="p">(</span><span class="n">__MAP</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">__SC_CAST</span><span class="p">,</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">));</span>
+<span class="w">    </span><span class="c1">// 略</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__do_sys_write</span><span class="p">(</span><span class="n">__MAP</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">__SC_DECL</span><span class="p">,</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">))</span><span class="w">    </span><span class="c1">// 記得這裡後面是 function body `{ return ksys_write(fd, buf, count); }`</span>
+</code></pre></div>
+<p><code>__MAP</code> 舉其中一個為例</p>
+<div class="highlight"><pre><span></span><code><span class="n">__MAP</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">__SC_DECL</span><span class="p">,</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="c1">// __MAP(n, m, t1, a1, t2, a2, ..., tn, an) will expand to m(t1, a1), m(t2, a2), ..., m(tn, an)</span>
+<span class="n">__SC_DECL</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">),</span><span class="w"> </span><span class="n">__SC_DECL</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">),</span><span class="w"> </span><span class="n">__SC_DECL</span><span class="p">(</span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="cp">#define __SC_DECL(t, a) t a</span>
+<span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span>
+</code></pre></div>
+<p><code>__SC_CAST</code> 和 <code>__SC_LONG</code> 本質上和 <code>__SC_DECL</code> 一樣，只是其變數型別有轉型</p>
+<div class="highlight"><pre><span></span><code><span class="cp">#define __SC_CAST(t, a) (__force t) a</span>
+<span class="cp">#define __SC_LONG(t, a) __typeof(__builtin_choose_expr(__TYPE_IS_LL(t), 0LL, 0L)) a</span>
+<span class="c1">// 這裡為了方便理解和閱讀，就假裝沒有轉型</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">alias</span><span class="p">(</span><span class="n">__stringify</span><span class="p">(</span><span class="n">__se_sys_write</span><span class="p">))));</span>
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">__do_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__se_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__se_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__do_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 略</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__do_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+</code></pre></div>
+<p>最後處理 <code>__attribute__((alias(__stringify(__se_sys_write))))</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /include/linux/stringify.h</span>
+
+<span class="cm">/* Indirect stringification.  Doing two levels allows the parameter to be a</span>
+<span class="cm"> * macro itself.  For example, compile with -DFOO=bar, __stringify(FOO)</span>
+<span class="cm"> * converts to "bar".</span>
+<span class="cm"> */</span>
+
+<span class="cp">#define __stringify_1(x...) #x</span>
+<span class="cp">#define __stringify(x...)   __stringify_1(x)</span>
+</code></pre></div>
+<p>變成 <code>__attribute__((alias("__se_sys_write")))</code>，這是 GNU C 的 function attribute，參考資料：<a href="https://developer.arm.com/documentation/dui0491/e/Compiler-specific-Features/--attribute----alias---function-attribute">ARM Compiler toolchain Compiler Reference Version 5.0</a>，所以</p>
+<div class="highlight"><pre><span></span><code><span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="n">__attribute__</span><span class="p">((</span><span class="n">alias</span><span class="p">(</span><span class="s">"__se_sys_write"</span><span class="p">)));</span>
+<span class="c1">// 與以下程式碼意義上等價</span>
+<span class="cp">#define sys_write __se_sys_write</span>
+<span class="c1">// 或是</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">__se_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="c-macro_1">C macro 展開：最終結果</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Linux kernel 5.18.6 /fs/read_write.c</span>
+<span class="n">SYSCALL_DEFINE3</span><span class="p">(</span><span class="n">write</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ksys_write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>展開為 (有重排順序)</p>
+<div class="highlight"><pre><span></span><code><span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">__se_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__se_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="n">asmlinkage</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__se_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="n">ret</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">__do_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// 略</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">__do_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="nf">__do_sys_write</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">__user</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ksys_write</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_1">結尾</h2>
+<div class="highlight"><pre><span></span><code>進入 system call 中斷，CPU 跳轉到 MSR LSTAR 中的記憶體位址 (`entry_SYSCALL_64`)
+    entry_SYSCALL_64
+        do_syscall_64
+            do_syscall_x64
+                __x64_sys_*           // sys_call_table[unr](regs)
+                    __se_sys_*        // SYSCALL_DEFINEx
+                        __do_sys_*    // SYSCALL_DEFINEx
+</code></pre></div>
+<p><code>ksys_write</code> 之後的流程，在 <a href="Linux kernel - virtual file system (VFS).md">Linux kernel: virtual file system (VFS)</a> 一文。</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "\u5df2\u8907\u88fd", "clipboard.copy": "\u8907\u88fd", "search.result.more.one": "\u6b64\u9801\u5c1a\u6709 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.more.other": "\u6b64\u9801\u5c1a\u6709 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.none": "\u6c92\u6709\u7b26\u5408\u7684\u9805\u76ee", "search.result.one": "\u627e\u5230 1 \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.other": "\u627e\u5230 # \u500b\u7b26\u5408\u7684\u9805\u76ee", "search.result.placeholder": "\u6253\u5b57\u9032\u884c\u641c\u5c0b", "search.result.term.missing": "\u7f3a\u5c11\u5b57\u8a5e", "select.version": "\u9078\u64c7\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c2be25ad.min.js"></script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4 @@
+/* Hide footer navigation bar (previous/next page) in "Material for MkDocs" theme */
+nav.md-footer__inner {
+    display: none;
+}
